@@ -24,7 +24,7 @@ export function Works() {
       stat1Value: "0.8",
       stat2Label: "Increase in CSAT",
       stat2Value: "3x",
-      imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop"
+      imageUrl: import.meta.env.BASE_URL + "works_consumer.png"
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ export function Works() {
       stat1Value: "0.75",
       stat2Label: "Right Party Connectivity",
       stat2Value: "0.9",
-      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop"
+      imageUrl: import.meta.env.BASE_URL + "works_fintech.png"
     },
     {
       id: 4,
@@ -46,7 +46,7 @@ export function Works() {
       stat1Value: "0.9",
       stat2Label: "Lower CAC",
       stat2Value: "3x",
-      imageUrl: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=600&auto=format&fit=crop"
+      imageUrl: import.meta.env.BASE_URL + "works_healthcare.png"
     },
     {
       id: 5,
@@ -57,7 +57,7 @@ export function Works() {
       stat1Value: "High",
       stat2Label: "Lead Gen",
       stat2Value: "Automated",
-      imageUrl: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=600&auto=format&fit=crop"
+      imageUrl: import.meta.env.BASE_URL + "works_automobile.png"
     },
     {
       id: 6,
@@ -68,7 +68,7 @@ export function Works() {
       stat1Value: "Instant",
       stat2Label: "Support",
       stat2Value: "24/7",
-      imageUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=600&auto=format&fit=crop"
+      imageUrl: import.meta.env.BASE_URL + "works_utilities.png"
     }
   ];
 

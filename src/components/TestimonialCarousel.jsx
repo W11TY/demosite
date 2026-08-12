@@ -9,28 +9,28 @@ const testimonials = [
     quote: "AI-qualified leads and 3x lower CAC changed how we run outbound.",
     name: "Michael Chen",
     title: "VP of Sales, Real Estate",
-    avatar: "/avatar_1.png"
+    avatar: import.meta.env.BASE_URL + "avatar_1.png"
   },
   {
     id: 2,
     quote: "100% of our calls get audited now instead of a 5% sample.",
     name: "Sarah Jenkins",
     title: "Head of Support, Consumer Durable",
-    avatar: "/avatar_2.png"
+    avatar: import.meta.env.BASE_URL + "avatar_2.png"
   },
   {
     id: 3,
     quote: "Collections went from manual follow-up to automated, and recovery got faster.",
     name: "David Ross",
     title: "Director of Operations, Fintech",
-    avatar: "/avatar_3.png"
+    avatar: import.meta.env.BASE_URL + "avatar_3.png"
   },
   {
     id: 4,
     quote: "No more missed appointment reminders — our no-show rate dropped.",
     name: "Dr. Emily Stone",
     title: "Clinic Administrator, Healthcare",
-    avatar: "/avatar_4.png"
+    avatar: import.meta.env.BASE_URL + "avatar_4.png"
   }
 ];
 

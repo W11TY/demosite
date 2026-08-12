@@ -42,8 +42,9 @@ export function Navbar() {
         {/* Left Pill (Logo + Links) */}
         <div className="navbar-left-pill">
           {/* Logo */}
-          <Link to="/" className="navbar-logo">
-            <img src="/logo.png" alt="VOXI Logo" className="logo-image" />
+          <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="VOXI Logo" className="logo-image" />
+            <span className="logo-text">VOXI</span>
           </Link>
 
           {/* Desktop nav links */}

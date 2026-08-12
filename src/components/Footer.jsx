@@ -8,7 +8,9 @@ export function Footer() {
       <RevealOnScroll className="container footer-container">
         <div className="footer-top">
           <div className="footer-brand">
-            <img src="/logo.png" alt="Voxi Logo" className="footer-logo-image" style={{ height: '32px', marginBottom: '1rem', display: 'block' }} />
+            <Link to="/" className="footer-logo">
+              <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Voxi Logo" className="footer-logo-image" style={{ height: '32px', marginBottom: '1rem', display: 'block' }} />
+            </Link>
             <p className="footer-tagline text-muted">
               One Ecosystem. One Platform. Unlimited Possibilities.
             </p>

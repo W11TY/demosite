@@ -59,7 +59,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.3, type: "spring", bounce: 0.4 }}
           >
             <div className="card-image-wrapper">
-              <img src="/digital_brain.png" alt="Digital Brain" className="card-image" />
+              <img src={`${import.meta.env.BASE_URL}digital_brain.png`} alt="Digital Brain" className="card-image" />
             </div>
             <div className="card-footer">
               <div className="card-footer-text">
