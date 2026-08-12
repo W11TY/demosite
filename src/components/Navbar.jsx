@@ -36,6 +36,8 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const closeMobileMenu = () => setMenuOpen(false);
+
   return (
     <header className={`navbar-wrapper ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-inner">
