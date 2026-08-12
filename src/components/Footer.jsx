@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { RevealOnScroll } from './shared/RevealOnScroll';
 import './Footer.css';
 
