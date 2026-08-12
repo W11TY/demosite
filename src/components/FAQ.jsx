@@ -1,97 +1,120 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { RevealOnScroll } from './shared/RevealOnScroll';
-import './FAQ.css';
+import { Plus, ChevronsRight } from 'lucide-react';
+import { FadeInUp } from './shared/Motion';
 
-export function FAQ() {
+/* 
+  TODO: PLACEHOLDER DATA
+  These FAQs are inferred from the Voxi MD file capabilities.
+*/
+const faqs = [
+  {
+    q: "Does Voxi integrate with our existing CRM and telephony systems?",
+    a: "Yes. Voxi is designed to seamlessly integrate with your existing infrastructure. It supports SIP trunks, PRI lines, and cloud calling platforms out-of-the-box, and uses APIs and webhooks to sync data instantly with any CRM, ERP, or payment gateway."
+  },
+  {
+    q: "Which languages are supported by the AI Voice Agents?",
+    a: "Voxi supports multiple Indian and global languages with native speech capabilities. The AI can even perform real-time language switching during a live conversation without interrupting the customer experience."
+  },
+  {
+    q: "How does Voxi ensure data privacy and security?",
+    a: "Security is built into the core. Voxi features Role-Based Access Control (RBAC) to manage user permissions securely, Number Masking to protect customer privacy, and supports secure multi-tenant enterprise deployments."
+  },
+  {
+    q: "Can Voxi manage both Voice calls and WhatsApp in a single workflow?",
+    a: "Absolutely. Voxi acts as a unified CX Operating System. You can build autonomous customer journeys that span across AI Voice calls, WhatsApp messaging, SMS, and email from a single centralized platform."
+  }
+];
+
+export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
-  const faqs = [
-    {
-      q: "How do you ensure our data remains secure?",
-      a: "Voxi uses role-based access control (RBAC), compliance monitoring, and secure API/webhook integration to keep customer data protected across every channel."
-    },
-    {
-      q: "What is the typical deployment timeline?",
-      a: "Most customers go from onboarding to live AI agents within a few weeks, depending on CRM/telephony integration complexity."
-    },
-    {
-      q: "Can we integrate with our existing CRM and telephony?",
-      a: "Yes — Voxi integrates via SIP trunks, PRI lines, and APIs/webhooks with existing CRM, ERP, and telephony infrastructure."
-    },
-    {
-      q: "Do you support multiple languages?",
-      a: "Yes, including multiple Indian and global languages, with real-time language switching mid-conversation."
-    },
-    {
-      q: "How do you calculate ROI?",
-      a: "Use the built-in AI ROI & Efficiency Calculator to model automation impact before you commit."
-    },
-    {
-      q: "Do we own the data and conversation history?",
-      a: "Yes — recordings, transcripts, summaries, and lead data are accessible from a single dashboard, owned by you."
-    },
-    {
-      q: "What AI models power the platform?",
-      a: "Voxi runs on proprietary Speech LLMs, multi-agent orchestration, and Retrieval-Augmented Generation (RAG) over your enterprise knowledge base."
-    }
-  ];
-
   return (
-    <section className="faq-section section-padding">
-      <div className="container faq-container">
-        <RevealOnScroll className="faq-header">
-          <span className="eyebrow">COMMON QUERIES</span>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-            Everything you need to know about the Voxi platform.
-          </h2>
-          <p className="faq-supporting text-muted" style={{ marginBottom: 'var(--space-xl)' }}>
-            Got more questions?
-          </p>
-          <button className="btn-primary" style={{ backgroundColor: 'var(--surface-color)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>
-            Contact Support
-          </button>
-        </RevealOnScroll>
+    <section className="w-full py-24 md:py-32 bg-background">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-start">
+        
+        {/* Left Column (Sticky) */}
+        <div className="col-span-1 lg:col-span-5 flex flex-col items-start lg:sticky lg:top-32 h-fit">
+          
+          {/* Top Label Row */}
+          <FadeInUp className="flex items-center gap-4 mb-10 w-full max-w-[320px]">
+             <div className="w-10 h-6 rounded-full border-2 border-text-primary flex items-center justify-center bg-transparent shrink-0" />
+             <div className="h-px bg-border flex-1" />
+             <span className="text-[10px] font-mono tracking-widest text-text-secondary uppercase shrink-0">
+               Common Queries
+             </span>
+          </FadeInUp>
 
-        <RevealOnScroll className="faq-list">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
+          <FadeInUp as="p" delay={0.1} className="text-[16px] md:text-[18px] text-text-secondary mb-20 max-w-[360px] leading-relaxed">
+            Find answers to technical specifications, deployment timelines, and our data security protocols.
+          </FadeInUp>
+
+          <FadeInUp as="h2" delay={0.2} className="text-[48px] md:text-[56px] lg:text-[64px] font-semibold tracking-tight leading-[1.05] text-text-primary mb-12 max-w-[440px]">
+            Everything you need to know about our AI.
+          </FadeInUp>
+
+          <FadeInUp delay={0.3}>
+            <a
+              href="#contact"
+              className="flex items-center gap-0 bg-[#1a1a1a] text-white rounded-pill p-1.5 transition-transform hover:scale-[1.02] shadow-xl group"
+            >
+               <div className="bg-white text-black p-3.5 rounded-[12px] flex items-center justify-center shrink-0">
+                  <ChevronsRight size={18} />
+               </div>
+               <span className="px-6 font-medium text-[15px]">Contact Support</span>
+            </a>
+          </FadeInUp>
+        </div>
+
+        {/* Right Column (FAQ List) */}
+        <div className="col-span-1 lg:col-span-7 flex flex-col gap-3">
+          {faqs.map((faq, idx) => {
+            const isOpen = openIndex === idx;
+
             return (
-              <div key={index} className="faq-item">
+              <FadeInUp 
+                key={idx}
+                delay={idx * 0.1}
+                className={`flex flex-col rounded-[24px] transition-colors duration-300 overflow-hidden ${
+                  isOpen ? 'bg-[#1a1a1a]' : 'bg-[#1a1a1a] hover:bg-[#222]'
+                }`}
+              >
                 <button
-                  className="faq-question"
-                  onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                  aria-expanded={isOpen}
+                  onClick={() => setOpenIndex(isOpen ? -1 : idx)}
+                  className="w-full px-6 py-6 md:px-8 md:py-8 flex items-center justify-between gap-6 text-left group"
                 >
-                  <span>{faq.q}</span>
-                  <motion.span
-                    className="faq-icon"
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                  <h3 className={`text-[16px] md:text-[18px] font-medium transition-colors duration-200 text-white`}>
+                    {faq.q}
+                  </h3>
+                  <motion.div
+                    animate={{ rotate: isOpen ? 45 : 0 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex-shrink-0 text-white/50 group-hover:text-white transition-colors"
                   >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
-                  </motion.span>
+                    <Plus size={20} />
+                  </motion.div>
                 </button>
-                <AnimatePresence>
+
+                <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
-                      className="faq-answer-wrapper"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
                     >
-                      <div className="faq-answer">
-                        <p>{faq.a}</p>
-                      </div>
+                      <p className="px-6 pb-6 md:px-8 md:pb-8 text-[15px] text-white/70 leading-relaxed max-w-[90%]">
+                        {faq.a}
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </FadeInUp>
             );
           })}
-        </RevealOnScroll>
+        </div>
+
       </div>
     </section>
   );

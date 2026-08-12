@@ -1,64 +1,78 @@
 export const research = [
   {
-    category: "Speech LLMs",
-    description: "Advanced Speech Language Models that enable real-time, natural, and human-like voice conversations with low latency."
+    id: 'speech-llms',
+    title: 'Speech LLMs',
+    description: 'Advanced Speech Language Models that enable real-time, natural, and human-like voice conversations with low latency.',
+    subItems: []
   },
   {
-    category: "Multi-Agent AI Orchestration",
-    description: "Orchestrates multiple specialized AI agents that collaborate to handle complex customer interactions and business workflows."
+    id: 'multi-agent-orchestration',
+    title: 'Multi-Agent AI Orchestration',
+    description: 'Orchestrates multiple specialized AI agents that collaborate to handle complex customer interactions and business workflows.',
+    subItems: []
   },
   {
-    category: "Reasoning AI Solutions",
-    items: [
-      { stage1: "Multi-step AI Reasoning Engines", stage2: "Intelligent Decision Automation" },
-      { stage1: "Decision Intelligence Systems", stage2: "Business Recommendation Systems" },
-      { stage1: "AI-based Workflow Reasoning", stage2: "AI-assisted Operations Management" },
-      { stage1: "Autonomous Problem-solving Agents", stage2: "AI-based Root Cause Analysis" },
-      { stage1: "AI Planning & Recommendation Systems", stage2: "Smart Customer Resolution Engines" },
-      { stage1: "Context-aware Enterprise AI", stage2: "Enterprise Knowledge Reasoning Platforms" }
+    id: 'reasoning-ai',
+    title: 'Reasoning AI Solutions',
+    description: 'Advanced reasoning architectures enabling AI to logically parse, plan, and execute multi-step business decisions autonomously.',
+    subItems: [
+      { name: 'Multi-step AI Reasoning Engines', desc: 'Intelligent Decision Automation' },
+      { name: 'Decision Intelligence Systems', desc: 'Business Recommendation Systems' },
+      { name: 'AI-based Workflow Reasoning', desc: 'AI-assisted Operations Management' },
+      { name: 'Autonomous Problem-solving Agents', desc: 'AI-based Root Cause Analysis' },
+      { name: 'AI Planning & Recommendation Systems', desc: 'Smart Customer Resolution Engines' },
+      { name: 'Context-aware Enterprise AI', desc: 'Enterprise Knowledge Reasoning Platforms' }
     ]
   },
   {
-    category: "Agentic AI & Autonomous Systems",
-    items: [
-      { stage1: "Autonomous AI Agents", stage2: "Autonomous Customer Support" },
-      { stage1: "Multi-agent AI Ecosystems", stage2: "AI-driven Enterprise Operations" },
-      { stage1: "AI Task Automation Agents", stage2: "AI Process Automation" },
-      { stage1: "Self-learning Enterprise AI Systems", stage2: "Intelligent Workflow Execution" },
-      { stage1: "AI Orchestration Platforms", stage2: "AI Sales Assistants" }
+    id: 'agentic-ai',
+    title: 'Agentic AI & Autonomous Systems',
+    description: 'Next-generation autonomous agents capable of independent task execution, learning, and cross-functional enterprise orchestration.',
+    subItems: [
+      { name: 'Autonomous AI Agents', desc: 'Autonomous Customer Support' },
+      { name: 'Multi-agent AI Ecosystems', desc: 'AI-driven Enterprise Operations' },
+      { name: 'AI Task Automation Agents', desc: 'AI Process Automation' },
+      { name: 'Self-learning Enterprise AI Systems', desc: 'Intelligent Workflow Execution' },
+      { name: 'AI Orchestration Platforms', desc: 'AI Sales Assistants' }
     ]
   },
   {
-    category: "Small Language Models (SLM) Solutions",
-    items: [
-      { stage1: "Domain-specific AI Models", stage2: "Enterprise Internal AI Assistants" },
-      { stage1: "Lightweight On-prem AI Models", stage2: "Secure Banking & Healthcare AI" },
-      { stage1: "Industry-trained Conversational Models", stage2: "Customized Business Knowledge Bots" },
-      { stage1: "Low-latency AI Processing", stage2: "Offline AI Processing" },
-      { stage1: "Edge AI Deployments", stage2: "Factory & Edge Device AI Automation" },
-      { stage1: "Private AI Infrastructure Solutions", stage2: "Low-cost AI Deployments for SMBs" }
+    id: 'small-language-models',
+    title: 'Small Language Models (SLM) Solutions',
+    description: 'Highly efficient, domain-specific AI models optimized for low latency, secure on-prem deployment, and edge computing.',
+    subItems: [
+      { name: 'Domain-specific AI Models', desc: 'Enterprise Internal AI Assistants' },
+      { name: 'Lightweight On-prem AI Models', desc: 'Secure Banking & Healthcare AI' },
+      { name: 'Industry-trained Conversational Models', desc: 'Customized Business Knowledge Bots' },
+      { name: 'Low-latency AI Processing', desc: 'Offline AI Processing' },
+      { name: 'Edge AI Deployments', desc: 'Factory & Edge Device AI Automation' },
+      { name: 'Private AI Infrastructure Solutions', desc: 'Low-cost AI Deployments for SMBs' }
     ]
   },
   {
-    category: "AI Infrastructure & Enterprise AI Stack",
-    items: [
-      { stage1: "AI Model Hosting Infrastructure", stage2: "Secure Enterprise AI Deployment" },
-      { stage1: "GPU Cloud & AI Compute Solutions", stage2: "Scalable AI Infrastructure" },
-      { stage1: "AI Security & Governance", stage2: "AI Compliance & Governance" },
-      { stage1: "Vector Database Integration", stage2: "High-performance AI Operations" },
-      { stage1: "AI Observability & Monitoring", stage2: "Enterprise-grade AI Ecosystem Development" },
-      { stage1: "Enterprise AI APIs & SDKs", stage2: "AI Platform Integration" }
+    id: 'ai-infrastructure',
+    title: 'AI Infrastructure & Enterprise AI Stack',
+    description: 'Scalable cloud and edge infrastructure providing secure computing, vector integrations, and comprehensive observability for AI models.',
+    subItems: [
+      { name: 'AI Model Hosting Infrastructure', desc: 'Secure Enterprise AI Deployment' },
+      { name: 'GPU Cloud & AI Compute Solutions', desc: 'Scalable AI Infrastructure' },
+      { name: 'AI Security & Governance', desc: 'AI Compliance & Governance' },
+      { name: 'Vector Database Integration', desc: 'High-performance AI Operations' },
+      { name: 'AI Observability & Monitoring', desc: 'Enterprise-grade AI Ecosystem Development' },
+      { name: 'Enterprise AI APIs & SDKs', desc: 'AI Platform Integration' }
     ]
   },
   {
-    category: "LLM (Large Language Model) Solutions",
-    items: [
-      { stage1: "Enterprise LLM Platforms", stage2: "Enterprise Knowledge Assistants" },
-      { stage1: "Custom-trained GPT Models", stage2: "Advanced Customer Support AI" },
-      { stage1: "Private LLM Deployments", stage2: "Legal & Compliance AI Assistants" },
-      { stage1: "Retrieval-Augmented Generation (RAG)", stage2: "Intelligent Search & Knowledge Discovery" },
-      { stage1: "AI Knowledge Management Systems", stage2: "AI-powered Document Intelligence" },
-      { stage1: "Generative AI Applications", stage2: "Automated Proposal & Content Generation" }
+    id: 'llm-solutions',
+    title: 'LLM (Large Language Model) Solutions',
+    description: 'Enterprise-scale LLM integrations powered by custom training, RAG pipelines, and secure private deployments.',
+    subItems: [
+      { name: 'Enterprise LLM Platforms', desc: 'Enterprise Knowledge Assistants' },
+      { name: 'Custom-trained GPT Models', desc: 'Advanced Customer Support AI' },
+      { name: 'Private LLM Deployments', desc: 'Legal & Compliance AI Assistants' },
+      { name: 'Retrieval-Augmented Generation (RAG)', desc: 'Intelligent Search & Knowledge Discovery' },
+      { name: 'AI Knowledge Management Systems', desc: 'AI-powered Document Intelligence' },
+      { name: 'Generative AI Applications', desc: 'Automated Proposal & Content Generation' }
     ]
   }
 ];

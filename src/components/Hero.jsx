@@ -1,82 +1,86 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import heroBg from '../assets/hero.png';
-import './Hero.css';
+import { Sparkles, ArrowRight } from 'lucide-react';
+import heroImg from '../assets/hero.png';
+import { FadeInUp } from './shared/Motion';
 
-export function Hero() {
+export default function Hero() {
+  const headlineLines = [
+    "One Ecosystem.",
+    "Every Conversation."
+  ];
+
   return (
-    <section className="hero-section">
-      <div 
-        className="hero-background-image" 
-        style={{ backgroundImage: `url(${heroBg})` }}
-      ></div>
+    <section className="relative w-full pt-32 md:pt-40 pb-20 md:pb-32 overflow-hidden flex flex-col items-center">
+      {/* Subtle Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[400px] bg-black/[0.02] blur-[100px] rounded-full pointer-events-none z-0" />
 
-      <div className="hero-container">
-        {/* Left column */}
-        <div className="hero-left">
-          <motion.h1 
-            className="hero-title"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="text-gray">Scale your ideas.</span><br/>
-            <span className="text-black">Build with AI.</span>
-          </motion.h1>
-          
-          <motion.p 
-            className="hero-subtitle"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Deploy custom neural agents, LLMs, and automation in<br/>
-            one seamless flow.
-          </motion.p>
-          
-          <motion.button 
-            className="hero-btn-start"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="btn-icon-wrapper">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="M12 5l7 7-7 7"></path>
-              </svg>
-            </div>
-            <span>Start Build</span>
-          </motion.button>
-        </div>
+      <div className="max-w-[1200px] w-full mx-auto px-6 md:px-16 flex flex-col items-center text-center relative z-10">
         
-        {/* Right column */}
-        <div className="hero-right">
-          <motion.div 
-            className="floating-card"
-            initial={{ opacity: 0, scale: 0.9, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, type: "spring", bounce: 0.4 }}
-          >
-            <div className="card-image-wrapper">
-              <img src={`${import.meta.env.BASE_URL}digital_brain.png`} alt="Digital Brain" className="card-image" />
-            </div>
-            <div className="card-footer">
-              <div className="card-footer-text">
-                <span className="card-title">Digital Brain</span>
-                <span className="card-subtitle">// Model v4.0.2</span>
-              </div>
-              <div className="card-arrow">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5l7 7-7 7"></path>
-                </svg>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
+        {/* Top Label */}
+        <FadeInUp
+          className="flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-surface shadow-sm mb-8"
+        >
+          <Sparkles size={14} className="text-text-primary" />
+          <span className="text-[13px] font-medium text-text-primary tracking-wide">Voxi Engine // Live v2.4</span>
+        </FadeInUp>
 
+        {/* Headline Block */}
+        <div className="flex flex-col items-center mb-6">
+          {headlineLines.map((line, i) => (
+            <div key={i} className="overflow-hidden">
+              <FadeInUp 
+                as="h1"
+                delay={i * 0.1 + 0.1}
+                className="text-[56px] sm:text-[72px] md:text-[96px] lg:text-[110px] font-bold leading-[0.9] tracking-tight text-text-primary"
+              >
+                {line}
+              </FadeInUp>
+            </div>
+          ))}
+        </div>
+
+        {/* Subheading */}
+        <FadeInUp
+          as="p"
+          delay={headlineLines.length * 0.1 + 0.2}
+          className="text-[18px] md:text-[20px] text-text-secondary max-w-[640px] leading-relaxed mb-10"
+        >
+          Unify Voice AI, WhatsApp, and Cloud Telephony into a single intelligent platform. Deliver exceptional customer experiences at scale.
+        </FadeInUp>
+
+        {/* CTAs */}
+        <FadeInUp
+          delay={headlineLines.length * 0.1 + 0.3}
+          className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-20"
+        >
+          <a
+            href="#demo"
+            className="flex items-center justify-center gap-2 w-full sm:w-auto bg-cta-fill text-cta-text rounded-full px-8 py-4 text-[16px] font-medium transition-transform hover:scale-[1.02] shadow-xl"
+          >
+            Book a Demo
+            <ArrowRight size={18} />
+          </a>
+          <a
+            href="#platform"
+            className="flex items-center justify-center w-full sm:w-auto bg-surface text-text-primary border border-border rounded-full px-8 py-4 text-[16px] font-medium transition-all hover:bg-black/5 hover:scale-[1.02]"
+          >
+            Explore Platform
+          </a>
+        </FadeInUp>
+
+        {/* Giant Visual Card */}
+        <FadeInUp
+          delay={0.5}
+          yOffset={40}
+          className="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-[24px] md:rounded-[32px] overflow-hidden shadow-2xl border border-border bg-surface"
+        >
+          <img src={heroImg} alt="Voxi Platform Interface" className="w-full h-full object-cover" />
+          
+          {/* Inner glossy reflection */}
+          <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[24px] md:rounded-[32px] pointer-events-none" />
+        </FadeInUp>
+
+      </div>
     </section>
   );
 }
