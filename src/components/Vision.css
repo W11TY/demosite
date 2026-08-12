@@ -1,0 +1,123 @@
+.vision-container {
+  border-radius: 48px;
+  padding: var(--container-py) var(--container-px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.vision-statement {
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-md);
+  max-width: 809px;
+}
+
+.vision-supporting {
+  font-size: var(--text-lg);
+  color: var(--text-muted);
+  max-width: 700px;
+}
+
+.vision-closing-wrapper {
+  margin-top: var(--space-md);
+}
+
+.vision-closing {
+  font-family: monospace;
+  font-size: clamp(0.6rem, 2vw, var(--text-xs)); /* Aggressive scaling on mobile */
+  text-transform: uppercase;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+.vision-tech-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-color);
+  padding: var(--space-lg);
+  border-radius: 24px;
+  gap: var(--space-md);
+}
+
+.tech-block-content h3 {
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  margin-bottom: var(--space-md);
+}
+
+.tech-list {
+  list-style: none;
+}
+
+.tech-list li {
+  color: var(--text-muted);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-xs);
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.tech-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.tech-shapes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xs);
+}
+
+.shape {
+  width: 64px;
+  height: 64px;
+  background: var(--border-color);
+  border-radius: 12px;
+}
+.shape-1 { border-radius: 50%; }
+.shape-3 { border-radius: 0 32px 0 32px; }
+
+.vision-language-ticker {
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+.lang-code {
+  font-size: var(--text-2xl);
+  font-weight: 300;
+  margin: 0 var(--space-lg);
+  color: var(--text-primary);
+}
+
+@media (max-width: 809px) {
+  .vision-container {
+    padding: var(--space-lg) var(--container-px);
+  }
+  
+  .vision-tech-block {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 809px) {
+  .vision-tech-block {
+    flex-direction: column-reverse; /* Put shapes on top */
+  }
+  
+  .tech-shapes {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .lang-code {
+    margin: 0 var(--space-md);
+  }
+}

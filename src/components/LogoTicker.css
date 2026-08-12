@@ -1,0 +1,68 @@
+.logo-ticker-section {
+  padding: 1.25rem 0;
+  background-color: #f7f9ff;
+  border-top: 1.5px solid rgba(15, 131, 169, 0.12);
+  border-bottom: 1.5px solid rgba(15, 131, 169, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.ticker-inner {
+  display: flex;
+  align-items: center;
+}
+
+/* Label on the left edge */
+.ticker-label {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #0F83A9;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0 2rem 0 2rem;
+  white-space: nowrap;
+  border-right: 1.5px solid rgba(15, 131, 169, 0.18);
+  margin-right: 0;
+}
+
+/* Scrolling strip */
+.ticker-marquee-wrap {
+  flex: 1;
+  overflow: hidden;
+}
+
+.ticker-logo {
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin: 0 2rem;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  white-space: nowrap;
+}
+
+/* Blue dot separator before each item */
+.ticker-logo::before {
+  content: '●';
+  color: #0F83A9;
+  font-size: 0.45rem;
+  opacity: 0.7;
+  vertical-align: middle;
+  margin-right: 0;
+}
+
+@media (max-width: 809px) {
+  .ticker-label {
+    display: none;
+  }
+
+  .ticker-logo {
+    font-size: 0.75rem;
+    margin: 0 1.25rem;
+    gap: 1.25rem;
+  }
+}

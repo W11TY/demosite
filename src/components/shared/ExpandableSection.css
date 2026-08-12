@@ -1,0 +1,75 @@
+.expandable-section {
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: all 0.3s ease;
+}
+
+.expandable-section:hover {
+  box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+}
+
+.expandable-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.expandable-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #111111;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.expand-toggle {
+  background: #f5f4f0;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.3s ease;
+}
+
+.expandable-header:hover .expand-toggle {
+  background: #e5e5e5;
+}
+
+.expandable-summary {
+  font-size: 1.05rem;
+  color: #555555;
+  margin: 12px 0 0 0;
+  line-height: 1.6;
+}
+
+.expandable-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+}
+
+.expandable-section.expanded .expandable-content {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 24px;
+}
+
+.expandable-section.expanded .expand-toggle {
+  transform: rotate(180deg);
+  background: #111111;
+  color: #ffffff;
+}

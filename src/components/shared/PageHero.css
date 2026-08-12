@@ -1,0 +1,22 @@
+.page-hero {
+  padding: 80px 24px 60px;
+  background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+  border-bottom: 1px solid #eaeaea;
+  text-align: center;
+}
+.page-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.page-hero-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+.page-hero-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
