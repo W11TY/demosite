@@ -4,6 +4,9 @@
 @config "../tailwind.config.js";
 
 @layer base {
+  html, body {
+    overflow-x: hidden;
+  }
   body {
     background-color: theme('colors.background');
     color: theme('colors.text-primary');
@@ -35,5 +38,14 @@
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }

@@ -194,3 +194,44 @@ export const StaggerItem = ({
     </Component>
   );
 };
+
+/**
+ * ScrollWordReveal
+ * Reveals words one by one as the user scrolls.
+ */
+import { useRef } from 'react';
+import { useScroll, useTransform } from 'framer-motion';
+
+export const ScrollWordReveal = ({ text, className = "", as = "h2" }) => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 85%", "start 40%"] // Starts revealing when top of element is at 85% of viewport, ends when top is at 40%
+  });
+
+  const words = text.split(" ");
+  const Component = motion[as] || motion.div;
+  
+  return (
+    <Component ref={containerRef} className={`${className} flex flex-wrap`}>
+      {words.map((word, i) => {
+        const start = i / words.length;
+        const end = start + (1 / words.length);
+        return (
+          <Word key={i} progress={scrollYProgress} range={[start, end]}>
+            {word}
+          </Word>
+        );
+      })}
+    </Component>
+  );
+};
+
+const Word = ({ children, progress, range }) => {
+  const opacity = useTransform(progress, range, [0.15, 1]);
+  return (
+    <motion.span style={{ opacity }} className="mr-[0.25em]">
+      {children}
+    </motion.span>
+  );
+};

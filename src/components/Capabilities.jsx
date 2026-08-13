@@ -45,14 +45,14 @@ export default function Capabilities() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="w-full py-24 md:py-32 bg-background border-b border-border">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20">
+    <section className="w-full pt-[100px] lg:pt-[180px] pb-[80px] lg:pb-[120px] bg-background border-b border-border">
+      <div className="w-full px-6 lg:px-[58px]">
         
         {/* Header Area */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24">
           <div className="max-w-[600px]">
             <FadeInUp as="span" className="text-eyebrow block mb-4">Core Platform</FadeInUp>
-            <FadeInUp as="h2" delay={0.1} className="text-[32px] md:text-[48px] font-semibold tracking-tight leading-tight text-text-primary">
+            <FadeInUp as="h2" delay={0.1} className="text-[clamp(36px,10vw,72px)] font-medium tracking-[-0.04em] leading-[1.0] text-[#111111]">
               The complete toolkit for autonomous customer orchestration.
             </FadeInUp>
           </div>

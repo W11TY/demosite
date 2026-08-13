@@ -1,135 +1,58 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { FadeInUp, easing } from './shared/Motion';
-
-/* 
-  TODO: PLACEHOLDER DATA
-  These quotes are reasonably inferred from the Voxi MD file capabilities.
-  They MUST be replaced with real customer quotes before going live, as requested.
-*/
-const testimonials = [
-  {
-    id: 1,
-    quote: "The ability to seamlessly switch between Hindi and English in the same conversation without any latency has completely changed our customer support dynamic. It's incredibly natural.",
-    name: "Placeholder Name",
-    title: "CX Director, Retail Co"
-  },
-  {
-    id: 2,
-    quote: "We deployed the Voxi Collections OS and saw a 50% increase in promise-to-pay within the first month. The AI handles objections just like our best human agents.",
-    name: "Placeholder Name",
-    title: "Head of Collections, FinTech"
-  },
-  {
-    id: 3,
-    quote: "Integrating the WhatsApp Business platform with our existing CRM was flawless. Now, our appointment reminders and follow-ups are entirely autonomous, dropping no-shows by 80%.",
-    name: "Placeholder Name",
-    title: "Operations Lead, Healthcare Provider"
-  }
-];
+import React from 'react';
+import { FadeInUp, ScrollWordReveal } from './shared/Motion';
 
 export default function TestimonialCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [direction, setDirection] = useState(1);
-
-  const nextSlide = useCallback(() => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-  }, []);
-
-  const prevSlide = () => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-  };
-
-  useEffect(() => {
-    if (isHovered) return;
-    const timer = setInterval(nextSlide, 6000);
-    return () => clearInterval(timer);
-  }, [isHovered, nextSlide]);
-
   return (
-    <section className="w-full py-24 md:py-32 bg-background border-b border-border overflow-hidden">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div>
-          <FadeInUp as="span" className="text-eyebrow block mb-4">Customer Stories</FadeInUp>
-          <FadeInUp as="h2" delay={0.1} className="text-[32px] md:text-[40px] font-semibold tracking-tight text-text-primary">
-            Trusted by innovators.
+    <section className="w-full pt-[100px] pb-[100px] md:pt-[200px] md:pb-[200px] bg-[#181818] overflow-hidden">
+      <div className="w-full px-6 lg:px-[58px] grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-start relative">
+        
+        {/* Left Column: Visual Quiet / Restrained Space */}
+        <div className="hidden lg:flex lg:col-span-5 h-full relative border-r border-white/5 items-start">
+          {/* Subtle graphic treatment */}
+          <FadeInUp className="absolute top-0 right-0 w-8 h-px bg-white/10" />
+          <FadeInUp delay={0.1} className="w-[70%] xl:w-[60%] aspect-[4/5] border border-white/5 rounded-[24px] bg-white/[0.01] mt-8 flex items-center justify-center relative overflow-hidden">
+             {/* Faint crosshairs indicating empty identity slot */}
+             <div className="w-px h-6 bg-white/10 absolute" />
+             <div className="w-6 h-px bg-white/10 absolute" />
           </FadeInUp>
         </div>
-        
-        {/* Navigation Arrows */}
-        <FadeInUp delay={0.2} className="flex gap-2">
-          <button 
-            onClick={prevSlide}
-            className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-primary hover:bg-text-primary hover:text-background transition-colors duration-200"
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <button 
-            onClick={nextSlide}
-            className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-primary hover:bg-text-primary hover:text-background transition-colors duration-200"
-          >
-            <ChevronRight size={18} />
-          </button>
-        </FadeInUp>
-      </div>
 
-      <div 
-        className="w-full relative h-[360px] md:h-[400px] flex items-center justify-center"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <AnimatePresence initial={false} custom={direction} mode="popLayout">
-          <motion.div
-            key={currentIndex}
-            custom={direction}
-            initial={{ opacity: 0, x: direction * 100, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1, zIndex: 10 }}
-            exit={{ opacity: 0, x: direction * -100, scale: 0.95, zIndex: 0 }}
-            transition={{ duration: 0.5, ease: easing }}
-            className="absolute w-[90%] md:w-[70%] max-w-[800px] bg-surface border border-border p-8 md:p-12 rounded-card shadow-xl"
-          >
-            <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
-              <div className="w-14 h-14 rounded-full bg-border flex-shrink-0 flex items-center justify-center text-text-secondary">
-                {/* Avatar Placeholder */}
-                <span className="text-xl font-medium">
-                  {testimonials[currentIndex].name.charAt(0)}
-                </span>
-              </div>
-              <div className="flex flex-col gap-6">
-                <p className="text-[18px] md:text-[22px] text-text-primary leading-relaxed font-medium">
-                  "{testimonials[currentIndex].quote}"
-                </p>
-                <div className="flex flex-col">
-                  <span className="text-[14px] font-bold text-text-primary">
-                    {testimonials[currentIndex].name}
-                  </span>
-                  <span className="text-[13px] text-text-secondary">
-                    {testimonials[currentIndex].title}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        {/* Right Column: Editorial Typographic Monument */}
+        <div className="flex flex-col lg:col-span-7 relative z-10 lg:pl-16">
+          
+          {/* Eyebrow Capsule */}
+          <FadeInUp className="flex items-center gap-4 mb-16 lg:mb-20 w-full">
+            <span className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase shrink-0">
+              Trusted by innovators
+            </span>
+            <div className="h-px bg-white/10 flex-grow max-w-[120px]" />
+            <div className="w-10 h-6 rounded-full border border-white/20 flex items-center justify-center bg-transparent shrink-0" />
+          </FadeInUp>
 
-        {/* Peek Neighbors (Decorative only, handled simply by fixed sizes and overflow hidden on parent) */}
-      </div>
+          {/* Huge Editorial Quote */}
+          <div className="relative mb-16 max-w-[850px]">
+            {/* Restrained decorative element */}
+            <span className="absolute -left-12 -top-12 text-[140px] leading-none font-serif text-white/[0.03] pointer-events-none select-none">
+              “
+            </span>
+            <ScrollWordReveal 
+              as="h2" 
+              className="text-[clamp(32px,8vw,54px)] md:text-[clamp(48px,5vw,68px)] font-medium tracking-[-0.045em] leading-[1.02] text-[#F5F5F5]"
+              text="We deployed the Voxi Collections OS and saw a 50% increase in promise-to-pay within the first month. The AI handles objections just like our best human agents."
+            />
+          </div>
 
-      {/* Progress Line */}
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 mt-8">
-        <div className="w-full h-[2px] bg-surface relative overflow-hidden rounded-full">
-          <motion.div 
-            className="absolute top-0 left-0 bottom-0 bg-text-secondary rounded-full"
-            initial={{ width: '0%' }}
-            animate={{ width: isHovered ? 'auto' : '100%' }}
-            key={currentIndex}
-            transition={{ duration: 6, ease: "linear" }}
-            style={{ width: isHovered ? `${((currentIndex + 1) / testimonials.length) * 100}%` : '100%' }}
-          />
+          {/* Technical Attribution */}
+          <FadeInUp delay={0.2} className="flex flex-col gap-2 relative z-10">
+            <div className="w-6 h-px bg-white/20 mb-3" />
+            <span className="text-[12px] font-mono tracking-[0.15em] text-white/80 uppercase">
+              Placeholder Name
+            </span>
+            <span className="text-[14px] text-white/40">
+              Head of Collections, FinTech
+            </span>
+          </FadeInUp>
+
         </div>
       </div>
     </section>

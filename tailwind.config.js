@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#FFFFFF',
-        surface: '#F7F7F7',
+        background: '#F4F4F2',
+        surface: '#FFFFFF',
         border: 'rgba(0, 0, 0, 0.08)',
         'text-primary': '#111111',
         'text-secondary': 'rgba(0, 0, 0, 0.6)',

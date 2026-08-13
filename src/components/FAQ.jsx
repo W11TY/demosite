@@ -30,8 +30,8 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="w-full py-24 md:py-32 bg-background">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-start">
+    <section className="w-full pt-[100px] lg:pt-[180px] pb-[80px] lg:pb-[120px] bg-background">
+      <div className="w-full px-6 lg:px-[58px] grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-start">
         
         {/* Left Column (Sticky) */}
         <div className="col-span-1 lg:col-span-5 flex flex-col items-start lg:sticky lg:top-32 h-fit">
@@ -49,7 +49,7 @@ export default function FAQ() {
             Find answers to technical specifications, deployment timelines, and our data security protocols.
           </FadeInUp>
 
-          <FadeInUp as="h2" delay={0.2} className="text-[48px] md:text-[56px] lg:text-[64px] font-semibold tracking-tight leading-[1.05] text-text-primary mb-12 max-w-[440px]">
+          <FadeInUp as="h2" delay={0.2} className="text-[clamp(36px,10vw,72px)] font-medium tracking-[-0.04em] leading-[1.0] text-[#111111] mb-12 max-w-[440px]">
             Everything you need to know about our AI.
           </FadeInUp>
 

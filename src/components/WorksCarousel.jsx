@@ -67,18 +67,18 @@ const works = [
 
 export default function WorksCarousel() {
   return (
-    <section className="w-full py-12 md:py-24 border-b border-border bg-background overflow-hidden relative">
+    <section className="w-full pt-[100px] lg:pt-[180px] pb-[80px] lg:pb-[120px] border-b border-border bg-background overflow-hidden relative">
       
       {/* Massive Marquee */}
       <SectionMarquee title="Our Works" />
 
-      {/* Grid Layout */}
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Grid / Carousel Layout */}
+      <div className="w-full px-6 lg:px-[58px] pb-12 flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-[16px] overflow-x-auto md:overflow-visible snap-x snap-mandatory hide-scrollbar pr-6 md:pr-0">
         {works.map((work, i) => (
             <FadeInUp 
               key={i}
               delay={(i % 3) * 0.1}
-              className="w-full group"
+              className="w-[85vw] md:w-full min-w-[85vw] md:min-w-0 snap-center group shrink-0"
             >
               {/* Card Content */}
               <div className="flex flex-col border border-border rounded-[24px] overflow-hidden h-[420px] bg-surface group-hover:bg-[#111111] transition-colors duration-300">

@@ -1,28 +1,30 @@
 import React from 'react';
 import { TrendingUp, Rocket, Quote, User } from 'lucide-react';
-import { FadeInUp, StaggerContainer } from './shared/Motion';
+import { FadeInUp, StaggerContainer, ScrollWordReveal } from './shared/Motion';
 
 export default function BentoSection() {
   return (
-    <section className="w-full py-24 md:py-32 bg-[#F7F7F7]">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20">
+    <section className="w-full pt-[100px] lg:pt-[180px] pb-[80px] lg:pb-[120px] bg-[#F7F7F7]">
+      <div className="w-full px-6 lg:px-[58px]">
         
         {/* Header Text */}
-        <div className="max-w-[900px] mb-16 md:mb-20">
-          <FadeInUp as="h2" className="text-[40px] md:text-[56px] lg:text-[64px] font-medium tracking-tight leading-[1.05] text-text-primary mb-6">
-            Automate the manual, accelerate the future. Our custom AI solutions deliver measurable growth and operational excellence.
-          </FadeInUp>
-          <FadeInUp as="p" delay={0.1} className="text-[16px] md:text-[18px] text-text-secondary max-w-[500px] leading-relaxed">
+        <div className="max-w-[1100px] mb-[48px]">
+          <ScrollWordReveal 
+            as="h2" 
+            className="text-[clamp(36px,10vw,72px)] font-medium tracking-[-0.04em] leading-[1.0] text-[#111111] mb-[24px]"
+            text="Automate the manual, accelerate the future. Our custom AI solutions deliver measurable growth and operational excellence."
+          />
+          <FadeInUp as="p" delay={0.1} className="text-[17px] text-black/60 max-w-[650px] leading-relaxed">
             Empowering teams with intelligent tools that turn complex data into actionable business outcomes daily.
           </FadeInUp>
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.16fr_1fr_1.16fr_1.16fr] gap-[12px]">
           
           {/* Card 1: $45M */}
           <FadeInUp 
-            className="bg-[#1a1a1a] rounded-[24px] p-8 flex flex-col justify-between aspect-square lg:aspect-auto lg:h-[400px]"
+            className="bg-[#1a1a1a] rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px]"
           >
             <div className="w-12 h-12 bg-white rounded-[12px] flex items-center justify-center mb-8">
               <TrendingUp size={24} className="text-black" />
@@ -39,7 +41,7 @@ export default function BentoSection() {
           </FadeInUp>
 
           {/* Column 2: Stacked Cards */}
-          <div className="flex flex-col gap-4 md:gap-6 lg:h-[400px]">
+          <div className="flex flex-col gap-[12px] h-[450px]">
             {/* Card 2a: Agents */}
             <FadeInUp 
               delay={0.1}
@@ -80,7 +82,7 @@ export default function BentoSection() {
           {/* Card 3: Rocket */}
           <FadeInUp 
             delay={0.3}
-            className="bg-[#EBEBEB] rounded-[24px] p-8 flex flex-col justify-between aspect-square lg:aspect-auto lg:h-[400px]"
+            className="bg-[#EBEBEB] rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px]"
           >
             <div className="flex-1 flex items-center justify-center w-full relative">
               {/* Sunburst Lines */}
@@ -112,7 +114,7 @@ export default function BentoSection() {
           {/* Card 4: Testimonial */}
           <FadeInUp 
             delay={0.4}
-            className="bg-white rounded-[24px] p-8 flex flex-col justify-between aspect-square lg:aspect-auto lg:h-[400px] shadow-sm"
+            className="bg-white rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px] shadow-sm"
           >
             <div className="flex items-start justify-between mb-8">
               <Quote size={28} className="text-text-primary" fill="currentColor" />

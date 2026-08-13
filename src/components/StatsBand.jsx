@@ -35,7 +35,7 @@ const stats = [
 export default function StatsBand() {
   return (
     <section className="w-full py-16 md:py-24 border-b border-border bg-background">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20">
+      <div className="w-full px-[58px]">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {stats.map((stat, i) => (
             <FadeInUp 

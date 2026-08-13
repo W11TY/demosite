@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Plus } from 'lucide-react';
+import React from 'react';
 import { FadeInUp } from './shared/Motion';
 
 const steps = [
@@ -11,96 +9,153 @@ const steps = [
   },
   {
     num: "02",
-    title: "Implementation & System Integration",
+    title: "Implementation & Integration",
     desc: "Our team seamlessly integrates the Voxi platform with your existing CRM, ERP, and telephony infrastructure via robust APIs and webhooks without disrupting operations.",
   },
   {
     num: "03",
-    title: "User Training & Change Management",
+    title: "User Training & Change Mgmt",
     desc: "We ensure your team is fully equipped to leverage the platform, providing comprehensive training, agent desktop walkthroughs, and operational best practices.",
   },
   {
     num: "04",
-    title: "Performance Monitoring & Optimization",
+    title: "Monitoring & Optimization",
     desc: "Post go-live, we actively monitor AI performance, conversational quality, and business KPIs, continuously tuning the models to maximize your ROI.",
   }
 ];
 
 export default function Process() {
-  const [openIndex, setOpenIndex] = useState(0);
-
   return (
-    <section className="w-full py-24 md:py-32 bg-background border-b border-border">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+    <section className="w-full bg-[#171717] pt-[100px] pb-[100px] md:pt-[200px] md:pb-[200px] overflow-hidden">
+      <div className="w-full px-6 lg:px-[58px] grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-16 lg:gap-8 items-center relative">
         
-        {/* Left: Sticky Header */}
-        <div className="flex flex-col items-start lg:sticky lg:top-32 h-fit">
-          <FadeInUp as="span" className="text-eyebrow mb-4">Our Methodology</FadeInUp>
-          <FadeInUp as="h2" delay={0.1} className="text-[32px] md:text-[48px] font-semibold tracking-tight leading-tight text-text-primary mb-6">
-            The 90-Day Success Framework.
+        {/* Left Column: Typographic Monument */}
+        <div className="flex flex-col items-start h-full justify-center lg:pr-8">
+          
+          {/* Eyebrow Capsule */}
+          <FadeInUp className="flex items-center gap-4 mb-12 lg:mb-16 w-full">
+             <div className="w-10 h-6 rounded-full border border-white/20 flex items-center justify-center bg-transparent shrink-0" />
+             <div className="h-px bg-white/10 w-24" />
+             <span className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase shrink-0">
+               Our Methodology
+             </span>
           </FadeInUp>
-          <FadeInUp as="p" delay={0.2} className="text-[16px] text-text-secondary max-w-[400px]">
+
+          {/* Description */}
+          <FadeInUp delay={0.1} className="text-[16px] md:text-[17px] text-white/60 max-w-[500px] leading-[1.6] mb-12">
             Technology alone doesn't deliver success. Implementation does. We work closely with you from discovery to optimization to ensure measurable business outcomes.
           </FadeInUp>
+
+          {/* Hero Heading */}
+          <FadeInUp delay={0.2} as="h2" className="text-[clamp(44px,11vw,78px)] font-medium tracking-[-0.045em] leading-[0.98] text-[#F5F5F5] max-w-[600px]">
+            The 90-Day Success<br />Framework.
+          </FadeInUp>
+
         </div>
 
-        {/* Right: Accordion */}
-        <div className="flex flex-col border-t border-border">
-          {steps.map((step, idx) => {
-            const isOpen = openIndex === idx;
+        {/* Right Column: Technical Framework */}
+        <div className="flex flex-col w-full">
+          <div className="relative w-full h-[500px] md:h-[650px] lg:h-[750px] flex items-center justify-start lg:justify-end lg:pr-[160px] group cursor-default">
             
-            return (
-              <FadeInUp key={step.num} delay={idx * 0.1} className="border-b border-border">
-                <button 
-                  onClick={() => setOpenIndex(isOpen ? -1 : idx)}
-                  className="w-full flex items-center justify-between py-6 md:py-8 text-left group"
-                >
-                  <div className="flex items-center gap-6 md:gap-8">
-                    <span className={`text-[13px] font-mono transition-colors duration-300 ${isOpen ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'}`}>
-                      {step.num}
-                    </span>
-                    <h3 className={`text-[20px] md:text-[24px] tracking-tight transition-colors duration-300 ${isOpen ? 'font-semibold text-text-primary' : 'font-medium text-text-secondary group-hover:text-text-primary'}`}>
-                      {step.title}
-                    </h3>
-                  </div>
-                  
-                  <motion.div
-                    animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                    className={`flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full border transition-colors duration-300 ${isOpen ? 'border-text-primary text-text-primary' : 'border-border text-text-secondary group-hover:border-text-primary group-hover:text-text-primary'}`}
-                  >
-                    <Plus size={16} />
-                  </motion.div>
-                </button>
+            {/* Primary Frame */}
+            <FadeInUp delay={0.3} className="w-full lg:w-[480px] xl:w-[560px] h-full relative z-30 shadow-2xl">
+              <div className="w-full h-full bg-[#1c1c1c] border border-white/10 group-hover:border-white/20 transition-colors duration-500 rounded-[24px] flex flex-col justify-between overflow-hidden">
+              
+              {/* Top Area */}
+              <div className="p-8 md:p-12 flex justify-between items-start border-b border-white/5 relative z-10 bg-[#1c1c1c]">
+                <div>
+                  <h3 className="text-[28px] md:text-[36px] text-white font-medium tracking-tight mb-4 leading-none">
+                    {steps[0].title}
+                  </h3>
+                  <p className="text-[14px] text-white/50 leading-relaxed max-w-[340px]">
+                    {steps[0].desc}
+                  </p>
+                </div>
+                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center shrink-0 ml-4">
+                  <span className="text-[12px] font-mono text-white/40">{steps[0].num}</span>
+                </div>
+              </div>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pb-8 pl-[40px] md:pl-[64px] flex flex-col gap-6">
-                        <p className="text-[15px] text-text-secondary leading-relaxed max-w-[480px]">
-                          {step.desc}
-                        </p>
-                        
-                        {/* Placeholder image slot for the step */}
-                        <div className="w-full aspect-[2/1] rounded-image bg-surface border border-border flex items-center justify-center overflow-hidden relative">
-                           <div className="absolute inset-0 bg-gradient-to-tr from-transparent to-black/5" />
-                           <span className="text-[11px] font-mono text-text-secondary tracking-widest uppercase">
-                             Visual: {step.title}
-                           </span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </FadeInUp>
-            );
-          })}
+              {/* Technical Visual Language (SVG Diagram) */}
+              <div className="flex-1 relative w-full h-full overflow-hidden opacity-30 group-hover:opacity-60 transition-opacity duration-500 bg-[#171717]">
+                 {/* Faint Grid */}
+                 <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+                 
+                 {/* SVG Architecture Diagram */}
+                 <svg className="absolute inset-0 w-full h-full" viewBox="0 0 560 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    {/* Base ISO plane */}
+                    <path d="M100 250 L280 150 L460 250 L280 350 Z" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="4 4" />
+                    
+                    {/* Vertical connect lines */}
+                    <line x1="280" y1="150" x2="280" y2="80" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <line x1="190" y1="200" x2="190" y2="130" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <line x1="370" y1="200" x2="370" y2="130" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    
+                    {/* Data Nodes */}
+                    <circle cx="280" cy="80" r="4" fill="rgba(255,255,255,0.3)" />
+                    <circle cx="190" cy="130" r="4" fill="rgba(255,255,255,0.3)" />
+                    <circle cx="370" cy="130" r="4" fill="rgba(255,255,255,0.3)" />
+                    
+                    {/* Central Core Shape */}
+                    <path d="M250 200 L280 180 L310 200 L310 240 L280 260 L250 240 Z" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                    <circle cx="280" cy="220" r="2" fill="white" />
+                    
+                    {/* Floating abstract tech elements */}
+                    <rect x="360" y="280" width="40" height="20" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                    <line x1="380" y1="290" x2="390" y2="290" stroke="rgba(255,255,255,0.3)" strokeWidth="2" />
+                 </svg>
+              </div>
+             </div>
+            </FadeInUp>
+
+            {/* Secondary Card (002) */}
+            <FadeInUp delay={0.4} className="hidden lg:block absolute top-[6%] bottom-[6%] right-[80px] w-[140px] z-20 pointer-events-none">
+              <div className="w-full h-full bg-[#1a1a1a] border border-white/5 rounded-r-[24px] flex flex-col items-center justify-between py-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[60px] shadow-xl">
+                <div className="text-[12px] font-mono text-white/30">{steps[1].num}</div>
+                <div className="text-[13px] font-mono tracking-[0.2em] text-white/30 uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
+                  {steps[1].title}
+                </div>
+                <div className="w-1 h-1 bg-white/20 rounded-full" />
+              </div>
+            </FadeInUp>
+
+            {/* Tertiary Card (003) */}
+            <FadeInUp delay={0.5} className="hidden lg:block absolute top-[12%] bottom-[12%] right-[0px] w-[140px] z-10 pointer-events-none">
+              <div className="w-full h-full bg-[#141414] border border-white/5 rounded-r-[24px] flex flex-col items-center justify-between py-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[120px] shadow-xl">
+                <div className="text-[12px] font-mono text-white/20">{steps[2].num}</div>
+                <div className="text-[13px] font-mono tracking-[0.2em] text-white/20 uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
+                  {steps[2].title}
+                </div>
+                <div className="w-1 h-1 bg-white/10 rounded-full" />
+              </div>
+            </FadeInUp>
+
+            {/* Quaternary Card (004) */}
+            <FadeInUp delay={0.6} className="hidden lg:block absolute top-[18%] bottom-[18%] right-[-80px] w-[140px] z-0 pointer-events-none">
+              <div className="w-full h-full bg-[#0d0d0d] border border-white/5 rounded-r-[24px] flex flex-col items-center justify-between py-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[180px] shadow-xl">
+                <div className="text-[12px] font-mono text-white/20">{steps[3].num}</div>
+                <div className="text-[13px] font-mono tracking-[0.2em] text-white/20 uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
+                  {steps[3].title}
+                </div>
+                <div className="w-1 h-1 bg-white/10 rounded-full" />
+              </div>
+            </FadeInUp>
+            
+          </div>
+
+          {/* Mobile Secondary Cards */}
+          <div className="flex lg:hidden overflow-x-auto gap-4 mt-6 w-full pb-4 hide-scrollbar snap-x snap-mandatory pr-6">
+            {steps.slice(1).map((step, idx) => (
+               <div key={idx} className="min-w-[280px] snap-center bg-[#1a1a1a] border border-white/5 rounded-[16px] p-6 flex flex-col justify-between min-h-[160px]">
+                 <div className="flex justify-between items-center mb-4">
+                   <span className="text-[12px] font-mono text-white/30">{step.num}</span>
+                   <div className="w-1 h-1 bg-white/20 rounded-full" />
+                 </div>
+                 <h4 className="text-[14px] text-white/60 font-medium">{step.title}</h4>
+               </div>
+            ))}
+          </div>
+
         </div>
 
       </div>

@@ -6,11 +6,11 @@ export default function Footer() {
   return (
     <footer className="w-full relative overflow-hidden bg-background border-t border-border pt-24 pb-12">
       {/* Background Wordmark */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-bold text-black/[0.02] tracking-tighter pointer-events-none select-none w-full text-center">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[28vw] lg:text-[20vw] font-bold text-black/[0.02] tracking-tighter pointer-events-none select-none w-full text-center mt-12 lg:mt-0">
         VOXI
       </div>
 
-      <StaggerContainer className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 relative z-10">
+      <StaggerContainer className="w-full px-6 lg:px-[58px] relative z-10">
         
         {/* Top Row */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10 mb-16">
@@ -36,8 +36,8 @@ export default function Footer() {
         </div>
 
         {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16 border-t border-border pt-16">
-          <FadeInUp delay={0.2} className="col-span-2 md:col-span-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 mb-16 border-t border-border pt-16">
+          <FadeInUp delay={0.2} className="col-span-1">
             <h4 className="text-[13px] font-medium text-text-primary mb-6 uppercase tracking-eyebrow">Product</h4>
             <ul className="flex flex-col gap-4">
               <li><a href="#" className="text-[14px] text-text-secondary hover:text-text-primary transition-colors">Voice AI Solutions</a></li>
@@ -46,7 +46,7 @@ export default function Footer() {
               <li><a href="#" className="text-[14px] text-text-secondary hover:text-text-primary transition-colors">QMS & Analytics</a></li>
             </ul>
           </FadeInUp>
-          <FadeInUp delay={0.3} className="col-span-2 md:col-span-1">
+          <FadeInUp delay={0.3} className="col-span-1">
             <h4 className="text-[13px] font-medium text-text-primary mb-6 uppercase tracking-eyebrow">Company</h4>
             <ul className="flex flex-col gap-4">
               <li><a href="#" className="text-[14px] text-text-secondary hover:text-text-primary transition-colors">About Us</a></li>
@@ -55,7 +55,7 @@ export default function Footer() {
               <li><a href="#" className="text-[14px] text-text-secondary hover:text-text-primary transition-colors">Contact</a></li>
             </ul>
           </FadeInUp>
-          <FadeInUp delay={0.4} className="col-span-2 md:col-span-2">
+          <FadeInUp delay={0.4} className="col-span-1 md:col-span-2">
             <h4 className="text-[13px] font-medium text-text-primary mb-6 uppercase tracking-eyebrow">Legal</h4>
             <ul className="flex flex-col gap-4">
               <li><a href="#" className="text-[14px] text-text-secondary hover:text-text-primary transition-colors">Privacy Policy</a></li>
