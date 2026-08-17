@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight } from 'lucide-react';
+import { X, ArrowRight, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { easing } from './shared/Motion';
+import AntiMetalButton from './shared/AntiMetalButton';
 import logo from '../assets/logo.png';
 
 export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
+  const [expandedItem, setExpandedItem] = useState(null);
+
+  useEffect(() => {
+    if (!isOpen) setExpandedItem(null);
+  }, [isOpen]);
+
+  const toggleItem = (name) => {
+    setExpandedItem(prev => prev === name ? null : name);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -30,7 +41,7 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
             {/* Header */}
             <div className="flex justify-between items-center mb-12">
               <Link to="/" onClick={() => setIsOpen(false)} className="pl-2">
-                <img src={logo} alt="Voxi Logo" className="h-7 w-auto object-contain brightness-0 invert" />
+                <img src={logo} alt="Voxi Logo" className="h-7 w-auto object-contain" />
               </Link>
               <button 
                 onClick={() => setIsOpen(false)}
@@ -44,7 +55,7 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
             <div className="flex flex-col gap-6 px-2 mb-10 flex-1">
               {navItems.map((item, idx) => (
                 <div key={item.name} className="flex flex-col gap-4 border-b border-white/5 pb-6">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 w-full">
                     <span className="text-[12px] font-mono text-white/30">0{idx + 1}</span>
                     <Link
                       to={item.href}
@@ -53,38 +64,51 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
                     >
                       {item.name}
                     </Link>
+                    {item.dropdown && (
+                      <button 
+                        onClick={() => toggleItem(item.name)} 
+                        className="ml-auto p-2 text-white/50 hover:text-white transition-colors"
+                      >
+                        <ChevronDown size={24} className={`transition-transform duration-300 ${expandedItem === item.name ? 'rotate-180' : ''}`} />
+                      </button>
+                    )}
                   </div>
                   
                   {/* Inline sub-items for mobile */}
-                  {item.dropdown && (
-                    <div className="flex flex-col gap-3 pl-8">
-                      {item.dropdown.map(sub => (
-                        <Link
-                          key={sub.id}
-                          to={`${item.href}/${sub.id}`}
-                          onClick={() => setIsOpen(false)}
-                          className="text-[15px] text-white/50 hover:text-white transition-colors"
-                        >
-                          {sub.shortName || sub.industry || sub.title || sub.name}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  <AnimatePresence>
+                    {item.dropdown && expandedItem === item.name && (
+                      <motion.div 
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: easing }}
+                        className="overflow-hidden"
+                      >
+                        <div className="flex flex-col gap-3 pl-8 pt-2">
+                          {item.dropdown.map(sub => (
+                            <Link
+                              key={sub.id}
+                              to={sub.href || `${item.href}/${sub.id}`}
+                              onClick={() => setIsOpen(false)}
+                              className="text-[15px] text-white/50 hover:text-white transition-colors py-1"
+                            >
+                              {sub.shortName || sub.industry || sub.title || sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ))}
             </div>
 
             {/* CTA Button */}
-            <Link
-              to="/contact"
-              onClick={() => setIsOpen(false)}
-              className="w-full bg-white text-black rounded-full p-4 flex items-center justify-center relative hover:scale-[1.02] transition-transform mt-auto"
-            >
-              <div className="absolute right-4 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center">
-                <ArrowRight size={16} />
-              </div>
-              <span className="text-[16px] font-semibold pr-8">Book a Demo</span>
-            </Link>
+            <div className="mt-auto w-full flex justify-center pb-2">
+              <Link to="/contact" onClick={() => setIsOpen(false)}>
+                <AntiMetalButton label="Book a Demo" className="w-full sm:w-[174px]" />
+              </Link>
+            </div>
           </div>
         </motion.div>
       )}

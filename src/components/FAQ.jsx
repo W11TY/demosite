@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, ChevronsRight } from 'lucide-react';
 import { FadeInUp } from './shared/Motion';
+import AntiMetalButton from './shared/AntiMetalButton';
 
 /* 
   TODO: PLACEHOLDER DATA
@@ -54,14 +55,8 @@ export default function FAQ() {
           </FadeInUp>
 
           <FadeInUp delay={0.3}>
-            <a
-              href="#contact"
-              className="flex items-center gap-0 bg-[#1a1a1a] text-white rounded-pill p-1.5 transition-transform hover:scale-[1.02] shadow-xl group"
-            >
-               <div className="bg-white text-black p-3.5 rounded-[12px] flex items-center justify-center shrink-0">
-                  <ChevronsRight size={18} />
-               </div>
-               <span className="px-6 font-medium text-[15px]">Contact Support</span>
+            <a href="#contact">
+              <AntiMetalButton label="Contact Support" />
             </a>
           </FadeInUp>
         </div>

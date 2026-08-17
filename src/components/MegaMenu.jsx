@@ -18,7 +18,7 @@ export default function MegaMenu({ item, topPosition = "72px" }) {
           label: 'VOXI SOLUTIONS',
           desc: 'Tailored AI architectures engineered for specific industry workflows and challenges.'
         };
-      case 'research':
+      case 'voxi research':
         return {
           label: 'VOXI RESEARCH',
           desc: 'Pioneering the next generation of conversational AI and autonomous systems.'
@@ -71,7 +71,7 @@ export default function MegaMenu({ item, topPosition = "72px" }) {
         {item.dropdown.map((subItem, idx) => (
           <Link 
             key={subItem.id} 
-            to={`${item.href}/${subItem.id}`}
+            to={subItem.href || `${item.href}/${subItem.id}`}
             className="group block p-4 rounded-[16px] hover:bg-white/[0.04] transition-colors relative"
           >
             <div className="flex items-center justify-between mb-0.5">
@@ -79,7 +79,7 @@ export default function MegaMenu({ item, topPosition = "72px" }) {
                 <span className="text-[11px] font-mono text-white/20 group-hover:text-white/50 transition-colors">
                   {subItem.num || `0${idx + 1}`} —
                 </span>
-                <h4 className="text-[14px] font-medium text-white/90 tracking-tight uppercase group-hover:text-white transition-colors">
+                <h4 className="text-[14px] font-medium text-white/90 tracking-tight group-hover:text-white transition-colors">
                   {subItem.shortName || subItem.industry || subItem.title || subItem.name}
                 </h4>
               </div>

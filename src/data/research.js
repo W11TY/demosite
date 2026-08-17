@@ -1,18 +1,21 @@
 export const research = [
   {
     id: 'speech-llms',
+    category: 'INNOVATION & RESEARCH',
     title: 'Speech LLMs',
-    description: 'Advanced Speech Language Models that enable real-time, natural, and human-like voice conversations with low latency.',
+    description: 'Advanced Speech Language Models that enable real-time, natural, and human-like voice conversations with low latency.\nNote: IP - Comibined',
     subItems: []
   },
   {
     id: 'multi-agent-orchestration',
+    category: 'INNOVATION & RESEARCH',
     title: 'Multi-Agent AI Orchestration',
     description: 'Orchestrates multiple specialized AI agents that collaborate to handle complex customer interactions and business workflows.',
     subItems: []
   },
   {
     id: 'reasoning-ai',
+    category: 'RESEARCH & DEVELOPMENT FOCUS AREAS',
     title: 'Reasoning AI Solutions',
     description: 'Advanced reasoning architectures enabling AI to logically parse, plan, and execute multi-step business decisions autonomously.',
     subItems: [
@@ -26,6 +29,7 @@ export const research = [
   },
   {
     id: 'agentic-ai',
+    category: 'RESEARCH & DEVELOPMENT FOCUS AREAS',
     title: 'Agentic AI & Autonomous Systems',
     description: 'Next-generation autonomous agents capable of independent task execution, learning, and cross-functional enterprise orchestration.',
     subItems: [
@@ -38,6 +42,7 @@ export const research = [
   },
   {
     id: 'small-language-models',
+    category: 'RESEARCH & DEVELOPMENT FOCUS AREAS',
     title: 'Small Language Models (SLM) Solutions',
     description: 'Highly efficient, domain-specific AI models optimized for low latency, secure on-prem deployment, and edge computing.',
     subItems: [
@@ -51,6 +56,7 @@ export const research = [
   },
   {
     id: 'ai-infrastructure',
+    category: 'RESEARCH & DEVELOPMENT FOCUS AREAS',
     title: 'AI Infrastructure & Enterprise AI Stack',
     description: 'Scalable cloud and edge infrastructure providing secure computing, vector integrations, and comprehensive observability for AI models.',
     subItems: [
@@ -64,6 +70,7 @@ export const research = [
   },
   {
     id: 'llm-solutions',
+    category: 'RESEARCH & DEVELOPMENT FOCUS AREAS',
     title: 'LLM (Large Language Model) Solutions',
     description: 'Enterprise-scale LLM integrations powered by custom training, RAG pipelines, and secure private deployments.',
     subItems: [

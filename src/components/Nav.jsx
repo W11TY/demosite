@@ -8,6 +8,7 @@ import { research } from '../data/research';
 import { company } from '../data/company';
 import logo from '../assets/logo.png';
 import { easing } from './shared/Motion';
+import AntiMetalButton from './shared/AntiMetalButton';
 import MegaMenu from './MegaMenu';
 import MobileMenu from './MobileMenu';
 
@@ -47,69 +48,75 @@ export default function Nav() {
   const navItems = [
     { name: 'Platform', href: '/platform', dropdown: platforms },
     { name: 'Solutions', href: '/solutions', dropdown: solutions },
-    { name: 'Research', href: '/research', dropdown: research },
+    { name: 'VOXI RESEARCH', href: '/research', dropdown: research },
     { name: 'Company', href: '/company', dropdown: company },
   ];
 
   return (
+    <>
     <motion.header 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: easing }}
-      className="fixed top-0 left-0 right-0 z-50 glass-nav h-[72px] px-6 lg:px-[58px] flex items-center justify-between"
+      className="fixed top-[16px] lg:top-[20px] left-[16px] lg:left-[23px] right-[16px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white/90 backdrop-blur-md rounded-full px-5 lg:px-7 py-2 lg:w-[648px] h-[54px] shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/5"
     >
       {/* Logo */}
-      <Link to="/" className="z-50">
-        <img src={logo} alt="Voxi Logo" className="h-9 md:h-11 w-auto object-contain" />
+      <Link to="/" className="flex items-center">
+        <img src={logo} alt="Voxi Logo" className="h-[31px] lg:h-[38px] w-auto object-contain" />
       </Link>
 
       {/* Desktop Links */}
-      <nav className="hidden lg:flex items-center gap-8 h-full">
+      <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-black/70 ml-auto h-full">
         {navItems.map((item) => (
           <div 
             key={item.name} 
-            className="h-full flex items-center relative"
+            className="flex items-center relative h-[54px]"
             onMouseEnter={() => setActiveDropdown(item.name)}
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <Link
               to={item.href}
-              className="flex items-center gap-1 text-[14px] text-text-secondary hover:text-text-primary transition-colors relative group py-4"
+              className="hover:text-black transition-colors"
             >
               {item.name}
-              <ChevronDown size={14} className="opacity-50" />
-              <span className="absolute bottom-3 left-0 right-0 h-[1px] bg-text-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-150 origin-left" />
             </Link>
 
             {/* Mega Menu Dropdown */}
             <AnimatePresence>
               {activeDropdown === item.name && item.dropdown && (
-                <MegaMenu item={item} topPosition="80px" />
+                <MegaMenu item={item} topPosition="64px" />
               )}
             </AnimatePresence>
           </div>
         ))}
       </nav>
 
-      {/* Right CTA / Mobile Toggle */}
-      <div className="flex items-center gap-4 z-50">
-        <Link
-          to="/contact"
-          className="hidden lg:flex items-center justify-center bg-cta-fill text-cta-text rounded-pill px-[20px] py-[10px] text-[14px] font-medium transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-[1.03] hover:brightness-110"
-        >
-          Book a Demo
-        </Link>
-        
-        <button 
-          className="lg:hidden text-text-primary p-1"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+      {/* Mobile Toggle */}
+      <button 
+        className="lg:hidden flex items-center justify-center text-black/80 ml-auto"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {isOpen ? <X size={20} /> : <Menu size={20} />}
+      </button>
 
-      {/* Mobile Drawer (Premium Overlay) */}
-      <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} navItems={navItems} />
+
+
     </motion.header>
+
+    {/* Mobile Drawer (Premium Overlay) - Moved outside header to avoid transform containment */}
+    <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} navItems={navItems} />
+
+    {/* Right CTA / Floating button for desktop */}
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1, ease: easing }}
+      className="hidden lg:flex fixed top-[20px] right-[23px] z-50"
+    >
+      <Link to="/contact">
+        <AntiMetalButton label="Book Demo" />
+      </Link>
+    </motion.div>
+    </>
   );
 }

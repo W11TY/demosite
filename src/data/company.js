@@ -17,6 +17,7 @@ export const company = [
   {
     id: 'contact',
     title: 'Contact Us',
+    href: '/contact',
     description: 'Get in touch with our team for support, partnerships, or any general inquiries.'
   }
 ];

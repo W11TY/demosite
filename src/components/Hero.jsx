@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { easing } from './shared/Motion';
+import AntiMetalButton from './shared/AntiMetalButton';
 import heroImg from '../assets/hero.png';
 import logo from '../assets/logo.png';
 import { platforms } from '../data/platform';
@@ -34,7 +35,7 @@ export default function Hero() {
   const navItems = [
     { name: 'Platform', href: '/platform', dropdown: platforms },
     { name: 'Solutions', href: '/solutions', dropdown: solutions },
-    { name: 'Research', href: '/research', dropdown: research },
+    { name: 'VOXI RESEARCH', href: '/research', dropdown: research },
     { name: 'Company', href: '/company', dropdown: company },
   ];
 
@@ -69,17 +70,17 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: easing }}
-          className="absolute top-[16px] lg:top-[20px] left-[16px] lg:left-[23px] right-[16px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white rounded-full px-5 lg:px-7 py-2 lg:w-[540px] h-[45px] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
+          className="absolute top-[16px] lg:top-[20px] left-[16px] lg:left-[23px] right-[16px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white rounded-full px-5 lg:px-7 py-2 lg:w-[648px] h-[54px] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
         >
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="Logo" className="h-[24px] lg:h-[28px] w-auto object-contain filter grayscale contrast-200" />
+            <img src={logo} alt="Logo" className="h-[31px] lg:h-[38px] w-auto object-contain" />
           </Link>
           
-          <nav className="hidden lg:flex items-center gap-7 text-[13.5px] font-medium text-black/70 ml-auto">
+          <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-black/70 ml-auto">
             {navItems.map((item) => (
               <div 
                 key={item.name} 
-                className="flex items-center relative h-[45px]"
+                className="flex items-center relative h-[54px]"
                 onMouseEnter={() => setActiveDropdown(item.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
@@ -92,7 +93,7 @@ export default function Hero() {
 
                 <AnimatePresence>
                   {activeDropdown === item.name && item.dropdown && (
-                    <MegaMenu item={item} topPosition="55px" />
+                    <MegaMenu item={item} topPosition="64px" />
                   )}
                 </AnimatePresence>
               </div>
@@ -116,11 +117,8 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.1, ease: easing }}
           className="hidden lg:flex absolute top-[20px] right-[23px] z-50"
         >
-          <a href="#demo" className="flex items-center bg-white rounded-full p-1 pl-[18px] w-[145px] h-[44px] shadow-[0_4px_24px_rgba(0,0,0,0.06)] group hover:scale-[1.02] transition-transform cursor-pointer">
-            <span className="flex-1 text-[13px] font-semibold text-black tracking-tight whitespace-nowrap">Hire Team</span>
-            <div className="w-[36px] h-[36px] bg-[#111] rounded-full flex items-center justify-center text-white flex-shrink-0">
-              <ArrowRight size={14} />
-            </div>
+          <a href="#demo">
+            <AntiMetalButton label="Hire Team" />
           </a>
         </motion.div>
 
@@ -141,11 +139,8 @@ export default function Hero() {
             </motion.p>
 
             <motion.div {...f(0.32)}>
-              <a href="#build" className="inline-flex items-center bg-[#111] text-white w-[210px] h-[65px] rounded-[16px] p-2 hover:bg-black transition-colors shadow-lg group">
-                <div className="w-[49px] h-[49px] bg-white rounded-[12px] flex items-center justify-center text-black flex-shrink-0 shadow-sm">
-                  <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
-                </div>
-                <span className="flex-1 text-center text-[15px] font-medium pr-2">Start Build</span>
+              <a href="#build">
+                <AntiMetalButton label="Start Build" />
               </a>
             </motion.div>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { FadeInUp, StaggerContainer } from '../components/shared/Motion';
+import { FadeInUp, StaggerContainer, StaggerItem } from '../components/shared/Motion';
 import { company } from '../data/company';
 
 export default function CompanyDetail() {
@@ -124,6 +124,69 @@ export default function CompanyDetail() {
               </div>
             </FadeInUp>
             
+          </StaggerContainer>
+        </div>
+      </div>
+    );
+  }
+
+  // Render the Culture Manifesto layout if the id is 'culture'
+  if (id === 'culture') {
+    const culturePoints = [
+      { title: "Customer Success Begins After the Sale", desc: "We don't celebrate signed contracts—we celebrate customers achieving measurable business outcomes." },
+      { title: "We Measure Impact, Not Attendance", desc: "We believe great work is measured by impact, not by the number of hours you spend working." },
+      { title: "Trust is Given, Ownership is Expected", desc: "We trust every team member to make the right decisions and take complete ownership of their work." },
+      { title: "Think Like a Founder", desc: "Don't wait for permission. If you see an opportunity to improve something, own it and make it happen." },
+      { title: "Family Before Everything", desc: "We believe success is truly meaningful only when it's shared with loved ones. That's why every employee receives one dedicated Family Leave and a monthly Voxi-sponsored Family Dinner to celebrate life beyond work." },
+      { title: "Health is Our Greatest Investment", desc: "We provide health insurance for every employee and their immediate family because peace of mind creates better work." },
+      { title: "Build a Healthy Lifestyle", desc: "Complete 10,000 steps for at least 15 days in a month and we'll reward your commitment to a healthier life." },
+      { title: "Building Wealth Together", desc: "We sponsor a monthly SIP contribution for our employees because financial well-being is just as important as professional growth." },
+      { title: "Less Mobile. More Life.", desc: "Employees who achieve the monthly mobile screen-time goals will be recognized and rewarded for promoting a healthier and more balanced digital lifestyle." },
+      { title: "Rewards That Improve Your Life", desc: "We don't reward you with gadgets—we reward you with books, plants, family experiences, wellness activities, and opportunities to grow." },
+      { title: "Never Stop Learning", desc: "Every team member receives a dedicated monthly learning budget for books, empowering them to continuously learn, grow, and innovate." },
+      { title: "Stay Close to Nature.", desc: "Every quarter, we organize a team mountain retreat to recharge, reconnect, and rediscover the creativity that nature inspires." },
+      { title: "Sports Build Better Teams", desc: "Every month we play together because stronger teams are built through shared experiences, not just shared projects." },
+      { title: "Work From Hometown", desc: "Every six months, we take Voxi to one teammate's hometown to experience their culture, meet their family, and strengthen our bonds as one team." },
+      { title: "Start with Wellness.", desc: "Every workday begins with a 15-minute team yoga and mindfulness session because great work starts with a healthy mind and body." }
+    ];
+
+    return (
+      <div className="w-full bg-background pt-24 pb-32">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20">
+          <StaggerContainer>
+            {/* Header */}
+            <FadeInUp as="h1" className="text-[48px] md:text-[64px] font-semibold tracking-tight text-text-primary mb-6">
+              The Voxi Culture Manifesto
+            </FadeInUp>
+            <FadeInUp delay={0.1} as="p" className="text-[20px] md:text-[24px] text-text-secondary leading-relaxed max-w-[800px] mb-24">
+              Life at Voxi is built on purpose, trust, and well-being. Here is what we stand for.
+            </FadeInUp>
+
+            {/* Culture Points Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32">
+              {culturePoints.map((point, idx) => (
+                <StaggerItem key={idx} className="bg-surface border border-border rounded-[24px] p-8 flex flex-col h-full hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-shadow">
+                  <div className="w-10 h-10 rounded-full bg-[#f1f1f1] text-text-primary flex items-center justify-center font-semibold text-[15px] mb-6">
+                    {idx + 1}
+                  </div>
+                  <h3 className="text-[20px] font-semibold text-text-primary tracking-tight mb-3">{point.title}</h3>
+                  <p className="text-[15px] text-text-secondary leading-relaxed flex-1">{point.desc}</p>
+                </StaggerItem>
+              ))}
+            </div>
+
+            {/* The Voxi Promise */}
+            <FadeInUp delay={0.2} className="bg-[#111] text-white rounded-[32px] p-8 md:p-16 lg:p-20 overflow-hidden relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-black to-[#1a1a1a] z-0" />
+              <div className="relative z-10 text-center max-w-[1000px] mx-auto">
+                <span className="text-[12px] font-mono tracking-[0.15em] text-white/50 uppercase block mb-8">
+                  The Voxi Promise
+                </span>
+                <h2 className="text-[32px] md:text-[48px] font-medium tracking-tight text-white leading-[1.2]">
+                  At Voxi, you're not joining a company—you're joining a mission to build world-class AI while living a healthier, happier, and more meaningful life.
+                </h2>
+              </div>
+            </FadeInUp>
           </StaggerContainer>
         </div>
       </div>
