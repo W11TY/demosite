@@ -85,9 +85,6 @@ export default function Capabilities() {
                   >
                     <div className="flex items-start md:items-center justify-between gap-4">
                       <div className="flex items-center gap-6 md:gap-12 w-full">
-                        <span className={`text-[13px] font-mono transition-colors duration-250 ${isActive ? 'text-text-primary' : 'text-text-secondary'}`}>
-                          {product.id}
-                        </span>
                         <h3 className={`text-[20px] md:text-[28px] transition-all duration-250 tracking-tight ${isActive ? 'font-semibold text-text-primary translate-x-2' : 'font-medium text-text-secondary'}`}>
                           {product.name}
                         </h3>

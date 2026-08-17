@@ -71,9 +71,6 @@ export default function Process() {
                     {steps[0].desc}
                   </p>
                 </div>
-                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center shrink-0 ml-4">
-                  <span className="text-[12px] font-mono text-white/40">{steps[0].num}</span>
-                </div>
               </div>
 
               {/* Technical Visual Language (SVG Diagram) */}
@@ -111,7 +108,7 @@ export default function Process() {
             {/* Secondary Card (002) */}
             <FadeInUp delay={0.4} className="hidden lg:block absolute top-[6%] bottom-[6%] right-[80px] w-[140px] z-20 pointer-events-none">
               <div className="w-full h-full bg-[#1a1a1a] border border-white/5 rounded-r-[24px] flex flex-col items-center justify-between py-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[60px] shadow-xl">
-                <div className="text-[12px] font-mono text-white/30">{steps[1].num}</div>
+
                 <div className="text-[13px] font-mono tracking-[0.2em] text-white/30 uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
                   {steps[1].title}
                 </div>
@@ -122,7 +119,7 @@ export default function Process() {
             {/* Tertiary Card (003) */}
             <FadeInUp delay={0.5} className="hidden lg:block absolute top-[12%] bottom-[12%] right-[0px] w-[140px] z-10 pointer-events-none">
               <div className="w-full h-full bg-[#141414] border border-white/5 rounded-r-[24px] flex flex-col items-center justify-between py-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[120px] shadow-xl">
-                <div className="text-[12px] font-mono text-white/20">{steps[2].num}</div>
+
                 <div className="text-[13px] font-mono tracking-[0.2em] text-white/20 uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
                   {steps[2].title}
                 </div>
@@ -133,7 +130,7 @@ export default function Process() {
             {/* Quaternary Card (004) */}
             <FadeInUp delay={0.6} className="hidden lg:block absolute top-[18%] bottom-[18%] right-[-80px] w-[140px] z-0 pointer-events-none">
               <div className="w-full h-full bg-[#0d0d0d] border border-white/5 rounded-r-[24px] flex flex-col items-center justify-between py-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[180px] shadow-xl">
-                <div className="text-[12px] font-mono text-white/20">{steps[3].num}</div>
+
                 <div className="text-[13px] font-mono tracking-[0.2em] text-white/20 uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
                   {steps[3].title}
                 </div>
@@ -147,8 +144,7 @@ export default function Process() {
           <div className="flex lg:hidden overflow-x-auto gap-4 mt-6 w-full pb-4 hide-scrollbar snap-x snap-mandatory pr-6">
             {steps.slice(1).map((step, idx) => (
                <div key={idx} className="min-w-[280px] snap-center bg-[#1a1a1a] border border-white/5 rounded-[16px] p-6 flex flex-col justify-between min-h-[160px]">
-                 <div className="flex justify-between items-center mb-4">
-                   <span className="text-[12px] font-mono text-white/30">{step.num}</span>
+                 <div className="flex justify-end items-center mb-4">
                    <div className="w-1 h-1 bg-white/20 rounded-full" />
                  </div>
                  <h4 className="text-[14px] text-white/60 font-medium">{step.title}</h4>
