@@ -1,7 +1,10 @@
 import React from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { FadeInUp, StaggerContainer, StaggerItem } from '../components/shared/Motion';
+import { FadeInUp, StaggerContainer, StaggerItem, ScrollWordReveal } from '../components/shared/Motion';
 import { company } from '../data/company';
+import heroImg from '../assets/hero.png';
+import aboutMission from '../assets/about_mission.jpg';
+import aboutPlatform from '../assets/about_platform.jpg';
 
 export default function CompanyDetail() {
   const { id } = useParams();
@@ -15,73 +18,179 @@ export default function CompanyDetail() {
   // Specifically rendering the About Us layout if the id is 'about'
   if (id === 'about') {
     return (
-      <div className="w-full bg-background pt-24 pb-32">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20">
-          <StaggerContainer>
-            
-            {/* Header */}
-            <FadeInUp as="h1" className="text-[48px] md:text-[64px] font-semibold tracking-tight text-text-primary mb-12">
-              About Us
-            </FadeInUp>
-            
-            <div className="flex flex-col lg:flex-row gap-16 items-start mb-32">
-              <FadeInUp delay={0.1} as="div" className="flex-1 text-[18px] md:text-[20px] text-text-secondary leading-relaxed space-y-6">
-                <p>
-                  At VoxiFlow AI, we believe customer communication shouldn't be managed through disconnected tools and isolated touchpoints. Every customer interaction—from the first enquiry to post-sales support, collections, and retention—should operate as one intelligent, connected ecosystem.
-                </p>
-                <p>
-                  That's why we built the Voxi CX Operating System—an AI-powered platform that unifies Voice AI, WhatsApp, Contact Center, Telephony, Workflow Automation, Quality Management, CRM Integration, and Customer Journey Orchestration into a single intelligent ecosystem.
-                </p>
-                <p>
-                  Our AI Voice Agents don't just automate calls—they understand context, remember conversations, adapt in real time, and communicate naturally like a human. Every interaction is personalized, every conversation is meaningful, and every customer journey is intelligently orchestrated.
-                </p>
-                <p className="font-semibold text-text-primary text-[24px] pt-4">Our mission is simple:</p>
-                <p className="text-[24px] text-text-primary leading-tight font-medium">
-                  To help businesses deliver exceptional customer experiences while improving operational efficiency, increasing conversions, and reducing communication costs.
-                </p>
-                <p>
-                  Whether it's sales, customer support, collections, appointment booking, or proactive customer engagement, Voxi enables enterprises to manage every customer conversation through one unified AI platform.
-                </p>
-                <p className="font-semibold text-text-primary">
-                  One Ecosystem. One Platform. Every Customer Conversation.
-                </p>
-                <p>
-                  Start your pilot today and experience the future of customer engagement.
-                </p>
-              </FadeInUp>
+      <div className="w-full min-h-screen bg-background">
+        {/* Cinematic Header */}
+        <div className="w-full flex justify-center p-3 lg:p-[12px]">
+          <section className="relative w-full max-w-[1600px] min-h-[50vh] lg:min-h-[400px] rounded-[24px] overflow-hidden bg-[#0c0c0c] shadow-sm isolate flex flex-col justify-end pb-16 lg:pb-20 px-6 lg:px-[58px]">
+            {/* Background elements */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none z-0 bg-[#0c0c0c]">
+              <img src={heroImg} alt="Hero Backdrop" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen" />
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-10" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#4d7aff]/20 blur-[120px] rounded-full mix-blend-screen" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/60 to-transparent" />
             </div>
 
-            {/* Founding Team */}
-            <FadeInUp delay={0.2} className="mb-32">
-              <div className="flex items-center gap-4 mb-12">
-                 <div className="w-10 h-6 rounded-full border border-border flex items-center justify-center bg-surface shrink-0" />
-                 <div className="h-px bg-border flex-1 max-w-[120px]" />
-                 <span className="text-[12px] font-mono tracking-[0.15em] text-text-secondary uppercase">
-                   Founding Team
-                 </span>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {[
-                  { name: "Manish Joshi", title: "CEO" },
-                  { name: "Rakesh Kanugula", title: "COO" },
-                  { name: "Abhinash Khare", title: "CTO" }
-                ].map((founder, idx) => (
-                  <div key={idx} className="bg-surface border border-border rounded-[24px] p-8 flex flex-col items-center text-center">
-                    <div className="w-24 h-24 rounded-full bg-border mb-6 flex items-center justify-center">
-                      <span className="text-[24px] font-medium text-text-secondary">{founder.name.charAt(0)}</span>
-                    </div>
-                    <h3 className="text-[20px] font-semibold text-text-primary tracking-tight mb-1">{founder.name}</h3>
-                    <p className="text-[14px] font-mono text-text-secondary tracking-widest uppercase">{founder.title}</p>
-                  </div>
-                ))}
-              </div>
-            </FadeInUp>
+            <div className="relative z-20 max-w-[900px] mt-32">
+              <span className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase mb-6 block">
+                About Us
+              </span>
+              <h1 className="text-[clamp(40px,8vw,64px)] font-medium tracking-[-0.04em] leading-[1.05] text-white">
+                One Ecosystem. <span className="text-white/40">One Platform. Every Customer Conversation.</span>
+              </h1>
+            </div>
+          </section>
+        </div>
 
-            {/* Why Voxi */}
-            <FadeInUp delay={0.3} className="bg-[#111] text-white rounded-[32px] p-8 md:p-16 lg:p-20 overflow-hidden relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-black to-[#1a1a1a] z-0" />
-              <div className="relative z-10">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 pt-20 pb-32">
+          <StaggerContainer>
+            
+            {/* Bento-style Mission / About Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-4 mb-24">
+              
+              {/* Card 1: Vision Text */}
+              <FadeInUp className="bg-[#1a1a1a] rounded-[24px] p-8 md:p-12 flex flex-col justify-between overflow-hidden relative">
+                <div className="absolute inset-0 z-0">
+                  <img src={aboutMission} alt="Mission Vision" className="w-full h-full object-cover opacity-[0.15] mix-blend-screen" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a] to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/60 to-transparent" />
+                </div>
+                <div className="relative z-10 mb-12">
+                  <div className="w-12 h-12 border border-white/10 rounded-xl bg-white/5 backdrop-blur-md flex items-center justify-center mb-8">
+                    <span className="text-white font-serif italic text-xl">V</span>
+                  </div>
+                  <ScrollWordReveal 
+                    as="h3"
+                    className="text-[26px] md:text-[34px] text-white font-medium tracking-tight leading-[1.2] mb-6 max-w-[600px]"
+                    text="Our mission is simple: to help businesses deliver exceptional customer experiences while improving operational efficiency, increasing conversions, and reducing communication costs."
+                  />
+                </div>
+                <div className="relative z-10 space-y-4 text-[16px] text-white/60 leading-relaxed max-w-[600px]">
+                  <p>
+                    At VoxiFlow AI, we believe customer communication shouldn't be managed through disconnected tools. Every interaction—from the first enquiry to post-sales support—should operate as one intelligent, connected ecosystem.
+                  </p>
+                </div>
+              </FadeInUp>
+
+              {/* Card 2 & 3 Column */}
+              <div className="flex flex-col gap-4">
+                <FadeInUp delay={0.1} className="bg-[#F7F7F7] rounded-[24px] p-8 md:p-10 flex-1 border border-black/[0.04] flex flex-col justify-center relative overflow-hidden group">
+                   <div className="absolute right-[-40px] bottom-[-40px] w-48 h-48 opacity-10 mix-blend-multiply group-hover:scale-110 transition-transform duration-700">
+                     <img src={aboutPlatform} alt="Platform Core" className="w-full h-full object-cover rounded-full blur-[2px]" />
+                   </div>
+                   <h4 className="text-[22px] font-semibold text-[#111] mb-4 tracking-tight relative z-10">The Voxi CX OS</h4>
+                   <p className="text-[16px] text-black/60 leading-relaxed">
+                     An AI-powered platform that unifies Voice AI, WhatsApp, Contact Center, Telephony, Workflow Automation, Quality Management, CRM Integration, and Customer Journey Orchestration into a single intelligent ecosystem.
+                   </p>
+                </FadeInUp>
+                <FadeInUp delay={0.2} className="bg-[#EBEBEB] rounded-[24px] p-8 md:p-10 flex-1 border border-black/[0.04] flex flex-col justify-center relative overflow-hidden group">
+                   <div className="absolute right-[-20px] bottom-[-20px] w-40 h-40 bg-white/50 blur-[40px] rounded-full group-hover:bg-white/80 transition-colors duration-700" />
+                   <h4 className="text-[22px] font-semibold text-[#111] mb-4 tracking-tight relative z-10">Intelligent Agents</h4>
+                   <p className="text-[16px] text-black/60 leading-relaxed relative z-10">
+                     Our AI Voice Agents don't just automate calls—they understand context, remember conversations, adapt in real time, and communicate naturally like a human. Every interaction is personalized.
+                   </p>
+                </FadeInUp>
+              </div>
+            </div>
+          </StaggerContainer>
+        </div>
+
+        {/* Full-width Dark Team Section */}
+        <div className="w-full bg-[#141414] py-24">
+          <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20">
+            <StaggerContainer>
+              <FadeInUp delay={0.1} className="w-full overflow-hidden">
+                
+                {/* Header Grid */}
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-16 lg:mb-20">
+                <h2 className="text-[clamp(32px,5vw,60px)] font-medium tracking-tight text-white leading-[1.05] max-w-[850px]">
+                  We are a collective of engineers, designers, and researchers dedicated to the frontier of AI.
+                </h2>
+                
+                <div className="flex flex-col items-start gap-6 max-w-[320px]">
+                  <p className="text-[14px] lg:text-[15px] text-white/60 leading-relaxed text-left">
+                    Bridging the gap between academic research and commercial deployment with precision engineering.
+                  </p>
+                  <button className="flex items-center gap-3 bg-[#1e1e1e] hover:bg-[#2a2a2a] transition-colors rounded-[14px] px-5 py-3 border border-white/5 cursor-pointer">
+                    <div className="flex space-x-[-2px]">
+                      <span className="text-white text-[10px]">&gt;</span>
+                      <span className="text-white text-[10px]">&gt;</span>
+                    </div>
+                    <span className="text-[14px] text-white/90 font-medium ml-2">Our Story</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Cards Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                {/* Person 1 */}
+                <div className="flex flex-col group cursor-pointer">
+                  <div className="w-full aspect-[4/5] rounded-[24px] bg-[#F7C948] mb-4 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
+                    <div className="absolute top-5 right-5 w-8 h-4 rounded-full border-[1.5px] border-white/40" />
+                    <span className="text-black/30 font-medium text-sm">Image Placeholder</span>
+                  </div>
+                  <h4 className="text-[12px] font-bold text-white tracking-[0.1em] uppercase mb-1">Sarah Jenkins</h4>
+                  <p className="text-[12px] text-white/40 font-mono tracking-tight">Head of Machine Learning</p>
+                </div>
+
+                {/* Person 2 */}
+                <div className="flex flex-col group cursor-pointer">
+                  <div className="w-full aspect-[4/5] rounded-[24px] bg-[#0E9F98] mb-4 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
+                    <div className="absolute top-5 right-5 w-8 h-4 rounded-full border-[1.5px] border-white/40" />
+                    <span className="text-black/30 font-medium text-sm">Image Placeholder</span>
+                  </div>
+                  <h4 className="text-[12px] font-bold text-white tracking-[0.1em] uppercase mb-1">Marcus Cheng</h4>
+                  <p className="text-[12px] text-white/40 font-mono tracking-tight">Principal Design Director</p>
+                </div>
+
+                {/* Person 3 */}
+                <div className="flex flex-col group cursor-pointer">
+                  <div className="w-full aspect-[4/5] rounded-[24px] bg-[#3B82F6] mb-4 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
+                    <div className="absolute top-5 right-5 w-8 h-4 rounded-full border-[1.5px] border-white/40" />
+                    <span className="text-black/30 font-medium text-sm">Image Placeholder</span>
+                  </div>
+                  <h4 className="text-[12px] font-bold text-white tracking-[0.1em] uppercase mb-1">Elena Vance</h4>
+                  <p className="text-[12px] text-white/40 font-mono tracking-tight">Lead Cognitive Scientist</p>
+                </div>
+
+                {/* Person 4 (Text Card) */}
+                <div className="w-full aspect-[4/5] rounded-[24px] bg-gradient-to-b from-[#f9f9f9] to-[#eaeaea] p-8 flex flex-col relative transition-transform duration-500 hover:scale-[1.02] cursor-pointer">
+                  <div className="flex justify-between items-start mb-8">
+                    <div className="flex gap-1.5">
+                      <div className="w-7 h-7 rounded-full bg-[#111] flex items-center justify-center">
+                         <span className="text-white text-[10px] font-bold">X</span>
+                      </div>
+                      <div className="w-7 h-7 rounded-full bg-[#111] flex items-center justify-center">
+                         <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                      </div>
+                    </div>
+                    <div className="w-7 h-4 rounded-full border-[1.5px] border-black" />
+                  </div>
+                  
+                  <p className="text-[14px] lg:text-[15px] text-black/80 leading-relaxed font-medium pr-2">
+                    Latency is the enemy of adoption. I architect the backbone of our solutions to ensure that even the most complex RAG systems deliver sub-second responses, maintaining 99.9% uptime across distributed global compute clusters.
+                  </p>
+                  
+                  <div className="mt-auto">
+                    <h4 className="text-[11px] font-bold text-[#111] tracking-[0.1em] uppercase mb-1">David Ross</h4>
+                    <p className="text-[11px] text-black/50 font-mono tracking-tight">Infrastructure Architect</p>
+                  </div>
+                </div>
+              </div>
+              </FadeInUp>
+            </StaggerContainer>
+          </div>
+        </div>
+
+        {/* Why Voxi - Full Width */}
+        <div className="w-full bg-[#111] pt-24 pb-32 relative overflow-hidden">
+          {/* Background elements */}
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-5 z-0" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4d7aff]/10 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
+
+          <div className="w-full max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 relative z-10">
+            <StaggerContainer>
+              <FadeInUp delay={0.2} className="text-white">
                 <div className="flex items-center gap-4 mb-12">
                    <div className="w-10 h-6 rounded-full border border-white/20 flex items-center justify-center bg-transparent shrink-0" />
                    <div className="h-px bg-white/10 flex-1 max-w-[120px]" />
@@ -90,23 +199,27 @@ export default function CompanyDetail() {
                    </span>
                 </div>
 
-                <h2 className="text-[36px] md:text-[54px] font-medium tracking-tight text-white leading-[1.1] mb-16 max-w-[800px]">
-                  One Ecosystem. One Platform. Unlimited Possibilities.
-                </h2>
+                <ScrollWordReveal 
+                  as="h2"
+                  className="text-[clamp(32px,5vw,54px)] font-medium tracking-tight text-white leading-[1.1] mb-16 max-w-[800px]"
+                  text="One Ecosystem. One Platform. Unlimited Possibilities."
+                />
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                  <div className="space-y-6 text-[16px] md:text-[18px] text-white/70 leading-relaxed">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+                  <div className="space-y-6 text-[16px] md:text-[18px] text-white/60 leading-relaxed">
                     <p>
                       Everything you need to build, deploy, and scale enterprise AI—from Voice AI and WhatsApp Automation to Workflow Orchestration, CRM Integrations, Analytics, and AI Intelligence. No complex pricing tiers. No hidden add-ons. Just one intelligent platform delivering measurable business outcomes.
                     </p>
-                    <p className="text-[20px] md:text-[24px] font-medium text-white leading-snug pt-4">
-                      Technology Alone Doesn't Deliver Success. Implementation Does.
-                    </p>
-                    <p>
-                      At Voxi, we believe that the success of an AI solution is not determined by the technology itself, but by how effectively it is implemented, adopted, and optimized within the customer's business.
-                    </p>
+                    <div className="pt-4">
+                      <p className="text-[20px] md:text-[24px] font-medium text-white leading-snug mb-3">
+                        Technology Alone Doesn't Deliver Success. Implementation Does.
+                      </p>
+                      <p>
+                        At Voxi, we believe that the success of an AI solution is not determined by the technology itself, but by how effectively it is implemented, adopted, and optimized within the customer's business.
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-6 text-[16px] md:text-[18px] text-white/70 leading-relaxed">
+                  <div className="space-y-6 text-[16px] md:text-[18px] text-white/60 leading-relaxed">
                     <p>
                       That's why we've built a structured Enterprise Implementation & Success Framework that ensures every deployment delivers measurable business outcomes—not just a successful go-live.
                     </p>
@@ -116,15 +229,16 @@ export default function CompanyDetail() {
                     <p>
                       Our Customer Success and Implementation teams work closely with customers through every stage—from discovery and solution design to deployment, user adoption, optimization, and continuous performance improvement.
                     </p>
-                    <p className="font-semibold text-white">
-                      We measure success not by delivering a platform, but by delivering real business impact over the first 90 days and beyond.
-                    </p>
+                    <div className="p-6 rounded-[20px] bg-white/5 border border-white/10 mt-6 backdrop-blur-sm">
+                      <p className="font-medium text-white text-[18px]">
+                        We measure success not by delivering a platform, but by delivering real business impact over the first 90 days and beyond.
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </FadeInUp>
-            
-          </StaggerContainer>
+              </FadeInUp>
+            </StaggerContainer>
+          </div>
         </div>
       </div>
     );
@@ -182,9 +296,11 @@ export default function CompanyDetail() {
                 <span className="text-[12px] font-mono tracking-[0.15em] text-white/50 uppercase block mb-8">
                   The Voxi Promise
                 </span>
-                <h2 className="text-[32px] md:text-[48px] font-medium tracking-tight text-white leading-[1.2]">
-                  At Voxi, you're not joining a company—you're joining a mission to build world-class AI while living a healthier, happier, and more meaningful life.
-                </h2>
+                <ScrollWordReveal 
+                  as="h2"
+                  className="text-[32px] md:text-[48px] font-medium tracking-tight text-white leading-[1.2]"
+                  text="At Voxi, you're not joining a company—you're joining a mission to build world-class AI while living a healthier, happier, and more meaningful life."
+                />
               </div>
             </FadeInUp>
           </StaggerContainer>
