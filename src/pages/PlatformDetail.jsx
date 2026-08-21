@@ -3,7 +3,7 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { platforms } from '../data/platform';
-import CapabilityRow from '../components/shared/CapabilityRow';
+import CapabilityPills from '../components/shared/CapabilityPills';
 
 export default function PlatformDetail() {
   const { id } = useParams();
@@ -67,24 +67,22 @@ export default function PlatformDetail() {
       {/* Capabilities List */}
       <section className="w-full py-24 md:py-32">
         <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20">
-          <div className="flex flex-col md:flex-row gap-16 md:gap-24">
+          <div className="flex flex-col gap-16">
             
-            {/* Sticky Sidebar */}
-            <div className="md:w-[320px] shrink-0">
-              <div className="sticky top-32">
-                <span className="text-eyebrow block mb-4">Core Features</span>
-                <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight text-text-primary mb-6">
-                  Platform Capabilities
-                </h2>
-                <p className="text-[15px] text-text-secondary leading-relaxed">
-                  Discover how {platform.shortName} enables you to automate, orchestrate, and optimize your business processes.
-                </p>
-              </div>
+            {/* Header */}
+            <div>
+              <span className="text-eyebrow block mb-4">Core Features</span>
+              <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight text-text-primary mb-6">
+                Platform Capabilities
+              </h2>
+              <p className="text-[15px] text-text-secondary leading-relaxed max-w-[600px]">
+                Discover how {platform.shortName} enables you to automate, orchestrate, and optimize your business processes.
+              </p>
             </div>
 
-            {/* Accordion List */}
-            <div className="flex-1 w-full">
-              <CapabilityRow capabilities={platform.capabilities} />
+            {/* Pills Display */}
+            <div className="w-full">
+              <CapabilityPills capabilities={platform.capabilities} />
             </div>
             
           </div>

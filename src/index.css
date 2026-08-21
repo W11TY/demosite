@@ -49,3 +49,23 @@
     transform: translateX(-50%);
   }
 }
+
+@keyframes blue-wave {
+  0%, 100% {
+    box-shadow: 0 0 0px rgba(59, 130, 246, 0);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  20% {
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.5), inset 0 0 8px rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.8);
+    background-color: rgba(59, 130, 246, 0.02);
+  }
+  40% {
+    box-shadow: 0 0 0px rgba(59, 130, 246, 0);
+    border-color: rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+  }
+}
+.animate-blue-wave {
+  animation: blue-wave 4s infinite ease-in-out;
+}
