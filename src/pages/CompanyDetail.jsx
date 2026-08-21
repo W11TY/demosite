@@ -1,10 +1,216 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { FadeInUp, StaggerContainer, StaggerItem, ScrollWordReveal } from '../components/shared/Motion';
 import { company } from '../data/company';
 import heroImg from '../assets/hero.png';
 import aboutMission from '../assets/about_mission.jpg';
 import aboutPlatform from '../assets/about_platform.jpg';
+import patternImg from '../assets/pattern.png';
+
+// ─── Culture Manifesto: data ───────────────────────────────────────────────────
+const THEMES = [
+  {
+    id: 0,
+    label: 'Work',
+    full: 'How We Work',
+    principles: [
+      { title: 'Customer Success Begins After the Sale', desc: "We don't celebrate signed contracts — we celebrate customers achieving measurable business outcomes." },
+      { title: 'We Measure Impact, Not Attendance', desc: 'We believe great work is measured by impact, not by the number of hours you spend working.' },
+      { title: 'Trust is Given, Ownership is Expected', desc: 'We trust every team member to make the right decisions and take complete ownership of their work.' },
+      { title: 'Think Like a Founder', desc: "Don't wait for permission. If you see an opportunity to improve something, own it and make it happen." },
+    ],
+  },
+  {
+    id: 1,
+    label: 'Grow',
+    full: 'How We Grow',
+    principles: [
+      { title: 'Never Stop Learning', desc: 'Every team member receives a dedicated monthly learning budget for books, empowering them to continuously learn, grow, and innovate.' },
+      { title: 'Rewards That Improve Your Life', desc: "We don't reward you with gadgets — we reward you with books, plants, family experiences, wellness activities, and opportunities to grow." },
+      { title: 'Building Wealth Together', desc: 'We sponsor a monthly SIP contribution for our employees because financial well-being is just as important as professional growth.' },
+    ],
+  },
+  {
+    id: 2,
+    label: 'Connect',
+    full: 'How We Connect',
+    principles: [
+      { title: 'Sports Build Better Teams', desc: 'Every month we play together because stronger teams are built through shared experiences, not just shared projects.' },
+      { title: 'Stay Close to Nature', desc: 'Every quarter, we organize a team mountain retreat to recharge, reconnect, and rediscover the creativity that nature inspires.' },
+      { title: 'Work From Hometown', desc: "Every six months, we take Voxi to one teammate's hometown to experience their culture, meet their family, and strengthen our bonds as one team." },
+    ],
+  },
+  {
+    id: 3,
+    label: 'Live',
+    full: 'How We Live',
+    principles: [
+      { title: 'Family Before Everything', desc: "We believe success is truly meaningful only when it's shared with loved ones. That's why every employee receives one dedicated Family Leave and a monthly Voxi-sponsored Family Dinner." },
+      { title: 'Health is Our Greatest Investment', desc: 'We provide health insurance for every employee and their immediate family because peace of mind creates better work.' },
+      { title: 'Build a Healthy Lifestyle', desc: "Complete 10,000 steps for at least 15 days in a month and we'll reward your commitment to a healthier life." },
+      { title: 'Less Mobile. More Life.', desc: 'Employees who achieve the monthly mobile screen-time goals will be recognized and rewarded for promoting a healthier and more balanced digital lifestyle.' },
+      { title: 'Start with Wellness', desc: 'Every workday begins with a 15-minute team yoga and mindfulness session because great work starts with a healthy mind and body.' },
+    ],
+  },
+];
+
+// ─── Culture Page ─────────────────────────────────────────────────────────────
+const CulturePage = () => {
+  const [active, setActive] = useState(0);
+  const theme = THEMES[active];
+
+  const handleTabChange = (id) => {
+    setActive(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <div className="w-full bg-background">
+      {/* Header */}
+      <div className="w-full px-6 md:px-16 lg:px-20 pt-28 md:pt-36 pb-16">
+        <div className="max-w-[1280px] mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-center gap-3 mb-5"
+          >
+            <motion.div
+              className="h-px bg-[#4d7aff]"
+              initial={{ width: 0 }}
+              animate={{ width: 16 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            />
+            <span className="font-mono text-[11px] tracking-[0.18em] text-[#4d7aff] uppercase">Culture Manifesto · Voxi</span>
+          </motion.div>
+
+          <div className="overflow-hidden mb-5">
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+              className="text-[clamp(32px,5vw,64px)] font-medium tracking-tight text-text-primary leading-[1.05]"
+            >
+              The Voxi Culture Manifesto.
+            </motion.h1>
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[15px] md:text-[17px] text-text-secondary max-w-[560px] leading-relaxed"
+          >
+            Life at Voxi is built on purpose, trust, and well-being — 4 themes, 15 principles.
+          </motion.p>
+        </div>
+      </div>
+
+      {/* Tab bar — sticky */}
+      <div className="sticky top-[72px] z-30 w-full bg-background/90 backdrop-blur-md border-b border-black/[0.04] px-6 md:px-16 lg:px-20 py-4">
+        <div className="max-w-[1280px] mx-auto flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-1 bg-black/[0.04] border border-black/[0.06] rounded-full p-1 overflow-x-auto whitespace-nowrap scrollbar-hide max-w-full"
+          >
+            {THEMES.map((t) => (
+              <motion.button
+                key={t.id}
+                onClick={() => handleTabChange(t.id)}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                className="relative px-6 py-2.5 rounded-full text-[13px] font-medium cursor-pointer shrink-0"
+                style={{ color: active === t.id ? '#fff' : 'rgba(0,0,0,0.45)' }}
+              >
+                {active === t.id && (
+                  <motion.span
+                    layoutId="tab-pill"
+                    className="absolute inset-0 rounded-full bg-[#111]"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{t.label}</span>
+              </motion.button>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Content List */}
+      <div className="w-full px-6 md:px-16 lg:px-20 py-16 min-h-[60vh]">
+        <div className="max-w-[1280px] mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="flex items-center gap-4 mb-12">
+                <span className="font-mono text-[11px] tracking-[0.18em] text-black/30 uppercase">{theme.full}</span>
+                <div className="h-px bg-black/[0.08] flex-1 max-w-[200px]" />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {theme.principles.map((p, idx) => (
+                  <motion.div
+                    key={`${active}-${idx}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    className={`relative overflow-hidden bg-white border border-black/[0.06] rounded-[24px] p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${idx === 0 ? 'md:col-span-2 lg:col-span-3 md:p-10' : ''} flex flex-col group`}
+                  >
+                    <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.2] group-hover:opacity-[0.3] transition-opacity duration-500">
+                      <img src={patternImg} alt="" className="w-full h-full object-cover" />
+                    </div>
+                    
+                    <div className="relative z-10 flex flex-col h-full">
+                      <span className="font-mono text-[10px] text-[#4d7aff]/50 mb-5 block">
+                        {String(idx + 1).padStart(2, '0')} of {theme.principles.length}
+                      </span>
+                      <h3 className={`font-semibold text-text-primary tracking-tight leading-snug mb-3 ${idx === 0 ? 'text-[22px] md:text-[26px]' : 'text-[18px]'}`}>
+                        {p.title}
+                      </h3>
+                      <p className={`text-text-secondary leading-relaxed mt-auto ${idx === 0 ? 'text-[15px] md:text-[16px] max-w-[800px]' : 'text-[14px]'}`}>
+                        {p.desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* The Voxi Promise */}
+      <div className="w-full bg-[#111] py-24 md:py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-5 z-0" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4d7aff]/10 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
+        
+        <div className="max-w-[1000px] mx-auto px-6 md:px-16 lg:px-20 text-center relative z-10">
+          <StaggerContainer>
+            <FadeInUp className="inline-flex items-center gap-3 mb-8">
+              <div className="h-px bg-white/20 w-8" />
+              <span className="font-mono text-[11px] tracking-[0.18em] text-white/50 uppercase">The Voxi Promise</span>
+              <div className="h-px bg-white/20 w-8" />
+            </FadeInUp>
+            <FadeInUp delay={0.1}>
+              <h2 className="text-[clamp(28px,4vw,48px)] font-medium tracking-tight text-white leading-[1.2] mb-8">
+                At Voxi, you're not joining a company — you're joining a mission to build world-class AI while living a healthier, happier, and more meaningful life.
+              </h2>
+            </FadeInUp>
+          </StaggerContainer>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function CompanyDetail() {
   const { id } = useParams();
@@ -246,67 +452,7 @@ export default function CompanyDetail() {
 
   // Render the Culture Manifesto layout if the id is 'culture'
   if (id === 'culture') {
-    const culturePoints = [
-      { title: "Customer Success Begins After the Sale", desc: "We don't celebrate signed contracts—we celebrate customers achieving measurable business outcomes." },
-      { title: "We Measure Impact, Not Attendance", desc: "We believe great work is measured by impact, not by the number of hours you spend working." },
-      { title: "Trust is Given, Ownership is Expected", desc: "We trust every team member to make the right decisions and take complete ownership of their work." },
-      { title: "Think Like a Founder", desc: "Don't wait for permission. If you see an opportunity to improve something, own it and make it happen." },
-      { title: "Family Before Everything", desc: "We believe success is truly meaningful only when it's shared with loved ones. That's why every employee receives one dedicated Family Leave and a monthly Voxi-sponsored Family Dinner to celebrate life beyond work." },
-      { title: "Health is Our Greatest Investment", desc: "We provide health insurance for every employee and their immediate family because peace of mind creates better work." },
-      { title: "Build a Healthy Lifestyle", desc: "Complete 10,000 steps for at least 15 days in a month and we'll reward your commitment to a healthier life." },
-      { title: "Building Wealth Together", desc: "We sponsor a monthly SIP contribution for our employees because financial well-being is just as important as professional growth." },
-      { title: "Less Mobile. More Life.", desc: "Employees who achieve the monthly mobile screen-time goals will be recognized and rewarded for promoting a healthier and more balanced digital lifestyle." },
-      { title: "Rewards That Improve Your Life", desc: "We don't reward you with gadgets—we reward you with books, plants, family experiences, wellness activities, and opportunities to grow." },
-      { title: "Never Stop Learning", desc: "Every team member receives a dedicated monthly learning budget for books, empowering them to continuously learn, grow, and innovate." },
-      { title: "Stay Close to Nature.", desc: "Every quarter, we organize a team mountain retreat to recharge, reconnect, and rediscover the creativity that nature inspires." },
-      { title: "Sports Build Better Teams", desc: "Every month we play together because stronger teams are built through shared experiences, not just shared projects." },
-      { title: "Work From Hometown", desc: "Every six months, we take Voxi to one teammate's hometown to experience their culture, meet their family, and strengthen our bonds as one team." },
-      { title: "Start with Wellness.", desc: "Every workday begins with a 15-minute team yoga and mindfulness session because great work starts with a healthy mind and body." }
-    ];
-
-    return (
-      <div className="w-full bg-background pt-24 pb-32">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20">
-          <StaggerContainer>
-            {/* Header */}
-            <FadeInUp as="h1" className="text-[48px] md:text-[64px] font-semibold tracking-tight text-text-primary mb-6">
-              The Voxi Culture Manifesto
-            </FadeInUp>
-            <FadeInUp delay={0.1} as="p" className="text-[20px] md:text-[24px] text-text-secondary leading-relaxed max-w-[800px] mb-24">
-              Life at Voxi is built on purpose, trust, and well-being. Here is what we stand for.
-            </FadeInUp>
-
-            {/* Culture Points Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32">
-              {culturePoints.map((point, idx) => (
-                <StaggerItem key={idx} className="bg-surface border border-border rounded-[24px] p-8 flex flex-col h-full hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-shadow">
-                  <div className="w-10 h-10 rounded-full bg-[#f1f1f1] text-text-primary flex items-center justify-center font-semibold text-[15px] mb-6">
-                    {idx + 1}
-                  </div>
-                  <h3 className="text-[20px] font-semibold text-text-primary tracking-tight mb-3">{point.title}</h3>
-                  <p className="text-[15px] text-text-secondary leading-relaxed flex-1">{point.desc}</p>
-                </StaggerItem>
-              ))}
-            </div>
-
-            {/* The Voxi Promise */}
-            <FadeInUp delay={0.2} className="bg-[#111] text-white rounded-[32px] p-8 md:p-16 lg:p-20 overflow-hidden relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-black to-[#1a1a1a] z-0" />
-              <div className="relative z-10 text-center max-w-[1000px] mx-auto">
-                <span className="text-[12px] font-mono tracking-[0.15em] text-white/50 uppercase block mb-8">
-                  The Voxi Promise
-                </span>
-                <ScrollWordReveal 
-                  as="h2"
-                  className="text-[32px] md:text-[48px] font-medium tracking-tight text-white leading-[1.2]"
-                  text="At Voxi, you're not joining a company—you're joining a mission to build world-class AI while living a healthier, happier, and more meaningful life."
-                />
-              </div>
-            </FadeInUp>
-          </StaggerContainer>
-        </div>
-      </div>
-    );
+    return <CulturePage />;
   }
 
   // Fallback layout for other company pages

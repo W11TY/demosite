@@ -46,23 +46,23 @@ export default function Nav() {
   }, [pathname]);
 
   const navItems = [
-    { name: 'PLATFORM', href: '/platform', dropdown: platforms },
-    { name: 'SOLUTIONS', href: '/solutions', dropdown: solutions },
+    { name: 'Platform', href: '/platform', dropdown: platforms },
+    { name: 'Solutions', href: '/solutions', dropdown: solutions },
     { name: 'VOXI RESEARCH', href: '/research', dropdown: research },
-    { name: 'COMPANY', href: '/company', dropdown: company },
+    { name: 'Company', href: '/company', dropdown: company },
   ];
 
   return (
     <>
     <motion.header 
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: easing }}
-      className="fixed top-[16px] lg:top-[20px] left-[16px] lg:left-[23px] right-[16px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white/90 backdrop-blur-md rounded-full px-5 lg:px-7 py-2 lg:w-[648px] h-[54px] shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/5"
+      transition={{ duration: 0.5, ease: easing }}
+      className="fixed top-[28px] lg:top-[32px] left-[28px] lg:left-[35px] right-[28px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white rounded-full px-5 lg:px-7 py-2 lg:w-[648px] h-[48px] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
     >
       {/* Logo */}
       <Link to="/" className="flex items-center">
-        <img src={logo} alt="Voxi Logo" className="h-[31px] lg:h-[38px] w-auto object-contain" />
+        <img src={logo} alt="Voxi Logo" className="h-[26px] lg:h-[32px] w-auto object-contain" />
       </Link>
 
       {/* Desktop Links */}
@@ -70,7 +70,7 @@ export default function Nav() {
         {navItems.map((item) => (
           <div 
             key={item.name} 
-            className="flex items-center relative h-[54px]"
+            className="flex items-center relative h-[48px]"
             onMouseEnter={() => setActiveDropdown(item.name)}
             onMouseLeave={() => setActiveDropdown(null)}
           >
@@ -84,7 +84,7 @@ export default function Nav() {
             {/* Mega Menu Dropdown */}
             <AnimatePresence>
               {activeDropdown === item.name && item.dropdown && (
-                <MegaMenu item={item} topPosition="64px" />
+                <MegaMenu item={item} topPosition="56px" />
               )}
             </AnimatePresence>
           </div>
@@ -111,10 +111,10 @@ export default function Nav() {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1, ease: easing }}
-      className="hidden lg:flex fixed top-[20px] right-[23px] z-50"
+      className="hidden lg:flex fixed top-[32px] right-[35px] z-50"
     >
       <Link to="/contact">
-        <AntiMetalButton label="Book Demo" />
+        <AntiMetalButton label="Hire Team" />
       </Link>
     </motion.div>
     </>

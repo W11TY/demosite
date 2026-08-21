@@ -9,11 +9,7 @@ export const company = [
     title: 'Culture Manifesto',
     description: 'Discover the core values and principles that drive our team to innovate and build the future.'
   },
-  {
-    id: 'careers',
-    title: 'Careers',
-    description: 'Join a team of forward-thinkers shaping the future of AI and customer orchestration.'
-  },
+
   {
     id: 'contact',
     title: 'Contact Us',

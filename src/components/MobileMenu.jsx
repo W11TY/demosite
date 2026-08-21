@@ -41,7 +41,7 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
             {/* Header */}
             <div className="flex justify-between items-center mb-12">
               <Link to="/" onClick={() => setIsOpen(false)} className="pl-2">
-                <img src={logo} alt="Voxi Logo" className="h-7 w-auto object-contain" />
+                <img src={logo} alt="Voxi Logo" className="h-[34px] w-auto object-contain" />
               </Link>
               <button 
                 onClick={() => setIsOpen(false)}
