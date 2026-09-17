@@ -1,6 +1,14 @@
 import React from 'react';
 import { TrendingUp, Rocket, Quote, User } from 'lucide-react';
 import { FadeInUp, StaggerContainer, ScrollWordReveal } from './shared/Motion';
+const bentoImages = import.meta.glob('../assets/bento/*.{png,jpg,jpeg,webp,svg,avif}', { eager: true });
+const images = {
+  card1: bentoImages['../assets/bento/tall.png']?.default,
+  card2a: bentoImages['../assets/bento/card2a.png']?.default,
+  card2b: bentoImages['../assets/bento/card2b.png']?.default,
+  card3: bentoImages['../assets/bento/card3.png']?.default,
+  card4: bentoImages['../assets/bento/card4.png']?.default,
+};
 
 export default function BentoSection() {
   return (
@@ -24,24 +32,32 @@ export default function BentoSection() {
           
           {/* Card 1: $45M */}
           <FadeInUp 
-            className="bg-[#1a1a1a] rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px]"
+            className="rounded-[24px] flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px] relative overflow-hidden"
+            style={{
+              backgroundImage: images.card1 ? `url(${images.card1})` : undefined,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           >
-            <div className="w-12 h-12 bg-white rounded-[12px] flex items-center justify-center mb-8">
-              <TrendingUp size={24} className="text-black" />
+            {/* Dark overlay for text legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-[24px]" />
+
+            <div className="relative z-10 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-[12px] flex items-center justify-center m-8">
+              <TrendingUp size={24} className="text-white" />
             </div>
             
-            <div className="mt-auto">
+            <div className="relative z-10 mt-auto p-8">
               <div className="text-[48px] md:text-[64px] text-white font-medium tracking-tight leading-none mb-4">
                 $45M
               </div>
-              <p className="text-[14px] text-white/60 leading-relaxed max-w-[90%]">
+              <p className="text-[14px] text-white/70 leading-relaxed max-w-[90%]">
                 Revenue generated for our clients through AI-led optimizations.
               </p>
             </div>
           </FadeInUp>
 
           {/* Column 2: Stacked Cards */}
-          <div className="flex flex-col gap-[12px] h-[450px]">
+          <div className="flex flex-col gap-[12px] h-[450px]" style={{ backgroundImage: images.card2a ? `url(${images.card2a})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             {/* Card 2a: Agents */}
             <FadeInUp 
               delay={0.1}
@@ -68,7 +84,7 @@ export default function BentoSection() {
             {/* Card 2b: 5x */}
             <FadeInUp 
               delay={0.2}
-              className="bg-[#EBEBEB] rounded-[24px] p-6 flex items-end gap-4 h-[120px] shrink-0"
+              className="bg-[#EBEBEB] rounded-[24px] p-6 flex items-end gap-4 h-[120px] shrink-0" style={{ backgroundImage: images.card2b ? `url(${images.card2b})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="text-[40px] md:text-[48px] font-medium tracking-tight leading-none text-text-primary">
                 5x
@@ -82,7 +98,7 @@ export default function BentoSection() {
           {/* Card 3: Rocket */}
           <FadeInUp 
             delay={0.3}
-            className="bg-[#EBEBEB] rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px]"
+            className="bg-[#EBEBEB] rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px]" style={{ backgroundImage: images.card3 ? `url(${images.card3})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="flex-1 flex items-center justify-center w-full relative">
               {/* Sunburst Lines */}
@@ -114,7 +130,7 @@ export default function BentoSection() {
           {/* Card 4: Testimonial */}
           <FadeInUp 
             delay={0.4}
-            className="bg-white rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px] shadow-sm"
+            className="bg-white rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px] shadow-sm" style={{ backgroundImage: images.card4 ? `url(${images.card4})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="flex items-start justify-between mb-8">
               <Quote size={28} className="text-text-primary" fill="currentColor" />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FadeInUp } from './shared/Motion';
 
 const steps = [
@@ -25,20 +25,22 @@ const steps = [
 ];
 
 export default function Process() {
+  const [activeStep, setActiveStep] = useState(0);
+
   return (
     <section className="w-full bg-[#171717] pt-[100px] pb-[100px] md:pt-[200px] md:pb-[200px] overflow-hidden">
       <div className="w-full px-6 lg:px-[58px] grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-16 lg:gap-8 items-center relative">
-        
+
         {/* Left Column: Typographic Monument */}
         <div className="flex flex-col items-start h-full justify-center lg:pr-8">
-          
+
           {/* Eyebrow Capsule */}
           <FadeInUp className="flex items-center gap-4 mb-12 lg:mb-16 w-full">
-             <div className="w-10 h-6 rounded-full border border-white/20 flex items-center justify-center bg-transparent shrink-0" />
-             <div className="h-px bg-white/10 w-24" />
-             <span className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase shrink-0">
-               Our Methodology
-             </span>
+            <div className="w-10 h-6 rounded-full border border-white/20 flex items-center justify-center bg-transparent shrink-0" />
+            <div className="h-px bg-white/10 w-24" />
+            <span className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase shrink-0">
+              Our Methodology
+            </span>
           </FadeInUp>
 
           {/* Description */}
@@ -53,103 +55,115 @@ export default function Process() {
 
         </div>
 
-        {/* Right Column: Technical Framework */}
+        {/* Right Column: Technical Framework Card Stack */}
         <div className="flex flex-col w-full">
-          <div className="relative w-full h-[500px] md:h-[650px] lg:h-[750px] flex items-center justify-start lg:justify-end lg:pr-[160px] group cursor-default">
+          {/* Desktop 3D Stacked Deck (Hidden on Mobile) */}
+          <div className="hidden lg:flex relative w-full h-[750px] items-center justify-end pr-[160px] group cursor-default">
             
-            {/* Primary Frame */}
-            <FadeInUp delay={0.3} className="w-full lg:w-[480px] xl:w-[560px] h-full relative z-30 shadow-2xl">
-              <div className="w-full h-full bg-[#1c1c1c] border border-white/10 group-hover:border-white/20 transition-colors duration-500 rounded-[24px] flex flex-col justify-between overflow-hidden">
-              
-              {/* Top Area */}
-              <div className="p-8 md:p-12 flex justify-between items-start border-b border-white/5 relative z-10 bg-[#1c1c1c]">
-                <div>
-                  <h3 className="text-[28px] md:text-[36px] text-white font-medium tracking-tight mb-4 leading-none">
-                    {steps[0].title}
-                  </h3>
-                  <p className="text-[14px] text-white/50 leading-relaxed max-w-[340px]">
-                    {steps[0].desc}
-                  </p>
+            {steps.map((step, i) => {
+              const rel = (i - activeStep + 4) % 4;
+              const isFront = rel === 0;
+
+              // Deck positioning configs for rel = 0 (front), 1, 2, 3 (side stack)
+              const positions = [
+                { top: 'top-0 bottom-0', right: 'right-[160px]', width: 'w-[480px] xl:w-[540px]', zIndex: 'z-30', bg: 'bg-[#1c1c1c]', rounded: 'rounded-[24px]' },
+                { top: 'top-[5%] bottom-[5%]', right: 'right-[100px]', width: 'w-[140px]', zIndex: 'z-20', bg: 'bg-[#1a1a1a]', rounded: 'rounded-r-[24px]' },
+                { top: 'top-[10%] bottom-[10%]', right: 'right-[40px]', width: 'w-[140px]', zIndex: 'z-10', bg: 'bg-[#141414]', rounded: 'rounded-r-[24px]' },
+                { top: 'top-[15%] bottom-[15%]', right: 'right-[-20px]', width: 'w-[140px]', zIndex: 'z-0', bg: 'bg-[#0d0d0d]', rounded: 'rounded-r-[24px]' }
+              ];
+
+              const config = positions[rel];
+
+              return (
+                <div
+                  key={step.num}
+                  onClick={() => setActiveStep(i)}
+                  className={`absolute ${config.top} ${config.right} ${config.width} ${config.zIndex} ${config.bg} ${config.rounded} border border-white/10 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-2xl overflow-hidden cursor-pointer group/card`}
+                >
+                  {isFront ? (
+                    /* Full Upfront Front Card */
+                    <div className="w-full h-full flex flex-col justify-between">
+                      {/* Top Area */}
+                      <div className="p-8 md:p-12 flex justify-between items-start border-b border-white/5 relative z-10 bg-[#1c1c1c]">
+                        <div>
+                          <div className="text-[11px] font-mono text-white/40 tracking-wider uppercase mb-2">
+                            Phase {step.num}
+                          </div>
+                          <h3 className="text-[28px] md:text-[34px] text-white font-medium tracking-tight mb-4 leading-none">
+                            {step.title}
+                          </h3>
+                          <p className="text-[14px] text-white/50 leading-relaxed max-w-[340px]">
+                            {step.desc}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* SVG Architecture Diagram */}
+                      <div className="flex-1 relative w-full h-full overflow-hidden opacity-40 group-hover:opacity-60 transition-opacity duration-500 bg-[#171717]">
+                        <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+                        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 560 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                          <path d="M100 250 L280 150 L460 250 L280 350 Z" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="4 4" />
+                          <line x1="280" y1="150" x2="280" y2="80" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                          <line x1="190" y1="200" x2="190" y2="130" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                          <line x1="370" y1="200" x2="370" y2="130" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                          <circle cx="280" cy="80" r="4" fill="rgba(255,255,255,0.3)" />
+                          <circle cx="190" cy="130" r="4" fill="rgba(255,255,255,0.3)" />
+                          <circle cx="370" cy="130" r="4" fill="rgba(255,255,255,0.3)" />
+                          <path d="M250 200 L280 180 L310 200 L310 240 L280 260 L250 240 Z" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                          <circle cx="280" cy="220" r="2" fill="white" />
+                          <rect x="360" y="280" width="40" height="20" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                          <line x1="380" y1="290" x2="390" y2="290" stroke="rgba(255,255,255,0.3)" strokeWidth="2" />
+                        </svg>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Side Stacked Deck Card */
+                    <div className="w-full h-full flex flex-col items-center justify-between py-12 group-hover/card:translate-x-[15px] transition-transform duration-300">
+                      <span className="text-[11px] font-mono text-white/40">{step.num}</span>
+                      <div className="text-[13px] font-mono tracking-[0.2em] text-white/40 group-hover/card:text-white uppercase rotate-180 whitespace-nowrap transition-colors duration-300" style={{ writingMode: 'vertical-rl' }}>
+                        {step.title}
+                      </div>
+                      <div className="w-1.5 h-1.5 bg-white/20 group-hover/card:bg-white rounded-full transition-colors duration-300" />
+                    </div>
+                  )}
                 </div>
-              </div>
+              );
+            })}
 
-              {/* Technical Visual Language (SVG Diagram) */}
-              <div className="flex-1 relative w-full h-full overflow-hidden opacity-30 group-hover:opacity-60 transition-opacity duration-500 bg-[#171717]">
-                 {/* Faint Grid */}
-                 <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-                 
-                 {/* SVG Architecture Diagram */}
-                 <svg className="absolute inset-0 w-full h-full" viewBox="0 0 560 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-                    {/* Base ISO plane */}
-                    <path d="M100 250 L280 150 L460 250 L280 350 Z" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="4 4" />
-                    
-                    {/* Vertical connect lines */}
-                    <line x1="280" y1="150" x2="280" y2="80" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                    <line x1="190" y1="200" x2="190" y2="130" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                    <line x1="370" y1="200" x2="370" y2="130" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                    
-                    {/* Data Nodes */}
-                    <circle cx="280" cy="80" r="4" fill="rgba(255,255,255,0.3)" />
-                    <circle cx="190" cy="130" r="4" fill="rgba(255,255,255,0.3)" />
-                    <circle cx="370" cy="130" r="4" fill="rgba(255,255,255,0.3)" />
-                    
-                    {/* Central Core Shape */}
-                    <path d="M250 200 L280 180 L310 200 L310 240 L280 260 L250 240 Z" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                    <circle cx="280" cy="220" r="2" fill="white" />
-                    
-                    {/* Floating abstract tech elements */}
-                    <rect x="360" y="280" width="40" height="20" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                    <line x1="380" y1="290" x2="390" y2="290" stroke="rgba(255,255,255,0.3)" strokeWidth="2" />
-                 </svg>
-              </div>
-             </div>
-            </FadeInUp>
-
-            {/* Secondary Card (002) */}
-            <FadeInUp delay={0.4} className="hidden lg:block absolute top-[6%] bottom-[6%] right-[80px] w-[140px] z-20 pointer-events-none">
-              <div className="w-full h-full bg-[#1a1a1a] border border-white/5 rounded-r-[24px] flex flex-col items-center justify-between py-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[60px] shadow-xl">
-
-                <div className="text-[13px] font-mono tracking-[0.2em] text-white/30 uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
-                  {steps[1].title}
-                </div>
-                <div className="w-1 h-1 bg-white/20 rounded-full" />
-              </div>
-            </FadeInUp>
-
-            {/* Tertiary Card (003) */}
-            <FadeInUp delay={0.5} className="hidden lg:block absolute top-[12%] bottom-[12%] right-[0px] w-[140px] z-10 pointer-events-none">
-              <div className="w-full h-full bg-[#141414] border border-white/5 rounded-r-[24px] flex flex-col items-center justify-between py-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[120px] shadow-xl">
-
-                <div className="text-[13px] font-mono tracking-[0.2em] text-white/20 uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
-                  {steps[2].title}
-                </div>
-                <div className="w-1 h-1 bg-white/10 rounded-full" />
-              </div>
-            </FadeInUp>
-
-            {/* Quaternary Card (004) */}
-            <FadeInUp delay={0.6} className="hidden lg:block absolute top-[18%] bottom-[18%] right-[-80px] w-[140px] z-0 pointer-events-none">
-              <div className="w-full h-full bg-[#0d0d0d] border border-white/5 rounded-r-[24px] flex flex-col items-center justify-between py-12 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[180px] shadow-xl">
-
-                <div className="text-[13px] font-mono tracking-[0.2em] text-white/20 uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
-                  {steps[3].title}
-                </div>
-                <div className="w-1 h-1 bg-white/10 rounded-full" />
-              </div>
-            </FadeInUp>
-            
           </div>
 
-          {/* Mobile Secondary Cards */}
-          <div className="flex lg:hidden overflow-x-auto gap-4 mt-6 w-full pb-4 hide-scrollbar snap-x snap-mandatory pr-6">
-            {steps.slice(1).map((step, idx) => (
-               <div key={idx} className="min-w-[280px] snap-center bg-[#1a1a1a] border border-white/5 rounded-[16px] p-6 flex flex-col justify-between min-h-[160px]">
-                 <div className="flex justify-end items-center mb-4">
-                   <div className="w-1 h-1 bg-white/20 rounded-full" />
-                 </div>
-                 <h4 className="text-[14px] text-white/60 font-medium">{step.title}</h4>
-               </div>
-            ))}
+          {/* Mobile Layout (< lg) */}
+          <div className="flex flex-col lg:hidden w-full">
+            {/* Active Mobile Card */}
+            <div className="w-full bg-[#1c1c1c] border border-white/10 rounded-[20px] p-6 flex flex-col justify-between mb-4 shadow-xl">
+              <div className="text-[11px] font-mono text-white/40 tracking-wider uppercase mb-2">
+                Phase {steps[activeStep].num}
+              </div>
+              <h3 className="text-[24px] text-white font-medium tracking-tight mb-3">
+                {steps[activeStep].title}
+              </h3>
+              <p className="text-[14px] text-white/60 leading-relaxed">
+                {steps[activeStep].desc}
+              </p>
+            </div>
+
+            {/* Mobile Step Selectors */}
+            <div className="flex overflow-x-auto gap-3 w-full pb-2 hide-scrollbar snap-x snap-mandatory">
+              {steps.map((step, idx) => (
+                <button
+                  key={step.num}
+                  onClick={() => setActiveStep(idx)}
+                  className={`px-4 py-3 rounded-xl border text-left shrink-0 transition-all duration-300 snap-center min-w-[140px] flex items-center justify-between ${
+                    activeStep === idx
+                      ? 'bg-white/15 border-white/30 text-white font-semibold shadow-md'
+                      : 'bg-white/[0.03] border-white/10 text-white/50 hover:text-white/80'
+                  }`}
+                >
+                  <span className="text-[12px] font-mono">{step.num}</span>
+                  <span className="text-[12px] truncate ml-2">{step.title.split(' ')[0]}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
         </div>

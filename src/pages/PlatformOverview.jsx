@@ -11,6 +11,20 @@ const gradients = [
   'from-cyan-500/20 to-blue-900/40'
 ];
 
+import imgSuperAi from '../assets/cards/superai.png';
+import imgWhatsapp from '../assets/cards/whatsapp.png';
+import imgTelephony from '../assets/cards/telephony.png';
+import imgQualityMgmt from '../assets/cards/qualitymgmt.png';
+import imgAiAnalytics from '../assets/cards/aianalytics.png';
+
+const platformImages = {
+  'ai-voice-agents': imgSuperAi,
+  'whatsapp-business': imgWhatsapp,
+  'telephony-command-center': imgTelephony,
+  'quality-management-system': imgQualityMgmt,
+  'customer-engagement': imgAiAnalytics
+};
+
 export default function PlatformOverview() {
   return (
     <div className="w-full min-h-screen bg-white">
@@ -61,16 +75,17 @@ export default function PlatformOverview() {
                 <div className="flex flex-col bg-surface border border-border rounded-card overflow-hidden h-full">
                   {/* Visual Top */}
                   <div className={`relative w-full aspect-[4/3] bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center p-6 border-b border-border overflow-hidden`}>
-                    <div className="absolute top-4 left-4 glass-nav px-3 py-1 rounded-pill border border-black/10">
+                    <div className="absolute top-4 left-4 glass-nav px-3 py-1 rounded-pill border border-black/10 z-10">
                       <span className="text-[11px] font-medium text-text-primary uppercase tracking-wider">
                         {platform.shortName}
                       </span>
                     </div>
                     
-                    {/* Abstract shape representing the platform */}
-                    <div className="w-[120px] h-[120px] rounded-[24px] bg-black/5 border border-black/10 backdrop-blur-md shadow-2xl group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center">
-                       <div className="w-12 h-12 rounded-full bg-black/20 animate-pulse" />
-                    </div>
+                    <img 
+                      src={platformImages[platform.id]} 
+                      alt={platform.name}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    />
                   </div>
 
                   {/* Content Bottom */}
