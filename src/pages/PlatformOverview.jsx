@@ -72,7 +72,7 @@ export default function PlatformOverview() {
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link to={`/platform/${platform.id}`} className="block group h-full">
-                <div className="flex flex-col bg-surface border border-border rounded-card overflow-hidden h-full">
+                <div className="flex flex-col bg-surface border border-border rounded-card overflow-hidden h-full brutalist-card">
                   {/* Visual Top */}
                   <div className={`relative w-full aspect-[4/3] bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center p-6 border-b border-border overflow-hidden`}>
                     <div className="absolute top-4 left-4 glass-nav px-3 py-1 rounded-pill border border-black/10 z-10">

@@ -2,6 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FadeInUp, StaggerContainer, ScrollWordReveal } from '../components/shared/Motion';
 import heroImg from '../assets/hero.png';
+import {
+  IllustrationInnovation,
+  IllustrationReliability,
+  IllustrationImpact
+} from '../components/shared/CardIllustrations';
 
 export default function CompanyOverview() {
   return (
@@ -54,9 +59,11 @@ export default function CompanyOverview() {
                 { title: "Reliability", desc: "Built on a high-performance architecture trusted by global enterprises for zero-downtime operations." },
                 { title: "Impact", desc: "Our core metric is customer success, driving tangible business outcomes over abstract capabilities." }
               ].map((val, idx) => (
-                <FadeInUp delay={0.2 + (idx * 0.1)} key={idx} className="bg-[#f7f7f7] rounded-[24px] p-8 border border-black/[0.04]">
-                  <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm mb-6 font-semibold text-[18px]">
-                    0{idx + 1}
+                <FadeInUp delay={0.2 + (idx * 0.1)} key={idx} className="bg-[#f7f7f7] rounded-[24px] p-8 border border-black/[0.04] brutalist-card group">
+                  <div className="w-full aspect-[16/9] rounded-[16px] bg-white border border-black/[0.03] shadow-sm mb-6 flex items-center justify-center overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">
+                    {idx === 0 && <IllustrationInnovation />}
+                    {idx === 1 && <IllustrationReliability />}
+                    {idx === 2 && <IllustrationImpact />}
                   </div>
                   <h3 className="text-[20px] font-semibold text-[#111] mb-3">{val.title}</h3>
                   <p className="text-[15px] text-black/60 leading-relaxed">{val.desc}</p>

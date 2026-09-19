@@ -78,7 +78,7 @@ export default function Process() {
                 <div
                   key={step.num}
                   onClick={() => setActiveStep(i)}
-                  className={`absolute ${config.top} ${config.right} ${config.width} ${config.zIndex} ${config.bg} ${config.rounded} border border-white/10 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-2xl overflow-hidden cursor-pointer group/card`}
+                  className={`absolute ${config.top} ${config.right} ${config.width} ${config.zIndex} ${config.bg} ${config.rounded} border border-white/10 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-2xl overflow-hidden cursor-pointer group/card${isFront ? ' brutalist-card' : ''}`}
                 >
                   {isFront ? (
                     /* Full Upfront Front Card */
@@ -135,7 +135,7 @@ export default function Process() {
           {/* Mobile Layout (< lg) */}
           <div className="flex flex-col lg:hidden w-full">
             {/* Active Mobile Card */}
-            <div className="w-full bg-[#1c1c1c] border border-white/10 rounded-[20px] p-6 flex flex-col justify-between mb-4 shadow-xl">
+            <div className="w-full bg-[#1c1c1c] border border-white/10 rounded-[20px] p-6 flex flex-col justify-between mb-4 shadow-xl brutalist-card">
               <div className="text-[11px] font-mono text-white/40 tracking-wider uppercase mb-2">
                 Phase {steps[activeStep].num}
               </div>

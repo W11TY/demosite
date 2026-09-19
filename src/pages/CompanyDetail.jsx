@@ -7,6 +7,7 @@ import heroImg from '../assets/hero.png';
 import aboutMission from '../assets/about_mission.jpg';
 import aboutPlatform from '../assets/about_platform.jpg';
 import patternImg from '../assets/pattern.png';
+import { IllustrationIntelligentAgents } from '../components/shared/CardIllustrations';
 
 // ─── Culture Manifesto: data ───────────────────────────────────────────────────
 const THEMES = [
@@ -163,7 +164,7 @@ const CulturePage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className={`relative overflow-hidden bg-white border border-black/[0.06] rounded-[24px] p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${idx === 0 ? 'md:col-span-2 lg:col-span-3 md:p-10' : ''} flex flex-col group`}
+                    className={`relative overflow-hidden bg-white border border-black/[0.06] rounded-[24px] p-6 shadow-lg ${idx === 0 ? 'md:col-span-2 lg:col-span-3 md:p-10' : ''} flex flex-col group brutalist-card`}
                   >
                     <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.2] group-hover:opacity-[0.3] transition-opacity duration-500">
                       <img src={patternImg} alt="" className="w-full h-full object-cover" />
@@ -254,7 +255,7 @@ export default function CompanyDetail() {
             <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-4 mb-24">
               
               {/* Card 1: Vision Text */}
-              <FadeInUp className="bg-[#1a1a1a] rounded-[24px] p-8 md:p-12 flex flex-col justify-between overflow-hidden relative">
+              <FadeInUp className="bg-[#1a1a1a] rounded-[24px] p-8 md:p-12 flex flex-col justify-between overflow-hidden relative brutalist-card">
                 <div className="absolute inset-0 z-0">
                   <img src={aboutMission} alt="Mission Vision" className="w-full h-full object-cover opacity-[0.15] mix-blend-screen" />
                   <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a] to-transparent opacity-80" />
@@ -279,7 +280,7 @@ export default function CompanyDetail() {
 
               {/* Card 2 & 3 Column */}
               <div className="flex flex-col gap-4">
-                <FadeInUp delay={0.1} className="bg-[#F7F7F7] rounded-[24px] p-8 md:p-10 flex-1 border border-black/[0.04] flex flex-col justify-center relative overflow-hidden group">
+                <FadeInUp delay={0.1} className="bg-[#F7F7F7] rounded-[24px] p-8 md:p-10 flex-1 border border-black/[0.04] flex flex-col justify-center relative overflow-hidden group brutalist-card">
                    <div className="absolute right-[-40px] bottom-[-40px] w-48 h-48 opacity-10 mix-blend-multiply group-hover:scale-110 transition-transform duration-700">
                      <img src={aboutPlatform} alt="Platform Core" className="w-full h-full object-cover rounded-full blur-[2px]" />
                    </div>
@@ -288,8 +289,10 @@ export default function CompanyDetail() {
                      An AI-powered platform that unifies Voice AI, WhatsApp, Contact Center, Telephony, Workflow Automation, Quality Management, CRM Integration, and Customer Journey Orchestration into a single intelligent ecosystem.
                    </p>
                 </FadeInUp>
-                <FadeInUp delay={0.2} className="bg-[#EBEBEB] rounded-[24px] p-8 md:p-10 flex-1 border border-black/[0.04] flex flex-col justify-center relative overflow-hidden group">
-                   <div className="absolute right-[-20px] bottom-[-20px] w-40 h-40 bg-white/50 blur-[40px] rounded-full group-hover:bg-white/80 transition-colors duration-700" />
+                <FadeInUp delay={0.2} className="bg-[#EBEBEB] rounded-[24px] p-8 md:p-10 flex-1 border border-black/[0.04] flex flex-col justify-center relative overflow-hidden group brutalist-card">
+                   <div className="absolute right-[-40px] bottom-[-40px] w-64 h-64 opacity-20 group-hover:scale-110 transition-transform duration-700 mix-blend-multiply">
+                     <IllustrationIntelligentAgents />
+                   </div>
                    <h4 className="text-[22px] font-semibold text-[#111] mb-4 tracking-tight relative z-10">Intelligent Agents</h4>
                    <p className="text-[16px] text-black/60 leading-relaxed relative z-10">
                      Our AI Voice Agents don't just automate calls—they understand context, remember conversations, adapt in real time, and communicate naturally like a human. Every interaction is personalized.
@@ -360,7 +363,7 @@ export default function CompanyDetail() {
                 </div>
 
                 {/* Person 4 (Text Card) */}
-                <div className="w-full aspect-[4/5] rounded-[24px] bg-gradient-to-b from-[#f9f9f9] to-[#eaeaea] p-8 flex flex-col relative transition-transform duration-500 hover:scale-[1.02] cursor-pointer">
+                <div className="w-full aspect-[4/5] rounded-[24px] bg-gradient-to-b from-[#f9f9f9] to-[#eaeaea] p-8 flex flex-col relative cursor-pointer brutalist-card">
                   <div className="flex justify-between items-start mb-8">
                     <div className="flex gap-1.5">
                       <div className="w-7 h-7 rounded-full bg-[#111] flex items-center justify-center">

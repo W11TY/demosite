@@ -93,7 +93,7 @@ export default function WorksCarousel() {
             className="w-[85vw] md:w-full min-w-[85vw] md:min-w-0 snap-center group shrink-0"
           >
             {/* Card Content */}
-            <div className="flex flex-col border border-border rounded-[24px] overflow-hidden h-[420px] bg-surface group-hover:bg-[#111111] transition-colors duration-300">
+            <div className="flex flex-col border border-border rounded-[24px] overflow-hidden h-[420px] bg-surface group-hover:bg-[#111111] transition-colors duration-300 brutalist-card">
 
               {/* Visual Top */}
               <div className="relative w-full flex-grow flex items-center justify-center overflow-hidden border-b border-border bg-background group-hover:bg-[#1a1a1a] transition-colors duration-300">

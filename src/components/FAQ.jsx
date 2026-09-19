@@ -70,7 +70,7 @@ export default function FAQ() {
               <FadeInUp 
                 key={idx}
                 delay={idx * 0.1}
-                className={`flex flex-col rounded-[24px] transition-colors duration-300 overflow-hidden ${
+                className={`flex flex-col rounded-[24px] transition-colors duration-300 overflow-hidden brutalist-card ${
                   isOpen ? 'bg-[#1a1a1a]' : 'bg-[#1a1a1a] hover:bg-[#222]'
                 }`}
               >

@@ -32,7 +32,7 @@ export default function BentoSection() {
           
           {/* Card 1: $45M */}
           <FadeInUp 
-            className="rounded-[24px] flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px] relative overflow-hidden"
+            className="rounded-[24px] flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px] relative overflow-hidden brutalist-card"
             style={{
               backgroundImage: images.card1 ? `url(${images.card1})` : undefined,
               backgroundSize: 'cover',
@@ -61,7 +61,7 @@ export default function BentoSection() {
             {/* Card 2a: Agents */}
             <FadeInUp 
               delay={0.1}
-              className="bg-transparent border border-dashed border-border/80 rounded-[24px] p-8 flex-1 flex flex-col items-center justify-center gap-4 relative overflow-hidden"
+              className="bg-transparent border border-dashed border-border/80 rounded-[24px] p-8 flex-1 flex flex-col items-center justify-center gap-4 relative overflow-hidden brutalist-card"
             >
               {/* Overlapping Avatars */}
               <div className="flex -space-x-4 mb-2">
@@ -84,7 +84,7 @@ export default function BentoSection() {
             {/* Card 2b: 5x */}
             <FadeInUp 
               delay={0.2}
-              className="bg-[#EBEBEB] rounded-[24px] p-6 flex items-end gap-4 h-[120px] shrink-0" style={{ backgroundImage: images.card2b ? `url(${images.card2b})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
+              className="bg-[#EBEBEB] rounded-[24px] p-6 flex items-end gap-4 h-[120px] shrink-0 brutalist-card" style={{ backgroundImage: images.card2b ? `url(${images.card2b})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="text-[40px] md:text-[48px] font-medium tracking-tight leading-none text-text-primary">
                 5x
@@ -98,7 +98,7 @@ export default function BentoSection() {
           {/* Card 3: Rocket */}
           <FadeInUp 
             delay={0.3}
-            className="bg-[#EBEBEB] rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px]" style={{ backgroundImage: images.card3 ? `url(${images.card3})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
+            className="bg-[#EBEBEB] rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px] brutalist-card" style={{ backgroundImage: images.card3 ? `url(${images.card3})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="flex-1 flex items-center justify-center w-full relative">
               {/* Sunburst Lines */}
@@ -130,7 +130,7 @@ export default function BentoSection() {
           {/* Card 4: Testimonial */}
           <FadeInUp 
             delay={0.4}
-            className="bg-white rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px] shadow-sm" style={{ backgroundImage: images.card4 ? `url(${images.card4})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
+            className="bg-white rounded-[24px] p-8 flex flex-col justify-between aspect-square md:aspect-auto md:h-[450px] shadow-sm brutalist-card" style={{ backgroundImage: images.card4 ? `url(${images.card4})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="flex items-start justify-between mb-8">
               <Quote size={28} className="text-text-primary" fill="currentColor" />

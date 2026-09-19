@@ -2,6 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { solutions } from '../data/solutions';
+import {
+  IllustrationAutomobile,
+  IllustrationConsumerDurable,
+  IllustrationFintech,
+  IllustrationHealthcare,
+  IllustrationUtilities
+} from '../components/shared/CardIllustrations';
+import revenueImg from '../assets/solution/revenue.png';
 
 const gradients = [
   'from-blue-500/20 to-indigo-900/40',
@@ -59,18 +67,27 @@ export default function SolutionsOverview() {
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link to={`/solutions/${solution.id}`} className="block group h-full">
-                <div className="flex flex-col bg-surface border border-border rounded-card overflow-hidden h-full">
+                <div className="flex flex-col bg-surface border border-border rounded-card overflow-hidden h-full brutalist-card">
                   {/* Visual Top */}
                   <div className={`relative w-full aspect-[4/3] bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center p-6 border-b border-border overflow-hidden`}>
-                    <div className="absolute top-4 left-4 glass-nav px-3 py-1 rounded-pill border border-black/10">
+                    {solution.id === 'real-estate' && (
+                      <img src={revenueImg} alt={solution.area} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" />
+                    )}
+                    <div className="absolute top-4 left-4 glass-nav px-3 py-1 rounded-pill border border-black/10 z-10 bg-white/20 backdrop-blur-md">
                       <span className="text-[11px] font-medium text-text-primary uppercase tracking-wider">
                         {solution.industry}
                       </span>
                     </div>
                     
-                    <div className="w-[120px] h-[120px] rounded-[24px] bg-black/5 border border-black/10 backdrop-blur-md shadow-2xl group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center">
-                       <div className="w-12 h-12 rounded-full bg-black/20 animate-pulse" />
-                    </div>
+                    {solution.id !== 'real-estate' && (
+                      <div className="w-[120px] h-[120px] rounded-[24px] bg-black/5 border border-black/10 backdrop-blur-md shadow-2xl group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center overflow-hidden relative z-10">
+                         {solution.id === 'automobile' && <IllustrationAutomobile />}
+                         {solution.id === 'consumer-durables' && <IllustrationConsumerDurable />}
+                         {solution.id === 'fintech' && <IllustrationFintech />}
+                         {solution.id === 'healthcare' && <IllustrationHealthcare />}
+                         {solution.id === 'utilities' && <IllustrationUtilities />}
+                      </div>
+                    )}
                   </div>
 
                   {/* Content Bottom */}

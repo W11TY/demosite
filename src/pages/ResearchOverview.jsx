@@ -87,7 +87,7 @@ export default function ResearchOverview() {
                         theme.subItems.map((item, idx) => (
                           <div 
                             key={idx}
-                            className="p-6 rounded-[16px] bg-surface/40 border border-border hover:bg-surface hover:border-black/10 transition-colors"
+                            className="p-6 rounded-[16px] bg-surface/40 border border-border hover:bg-surface hover:border-black/10 transition-colors brutalist-card"
                           >
                             <h3 className="text-[18px] font-medium text-text-primary mb-2">
                               {item.name}

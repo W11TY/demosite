@@ -82,7 +82,7 @@ export default function SolutionDetail() {
 
             {/* Stats / Results */}
             <div className="lg:col-span-5">
-              <div className="sticky top-32 p-8 rounded-[24px] bg-surface border border-border">
+              <div className="sticky top-32 p-8 rounded-[24px] bg-surface border border-border brutalist-card">
                 <span className="text-eyebrow block mb-8">Business Impact</span>
                 
                 {solution.stats && solution.stats.length > 0 ? (
