@@ -1,17 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ftrImg from '../assets/footer.png';
+import { motion } from 'framer-motion';
 import { FadeInUp, StaggerContainer } from './shared/Motion';
 
 export default function Footer() {
   return (
     <footer className="w-full mt-auto relative" style={{ background: '#f5f5f3', fontFamily: 'Inter, sans-serif' }}>
-      {/* Full-width Background Image */}
-      <img
-        src={ftrImg}
-        alt="Voxi Footer Background"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      />
+      {/* Animated Background Illustration */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
+        {/* Subtle animated glowing orbs */}
+        <motion.div 
+          animate={{ x: [0, 50, 0], y: [0, -30, 0], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[20%] left-[10%] w-[400px] h-[300px] bg-blue-400/10 blur-[100px] rounded-full"
+        />
+        <motion.div 
+          animate={{ x: [0, -40, 0], y: [0, 40, 0], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-[10%] right-[10%] w-[500px] h-[300px] bg-emerald-400/10 blur-[120px] rounded-full"
+        />
+        
+        {/* Abstract Infinite Audio Waveform (Soft Light Theme) */}
+        <div className="absolute bottom-0 left-0 right-0 h-[220px] flex items-end justify-center gap-[4px] px-8 opacity-40">
+          {[...Array(60)].map((_, i) => {
+            // Generate a wave-like pattern for heights (made much bigger)
+            const baseH = 40 + Math.sin(i * 0.2) * 30 + Math.cos(i * 0.5) * 20 + (i % 3) * 10;
+            return (
+              <motion.div
+                key={i}
+                animate={{ height: [Math.max(10, baseH * 0.5), baseH * 2, Math.max(10, baseH * 0.5)] }}
+                transition={{ repeat: Infinity, duration: 1.5 + (i % 5) * 0.2, ease: "easeInOut", delay: i * 0.05 }}
+                className="w-[2px] sm:w-[5px] rounded-full bg-blue-500"
+                style={{ opacity: 0.2 + (Math.sin(i * 0.1) + 1) * 0.4 }}
+              />
+            );
+          })}
+        </div>
+      </div>
       
       <div className="relative z-10 flex flex-col w-full h-full min-h-[400px]">
         {/* Top Content Section */}
