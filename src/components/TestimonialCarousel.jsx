@@ -8,8 +8,8 @@ export default function TestimonialCarousel() {
       <div className="w-full px-6 lg:px-[58px] grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-start relative">
         
         {/* Left Column: Illustration */}
-        <div className="hidden lg:flex lg:col-span-5 h-full relative border-r border-white/5 items-start">
-          <FadeInUp delay={0.1} className="w-[70%] xl:w-[60%] mt-8">
+        <div className="flex flex-col lg:col-span-5 h-full relative lg:border-r lg:border-white/5 items-start order-2 lg:order-1 mt-12 lg:mt-0">
+          <FadeInUp delay={0.1} className="w-full sm:w-[80%] md:w-[70%] lg:w-[80%] xl:w-[70%] 2xl:w-[60%] mt-8 mx-auto lg:mx-0">
             {/* AI Collections Illustration */}
             <div className="relative rounded-[24px] border border-white/10 bg-white/[0.03] overflow-hidden p-6 flex flex-col gap-4">
 
@@ -119,7 +119,7 @@ export default function TestimonialCarousel() {
         </div>
 
         {/* Right Column: Editorial Typographic Monument */}
-        <div className="flex flex-col lg:col-span-7 relative z-10 lg:pl-16">
+        <div className="flex flex-col lg:col-span-7 relative z-10 lg:pl-16 order-1 lg:order-2">
           
           {/* Eyebrow Capsule */}
           <FadeInUp className="flex items-center gap-4 mb-16 lg:mb-20 w-full">

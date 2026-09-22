@@ -116,8 +116,8 @@ export default function Hero() {
           transition={{ duration: 0.5, ease: easing }}
           className="absolute top-[16px] lg:top-[20px] left-[16px] lg:left-[23px] right-[16px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white rounded-full px-5 lg:px-7 py-2 lg:w-[648px] h-[48px] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
         >
-          <Link to="/" className="flex items-center">
-            <img src={logo} alt="Logo" className="h-[26px] lg:h-[32px] w-auto object-contain" />
+          <Link to="/" className="flex-shrink-0 relative z-50">
+            <img src={logo} alt="Logo" className="h-[36px] lg:h-[45px] w-auto object-contain" />
           </Link>
           
           <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-black/70 ml-auto">

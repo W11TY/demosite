@@ -2,47 +2,37 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { FadeInUp } from './shared/Motion';
-import voiceAgentImage from '../assets/cards/superai.png';
-import whatsappImage from '../assets/cards/whatsapp.png';
-import telephonyImage from '../assets/cards/telephony.png';
-import qualityMgmtImage from '../assets/cards/qualitymgmt.png';
-import aiAnalyticsImage from '../assets/cards/aianalytics.png';
 
 const products = [
   {
     id: "01",
     name: "Super Intelligent AI Voice Agents",
     shortName: "VOXIFLOW",
-    desc: "Autonomous Customer Journey & Follow-up Automation that speaks naturally like a human.",
-    image: voiceAgentImage
+    desc: "Autonomous Customer Journey & Follow-up Automation that speaks naturally like a human."
   },
   {
     id: "02",
     name: "WhatsApp Business Platform",
     shortName: "VOXICHATR",
-    desc: "Automate customer conversations with an intelligent AI chatbot that understands, responds, and resolves queries 24x7.",
-    image: whatsappImage
+    desc: "Automate customer conversations with an intelligent AI chatbot that understands, responds, and resolves queries 24x7."
   },
   {
     id: "03",
     name: "Telephony Command Center",
     shortName: "VOXICONNEX",
-    desc: "Enterprise-grade cloud calling platform for managing inbound, outbound, and automated business communications.",
-    image: telephonyImage
+    desc: "Enterprise-grade cloud calling platform for managing inbound, outbound, and automated business communications."
   },
   {
     id: "04",
     name: "Quality Management System",
     shortName: "VOXIQUEIQ",
-    desc: "Automatically evaluates customer conversations using AI-driven quality parameters and scorecards.",
-    image: qualityMgmtImage
+    desc: "Automatically evaluates customer conversations using AI-driven quality parameters and scorecards."
   },
   {
     id: "05",
     name: "AI Analytics & Intelligence",
     shortName: "VOXILENSA",
-    desc: "Advanced insights, sentiment analysis, conversation analytics, and performance optimization powered by AI.",
-    image: aiAnalyticsImage
+    desc: "Advanced insights, sentiment analysis, conversation analytics, and performance optimization powered by AI."
   }
 ];
 
@@ -75,7 +65,7 @@ export default function Capabilities() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
 
           {/* Accordion List Left */}
-          <div className="col-span-1 lg:col-span-7 flex flex-col w-full">
+          <div className="col-span-1 lg:col-span-7 flex flex-col w-full order-2 lg:order-1">
             <div className="border-t border-border">
               {products.map((product, idx) => {
                 const isActive = activeIndex === idx;
@@ -121,17 +111,6 @@ export default function Capabilities() {
                             <p className="text-[15px] text-text-secondary leading-relaxed max-w-[460px]">
                               {product.desc}
                             </p>
-                            {product.image && (
-                              <div className="mt-4 lg:hidden h-[220px] bg-transparent flex items-center justify-center p-4">
-                                <motion.img
-                                  src={product.image}
-                                  alt={product.name}
-                                  animate={{ y: [0, -8, 0] }}
-                                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                  className="max-w-[70%] max-h-[70%] object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.1)] mix-blend-multiply dark:mix-blend-normal"
-                                />
-                              </div>
-                            )}
                           </div>
                         </motion.div>
                       )}
@@ -143,7 +122,7 @@ export default function Capabilities() {
           </div>
 
           {/* Fixed Illustration Preview Right */}
-          <div className="col-span-1 lg:col-span-5 sticky top-28">
+          <div className="col-span-1 lg:col-span-5 sticky top-28 order-1 lg:order-2 w-full max-w-[400px] mx-auto mb-12 lg:mb-0">
             <FadeInUp delay={0.2} className="relative w-full h-[360px] lg:h-[500px]">
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.div
