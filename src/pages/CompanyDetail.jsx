@@ -164,13 +164,339 @@ const CulturePage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className={`relative overflow-hidden bg-white border border-black/[0.06] rounded-[24px] p-6 shadow-lg ${idx === 0 ? 'md:col-span-2 lg:col-span-3 md:p-10' : ''} flex flex-col group brutalist-card`}
+                    className={`relative overflow-hidden bg-white border border-black/[0.06] rounded-[24px] shadow-lg ${idx === 0 ? 'md:col-span-2 lg:col-span-3' : ''} flex flex-col group brutalist-card`}
                   >
-                    <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.2] group-hover:opacity-[0.3] transition-opacity duration-500">
-                      <img src={patternImg} alt="" className="w-full h-full object-cover" />
+                    {/* Full-bleed illustration top */}
+                    <div className="relative w-full h-[140px] overflow-hidden shrink-0 border-b border-black/[0.05]">
+                      <div className="absolute inset-0 bg-[#fafafa] flex flex-col">
+                        <div className="px-4 py-2.5 border-b border-black/[0.05] flex items-center gap-1.5 shrink-0">
+                          <div className="w-2 h-2 rounded-full bg-red-400/50" />
+                          <div className="w-2 h-2 rounded-full bg-yellow-400/50" />
+                          <div className="w-2 h-2 rounded-full bg-green-400/50" />
+                          <span className="text-[9px] font-mono text-black/20 ml-2 tracking-wide">{String(idx + 1).padStart(2, '0')} · {theme.full.toUpperCase()}</span>
+                        </div>
+                        <div className="p-3 flex-1 overflow-hidden flex flex-col gap-1.5">
+
+                          {/* Work theme illustrations */}
+                          {active === 0 && idx === 0 && (
+                            <div className="flex gap-2">
+                              {[{l:'Customer Impact',v:'98%',c:'text-blue-600'},{l:'Outcomes Delivered',v:'4.8x',c:'text-emerald-600'},{l:'Active Accounts',v:'240+',c:'text-purple-600'}].map((s,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, scale: 0.9 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex-1 bg-white rounded-[8px] p-2 border border-black/5 shadow-sm"
+                                >
+                                  <span className={`text-[14px] font-bold ${s.c}`}>{s.v}</span>
+                                  <span className="text-[8px] text-black/40 block mt-0.5">{s.l}</span>
+                                </motion.div>
+                              ))}
+                            </div>
+                          )}
+                          {active === 0 && idx === 1 && (
+                            <>
+                              <div className="flex items-center gap-1.5 mb-0.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Impact Tracker</span>
+                              </div>
+                              {['Q1 Revenue Goal','Customer NPS','Deployment Speed'].map((item,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2"
+                                >
+                                  <span className="text-[8px] text-black/50 w-28 shrink-0">{item}</span>
+                                  <div className="flex-1 h-1 bg-black/5 rounded-full overflow-hidden">
+                                    <motion.div 
+                                      initial={{ width: 0 }}
+                                      animate={{ width: `${[82,91,76][j]}%` }}
+                                      transition={{ delay: 0.4 + j * 0.2, duration: 0.8, ease: "easeOut" }}
+                                      className="h-full bg-blue-400 rounded-full" 
+                                    />
+                                  </div>
+                                  <span className="text-[8px] font-mono text-black/40">{[82,91,76][j]}%</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                          {active === 0 && idx === 2 && (
+                            <>
+                              <div className="flex justify-between mb-0.5">
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Ownership Board</span>
+                                <span className="text-[8px] text-emerald-500 font-medium">3 wins today</span>
+                              </div>
+                              {[{name:'Arun K.',task:'Shipped new IVR flow',done:true},{name:'Meera S.',task:'Resolved 120 tickets',done:true},{name:'Raj T.',task:'Closed enterprise deal',done:true}].map((item,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-white border border-black/5 shadow-sm"
+                                >
+                                  <div className="w-3 h-3 rounded-full border border-emerald-400 flex items-center justify-center shrink-0">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                                  </div>
+                                  <span className="text-[8px] font-medium text-black/60 flex-1">{item.task}</span>
+                                  <span className="text-[7px] text-black/30">{item.name}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                          {active === 0 && idx === 3 && (
+                            <>
+                              <div className="flex items-center gap-1.5 mb-0.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Founder Mode · Active</span>
+                              </div>
+                              {['Spotted inefficiency → fixed in 2hrs','Launched feature without a meeting','Improved NPS by 12pts autonomously'].map((item,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, y: 5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: 0.2 + j * 0.15 }}
+                                  className="flex items-center gap-1.5 px-2 py-1 rounded-[6px] bg-orange-50 border border-orange-100 shadow-sm"
+                                >
+                                  <span className="text-[8px] text-orange-700">{item}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+
+                          {/* Grow theme illustrations */}
+                          {active === 1 && idx === 0 && (
+                            <>
+                              <div className="flex justify-between mb-0.5">
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Learning Budget</span>
+                                <span className="text-[8px] font-semibold text-purple-500">₹2,000/mo</span>
+                              </div>
+                              {['Deep Work — Cal Newport','Thinking Fast and Slow','The Lean Startup'].map((book,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-white border border-black/5 shadow-sm"
+                                >
+                                  <div className={`w-1 h-6 rounded-full ${['bg-purple-400','bg-blue-400','bg-emerald-400'][j]}`} />
+                                  <span className="text-[8px] text-black/60">{book}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                          {active === 1 && idx === 1 && (
+                            <>
+                              <div className="flex items-center gap-1.5 mb-0.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">This Month's Rewards</span>
+                              </div>
+                              {[{icon:'🌱',label:'Wellness session'},{icon:'📚',label:'2 books gifted'},{icon:'🏔️',label:'Family experience'}].map((item,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, y: 5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-emerald-50 border border-emerald-100 shadow-sm"
+                                >
+                                  <span>{item.icon}</span>
+                                  <span className="text-[8px] text-emerald-700">{item.label}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                          {active === 1 && idx === 2 && (
+                            <>
+                              <div className="flex justify-between mb-0.5">
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Team SIP Portfolio</span>
+                                <span className="text-[8px] font-semibold text-blue-500">+18% CAGR</span>
+                              </div>
+                              <div className="flex items-end gap-1 h-10 border-b border-black/5 pb-1 relative">
+                                {[40,52,48,62,68,72,80].map((v,j)=>(
+                                  <motion.div 
+                                    key={j} 
+                                    initial={{ height: 0 }}
+                                    animate={{ height: `${v*0.9}%` }}
+                                    transition={{ delay: 0.2 + j * 0.08, duration: 0.5, type: "spring", stiffness: 100 }}
+                                    className="flex-1 rounded-t-[2px]" 
+                                    style={{ background:`hsl(${200+j*8},70%,52%)`, opacity:0.6+j*0.05 }}
+                                  />
+                                ))}
+                              </div>
+                              <span className="text-[7px] text-black/30">Jan · Feb · Mar · Apr · May · Jun · Jul</span>
+                            </>
+                          )}
+
+                          {/* Connect theme illustrations */}
+                          {active === 2 && idx === 0 && (
+                            <>
+                              <div className="flex items-center gap-1.5 mb-0.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Monthly Sports · Cricket</span>
+                              </div>
+                              {['Team Alpha — 142 runs','Team Beta — 138 runs','Next match: Oct 5th'].map((item,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className={`flex items-center gap-2 px-2 py-1 rounded-[6px] shadow-sm ${j===2?'bg-blue-50 border border-blue-100':'bg-white border border-black/5'}`}
+                                >
+                                  <span className="text-[8px] text-black/60">{item}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                          {active === 2 && idx === 1 && (
+                            <>
+                              <div className="flex items-center gap-1.5 mb-0.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Q4 Retreat · Manali</span>
+                              </div>
+                              {[{l:'Team members',v:'18'},{l:'Days',v:'3'},{l:'Activities',v:'7'}].map((s,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, scale: 0.9 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-cyan-50 border border-cyan-100 shadow-sm"
+                                >
+                                  <span className="text-[12px] font-bold text-cyan-600">{s.v}</span>
+                                  <span className="text-[8px] text-cyan-700">{s.l}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                          {active === 2 && idx === 2 && (
+                            <>
+                              <div className="flex items-center gap-1.5 mb-0.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Next: Priya's Hometown · Jaipur</span>
+                              </div>
+                              {['Team flight booked ✓','Local experiences planned ✓','Family dinner scheduled ✓'].map((item,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-amber-50 border border-amber-100 shadow-sm"
+                                >
+                                  <span className="text-[8px] text-amber-700">{item}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+
+                          {/* Live theme illustrations */}
+                          {active === 3 && idx === 0 && (
+                            <>
+                              <div className="flex justify-between mb-0.5">
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Family Benefits</span>
+                                <span className="text-[8px] text-red-400 font-medium">Active</span>
+                              </div>
+                              {['Family Leave · 5 days/yr','Monthly Family Dinner · Sponsored','Health Insurance · Family covered'].map((item,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, y: 5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-red-50 border border-red-100 shadow-sm"
+                                >
+                                  <div className="w-1 h-1 rounded-full bg-red-400 shrink-0"/>
+                                  <span className="text-[8px] text-red-700">{item}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                          {active === 3 && idx === 1 && (
+                            <>
+                              <div className="flex items-center gap-1.5 mb-0.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Health Coverage</span>
+                              </div>
+                              {['Self','Spouse','Children','Parents'].map((m,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-emerald-50 border border-emerald-100 shadow-sm"
+                                >
+                                  <div className="w-1 h-1 rounded-full bg-emerald-400 shrink-0"/>
+                                  <span className="text-[8px] text-emerald-700">{m} · Covered</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                          {active === 3 && idx === 2 && (
+                            <>
+                              <div className="flex justify-between mb-0.5">
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Steps This Month</span>
+                                <span className="text-[8px] font-semibold text-emerald-500">16/30 days ✓</span>
+                              </div>
+                              <div className="flex items-end gap-[2px] h-8 border-b border-black/5 pb-0.5 relative">
+                                {[8200,10400,9800,11200,10800,12000,9600,10900].map((v,j)=>(
+                                  <motion.div 
+                                    key={j} 
+                                    initial={{ height: 0 }}
+                                    animate={{ height: `${(v/12000)*100}%` }}
+                                    transition={{ delay: 0.2 + j * 0.08, duration: 0.4, type: "spring", stiffness: 120 }}
+                                    className="flex-1 rounded-t-[2px]" 
+                                    style={{ background: v >= 10000 ? '#34d399' : '#d1d5db' }}
+                                  />
+                                ))}
+                              </div>
+                              <span className="text-[7px] text-black/30">Green = 10,000+ steps target met</span>
+                            </>
+                          )}
+                          {active === 3 && idx === 3 && (
+                            <>
+                              <div className="flex justify-between mb-0.5">
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Screen Time · Weekly Avg</span>
+                                <span className="text-[8px] font-semibold text-blue-500">-22% vs last mo</span>
+                              </div>
+                              {[{name:'Arun K.',hrs:'2h 14m',ok:true},{name:'Meera S.',hrs:'3h 02m',ok:true},{name:'Raj T.',hrs:'4h 58m',ok:false}].map((item,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, x: 10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-white border border-black/5 shadow-sm"
+                                >
+                                  <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.ok?'bg-emerald-400':'bg-amber-400'}`}/>
+                                  <span className="text-[8px] text-black/60 flex-1">{item.name}</span>
+                                  <span className={`text-[8px] font-mono ${item.ok?'text-emerald-500':'text-amber-500'}`}>{item.hrs}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+                          {active === 3 && idx === 4 && (
+                            <>
+                              <div className="flex items-center gap-1.5 mb-0.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Daily Wellness · 9:00 AM</span>
+                              </div>
+                              {['🧘 Team yoga · 15 min','🌬️ Breathwork · 5 min','🎯 Intention setting · done'].map((item,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, scale: 0.95 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.2 + j * 0.1 }}
+                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-purple-50 border border-purple-100 shadow-sm"
+                                >
+                                  <span className="text-[8px] text-purple-700">{item}</span>
+                                </motion.div>
+                              ))}
+                            </>
+                          )}
+
+                        </div>
+                      </div>
                     </div>
-                    
-                    <div className="relative z-10 flex flex-col h-full">
+
+                    {/* Card content */}
+                    <div className={`relative z-10 flex flex-col h-full p-6 ${idx === 0 ? 'md:p-10' : ''}`}>
                       <span className="font-mono text-[10px] text-[#4d7aff]/50 mb-5 block">
                         {String(idx + 1).padStart(2, '0')} of {theme.principles.length}
                       </span>
@@ -290,23 +616,88 @@ export default function CompanyDetail() {
 
               {/* Card 2 & 3 Column */}
               <div className="flex flex-col gap-4">
-                <FadeInUp delay={0.1} className="bg-[#F7F7F7] rounded-[24px] p-8 md:p-10 flex-1 border border-black/[0.04] flex flex-col justify-center relative overflow-hidden group brutalist-card">
-                   <div className="absolute right-[-40px] bottom-[-40px] w-48 h-48 opacity-10 mix-blend-multiply group-hover:scale-110 transition-transform duration-700">
-                     <img src={aboutPlatform} alt="Platform Core" className="w-full h-full object-cover rounded-full blur-[2px]" />
+                <FadeInUp delay={0.1} className="bg-[#F7F7F7] rounded-[24px] flex-1 border border-black/[0.04] flex flex-col relative overflow-hidden group brutalist-card">
+                   {/* Illustration top */}
+                   <div className="relative w-full h-[180px] overflow-hidden shrink-0">
+                     <div className="absolute inset-0 bg-white flex flex-col">
+                       <div className="px-4 py-2.5 border-b border-black/5 flex items-center gap-1.5 shrink-0">
+                         <div className="w-2 h-2 rounded-full bg-red-400/60" />
+                         <div className="w-2 h-2 rounded-full bg-yellow-400/60" />
+                         <div className="w-2 h-2 rounded-full bg-green-400/60" />
+                         <span className="text-[9px] font-mono text-black/25 ml-2 tracking-wide">VOXI CX OS</span>
+                       </div>
+                       <div className="p-3 flex-1 overflow-hidden flex flex-col gap-2">
+                         <div className="flex items-center gap-2 mb-1">
+                           <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                           <span className="text-[9px] font-mono text-black/35 uppercase tracking-widest">Platform Ecosystem · Live</span>
+                         </div>
+                         <div className="grid grid-cols-4 gap-1.5">
+                           {['Voice AI','WhatsApp','Telephony','Quality'].map((s,j)=>(
+                             <motion.div 
+                               key={j} 
+                               initial={{ opacity: 0, scale: 0.8 }}
+                               whileInView={{ opacity: 1, scale: 1 }}
+                               transition={{ delay: 0.3 + j * 0.15, type: "spring", stiffness: 200 }}
+                               className="bg-[#f4f4f4] rounded-[6px] p-1.5 flex flex-col items-center gap-1 shadow-sm"
+                             >
+                               <div className={`w-1.5 h-1.5 rounded-full ${j===0?'bg-blue-400 animate-pulse':j===1?'bg-emerald-400':j===2?'bg-purple-400':'bg-amber-400'}`}/>
+                               <span className="text-[7px] text-black/50 text-center leading-tight">{s}</span>
+                             </motion.div>
+                           ))}
+                         </div>
+                         <motion.div 
+                           initial={{ opacity: 0, y: 10 }}
+                           whileInView={{ opacity: 1, y: 0 }}
+                           transition={{ delay: 1, duration: 0.4 }}
+                           className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[6px] bg-blue-50 border border-blue-100 mt-auto shadow-sm"
+                         >
+                           <span className="text-[8px] text-blue-600 font-medium">2.4M conversations unified across all channels today</span>
+                         </motion.div>
+                       </div>
+                     </div>
                    </div>
-                   <h4 className="text-[22px] font-semibold text-[#111] mb-4 tracking-tight relative z-10">The Voxi CX OS</h4>
-                   <p className="text-[16px] text-black/60 leading-relaxed">
-                     An AI-powered platform that unifies Voice AI, WhatsApp, Contact Center, Telephony, Workflow Automation, Quality Management, CRM Integration, and Customer Journey Orchestration into a single intelligent ecosystem.
-                   </p>
+                   <div className="p-8 md:p-10">
+                    <h4 className="text-[22px] font-semibold text-[#111] mb-4 tracking-tight">The Voxi CX OS</h4>
+                    <p className="text-[16px] text-black/60 leading-relaxed">
+                      An AI-powered platform that unifies Voice AI, WhatsApp, Contact Center, Telephony, Workflow Automation, Quality Management, CRM Integration, and Customer Journey Orchestration into a single intelligent ecosystem.
+                    </p>
+                   </div>
                 </FadeInUp>
-                <FadeInUp delay={0.2} className="bg-[#EBEBEB] rounded-[24px] p-8 md:p-10 flex-1 border border-black/[0.04] flex flex-col justify-center relative overflow-hidden group brutalist-card">
-                   <div className="absolute right-[-40px] bottom-[-40px] w-64 h-64 opacity-20 group-hover:scale-110 transition-transform duration-700 mix-blend-multiply">
-                     <IllustrationIntelligentAgents />
+                <FadeInUp delay={0.2} className="bg-[#EBEBEB] rounded-[24px] flex-1 border border-black/[0.04] flex flex-col relative overflow-hidden group brutalist-card">
+                   {/* Illustration top */}
+                   <div className="relative w-full h-[180px] overflow-hidden shrink-0">
+                     <div className="absolute inset-0 bg-white flex flex-col">
+                       <div className="px-4 py-2.5 border-b border-black/5 flex items-center gap-1.5 shrink-0">
+                         <div className="w-2 h-2 rounded-full bg-red-400/60" />
+                         <div className="w-2 h-2 rounded-full bg-yellow-400/60" />
+                         <div className="w-2 h-2 rounded-full bg-green-400/60" />
+                         <span className="text-[9px] font-mono text-black/25 ml-2 tracking-wide">AI VOICE AGENT · LIVE</span>
+                       </div>
+                       <div className="p-3 flex-1 overflow-hidden flex flex-col gap-1.5">
+                         <div className="flex items-center gap-1.5 mb-1">
+                           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                           <span className="text-[9px] font-mono text-black/35 uppercase tracking-widest">Call · 01:44</span>
+                         </div>
+                         {[{a:true,t:'Hi! I noticed your policy expires in 3 days. Want to renew now?'},{a:false,t:'Yes, what are my options?'},{a:true,t:'Same coverage, same rate. I can process it right now.'}].map((m,j)=>(
+                           <motion.div 
+                             key={j} 
+                             initial={{ opacity: 0, y: 10 }}
+                             whileInView={{ opacity: 1, y: 0 }}
+                             transition={{ delay: 0.4 + j * 0.4, duration: 0.3 }}
+                             className={`flex ${m.a?'justify-start':'justify-end'}`}
+                           >
+                             <div className={`px-2 py-1 rounded-[6px] text-[8px] leading-relaxed max-w-[85%] shadow-sm ${m.a?'bg-[#f4f4f4] text-black/70 rounded-tl-[2px]':'bg-[#111] text-white rounded-tr-[2px]'}`}>{m.t}</div>
+                           </motion.div>
+                         ))}
+                       </div>
+                     </div>
                    </div>
-                   <h4 className="text-[22px] font-semibold text-[#111] mb-4 tracking-tight relative z-10">Intelligent Agents</h4>
-                   <p className="text-[16px] text-black/60 leading-relaxed relative z-10">
-                     Our AI Voice Agents don't just automate calls—they understand context, remember conversations, adapt in real time, and communicate naturally like a human. Every interaction is personalized.
-                   </p>
+                   <div className="p-8 md:p-10">
+                    <h4 className="text-[22px] font-semibold text-[#111] mb-4 tracking-tight">Intelligent Agents</h4>
+                    <p className="text-[16px] text-black/60 leading-relaxed">
+                      Our AI Voice Agents don't just automate calls—they understand context, remember conversations, adapt in real time, and communicate naturally like a human. Every interaction is personalized.
+                    </p>
+                   </div>
                 </FadeInUp>
               </div>
             </div>

@@ -4,26 +4,12 @@ import { Link } from 'react-router-dom';
 import { platforms } from '../data/platform';
 
 const gradients = [
-  'from-blue-500/20 to-indigo-900/40',
-  'from-green-500/20 to-emerald-900/40',
-  'from-purple-500/20 to-fuchsia-900/40',
-  'from-orange-500/20 to-red-900/40',
-  'from-cyan-500/20 to-blue-900/40'
+  'from-blue-500/10 to-indigo-100',
+  'from-green-500/10 to-emerald-100',
+  'from-purple-500/10 to-fuchsia-100',
+  'from-orange-500/10 to-red-100',
+  'from-cyan-500/10 to-blue-100'
 ];
-
-import imgSuperAi from '../assets/cards/superai.png';
-import imgWhatsapp from '../assets/cards/whatsapp.png';
-import imgTelephony from '../assets/cards/telephony.png';
-import imgQualityMgmt from '../assets/cards/qualitymgmt.png';
-import imgAiAnalytics from '../assets/cards/aianalytics.png';
-
-const platformImages = {
-  'ai-voice-agents': imgSuperAi,
-  'whatsapp-business': imgWhatsapp,
-  'telephony-command-center': imgTelephony,
-  'quality-management-system': imgQualityMgmt,
-  'customer-engagement': imgAiAnalytics
-};
 
 export default function PlatformOverview() {
   return (
@@ -73,19 +59,167 @@ export default function PlatformOverview() {
             >
               <Link to={`/platform/${platform.id}`} className="block group h-full">
                 <div className="flex flex-col bg-surface border border-border rounded-card overflow-hidden h-full brutalist-card">
-                  {/* Visual Top */}
-                  <div className={`relative w-full aspect-[4/3] bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center p-6 border-b border-border overflow-hidden`}>
-                    <div className="absolute top-4 left-4 glass-nav px-3 py-1 rounded-pill border border-black/10 z-10">
-                      <span className="text-[11px] font-medium text-text-primary uppercase tracking-wider">
-                        {platform.shortName}
-                      </span>
+                  {/* Visual Top — UI Illustration fills full area */}
+                  <div className={`relative w-full aspect-[4/3] bg-gradient-to-br ${gradients[i % gradients.length]} border-b border-border overflow-hidden flex flex-col`}>
+
+                    {/* Per-platform illustration — full bleed white card */}
+                    <div className="absolute inset-0 bg-white flex flex-col">
+                      {/* Mac-style titlebar */}
+                      <div className="px-4 py-3 border-b border-black/5 flex items-center gap-1.5 shrink-0">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
+                        <span className="text-[10px] font-mono text-black/30 ml-2 tracking-wide">{platform.shortName}</span>
+                      </div>
+                      <div className="p-4 flex-1 overflow-hidden">
+                        {platform.id === 'ai-voice-agents' && (
+                          <div className="flex flex-col gap-2">
+                            <div className="flex items-center gap-1.5 mb-1">
+                              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              <span className="text-[9px] font-mono text-black/40 uppercase tracking-widest">Live Call · 01:24</span>
+                            </div>
+                            {[{a:true,t:'Hi! Calling about your policy renewal.'},{a:false,t:'Yes, go ahead.'},{a:true,t:'I can renew it right now at same rate.'}].map((m,j)=>(
+                              <motion.div 
+                                key={j} 
+                                initial={{ opacity: 0, y: 5 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 + j * 0.4, duration: 0.3 }}
+                                className={`flex ${m.a?'justify-start':'justify-end'}`}
+                              >
+                                <div className={`px-2 py-1 rounded-[6px] text-[9px] leading-relaxed max-w-[85%] ${m.a?'bg-[#f4f4f4] text-black/70':'bg-[#111] text-white'}`}>{m.t}</div>
+                              </motion.div>
+                            ))}
+                            <div className="flex items-center gap-[2px] h-4 mt-1 overflow-hidden px-1">
+                              {[3,6,9,7,11,5,8,12,6,4,9,7].map((h,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  animate={{ height: [Math.max(2, h * 0.3), h, Math.max(2, h * 0.3)] }}
+                                  transition={{ repeat: Infinity, duration: 0.5 + (j % 3) * 0.2, ease: "easeInOut", delay: j * 0.05 }}
+                                  className="w-[2px] rounded-full bg-emerald-400" 
+                                  style={{ opacity: 0.5 + (j % 3) * 0.15 }} 
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {platform.id === 'whatsapp-business' && (
+                          <div className="flex flex-col gap-2">
+                            <div className="flex items-center gap-1.5 bg-[#25D366]/10 rounded-[6px] px-2 py-1 mb-1">
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
+                              <span className="text-[9px] font-medium text-[#25D366]">WhatsApp Business</span>
+                            </div>
+                            {[{from:'User',t:'Order #4821 status?'},{from:'AI',t:'Out for delivery! ETA 4PM 👉 trk.link/4821'},{from:'User',t:'Thanks!'}].map((m,j)=>(
+                              <motion.div 
+                                key={j} 
+                                initial={{ opacity: 0, x: m.from === 'AI' ? -5 : 5 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.2 + j * 0.5, duration: 0.3 }}
+                                className="flex flex-col gap-0.5"
+                              >
+                                <span className="text-[7px] font-mono text-black/30 px-1">{m.from}</span>
+                                <div className={`px-2 py-1 rounded-[6px] text-[9px] leading-relaxed ${m.from==='AI'?'bg-[#25D366]/10 text-black/70':'bg-[#f4f4f4] text-black/70'}`}>{m.t}</div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        )}
+                        {platform.id === 'telephony-command-center' && (
+                          <div className="flex flex-col gap-2">
+                            <div className="grid grid-cols-3 gap-1.5 mb-1">
+                              {[{l:'Active',v:'124',c:'text-blue-500'},{l:'Wait',v:'0:34',c:'text-amber-500'},{l:'Resolved',v:'98%',c:'text-emerald-500'}].map((s,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, y: 5 }}
+                                  whileInView={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: 0.1 + j * 0.1 }}
+                                  className="bg-[#f7f7f7] rounded-[6px] p-1.5"
+                                >
+                                  <span className={`text-[11px] font-semibold ${s.c}`}>{s.v}</span>
+                                  <span className="text-[7px] text-black/40 block">{s.l}</span>
+                                </motion.div>
+                              ))}
+                            </div>
+                            {['Inbound Queue','Outbound Dialer','IVR Flow'].map((item,j)=>(
+                              <motion.div 
+                                key={j} 
+                                initial={{ opacity: 0, x: -5 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.3 + j * 0.1 }}
+                                className="flex items-center gap-1.5 px-2 py-1 rounded-[6px] bg-[#f7f7f7]"
+                              >
+                                <div className={`w-1 h-1 rounded-full ${j===0?'bg-blue-400 animate-pulse':j===1?'bg-emerald-400':'bg-black/20'}`} />
+                                <span className="text-[9px] text-black/60">{item}</span>
+                                <span className={`ml-auto text-[7px] font-mono ${j<2?'text-emerald-500':'text-black/30'}`}>{j<2?'ACTIVE':'IDLE'}</span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        )}
+                        {platform.id === 'quality-management-system' && (
+                          <div className="flex flex-col gap-2">
+                            <div className="flex justify-between mb-1"><span className="text-[9px] font-medium text-black/50">QA Score</span><span className="text-[9px] font-semibold text-emerald-500">92/100</span></div>
+                            {[{l:'Tone & Empathy',s:95},{l:'Script Adherence',s:88},{l:'Resolution',s:94}].map((item,j)=>(
+                              <motion.div 
+                                key={j} 
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ delay: 0.1 + j * 0.1 }}
+                                className="flex flex-col gap-0.5"
+                              >
+                                <div className="flex justify-between">
+                                  <span className="text-[8px] text-black/50">{item.l}</span>
+                                  <span className="text-[8px] font-mono text-black/50">{item.s}%</span>
+                                </div>
+                                <div className="h-1 bg-black/5 rounded-full overflow-hidden">
+                                  <motion.div 
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: `${item.s}%` }}
+                                    transition={{ delay: 0.3 + j * 0.2, duration: 0.8, ease: "easeOut" }}
+                                    className="h-full bg-emerald-400 rounded-full" 
+                                  />
+                                </div>
+                              </motion.div>
+                            ))}
+                            <motion.div 
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 1, duration: 0.3 }}
+                              className="px-2 py-1 bg-amber-50 border border-amber-200 rounded-[6px] mt-1"
+                            >
+                              <span className="text-[8px] text-amber-700"><span className="animate-pulse">⚠</span> Deviation at 01:42 — flagged</span>
+                            </motion.div>
+                          </div>
+                        )}
+                        {platform.id === 'customer-engagement' && (
+                          <div className="flex flex-col gap-2">
+                            <span className="text-[9px] font-medium text-black/50 mb-1">Sentiment · Last 7 days</span>
+                            <div className="flex items-end gap-0.5 h-10 border-b border-black/5 pb-1 relative">
+                              {[55,62,58,70,74,68,82].map((v,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ height: 0 }}
+                                  whileInView={{ height: `${v*0.9}%` }}
+                                  transition={{ delay: 0.1 + j * 0.08, duration: 0.5, type: "spring", stiffness: 100 }}
+                                  className="flex-1 rounded-t-[2px]" 
+                                  style={{ background: `hsl(${120+v},60%,52%)`, opacity: 0.7+j*0.04 }} 
+                                />
+                              ))}
+                            </div>
+                            <div className="flex gap-1 flex-wrap mt-1">
+                              {[{l:'😊 68%',c:'bg-emerald-50 text-emerald-700'},{l:'😐 22%',c:'bg-amber-50 text-amber-700'},{l:'😠 10%',c:'bg-red-50 text-red-700'}].map((s,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, scale: 0.9 }}
+                                  whileInView={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.6 + j * 0.1 }}
+                                  className={`px-1.5 py-0.5 rounded-full text-[8px] font-medium border border-black/5 ${s.c}`}
+                                >
+                                  {s.l}
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    
-                    <img 
-                      src={platformImages[platform.id]} 
-                      alt={platform.name}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                    />
                   </div>
 
                   {/* Content Bottom */}

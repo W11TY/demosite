@@ -60,10 +60,67 @@ export default function CompanyOverview() {
                 { title: "Impact", desc: "Our core metric is customer success, driving tangible business outcomes over abstract capabilities." }
               ].map((val, idx) => (
                 <FadeInUp delay={0.2 + (idx * 0.1)} key={idx} className="bg-[#f7f7f7] rounded-[24px] p-8 border border-black/[0.04] brutalist-card group">
-                  <div className="w-full aspect-[16/9] rounded-[16px] bg-white border border-black/[0.03] shadow-sm mb-6 flex items-center justify-center overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">
-                    {idx === 0 && <IllustrationInnovation />}
-                    {idx === 1 && <IllustrationReliability />}
-                    {idx === 2 && <IllustrationImpact />}
+                  <div className="relative w-full aspect-[16/9] rounded-[16px] overflow-hidden mb-6 border border-black/[0.04] transition-transform duration-500 group-hover:scale-[1.02]">
+                    <div className="absolute inset-0 bg-white flex flex-col">
+                      {/* Mac titlebar */}
+                      <div className="px-4 py-2.5 border-b border-black/5 flex items-center gap-1.5 shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-red-400/60" />
+                        <div className="w-2 h-2 rounded-full bg-yellow-400/60" />
+                        <div className="w-2 h-2 rounded-full bg-green-400/60" />
+                        <span className="text-[9px] font-mono text-black/25 ml-2 tracking-wide">{['Innovation','Reliability','Impact'][idx]}</span>
+                      </div>
+                      <div className="p-4 flex-1 overflow-hidden flex flex-col gap-2">
+                        {idx === 0 && (
+                          /* Innovation — feature release / product launch */
+                          <>
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                              <span className="text-[9px] font-mono text-black/35 uppercase tracking-widest">AI Model v4.2 · Deploying</span>
+                            </div>
+                            {[{l:'Inference Speed',v:'+40%',c:'text-purple-600'},{l:'Accuracy',v:'98.7%',c:'text-blue-600'},{l:'Latency',v:'-60ms',c:'text-emerald-600'}].map((s,j)=>(
+                              <div key={j} className="flex items-center gap-2 px-2.5 py-1.5 rounded-[7px] bg-[#f7f7f7]">
+                                <span className={`text-[12px] font-bold ${s.c} w-10 shrink-0`}>{s.v}</span>
+                                <span className="text-[9px] text-black/45">{s.l}</span>
+                              </div>
+                            ))}
+                            <div className="px-2.5 py-1.5 bg-purple-50 border border-purple-100 rounded-[7px] mt-auto">
+                              <span className="text-[9px] text-purple-700">New: Multimodal reasoning · Live in prod</span>
+                            </div>
+                          </>
+                        )}
+                        {idx === 1 && (
+                          /* Reliability — uptime / infrastructure */
+                          <>
+                            <div className="flex justify-between mb-1">
+                              <span className="text-[9px] font-mono text-black/35 uppercase tracking-widest">System Status</span>
+                              <span className="text-[9px] font-semibold text-emerald-500">All Systems Go</span>
+                            </div>
+                            {['AI Voice Agents','WhatsApp Platform','Telephony Core','Analytics Engine'].map((svc,j)=>(
+                              <div key={j} className="flex items-center gap-2 px-2.5 py-1.5 rounded-[7px] bg-[#f7f7f7]">
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                                <span className="text-[9px] text-black/60 flex-1">{svc}</span>
+                                <span className="text-[9px] font-mono text-emerald-500">99.9%</span>
+                              </div>
+                            ))}
+                          </>
+                        )}
+                        {idx === 2 && (
+                          /* Impact — business outcomes */
+                          <>
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
+                              <span className="text-[9px] font-mono text-black/35 uppercase tracking-widest">Client Outcomes</span>
+                            </div>
+                            {[{l:'Revenue Generated',v:'$45M+',c:'text-orange-500'},{l:'Avg. CAC Reduction',v:'3x',c:'text-emerald-600'},{l:'Conversations/Day',v:'2.4M',c:'text-blue-600'}].map((s,j)=>(
+                              <div key={j} className="flex items-center gap-2 px-2.5 py-1.5 rounded-[7px] bg-[#f7f7f7]">
+                                <span className={`text-[13px] font-bold ${s.c} w-12 shrink-0`}>{s.v}</span>
+                                <span className="text-[9px] text-black/45">{s.l}</span>
+                              </div>
+                            ))}
+                          </>
+                        )}
+                      </div>
+                    </div>
                   </div>
                   <h3 className="text-[20px] font-semibold text-[#111] mb-3">{val.title}</h3>
                   <p className="text-[15px] text-black/60 leading-relaxed">{val.desc}</p>

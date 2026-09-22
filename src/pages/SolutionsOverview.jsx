@@ -33,12 +33,12 @@ export default function SolutionsOverview() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
           </div>
 
-          <div className="relative z-20 max-w-[800px] mt-32">
+          <div className="relative z-20 max-w-[800px] mt-32 mx-auto text-center flex flex-col items-center">
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase mb-6 block"
+              className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase mb-6 block text-center"
             >
               Industry Solutions
             </motion.span>
@@ -68,26 +68,212 @@ export default function SolutionsOverview() {
             >
               <Link to={`/solutions/${solution.id}`} className="block group h-full">
                 <div className="flex flex-col bg-surface border border-border rounded-card overflow-hidden h-full brutalist-card">
-                  {/* Visual Top */}
-                  <div className={`relative w-full aspect-[4/3] bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center p-6 border-b border-border overflow-hidden`}>
-                    {solution.id === 'real-estate' && (
-                      <img src={revenueImg} alt={solution.area} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" />
-                    )}
-                    <div className="absolute top-4 left-4 glass-nav px-3 py-1 rounded-pill border border-black/10 z-10 bg-white/20 backdrop-blur-md">
-                      <span className="text-[11px] font-medium text-text-primary uppercase tracking-wider">
-                        {solution.industry}
-                      </span>
-                    </div>
-                    
-                    {solution.id !== 'real-estate' && (
-                      <div className="w-[120px] h-[120px] rounded-[24px] bg-black/5 border border-black/10 backdrop-blur-md shadow-2xl group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center overflow-hidden relative z-10">
-                         {solution.id === 'automobile' && <IllustrationAutomobile />}
-                         {solution.id === 'consumer-durables' && <IllustrationConsumerDurable />}
-                         {solution.id === 'fintech' && <IllustrationFintech />}
-                         {solution.id === 'healthcare' && <IllustrationHealthcare />}
-                         {solution.id === 'utilities' && <IllustrationUtilities />}
+                  {/* Visual Top — Full bleed illustration */}
+                  <div className={`relative w-full aspect-[4/3] border-b border-border overflow-hidden`}>
+                    {/* Full-bleed white illustration card */}
+                    <div className="absolute inset-0 bg-white flex flex-col">
+                      {/* Mac titlebar */}
+                      <div className="px-4 py-3 border-b border-black/5 flex items-center gap-1.5 shrink-0">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
+                        <span className="text-[10px] font-mono text-black/30 ml-2 tracking-wide uppercase">{solution.industry}</span>
                       </div>
-                    )}
+                      <div className="p-4 flex-1 overflow-hidden flex flex-col gap-2.5">
+
+                        {solution.id === 'real-estate' && (
+                          <>
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              <span className="text-[9px] font-mono text-black/40 uppercase tracking-widest">Lead Pipeline</span>
+                            </div>
+                            {[{name:'Raj Mehta',val:'₹45L',hot:true},{name:'Priya Singh',val:'₹28L',hot:false},{name:'Amit Joshi',val:'₹62L',hot:true}].map((lead,j)=>(
+                              <motion.div 
+                                key={j} 
+                                initial={{ opacity: 0, x: -10 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.1 + j * 0.1 }}
+                                className="flex items-center gap-2 px-2.5 py-2 rounded-[8px] bg-[#f7f7f7] shadow-sm"
+                              >
+                                <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${lead.hot?'bg-emerald-400':'bg-black/20'}`}/>
+                                <span className="text-[10px] text-black/70 flex-1">{lead.name}</span>
+                                <span className={`text-[10px] font-semibold ${lead.hot?'text-emerald-600':'text-black/40'}`}>{lead.val}</span>
+                              </motion.div>
+                            ))}
+                            <motion.div 
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.6, duration: 0.3 }}
+                              className="flex items-center gap-2 mt-auto px-2.5 py-2 rounded-[8px] bg-blue-50 border border-blue-100 shadow-sm"
+                            >
+                              <span className="text-[9px] text-blue-600 font-medium">AI Follow-up sent · 3 leads re-engaged today</span>
+                            </motion.div>
+                          </>
+                        )}
+
+                        {solution.id === 'automobile' && (
+                          <>
+                            <div className="grid grid-cols-3 gap-2 mb-1">
+                              {[{l:'Test Drives',v:'+30%',c:'text-emerald-500'},{l:'Qualified',v:'Instant',c:'text-blue-500'},{l:'Booked',v:'Auto',c:'text-purple-500'}].map((s,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, y: 5 }}
+                                  whileInView={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: 0.1 + j * 0.1 }}
+                                  className="bg-[#f7f7f7] rounded-[8px] p-2 shadow-sm"
+                                >
+                                  <span className={`text-[12px] font-semibold ${s.c}`}>{s.v}</span>
+                                  <span className="text-[8px] text-black/40 block mt-0.5">{s.l}</span>
+                                </motion.div>
+                              ))}
+                            </div>
+                            {[{t:'New inquiry: Fortuner 4WD',st:'Qualified by AI'},{ t:'Service booking: Baleno',st:'Auto-confirmed'},{t:'Survey follow-up: City',st:'Completed · 65%'}].map((item,j)=>(
+                              <motion.div 
+                                key={j} 
+                                initial={{ opacity: 0, x: 10 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.4 + j * 0.15 }}
+                                className="flex items-center gap-2 px-2.5 py-1.5 rounded-[8px] bg-[#f7f7f7] shadow-sm border border-black/5"
+                              >
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"/>
+                                <div><span className="text-[9px] font-medium text-black/70 block">{item.t}</span><span className="text-[8px] text-black/40">{item.st}</span></div>
+                              </motion.div>
+                            ))}
+                          </>
+                        )}
+
+                        {solution.id === 'consumer-durables' && (
+                          <>
+                            <div className="flex items-center gap-2 bg-purple-50 rounded-[8px] px-2.5 py-2 mb-1">
+                              <div className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"/>
+                              <span className="text-[9px] font-medium text-purple-700">80% Queries Automated</span>
+                            </div>
+                            {[{q:'Warranty claim status?',a:'Your claim #WC-4821 is approved. Pickup scheduled Fri.'},{q:'AC not cooling.',a:'Technician visit booked for tomorrow 10–12 AM.'}].map((msg,j)=>(
+                              <motion.div 
+                                key={j} 
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2 + j * 0.4 }}
+                                className="flex flex-col gap-1"
+                              >
+                                <div className="self-end px-2.5 py-1.5 rounded-[8px] bg-[#f4f4f4] text-[9px] text-black/60 max-w-[85%] shadow-sm">{msg.q}</div>
+                                <motion.div 
+                                  initial={{ opacity: 0, scale: 0.95 }}
+                                  whileInView={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.4 + j * 0.4 }}
+                                  className="self-start px-2.5 py-1.5 rounded-[8px] bg-purple-100 text-[9px] text-purple-800 max-w-[90%] shadow-sm border border-purple-200"
+                                >
+                                  {msg.a}
+                                </motion.div>
+                              </motion.div>
+                            ))}
+                          </>
+                        )}
+
+                        {solution.id === 'fintech' && (
+                          <>
+                            <div className="flex justify-between mb-1">
+                              <span className="text-[9px] font-mono text-black/40 uppercase tracking-widest">Collections OS</span>
+                              <span className="text-[9px] font-semibold text-emerald-500">+50% PTP</span>
+                            </div>
+                            {[{label:'Cost to Collect',val:'-75%',c:'text-emerald-600'},{label:'Recovery Cycle',val:'-40%',c:'text-blue-600'},{label:'Right Party Conn.',val:'90%',c:'text-purple-600'}].map((s,j)=>(
+                              <motion.div 
+                                key={j} 
+                                initial={{ opacity: 0, x: -5 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.1 + j * 0.1 }}
+                                className="flex items-center gap-2 px-2.5 py-2 rounded-[8px] bg-[#f7f7f7] shadow-sm border border-black/5"
+                              >
+                                <span className={`text-[14px] font-bold ${s.c} w-12 shrink-0`}>{s.val}</span>
+                                <span className="text-[9px] text-black/50">{s.label}</span>
+                              </motion.div>
+                            ))}
+                            <div className="flex items-center gap-[3px] h-5 mt-auto overflow-hidden">
+                              {[3,6,10,7,12,5,9,14,6,4,11,8,13,5,7,3,9,12].map((h,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  animate={{ height: [Math.max(2, h * 0.3), h, Math.max(2, h * 0.3)] }}
+                                  transition={{ repeat: Infinity, duration: 0.5 + (j % 3) * 0.2, ease: "easeInOut", delay: j * 0.05 }}
+                                  className="w-[3px] rounded-full bg-emerald-400" 
+                                  style={{ opacity: 0.4 + (j % 3) * 0.2 }}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        )}
+
+                        {solution.id === 'healthcare' && (
+                          <>
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"/>
+                              <span className="text-[9px] font-mono text-black/40 uppercase tracking-widest">Appointment AI</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                              {[{l:'No-Shows',v:'-80%',c:'text-emerald-500'},{l:'Lead Conn.',v:'90%',c:'text-cyan-500'},{l:'Lower CAC',v:'3x',c:'text-blue-500'},{l:'Conversions',v:'+40%',c:'text-purple-500'}].map((s,j)=>(
+                                <motion.div 
+                                  key={j} 
+                                  initial={{ opacity: 0, scale: 0.95 }}
+                                  whileInView={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.1 + j * 0.1 }}
+                                  className="bg-[#f7f7f7] rounded-[8px] p-2 shadow-sm border border-black/5"
+                                >
+                                  <span className={`text-[13px] font-semibold ${s.c}`}>{s.v}</span>
+                                  <span className="text-[8px] text-black/40 block">{s.l}</span>
+                                </motion.div>
+                              ))}
+                            </div>
+                            <motion.div 
+                              initial={{ opacity: 0, y: 10 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.6, duration: 0.3 }}
+                              className="px-2.5 py-2 bg-cyan-50 border border-cyan-100 rounded-[8px] mt-auto shadow-sm"
+                            >
+                              <span className="text-[9px] text-cyan-700">AI rescheduled 14 appointments today — 0 no-shows</span>
+                            </motion.div>
+                          </>
+                        )}
+
+                        {solution.id === 'utilities' && (
+                          <>
+                            <div className="flex justify-between mb-1">
+                              <span className="text-[9px] font-mono text-black/40 uppercase tracking-widest">CSAT Score</span>
+                              <span className="text-[10px] font-semibold text-amber-500">4.8 / 5</span>
+                            </div>
+                            {[{l:'Query Resolution',v:'85%',c:'bg-emerald-400'},{l:'Support Costs',v:'55%',c:'bg-blue-400'},{l:'Bill Reminders',v:'100%',c:'bg-amber-400'}].map((item,j)=>(
+                              <motion.div 
+                                key={j} 
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ delay: 0.1 + j * 0.1 }}
+                                className="flex flex-col gap-1"
+                              >
+                                <div className="flex justify-between">
+                                  <span className="text-[9px] text-black/50">{item.l}</span>
+                                  <span className="text-[9px] font-mono text-black/50">{item.v}</span>
+                                </div>
+                                <div className="h-1.5 bg-black/5 rounded-full overflow-hidden">
+                                  <motion.div 
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: item.v }}
+                                    transition={{ delay: 0.3 + j * 0.2, duration: 0.8, ease: "easeOut" }}
+                                    className={`h-full ${item.c} rounded-full`} 
+                                  />
+                                </div>
+                              </motion.div>
+                            ))}
+                            <motion.div 
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.9, duration: 0.3 }}
+                              className="px-2.5 py-2 bg-amber-50 border border-amber-100 rounded-[8px] mt-1 shadow-sm"
+                            >
+                              <span className="text-[9px] text-amber-700">Bill reminder sent to 2,340 customers · Auto</span>
+                            </motion.div>
+                          </>
+                        )}
+
+                      </div>
+                    </div>
                   </div>
 
                   {/* Content Bottom */}

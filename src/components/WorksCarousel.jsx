@@ -7,137 +7,103 @@ import cr3 from '../assets/cards/cr3.png';
 import cr4 from '../assets/cards/cr4.png';
 import cr5 from '../assets/cards/cr5.png';
 import cr6 from '../assets/cards/cr6.png';
+import { Globe, Smartphone, Code2, ShieldCheck, Zap, Car } from 'lucide-react';
 
 const works = [
   {
-    industry: "Real Estate",
-    logo: "Real Estate Co",
+    industry: "Real Estate AI",
+    icon: Globe,
     image: cr1,
-    stats: [
-      { label: "Connectivity", value: "90%" },
-      { label: "More Conversions", value: "40%" },
-      { label: "Lower CAC", value: "3x" },
-      { label: "Missed Follow-ups", value: "Zero" }
-    ]
+    desc: "Automated follow-ups and lead qualification to ensure zero missed opportunities and 3x lower CAC."
   },
   {
     industry: "Consumer Durable",
-    logo: "Durable Brands",
+    icon: Smartphone,
     image: cr2,
-    stats: [
-      { label: "Automation", value: "80%" },
-      { label: "Cost Reduction", value: "60%" },
-      { label: "Faster Resolution", value: "2x" },
-      { label: "CSAT Increase", value: "3x" }
-    ]
+    desc: "Automate 80% of support queries while tripling customer satisfaction and cutting costs."
   },
   {
-    industry: "Fintech",
-    logo: "Fintech Global",
+    industry: "Fintech Solutions",
+    icon: ShieldCheck,
     image: cr3,
-    stats: [
-      { label: "Right Party Conn.", value: "90%" },
-      { label: "Promise-To-Pay", value: "+50%" },
-      { label: "Cost to Collect", value: "-75%" },
-      { label: "Recovery Cycle", value: "-40%" }
-    ]
+    desc: "Cut cost-to-collect by 75% using AI agents that outperform human collectors on every metric."
   },
   {
-    industry: "Healthcare",
-    logo: "Healthcare Partners",
+    industry: "Healthcare Systems",
+    icon: Code2,
     image: cr4,
-    stats: [
-      { label: "Lead Connectivity", value: "90%" },
-      { label: "More Conversions", value: "40%" },
-      { label: "Lower CAC", value: "3x" },
-      { label: "No-Shows", value: "-80%" }
-    ]
+    desc: "Reduce patient no-shows by 80% with intelligent scheduling and fully automated reminders."
   },
   {
-    industry: "Utilities",
-    logo: "City Utilities",
+    industry: "Utilities AI",
+    icon: Zap,
     image: cr5,
-    stats: [
-      { label: "Query Resolution", value: "85%" },
-      { label: "Support Costs", value: "-45%" },
-      { label: "Bill Reminders", value: "Auto" },
-      { label: "CSAT Score", value: "4.8/5" }
-    ]
+    desc: "Achieve a 4.8/5 CSAT score with query resolution and bill reminders running on autopilot."
   },
   {
-    industry: "Automobile",
-    logo: "Auto Motors",
+    industry: "Automobile Tech",
+    icon: Car,
     image: cr6,
-    stats: [
-      { label: "Survey Completion", value: "65%" },
-      { label: "Lead Qualification", value: "Instant" },
-      { label: "Conversion Rate", value: "+30%" },
-      { label: "Service Booking", value: "Auto" }
-    ]
+    desc: "Boost conversion by 30% with instant lead qualification and automated service booking."
   }
 ];
 
 export default function WorksCarousel() {
   return (
-    <section className="w-full pt-[100px] lg:pt-[180px] pb-[80px] lg:pb-[120px] border-b border-border bg-background overflow-hidden relative">
+    <section className="w-full pt-[100px] lg:pt-[180px] pb-[80px] lg:pb-[120px] border-b border-border bg-[#F7F7F7] overflow-hidden relative">
 
       {/* Massive Marquee */}
       <SectionMarquee title="Our Works" />
 
-      {/* Grid / Carousel Layout */}
-      <div className="w-full px-6 lg:px-[58px] pb-12 flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-[16px] overflow-x-auto md:overflow-visible snap-x snap-mandatory hide-scrollbar pr-6 md:pr-0">
-        {works.map((work, i) => (
-          <FadeInUp
-            key={i}
-            delay={(i % 3) * 0.1}
-            className="w-[85vw] md:w-full min-w-[85vw] md:min-w-0 snap-center group shrink-0"
-          >
-            {/* Card Content */}
-            <div className="flex flex-col border border-border rounded-[24px] overflow-hidden h-[420px] bg-surface group-hover:bg-[#111111] transition-colors duration-300 brutalist-card">
+      <div className="w-full px-6 lg:px-[58px] mb-12 mt-12">
+        <h2 className="text-[clamp(32px,5vw,56px)] font-medium tracking-tight leading-[1.1] text-[#111111] max-w-[800px]">
+          Everything you need, from one team, on a fixed deadline
+        </h2>
+      </div>
 
-              {/* Visual Top */}
-              <div className="relative w-full flex-grow flex items-center justify-center overflow-hidden border-b border-border bg-background group-hover:bg-[#1a1a1a] transition-colors duration-300">
-                <div className="absolute z-10 top-6 left-6 px-3 py-1.5 rounded-pill border border-border group-hover:border-white/20 bg-surface group-hover:bg-white/5 transition-colors duration-300">
-                  <span className="text-[10px] font-medium uppercase tracking-wider text-text-primary group-hover:text-white transition-colors duration-300">
-                    {work.industry} AI
-                  </span>
-                </div>
+      {/* Auto-scrolling Carousel Layout */}
+      <div className="w-full pb-12 overflow-hidden group/marquee">
+        <div className="flex w-max gap-[24px] animate-[marquee_50s_linear_infinite] group-hover/marquee:[animation-play-state:paused] px-6 lg:px-[58px]">
+          {[...works, ...works].map((work, i) => {
+            const Icon = work.icon;
+            return (
+              <div
+                key={i}
+                className="w-[300px] md:w-[340px] shrink-0 group"
+              >
+                {/* Card */}
+                <div className="relative flex flex-col bg-white overflow-hidden h-[480px] md:h-[520px] rounded-[24px] border border-black/10 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  
+                  {/* Background Image */}
+                  <div className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105">
+                    <img src={work.image} alt={work.industry} className="w-full h-full object-cover" />
+                  </div>
 
-                {work.image ? (
-                  <img src={work.image} alt={work.industry} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                ) : (
-                  <span className="text-[28px] font-bold tracking-tight transition-colors duration-300 text-text-secondary group-hover:text-white">
-                    {work.logo}
-                  </span>
-                )}
-              </div>
+                  {/* White gradient overlay (pushing it lower so the image is incredibly clear) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent to-70%" />
 
-              {/* Bottom 2x2 Stats Grid */}
-              <div className="grid grid-cols-2">
-                {work.stats.map((stat, idx) => {
-                  // Add bottom border for top row, right border for left column
-                  const isTopRow = idx < 2;
-                  const isLeftCol = idx % 2 === 0;
-
-                  return (
-                    <div
-                      key={idx}
-                      className={`p-6 flex flex-col justify-center ${isTopRow ? 'border-b border-border' : ''} ${isLeftCol ? 'border-r border-border' : ''} bg-surface group-hover:bg-[#111111] transition-colors duration-300`}
-                    >
-                      <span className="text-[18px] md:text-[20px] font-semibold text-text-primary group-hover:text-white transition-colors duration-300 mb-1">
-                        {stat.value}
-                      </span>
-                      <span className="text-[12px] text-text-secondary group-hover:text-white/70 transition-colors duration-300 font-medium">
-                        {stat.label}
-                      </span>
+                  {/* Top Left Icon */}
+                  <div className="relative z-10 p-6">
+                    <div className="w-8 h-8 rounded-md bg-white/80 shadow-sm flex items-center justify-center">
+                      <Icon size={16} className="text-black" strokeWidth={2} />
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
 
-            </div>
-          </FadeInUp>
-        ))}
+                  {/* Bottom Content */}
+                  <div className="relative z-10 mt-auto p-6 pt-20">
+                    <h3 className="text-[22px] font-semibold text-[#111111] tracking-tight mb-2">
+                      {work.industry}
+                    </h3>
+                    <p className="text-[14px] text-black/60 leading-relaxed">
+                      {work.desc}
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
