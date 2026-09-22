@@ -1,14 +1,15 @@
-import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
 // Global config for consistent animations
 export const easing = [0.16, 1, 0.3, 1];
-export const defaultDuration = 0.6;
+export const easingSharp = [0.22, 1, 0.36, 1];
+export const defaultDuration = 0.65;
 
 /**
  * FadeInUp
  * Best for headings, text blocks, and cards.
- * Slides up slightly while fading in.
+ * Slides up while fading in — more dramatic offset for visible impact.
  */
 export const FadeInUp = ({ 
   children, 
@@ -16,7 +17,7 @@ export const FadeInUp = ({
   duration = defaultDuration, 
   className = "", 
   once = true, 
-  yOffset = 30, 
+  yOffset = 48, 
   as = "div",
   ...props 
 }) => {
@@ -37,7 +38,7 @@ export const FadeInUp = ({
       variants={variants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: "-50px" }}
+      viewport={{ once, margin: "-60px" }}
       className={className}
       {...props}
     >
@@ -73,7 +74,7 @@ export const FadeIn = ({
       variants={variants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: "-50px" }}
+      viewport={{ once, margin: "-60px" }}
       className={className}
       {...props}
     >
@@ -98,7 +99,7 @@ export const ScaleIn = ({
   const shouldReduceMotion = useReducedMotion();
   const Component = motion[as] || motion.div;
   const variants = {
-    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 },
+    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.92 },
     visible: { 
       opacity: 1, 
       scale: 1,
@@ -111,12 +112,137 @@ export const ScaleIn = ({
       variants={variants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: "-50px" }}
+      viewport={{ once, margin: "-60px" }}
       className={className}
       {...props}
     >
       {children}
     </Component>
+  );
+};
+
+/**
+ * SlideInLeft
+ * Best for sidebars, lists, and left-aligned content blocks.
+ */
+export const SlideInLeft = ({ 
+  children, 
+  delay = 0, 
+  duration = defaultDuration, 
+  className = "", 
+  once = true, 
+  xOffset = 60, 
+  as = "div",
+  ...props 
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+  const Component = motion[as] || motion.div;
+
+  const variants = {
+    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : -xOffset },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { duration, ease: easing, delay } 
+    }
+  };
+
+  return (
+    <Component
+      variants={variants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once, margin: "-60px" }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+};
+
+/**
+ * SlideInRight
+ * Best for right-aligned cards, preview panels, and right column content.
+ */
+export const SlideInRight = ({ 
+  children, 
+  delay = 0, 
+  duration = defaultDuration, 
+  className = "", 
+  once = true, 
+  xOffset = 60, 
+  as = "div",
+  ...props 
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+  const Component = motion[as] || motion.div;
+
+  const variants = {
+    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : xOffset },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { duration, ease: easing, delay } 
+    }
+  };
+
+  return (
+    <Component
+      variants={variants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once, margin: "-60px" }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+};
+
+/**
+ * ClipReveal
+ * Cinematic reveal by clipping from bottom — great for bold headlines & image reveals.
+ */
+export const ClipReveal = ({
+  children,
+  delay = 0,
+  duration = 0.75,
+  className = "",
+  wrapperClassName = "",
+  once = true,
+  as = "div",
+  ...props
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+  const Component = motion[as] || motion.div;
+
+  const variants = {
+    hidden: { 
+      clipPath: shouldReduceMotion ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)',
+      opacity: shouldReduceMotion ? 1 : 0,
+    },
+    visible: {
+      clipPath: 'inset(0% 0% 0% 0%)',
+      opacity: 1,
+      transition: { duration, ease: easingSharp, delay }
+    }
+  };
+
+  return (
+    <div style={{ overflow: 'hidden' }} className={wrapperClassName}>
+      <Component
+        variants={variants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once, margin: "-60px" }}
+        className={className}
+        {...props}
+      >
+        {children}
+      </Component>
+    </div>
   );
 };
 
@@ -127,7 +253,7 @@ export const ScaleIn = ({
 export const StaggerContainer = ({ 
   children, 
   delayChildren = 0, 
-  staggerChildren = 0.08, 
+  staggerChildren = 0.1, 
   className = "", 
   once = true, 
   as = "div",
@@ -151,7 +277,7 @@ export const StaggerContainer = ({
       variants={variants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: "-50px" }}
+      viewport={{ once, margin: "-60px" }}
       className={className}
       {...props}
     >
@@ -168,7 +294,7 @@ export const StaggerItem = ({
   children, 
   duration = defaultDuration, 
   className = "", 
-  yOffset = 30, 
+  yOffset = 40, 
   as = "div",
   ...props 
 }) => {
@@ -197,16 +323,13 @@ export const StaggerItem = ({
 
 /**
  * ScrollWordReveal
- * Reveals words one by one as the user scrolls.
+ * Reveals words one by one as the user scrolls, with a subtle y shift per word.
  */
-import { useRef } from 'react';
-import { useScroll, useTransform } from 'framer-motion';
-
 export const ScrollWordReveal = ({ text, className = "", as = "h2" }) => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 85%", "start 40%"] // Starts revealing when top of element is at 85% of viewport, ends when top is at 40%
+    offset: ["start 90%", "start 35%"]
   });
 
   const words = text.split(" ");
@@ -228,9 +351,10 @@ export const ScrollWordReveal = ({ text, className = "", as = "h2" }) => {
 };
 
 const Word = ({ children, progress, range }) => {
-  const opacity = useTransform(progress, range, [0.15, 1]);
+  const opacity = useTransform(progress, range, [0.1, 1]);
+  const y = useTransform(progress, range, [6, 0]);
   return (
-    <motion.span style={{ opacity }} className="mr-[0.25em]">
+    <motion.span style={{ opacity, y }} className="mr-[0.25em] inline-block">
       {children}
     </motion.span>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { research } from '../data/research';
+import { FadeInUp, SlideInLeft } from '../components/shared/Motion';
 
 export default function ResearchOverview() {
   return (
@@ -51,11 +52,11 @@ export default function ResearchOverview() {
             }, {})
           ).map(([category, themes]) => (
             <div key={category} className="mb-8">
-              <div className="mb-16 border-b border-black/10 pb-4">
+              <SlideInLeft className="mb-16 border-b border-black/10 pb-4">
                 <h2 className="text-[12px] font-mono tracking-[0.2em] text-text-secondary uppercase">
                   {category}
                 </h2>
-              </div>
+              </SlideInLeft>
               <div className="flex flex-col gap-32">
                 {themes.map((theme, i) => (
                   <motion.div 
@@ -85,8 +86,9 @@ export default function ResearchOverview() {
                     <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
                       {theme.subItems && theme.subItems.length > 0 ? (
                         theme.subItems.map((item, idx) => (
-                          <div 
+                          <FadeInUp 
                             key={idx}
+                            delay={idx * 0.08}
                             className="p-6 rounded-[16px] bg-surface/40 border border-border hover:bg-surface hover:border-black/10 transition-colors brutalist-card"
                           >
                             <h3 className="text-[18px] font-medium text-text-primary mb-2">
@@ -95,7 +97,7 @@ export default function ResearchOverview() {
                             <p className="text-[14px] text-text-secondary">
                               {item.desc}
                             </p>
-                          </div>
+                          </FadeInUp>
                         ))
                       ) : (
                         <div className="p-6 rounded-[16px] bg-surface/20 border border-border border-dashed flex items-center justify-center col-span-full">

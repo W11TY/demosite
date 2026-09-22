@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { solutions } from '../data/solutions';
 import UseCaseList from '../components/shared/UseCaseList';
 import StatCallout from '../components/shared/StatCallout';
+import { FadeInUp, SlideInLeft, SlideInRight } from '../components/shared/Motion';
 
 export default function SolutionDetail() {
   const { id } = useParams();
@@ -72,16 +73,16 @@ export default function SolutionDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24">
             
             {/* Use Cases */}
-            <div className="lg:col-span-7">
+            <SlideInLeft className="lg:col-span-7">
               <span className="text-eyebrow block mb-4">Use Cases</span>
               <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight text-text-primary mb-10">
                 How it works in {solution.industry}
               </h2>
               <UseCaseList useCases={solution.useCases} />
-            </div>
+            </SlideInLeft>
 
             {/* Stats / Results */}
-            <div className="lg:col-span-5">
+            <SlideInRight delay={0.1} className="lg:col-span-5">
               <div className="sticky top-32 p-8 rounded-[24px] bg-surface border border-border brutalist-card">
                 <span className="text-eyebrow block mb-8">Business Impact</span>
                 
@@ -102,7 +103,7 @@ export default function SolutionDetail() {
                   </div>
                 )}
               </div>
-            </div>
+            </SlideInRight>
             
           </div>
         </div>
@@ -111,3 +112,4 @@ export default function SolutionDetail() {
     </div>
   );
 }
+

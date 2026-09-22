@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { easing } from './shared/Motion';
 import AntiMetalButton from './shared/AntiMetalButton';
-import heroImg from '../assets/hero.png';
+import heroVideo from '../assets/hero.mp4';
+
 import logo from '../assets/logo.png';
 import { platforms } from '../data/platform';
 import { solutions } from '../data/solutions';
@@ -23,6 +24,37 @@ const f = (delay = 0) => ({
 export default function Hero() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.defaultMuted = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    const playVideo = () => {
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.catch(() => {});
+      }
+    };
+
+    playVideo();
+
+    const handleVisibility = () => {
+      if (!document.hidden && video.paused) {
+        playVideo();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -43,25 +75,37 @@ export default function Hero() {
     <div className="w-full flex justify-center p-3 lg:p-[12px] bg-white">
       <section className="relative w-full max-w-[1600px] min-h-[85vh] lg:h-[calc(100vh-24px)] lg:min-h-[700px] rounded-[24px] overflow-hidden bg-[#f1f1f1] shadow-sm isolate flex flex-col lg:block pb-24 lg:pb-0">
         
-        {/* ── Background Landscape & Gradient ── */}
+        {/* ── Background Video & Gradient ── */}
         <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
-          <img
-            src={heroImg}
-            alt="Cinematic Landscape"
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onEnded={() => {
+              if (videoRef.current) {
+                videoRef.current.currentTime = 0;
+                videoRef.current.play().catch(() => {});
+              }
+            }}
             className="w-full h-full object-cover object-[center_40%]"
-          />
-          {/* TV Localized Glow Enhancement - ensures the TV at X~700, Y~370 feels glowing and clearly visible */}
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+          {/* TV Localized Glow Enhancement */}
           <div className="absolute top-[365px] left-[700px] w-[140px] h-[90px] bg-orange-300/30 blur-[40px] rounded-full mix-blend-screen" />
           <div className="absolute top-[375px] left-[715px] w-[60px] h-[40px] bg-white/40 blur-[15px] rounded-full mix-blend-screen" />
           
-          {/* Much softer, longer gradient transition so landscape/TV emerges earlier and isn't washed out */}
+          {/* Soft gradient transition so content stays readable */}
           <div 
             className="absolute inset-0"
             style={{
               background: 'linear-gradient(to bottom, #f1f1f1 0%, #f1f1f1 30%, rgba(241,241,241,0.6) 40%, rgba(241,241,241,0.2) 50%, transparent 60%)'
             }}
           />
-          {/* Bottom dark gradient for cinematic depth, avoiding pure black */}
+          {/* Bottom dark gradient for cinematic depth */}
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/60 to-transparent" />
         </div>
 

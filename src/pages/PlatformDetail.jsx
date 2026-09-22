@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { platforms } from '../data/platform';
 import CapabilityPills from '../components/shared/CapabilityPills';
+import { FadeInUp, SlideInLeft, SlideInRight } from '../components/shared/Motion';
 
 export default function PlatformDetail() {
   const { id } = useParams();
@@ -70,7 +71,7 @@ export default function PlatformDetail() {
           <div className="flex flex-col gap-16">
             
             {/* Header */}
-            <div>
+            <SlideInLeft>
               <span className="text-eyebrow block mb-4">Core Features</span>
               <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight text-text-primary mb-6">
                 Platform Capabilities
@@ -78,12 +79,12 @@ export default function PlatformDetail() {
               <p className="text-[15px] text-text-secondary leading-relaxed max-w-[600px]">
                 Discover how {platform.shortName} enables you to automate, orchestrate, and optimize your business processes.
               </p>
-            </div>
+            </SlideInLeft>
 
             {/* Pills Display */}
-            <div className="w-full">
+            <FadeInUp delay={0.15} className="w-full">
               <CapabilityPills capabilities={platform.capabilities} />
-            </div>
+            </FadeInUp>
             
           </div>
         </div>
@@ -92,3 +93,4 @@ export default function PlatformDetail() {
     </div>
   );
 }
+

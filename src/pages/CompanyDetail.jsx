@@ -238,12 +238,22 @@ export default function CompanyDetail() {
             </div>
 
             <div className="relative z-20 max-w-[900px] mt-32">
-              <span className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase mb-6 block">
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase mb-6 block"
+              >
                 About Us
-              </span>
-              <h1 className="text-[clamp(40px,8vw,64px)] font-medium tracking-[-0.04em] leading-[1.05] text-white">
+              </motion.span>
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[clamp(40px,8vw,64px)] font-medium tracking-[-0.04em] leading-[1.05] text-white"
+              >
                 One Ecosystem. <span className="text-white/40">One Platform. Every Customer Conversation.</span>
-              </h1>
+              </motion.h1>
             </div>
           </section>
         </div>
@@ -333,37 +343,37 @@ export default function CompanyDetail() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 
                 {/* Person 1 */}
-                <div className="flex flex-col group cursor-pointer">
+                <FadeInUp delay={0.1} className="flex flex-col group cursor-pointer">
                   <div className="w-full aspect-[4/5] rounded-[24px] bg-[#F7C948] mb-4 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
                     <div className="absolute top-5 right-5 w-8 h-4 rounded-full border-[1.5px] border-white/40" />
                     <span className="text-black/30 font-medium text-sm">Image Placeholder</span>
                   </div>
                   <h4 className="text-[12px] font-bold text-white tracking-[0.1em] uppercase mb-1">Sarah Jenkins</h4>
                   <p className="text-[12px] text-white/40 font-mono tracking-tight">Head of Machine Learning</p>
-                </div>
+                </FadeInUp>
 
                 {/* Person 2 */}
-                <div className="flex flex-col group cursor-pointer">
+                <FadeInUp delay={0.2} className="flex flex-col group cursor-pointer">
                   <div className="w-full aspect-[4/5] rounded-[24px] bg-[#0E9F98] mb-4 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
                     <div className="absolute top-5 right-5 w-8 h-4 rounded-full border-[1.5px] border-white/40" />
                     <span className="text-black/30 font-medium text-sm">Image Placeholder</span>
                   </div>
                   <h4 className="text-[12px] font-bold text-white tracking-[0.1em] uppercase mb-1">Marcus Cheng</h4>
                   <p className="text-[12px] text-white/40 font-mono tracking-tight">Principal Design Director</p>
-                </div>
+                </FadeInUp>
 
                 {/* Person 3 */}
-                <div className="flex flex-col group cursor-pointer">
+                <FadeInUp delay={0.3} className="flex flex-col group cursor-pointer">
                   <div className="w-full aspect-[4/5] rounded-[24px] bg-[#3B82F6] mb-4 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
                     <div className="absolute top-5 right-5 w-8 h-4 rounded-full border-[1.5px] border-white/40" />
                     <span className="text-black/30 font-medium text-sm">Image Placeholder</span>
                   </div>
                   <h4 className="text-[12px] font-bold text-white tracking-[0.1em] uppercase mb-1">Elena Vance</h4>
                   <p className="text-[12px] text-white/40 font-mono tracking-tight">Lead Cognitive Scientist</p>
-                </div>
+                </FadeInUp>
 
                 {/* Person 4 (Text Card) */}
-                <div className="w-full aspect-[4/5] rounded-[24px] bg-gradient-to-b from-[#f9f9f9] to-[#eaeaea] p-8 flex flex-col relative cursor-pointer brutalist-card">
+                <FadeInUp delay={0.4} className="w-full aspect-[4/5] rounded-[24px] bg-gradient-to-b from-[#f9f9f9] to-[#eaeaea] p-8 flex flex-col relative cursor-pointer brutalist-card">
                   <div className="flex justify-between items-start mb-8">
                     <div className="flex gap-1.5">
                       <div className="w-7 h-7 rounded-full bg-[#111] flex items-center justify-center">
@@ -384,7 +394,7 @@ export default function CompanyDetail() {
                     <h4 className="text-[11px] font-bold text-[#111] tracking-[0.1em] uppercase mb-1">David Ross</h4>
                     <p className="text-[11px] text-black/50 font-mono tracking-tight">Infrastructure Architect</p>
                   </div>
-                </div>
+                </FadeInUp>
               </div>
               </FadeInUp>
             </StaggerContainer>

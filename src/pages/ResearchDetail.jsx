@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { research } from '../data/research';
 import CapabilityRow from '../components/shared/CapabilityRow';
+import { SlideInLeft, SlideInRight, FadeInUp } from '../components/shared/Motion';
 
 export default function ResearchDetail() {
   const { id } = useParams();
@@ -69,7 +70,7 @@ export default function ResearchDetail() {
           <div className="flex flex-col md:flex-row gap-16 md:gap-24">
             
             {/* Sticky Sidebar */}
-            <div className="md:w-[320px] shrink-0">
+            <SlideInLeft className="md:w-[320px] shrink-0">
               <div className="sticky top-32">
                 <span className="text-eyebrow block mb-4">Research Focus</span>
                 <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight text-text-primary mb-6">
@@ -79,10 +80,10 @@ export default function ResearchDetail() {
                   Explore the specific areas and technologies we are developing under the {theme.title} theme.
                 </p>
               </div>
-            </div>
+            </SlideInLeft>
 
             {/* Accordion List */}
-            <div className="flex-1 w-full">
+            <SlideInRight delay={0.1} className="flex-1 w-full">
               {theme.subItems && theme.subItems.length > 0 ? (
                 <CapabilityRow capabilities={theme.subItems} />
               ) : (
@@ -92,7 +93,7 @@ export default function ResearchDetail() {
                   </span>
                 </div>
               )}
-            </div>
+            </SlideInRight>
             
           </div>
         </div>

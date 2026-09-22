@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
 export default function CapabilityPills({ capabilities }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -17,16 +16,19 @@ export default function CapabilityPills({ capabilities }) {
     <div className="w-full flex flex-col">
       {/* Pills Container */}
       <div className="flex flex-wrap gap-3 md:gap-4 relative">
-        {capabilities.map((cap, idx) => {
+          {capabilities.map((cap, idx) => {
           const isHovered = hoveredIndex === idx;
           const isBlurred = isAnyHovered && !isHovered;
 
           return (
-            <button
+            <motion.button
               key={idx}
+              initial={{ opacity: 0, scale: 0.88, y: 16 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, margin: "-5%" }}
+              transition={{ duration: 0.5, delay: idx * 0.04, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={() => setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
-              style={{ animationDelay: `${idx * 0.15}s` }}
               className={`relative group flex items-center gap-2 px-5 py-2.5 rounded-full transition-all duration-300 border cursor-pointer ${
                 isHovered 
                   ? 'bg-black border-black text-white shadow-lg shadow-black/10 scale-[1.02] z-40' 
@@ -67,7 +69,7 @@ export default function CapabilityPills({ capabilities }) {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </button>
+            </motion.button>
           );
         })}
       </div>
