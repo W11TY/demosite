@@ -2,40 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FadeInUp, StaggerContainer } from './shared/Motion';
+import heroVideo from '../assets/hero.mp4';
 
 export default function Footer() {
   return (
     <footer className="w-full mt-auto relative" style={{ background: '#f5f5f3', fontFamily: 'Inter, sans-serif' }}>
       {/* Animated Background Illustration */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
-        {/* Subtle animated glowing orbs */}
-        <motion.div 
-          animate={{ x: [0, 50, 0], y: [0, -30, 0], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[20%] left-[10%] w-[400px] h-[300px] bg-blue-400/10 blur-[100px] rounded-full"
-        />
-        <motion.div 
-          animate={{ x: [0, -40, 0], y: [0, 40, 0], opacity: [0.2, 0.4, 0.2] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-[10%] right-[10%] w-[500px] h-[300px] bg-emerald-400/10 blur-[120px] rounded-full"
-        />
-        
-        {/* Abstract Infinite Audio Waveform (Soft Light Theme) */}
-        <div className="absolute bottom-0 left-0 right-0 h-[220px] flex items-end justify-center gap-[4px] px-8 opacity-40">
-          {[...Array(60)].map((_, i) => {
-            // Generate a wave-like pattern for heights (made much bigger)
-            const baseH = 40 + Math.sin(i * 0.2) * 30 + Math.cos(i * 0.5) * 20 + (i % 3) * 10;
-            return (
-              <motion.div
-                key={i}
-                animate={{ height: [Math.max(10, baseH * 0.5), baseH * 2, Math.max(10, baseH * 0.5)] }}
-                transition={{ repeat: Infinity, duration: 1.5 + (i % 5) * 0.2, ease: "easeInOut", delay: i * 0.05 }}
-                className="w-[2px] sm:w-[5px] rounded-full bg-blue-500"
-                style={{ opacity: 0.2 + (Math.sin(i * 0.1) + 1) * 0.4 }}
-              />
-            );
-          })}
-        </div>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-white/70" /> {/* Overlay for text readability */}
       </div>
       
       <div className="relative z-10 flex flex-col w-full h-full min-h-[400px]">
@@ -56,7 +39,7 @@ export default function Footer() {
             </FadeInUp>
 
             {/* Nav Columns */}
-            <div className="flex flex-1 flex-col sm:flex-row gap-10 lg:gap-0 lg:justify-around">
+            <div className="flex-1 grid grid-cols-2 gap-8 sm:flex sm:flex-row sm:gap-10 lg:gap-0 lg:justify-around w-full">
 
               {/* Product */}
               <FadeInUp delay={0.1} className="min-w-[120px]">
@@ -195,11 +178,11 @@ export default function Footer() {
       </StaggerContainer>
 
       {/* Bottom Copyright Section */}
-      <div className="w-full flex justify-between items-end px-8 lg:px-14 pb-8 lg:pb-12 mt-auto pt-12">
+      <div className="w-full flex flex-col-reverse sm:flex-row justify-between items-start sm:items-end gap-8 sm:gap-0 px-8 lg:px-14 pb-8 lg:pb-12 mt-auto pt-12">
         <p style={{ fontSize: '10px', color: '#555', lineHeight: 1.6 }}>
           © {new Date().getFullYear()} Voxi.<br />All rights reserved.
         </p>
-        <p style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.18em', color: '#555', textTransform: 'uppercase', textAlign: 'right', lineHeight: 1.5 }}>
+        <p className="text-left sm:text-right" style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.18em', color: '#555', textTransform: 'uppercase', lineHeight: 1.5 }}>
           Conversations<br />without limits.
         </p>
       </div>

@@ -65,10 +65,10 @@ export default function Hero() {
   }, []);
 
   const navItems = [
-    { name: 'Platform', href: '/platform', dropdown: platforms },
-    { name: 'Solutions', href: '/solutions', dropdown: solutions },
+    { name: 'PLATFORM', href: '/platform', dropdown: platforms },
+    { name: 'SOLUTIONS', href: '/solutions', dropdown: solutions },
     { name: 'VOXI RESEARCH', href: '/research', dropdown: research },
-    { name: 'Company', href: '/company', dropdown: company },
+    { name: 'COMPANY', href: '/company', dropdown: company },
   ];
 
   return (

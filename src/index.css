@@ -83,3 +83,33 @@
 .animate-blue-wave {
   animation: blue-wave 4s infinite ease-in-out;
 }
+
+@keyframes gradient-flow-y {
+  0% {
+    background-position: 50% 100%;
+  }
+  50% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 50% 100%;
+  }
+}
+
+.animate-gradient-y {
+  background-size: 100% 200%;
+  animation: gradient-flow-y 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}

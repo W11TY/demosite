@@ -73,10 +73,18 @@ export default function WorksCarousel() {
               >
                 {/* Card */}
                 <div className="relative flex flex-col bg-white overflow-hidden h-[480px] md:h-[520px] rounded-[24px] border border-black/10 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  
+
                   {/* Background Image */}
-                  <div className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105">
-                    <img src={work.image} alt={work.industry} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105 flex items-center justify-center p-6">
+                    <img
+                      src={work.image}
+                      alt={work.industry}
+                      className="w-full h-full object-contain object-top animate-float"
+                      style={{
+                        animationDelay: `-${i * 0.8}s`,
+                        animationDuration: `${4 + (i % 3) * 0.7}s`
+                      }}
+                    />
                   </div>
 
                   {/* White gradient overlay (pushing it lower so the image is incredibly clear) */}

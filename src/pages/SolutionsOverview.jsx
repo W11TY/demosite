@@ -20,6 +20,14 @@ const gradients = [
   'from-amber-500/20 to-yellow-900/40'
 ];
 
+const darkGradients = [
+  'bg-gradient-to-t from-blue-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-indigo-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-sky-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-cyan-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-violet-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y'
+];
+
 export default function SolutionsOverview() {
   return (
     <div className="w-full min-h-screen bg-white">
@@ -277,8 +285,8 @@ export default function SolutionsOverview() {
                   </div>
 
                   {/* Content Bottom */}
-                  <div className="p-6 md:p-8 flex flex-col flex-grow">
-                    <h3 className="text-[20px] font-semibold tracking-tight text-text-primary mb-6">
+                  <div className={`p-6 md:p-8 flex flex-col flex-grow ${darkGradients[i % darkGradients.length]}`}>
+                    <h3 className="text-[20px] font-semibold tracking-tight text-white mb-6">
                       {solution.area || 'Customer Intelligence'}
                     </h3>
                     
@@ -287,13 +295,13 @@ export default function SolutionsOverview() {
                       <div className="grid grid-cols-2 gap-4 mt-auto">
                         {solution.stats.slice(0, 4).map((stat, idx) => (
                           <div key={idx} className="flex flex-col">
-                            <span className="text-[20px] font-medium text-text-primary tabular-nums tracking-tight">
+                            <span className="text-[20px] font-medium text-white tabular-nums tracking-tight">
                               {stat.value === 0 && stat.label === 'Missed Follow-Ups' 
                                 ? 'Zero' 
                                 : `${stat.prefix || ''}${stat.value}${stat.suffix || ''}`
                               }
                             </span>
-                            <span className="text-[11px] text-text-secondary uppercase tracking-wider font-medium mt-1">
+                            <span className="text-[11px] text-white/70 uppercase tracking-wider font-medium mt-1">
                               {stat.label}
                             </span>
                           </div>
@@ -301,7 +309,7 @@ export default function SolutionsOverview() {
                       </div>
                     ) : (
                       <div className="mt-auto">
-                        <span className="inline-flex items-center text-[14px] font-medium text-text-primary group-hover:opacity-70 transition-opacity">
+                        <span className="inline-flex items-center text-[14px] font-medium text-white group-hover:opacity-70 transition-opacity">
                           View Use Cases &rarr;
                         </span>
                       </div>

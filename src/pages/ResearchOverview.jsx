@@ -3,6 +3,14 @@ import { motion } from 'framer-motion';
 import { research } from '../data/research';
 import { FadeInUp, SlideInLeft } from '../components/shared/Motion';
 
+const darkGradients = [
+  'bg-gradient-to-t from-blue-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-indigo-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-sky-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-cyan-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-violet-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y'
+];
+
 export default function ResearchOverview() {
   return (
     <div className="w-full min-h-screen bg-white">
@@ -89,11 +97,12 @@ export default function ResearchOverview() {
                           <FadeInUp 
                             key={idx}
                             delay={idx * 0.08}
-                            className="p-6 rounded-[16px] bg-surface/40 border border-border hover:bg-surface hover:border-black/10 transition-colors brutalist-card flex flex-col"
+                            className="rounded-[16px] bg-surface/40 border border-border hover:bg-surface hover:border-black/10 transition-colors brutalist-card flex flex-col overflow-hidden"
                           >
-                            {/* Mini illustration */}
-                            <div className="w-full h-[90px] rounded-[10px] bg-[#f4f4f4] border border-black/5 mb-4 flex items-center justify-center overflow-hidden">
-                              <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                            <div className="p-6 pb-4">
+                              {/* Mini illustration */}
+                              <div className="w-full h-[90px] rounded-[10px] bg-[#f4f4f4] border border-black/5 flex items-center justify-center overflow-hidden">
+                                <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                                 <defs>
                                   <filter id={`glow-r${idx}`} x="-50%" y="-50%" width="200%" height="200%">
                                     <feGaussianBlur stdDeviation="2" result="blur"/>
@@ -143,13 +152,16 @@ export default function ResearchOverview() {
                                   </g>
                                 )}
                               </svg>
+                              </div>
                             </div>
-                            <h3 className="text-[18px] font-medium text-text-primary mb-2">
-                              {item.name}
-                            </h3>
-                            <p className="text-[14px] text-text-secondary">
-                              {item.desc}
-                            </p>
+                            <div className={`p-6 pt-4 flex-1 ${darkGradients[idx % darkGradients.length]}`}>
+                              <h3 className="text-[18px] font-medium text-white mb-2">
+                                {item.name}
+                              </h3>
+                              <p className="text-[14px] text-white/70">
+                                {item.desc}
+                              </p>
+                            </div>
                           </FadeInUp>
                         ))
                       ) : (

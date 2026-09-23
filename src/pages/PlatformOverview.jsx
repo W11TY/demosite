@@ -11,6 +11,14 @@ const gradients = [
   'from-cyan-500/10 to-blue-100'
 ];
 
+const darkGradients = [
+  'bg-gradient-to-t from-blue-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-indigo-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-sky-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-cyan-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
+  'bg-gradient-to-t from-violet-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y'
+];
+
 export default function PlatformOverview() {
   return (
     <div className="w-full min-h-screen bg-white">
@@ -223,15 +231,15 @@ export default function PlatformOverview() {
                   </div>
 
                   {/* Content Bottom */}
-                  <div className="p-6 md:p-8 flex flex-col flex-grow">
-                    <h3 className="text-[24px] font-semibold tracking-tight text-text-primary mb-3">
+                  <div className={`p-6 md:p-8 flex flex-col flex-grow ${darkGradients[i % darkGradients.length]}`}>
+                    <h3 className="text-[24px] font-semibold tracking-tight text-white mb-3">
                       {platform.name}
                     </h3>
-                    <p className="text-[15px] text-text-secondary leading-relaxed mb-6">
+                    <p className="text-[15px] text-white/70 leading-relaxed mb-6">
                       {platform.description}
                     </p>
                     <div className="mt-auto">
-                      <span className="inline-flex items-center text-[14px] font-medium text-text-primary group-hover:opacity-70 transition-opacity">
+                      <span className="inline-flex items-center text-[14px] font-medium text-white group-hover:opacity-70 transition-opacity">
                         Explore capabilities &rarr;
                       </span>
                     </div>
