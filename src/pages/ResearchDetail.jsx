@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { research } from '../data/research';
 import CapabilityRow from '../components/shared/CapabilityRow';
 import { SlideInLeft, SlideInRight, FadeInUp } from '../components/shared/Motion';
+import researchImg from '../assets/cards/research.png';
 
 export default function ResearchDetail() {
   const { id } = useParams();
@@ -87,10 +88,8 @@ export default function ResearchDetail() {
               {theme.subItems && theme.subItems.length > 0 ? (
                 <CapabilityRow capabilities={theme.subItems} />
               ) : (
-                <div className="p-8 rounded-[16px] bg-surface/20 border border-border border-dashed flex items-center justify-center">
-                  <span className="text-[15px] text-text-secondary">
-                    Research in progress. Details coming soon.
-                  </span>
+                <div className="rounded-[16px] overflow-hidden flex items-center justify-center border border-border">
+                  <img src={researchImg} alt="Research in progress" className="w-full h-auto object-cover" />
                 </div>
               )}
             </SlideInRight>

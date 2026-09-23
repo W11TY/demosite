@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { research } from '../data/research';
 import { FadeInUp, SlideInLeft } from '../components/shared/Motion';
+import researchImg from '../assets/cards/research.png';
 
 const darkGradients = [
   'bg-gradient-to-t from-blue-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
@@ -165,10 +166,8 @@ export default function ResearchOverview() {
                           </FadeInUp>
                         ))
                       ) : (
-                        <div className="p-6 rounded-[16px] bg-surface/20 border border-border border-dashed flex items-center justify-center col-span-full">
-                          <span className="text-[14px] text-text-secondary">
-                            Research in progress. Details coming soon.
-                          </span>
+                        <div className="rounded-[16px] overflow-hidden flex items-center justify-center col-span-full border border-border">
+                          <img src={researchImg} alt="Research in progress" className="w-full h-auto object-cover" />
                         </div>
                       )}
                     </div>

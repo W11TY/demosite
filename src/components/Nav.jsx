@@ -62,7 +62,7 @@ export default function Nav() {
     >
       {/* Logo */}
       <Link to="/" className="flex items-center">
-        <img src={logo} alt="Voxi Logo" className="h-[26px] lg:h-[32px] w-auto object-contain" />
+        <img src={logo} alt="Voxi Logo" className="h-[36px] lg:h-[45px] w-auto object-contain" />
       </Link>
 
       {/* Desktop Links */}
