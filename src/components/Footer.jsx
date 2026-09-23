@@ -30,8 +30,8 @@ export default function Footer() {
               {/* Left: Brand */}
               <FadeInUp className="lg:w-[220px] shrink-0">
                 <div style={{ fontSize: '32px', fontWeight: 700, letterSpacing: '-0.03em', color: '#111', lineHeight: 1, marginBottom: '8px' }}>voxi</div>
-                <div style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.18em', color: '#666', textTransform: 'uppercase', lineHeight: 1.4, marginBottom: '20px' }}>
-                  Customer Orchestration<br />Platform
+                <div style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.18em', color: '#666', lineHeight: 1.4, marginBottom: '20px' }}>
+                  Customer Orchestration Platform
                 </div>
                 <p style={{ fontSize: '13px', color: '#555', lineHeight: 1.5 }}>
                   Conversations<br />that move the world forward.

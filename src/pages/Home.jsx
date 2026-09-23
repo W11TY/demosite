@@ -16,8 +16,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <BentoSection />
       <TrustBar />
+      <BentoSection />
       <WorksCarousel />
       <Capabilities />
       <Ecosystem />

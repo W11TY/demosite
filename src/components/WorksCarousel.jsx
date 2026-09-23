@@ -62,6 +62,18 @@ export default function WorksCarousel() {
     const slider = scrollRef.current;
     if (!slider) return;
 
+    let resetWidth = 0;
+    let lastScrollLeft = slider.scrollLeft;
+
+    // Delay initialization slightly to let layout settle
+    setTimeout(() => {
+      if (set1Ref.current && slider) {
+        resetWidth = set1Ref.current.offsetWidth + 24;
+        slider.scrollLeft = resetWidth * 4;
+        lastScrollLeft = slider.scrollLeft;
+      }
+    }, 200);
+
     const onMouseDown = (e) => {
       isDown = true;
       slider.classList.add('cursor-grabbing');
@@ -91,10 +103,7 @@ export default function WorksCarousel() {
       slider.scrollLeft = scrollLeft - walk;
     };
     
-    const onMouseEnter = () => {
-      isHovered = true;
-    };
-
+    const onMouseEnter = () => { isHovered = true; };
     const onTouchStart = () => { isHovered = true; };
     const onTouchEnd = () => { isHovered = false; };
 
@@ -107,16 +116,26 @@ export default function WorksCarousel() {
     slider.addEventListener('touchend', onTouchEnd);
 
     const step = () => {
-      if (!isHovered && !isDown && set1Ref.current) {
-        slider.scrollLeft += 1.5; // Auto-scroll speed
-        
-        // Exact width of one complete set of items plus one gap (24px)
-        const resetWidth = set1Ref.current.offsetWidth + 24;
-        
-        // Loop back seamlessly
-        if (slider.scrollLeft >= resetWidth) {
-          slider.scrollLeft -= resetWidth;
+      if (set1Ref.current && resetWidth > 0) {
+        const currentScroll = slider.scrollLeft;
+        const delta = Math.abs(currentScroll - lastScrollLeft);
+        // If delta > 2, user is momentum scrolling or dragging fast
+        const isMomentumScrolling = delta > 2;
+
+        if (!isHovered && !isDown && !isMomentumScrolling) {
+          slider.scrollLeft += 1.5;
         }
+
+        // Only wrap when completely safe (not dragging, not momentum scrolling)
+        if (!isDown && !isMomentumScrolling) {
+          if (slider.scrollLeft >= resetWidth * 6) {
+            slider.scrollLeft -= resetWidth;
+          } else if (slider.scrollLeft <= resetWidth * 2) {
+            slider.scrollLeft += resetWidth;
+          }
+        }
+        
+        lastScrollLeft = slider.scrollLeft;
       }
       animationId = requestAnimationFrame(step);
     };
@@ -153,108 +172,58 @@ export default function WorksCarousel() {
         className="w-full pb-12 overflow-x-auto cursor-grab scrollbar-hide select-none"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
       >
-        <div className="flex w-max gap-[24px] px-6 lg:px-[58px]">
-          {/* First Set */}
-          <div ref={set1Ref} className="flex gap-[24px] shrink-0">
-            {works.map((work, i) => {
-              const Icon = work.icon;
-              return (
-                <div
-                  key={`set1-${i}`}
-                  className="w-[300px] md:w-[340px] shrink-0 group"
-                >
-                  {/* Card */}
-                  <div className="relative flex flex-col bg-white overflow-hidden h-[480px] md:h-[520px] rounded-[24px] border border-black/10 shadow-lg hover:shadow-xl transition-shadow duration-300 pointer-events-none">
-                    
-                    {/* Background Image */}
-                    <div className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105 flex items-center justify-center p-6">
-                      <img
-                        src={work.image}
-                        alt={work.industry}
-                        className="w-full h-full object-contain object-top animate-float"
-                        style={{
-                          animationDelay: `-${i * 0.8}s`,
-                          animationDuration: `${4 + (i % 3) * 0.7}s`
-                        }}
-                      />
-                    </div>
-
-                    {/* White gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent to-70%" />
-
-                    {/* Top Left Icon */}
-                    <div className="relative z-10 p-6">
-                      <div className="w-8 h-8 rounded-md bg-white/80 shadow-sm flex items-center justify-center">
-                        <Icon size={16} className="text-black" strokeWidth={2} />
+        <div className="flex w-max gap-[24px]">
+          {/* Create 10 identical sets to ensure a massive runway for scrolling in both directions */}
+          {[...Array(10)].map((_, trackIndex) => (
+            <div 
+              key={`set-${trackIndex}`} 
+              ref={trackIndex === 0 ? set1Ref : null} 
+              className="flex gap-[24px] shrink-0"
+            >
+              {works.map((work, i) => {
+                const Icon = work.icon;
+                return (
+                  <div
+                    key={`set${trackIndex}-${i}`}
+                    className="w-[300px] md:w-[340px] shrink-0 group"
+                  >
+                    {/* Card */}
+                    <div className="relative flex flex-col bg-white overflow-hidden h-[480px] md:h-[520px] rounded-[24px] border border-black/10 shadow-lg hover:shadow-xl transition-shadow duration-300 pointer-events-none">
+                      
+                      {/* Background Image */}
+                      <div className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105 flex items-center justify-center p-6">
+                        <img
+                          src={work.image}
+                          alt={work.industry}
+                          className="w-full h-full object-contain object-top animate-float"
+                          style={{
+                            animationDelay: `-${i * 0.8}s`,
+                            animationDuration: `${4 + (i % 3) * 0.7}s`
+                          }}
+                        />
                       </div>
-                    </div>
 
-                    {/* Bottom Content */}
-                    <div className="relative z-10 mt-auto p-6 pt-20">
-                      <h3 className="text-[22px] font-semibold text-[#111111] tracking-tight mb-2">
-                        {work.industry}
-                      </h3>
-                      <p className="text-[14px] text-black/60 leading-relaxed">
-                        {work.desc}
-                      </p>
-                    </div>
+                      {/* White gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent to-70%" />
 
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                      {/* Top Left Icon Removed */}
 
-          {/* Second Set (Duplicate for looping) */}
-          <div className="flex gap-[24px] shrink-0">
-            {works.map((work, i) => {
-              const Icon = work.icon;
-              return (
-                <div
-                  key={`set2-${i}`}
-                  className="w-[300px] md:w-[340px] shrink-0 group"
-                >
-                  {/* Card */}
-                  <div className="relative flex flex-col bg-white overflow-hidden h-[480px] md:h-[520px] rounded-[24px] border border-black/10 shadow-lg hover:shadow-xl transition-shadow duration-300 pointer-events-none">
-                    
-                    {/* Background Image */}
-                    <div className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105 flex items-center justify-center p-6">
-                      <img
-                        src={work.image}
-                        alt={work.industry}
-                        className="w-full h-full object-contain object-top animate-float"
-                        style={{
-                          animationDelay: `-${i * 0.8}s`,
-                          animationDuration: `${4 + (i % 3) * 0.7}s`
-                        }}
-                      />
-                    </div>
-
-                    {/* White gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent to-70%" />
-
-                    {/* Top Left Icon */}
-                    <div className="relative z-10 p-6">
-                      <div className="w-8 h-8 rounded-md bg-white/80 shadow-sm flex items-center justify-center">
-                        <Icon size={16} className="text-black" strokeWidth={2} />
+                      {/* Bottom Content */}
+                      <div className="relative z-10 mt-auto p-6 pt-20">
+                        <h3 className="text-[22px] font-semibold text-[#111111] tracking-tight mb-2">
+                          {work.industry}
+                        </h3>
+                        <p className="text-[14px] text-black/60 leading-relaxed">
+                          {work.desc}
+                        </p>
                       </div>
-                    </div>
 
-                    {/* Bottom Content */}
-                    <div className="relative z-10 mt-auto p-6 pt-20">
-                      <h3 className="text-[22px] font-semibold text-[#111111] tracking-tight mb-2">
-                        {work.industry}
-                      </h3>
-                      <p className="text-[14px] text-black/60 leading-relaxed">
-                        {work.desc}
-                      </p>
                     </div>
-
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </div>
     </section>

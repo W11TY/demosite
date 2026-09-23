@@ -171,10 +171,10 @@ export default function Hero() {
           
           {/* ── Left Content (Typography & Main CTA) ── */}
           <div className="lg:absolute lg:left-[43px] lg:top-[183px] w-full lg:max-w-[650px] flex flex-col mb-10 lg:mb-0">
-            <motion.h1 {...f(0.05)} className="text-[clamp(44px,11vw,72px)] font-normal tracking-[-0.04em] leading-[1.05] text-[#999999] mb-0">
+            <motion.h1 {...f(0.05)} className="text-[clamp(36px,9vw,56px)] font-normal tracking-[-0.04em] leading-[1.05] text-[#999999] mb-0">
               Orchestrate Every Customer Journey.
             </motion.h1>
-            <motion.h1 {...f(0.14)} className="text-[clamp(44px,11vw,72px)] font-medium tracking-[-0.04em] leading-[1.05] text-[#111111] mb-[24px]">
+            <motion.h1 {...f(0.14)} className="text-[clamp(36px,9vw,56px)] font-medium tracking-[-0.04em] leading-[1.05] text-[#111111] mb-[24px]">
               One Intelligence. Every Interaction.
             </motion.h1>
 
@@ -201,7 +201,7 @@ export default function Hero() {
             <img 
               src={voxiText} 
               alt="Digital Brain" 
-              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
+              className="w-[75%] h-[75%] object-contain group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
             />
           </div>
           {/* Card Footer */}
@@ -234,16 +234,16 @@ export default function Hero() {
               <div key={trackIndex} className="flex items-center justify-center gap-[60px] pr-[60px]">
                 {[...Array(2)].map((_, i) => (
                   <React.Fragment key={i}>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Esme</div>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Eastman</div>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Oliva</div>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Oasis</div>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Eicher Motor</div>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Chirok Health</div>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Paramantra</div>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">CarPortal</div>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Clofio</div>
-                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">HRHnext</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Esme</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Eastman</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Oliva</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Oasis</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Eicher Motor</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Chirok Health</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Paramantra</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">CarPortal</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Clofio</div>
+                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">HRHnext</div>
                   </React.Fragment>
                 ))}
               </div>
