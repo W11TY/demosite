@@ -39,64 +39,22 @@ export default function Footer() {
             </FadeInUp>
 
             {/* Nav Columns */}
-            <div className="flex-1 grid grid-cols-2 gap-8 sm:flex sm:flex-row sm:gap-10 lg:gap-0 lg:justify-around w-full">
+            <div className="flex-1 flex sm:justify-around w-full">
 
-              {/* Product */}
               <FadeInUp delay={0.1} className="min-w-[120px]">
-                <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Product</h4>
+                <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#111', marginBottom: '16px', textTransform: 'uppercase' }}>Navigation</h4>
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {[
-                    { label: 'Features', to: '/platform' },
-                    { label: 'Use Cases', to: '/solutions' },
-                    { label: 'Pricing', to: '/platform' },
-                    { label: 'Documentation', to: '/research' },
-                    { label: 'Changelog', to: '/research' },
+                    { label: 'PLATFORM', to: '/platform' },
+                    { label: 'SOLUTIONS', to: '/solutions' },
+                    { label: 'VOXI RESEARCH', to: '/research' },
+                    { label: 'COMPANY', to: '/company' },
+                    { label: 'CONTACT US', to: '/contact' },
                   ].map(({ label, to }) => (
                     <li key={label}>
-                      <Link to={to} style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.2s' }}
+                      <Link to={to} style={{ fontSize: '13px', fontWeight: 600, color: '#555', textDecoration: 'none', transition: 'color 0.2s' }}
                         onMouseEnter={e => e.target.style.color = '#111'}
-                        onMouseLeave={e => e.target.style.color = '#666'}
-                      >{label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </FadeInUp>
-
-              {/* Company */}
-              <FadeInUp delay={0.15} className="min-w-[100px]">
-                <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Company</h4>
-                <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {[
-                    { label: 'About', to: '/company' },
-                    { label: 'Careers', to: '/company/careers' },
-                    { label: 'Blog', to: '/research' },
-                    { label: 'Press', to: '/company' },
-                    { label: 'Contact', to: '/contact' },
-                  ].map(({ label, to }) => (
-                    <li key={label}>
-                      <Link to={to} style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.2s' }}
-                        onMouseEnter={e => e.target.style.color = '#111'}
-                        onMouseLeave={e => e.target.style.color = '#666'}
-                      >{label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </FadeInUp>
-
-              {/* Legal */}
-              <FadeInUp delay={0.2} className="min-w-[130px]">
-                <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Legal</h4>
-                <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {[
-                    { label: 'Privacy Policy', to: '/company/privacy' },
-                    { label: 'Terms of Service', to: '/company/terms' },
-                    { label: 'Security', to: '/company/security' },
-                    { label: 'Responsible AI', to: '/research' },
-                  ].map(({ label, to }) => (
-                    <li key={label}>
-                      <Link to={to} style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.2s' }}
-                        onMouseEnter={e => e.target.style.color = '#111'}
-                        onMouseLeave={e => e.target.style.color = '#666'}
+                        onMouseLeave={e => e.target.style.color = '#555'}
                       >{label}</Link>
                     </li>
                   ))}
