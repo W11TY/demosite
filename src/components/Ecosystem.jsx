@@ -26,15 +26,17 @@ export default function Ecosystem() {
             <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr]">
 
               {/* Left — Product card visual */}
-              <div className="border-b lg:border-b-0 lg:border-r border-black/5 p-8 lg:p-10">
+              <div className="border-b lg:border-b-0 lg:border-r border-black/5 p-6 md:p-8 lg:p-10">
                 {/* Card shell */}
                 <div className="rounded-2xl border border-black/6 bg-[#fafafa] overflow-hidden shadow-sm">
                   
                   {/* Card header */}
-                  <div className="px-5 py-3.5 border-b border-black/5 bg-white flex items-center gap-3">
-                    <img src={logo} alt="VoxiFlow" className="h-5 w-auto object-contain" />
-                    <span className="text-[11px] text-black/35 font-medium tracking-wide">Customer Intelligence Platform</span>
-                    <div className="ml-auto flex items-center gap-1.5">
+                  <div className="px-4 md:px-5 py-3.5 border-b border-black/5 bg-white flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                    <div className="flex items-center gap-3">
+                      <img src={logo} alt="VoxiFlow" className="h-5 w-auto object-contain" />
+                      <span className="text-[11px] text-black/40 font-medium tracking-wide">Customer Intelligence</span>
+                    </div>
+                    <div className="sm:ml-auto flex items-center gap-1.5 self-start sm:self-auto">
                       <motion.div
                         animate={{ opacity: [1, 0.3, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
@@ -45,7 +47,7 @@ export default function Ecosystem() {
                   </div>
 
                   {/* Pipeline stages */}
-                  <div className="px-5 py-5">
+                  <div className="px-4 md:px-5 py-5">
                     {stages.map((stage, i) => {
                       const Icon = stage.icon;
                       return (
@@ -72,12 +74,12 @@ export default function Ecosystem() {
                           </div>
 
                           {/* Row content */}
-                          <div className="pb-5 flex-1">
-                            <div className="flex items-center gap-2 mb-0.5">
-                              <Icon size={12} style={{ color: stage.color }} strokeWidth={2} />
+                          <div className="pb-5 flex-1 min-w-0">
+                            <div className="flex flex-wrap items-center gap-2 mb-0.5">
+                              <Icon size={12} style={{ color: stage.color }} strokeWidth={2} className="shrink-0" />
                               <span className="text-[13px] font-semibold text-[#111]">{stage.name}</span>
                               <span
-                                className="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                                className="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap"
                                 style={{ color: stage.color, backgroundColor: `${stage.color}15` }}
                               >
                                 {stage.status}
@@ -91,17 +93,17 @@ export default function Ecosystem() {
                   </div>
 
                   {/* Card footer */}
-                  <div className="px-5 py-3 border-t border-black/5 bg-white flex items-center gap-2">
-                    <span className="text-[11px] text-black/35">All channels unified</span>
-                    <ArrowRight size={11} className="text-black/25" />
-                    <span className="text-[11px] text-black/35">One intelligent layer</span>
+                  <div className="px-4 md:px-5 py-3 border-t border-black/5 bg-white flex items-center justify-center sm:justify-start gap-2">
+                    <span className="text-[10px] md:text-[11px] text-black/35">All channels unified</span>
+                    <ArrowRight size={11} className="text-black/25 shrink-0" />
+                    <span className="text-[10px] md:text-[11px] text-black/35">One intelligent layer</span>
                   </div>
                 </div>
               </div>
 
               {/* Right — Text content */}
-              <div className="p-8 lg:p-10 flex flex-col justify-center">
-                <h3 className="text-[26px] md:text-[32px] font-medium text-[#111111] leading-tight mb-5 tracking-tight">
+              <div className="p-6 md:p-8 lg:p-10 flex flex-col justify-center">
+                <h3 className="text-[24px] md:text-[32px] font-medium text-[#111111] leading-tight mb-4 md:mb-5 tracking-tight">
                   Every Customer Conversation, connected.
                 </h3>
                 <p className="text-[15px] md:text-[16px] text-black/55 leading-relaxed mb-8">
@@ -139,31 +141,36 @@ export default function Ecosystem() {
           </div>
 
           {/* Methodology & 90-Day Framework */}
-          <div className="bg-white rounded-[24px] p-8 md:p-10 border border-black/5 shadow-sm">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+          <div className="bg-white rounded-[24px] p-6 md:p-10 border border-black/5 shadow-sm">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-5 lg:gap-6 mb-10 md:mb-12">
               <div className="max-w-[560px]">
-                <h3 className="text-[24px] md:text-[30px] font-medium text-[#111111] leading-tight mb-3 tracking-tight">
+                <h3 className="text-[22px] md:text-[30px] font-medium text-[#111111] leading-tight mb-2 md:mb-3 tracking-tight">
                   Our Methodology
                 </h3>
-                <p className="text-[15px] text-black/55 leading-relaxed">
+                <p className="text-[14px] md:text-[15px] text-black/55 leading-relaxed">
                   Technology alone doesn't deliver success. <span className="text-[#111111] font-semibold">Implementation does.</span> We work closely with you from discovery to optimization.
                 </p>
               </div>
-              <div className="shrink-0 px-4 py-2 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 text-[11px] font-bold tracking-widest uppercase">
+              <div className="shrink-0 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 text-[10px] md:text-[11px] font-bold tracking-widest uppercase">
                 90-Day Success Framework
               </div>
             </div>
 
             {/* Timeline */}
-            <div className="relative pt-6">
-              <div className="absolute top-10 left-0 w-full h-px bg-black/6" />
+            <div className="relative pt-2 md:pt-6">
+              {/* Desktop horizontal line */}
+              <div className="hidden md:block absolute top-10 left-0 w-full h-px bg-black/6" />
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: '100%' }}
                 transition={{ duration: 1.4, ease: 'easeOut' }}
-                className="absolute top-10 left-0 h-px bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500"
+                className="hidden md:block absolute top-10 left-0 h-px bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500"
               />
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
+              
+              {/* Mobile vertical line */}
+              <div className="md:hidden absolute top-8 bottom-4 left-[3px] w-px bg-black/6" />
+              
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-6 relative z-10 pl-6 md:pl-0">
                 {[
                   { day: 'Day 1–14',  title: 'Discovery & Design',      desc: 'Mapping journeys, defining AI workflows.',          color: '#3b82f6' },
                   { day: 'Day 15–45', title: 'Deployment',              desc: 'Integration, testing, intelligent rollout.',         color: '#6366f1' },
@@ -175,20 +182,20 @@ export default function Ecosystem() {
                     initial={{ opacity: 0, y: 14 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + i * 0.12 }}
-                    className="relative pt-7"
+                    className="relative pt-2 md:pt-7"
                   >
-                    <div className="absolute top-[-4px] left-0 w-2.5 h-2.5 rounded-full bg-white border-[1.5px] border-black/12" />
+                    <div className="absolute md:top-[-4px] top-[4px] md:left-0 -left-[27px] w-2.5 h-2.5 rounded-full bg-white border-[1.5px] border-black/12" />
                     <motion.div
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
                       transition={{ delay: 0.9 + i * 0.12, type: 'spring' }}
-                      className="absolute top-[-1.5px] left-[3px] w-[7px] h-[7px] rounded-full"
+                      className="absolute md:top-[-1.5px] top-[6.5px] md:left-[3px] -left-[24.5px] w-[7px] h-[7px] rounded-full"
                       style={{ backgroundColor: step.color }}
                     />
-                    <span className="text-[10px] font-bold tracking-widest uppercase mb-2 block" style={{ color: step.color }}>
+                    <span className="text-[10px] font-bold tracking-widest uppercase mb-1 md:mb-2 block" style={{ color: step.color }}>
                       {step.day}
                     </span>
-                    <h4 className="text-[15px] font-semibold text-[#111111] mb-1.5 tracking-tight">{step.title}</h4>
+                    <h4 className="text-[15px] font-semibold text-[#111111] mb-1 tracking-tight">{step.title}</h4>
                     <p className="text-[12px] text-black/50 leading-relaxed">{step.desc}</p>
                   </motion.div>
                 ))}
