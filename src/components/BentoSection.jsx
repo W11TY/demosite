@@ -12,7 +12,7 @@ const images = {
 
 export default function BentoSection() {
   return (
-    <section className="w-full pt-[100px] lg:pt-[180px] pb-[80px] lg:pb-[120px] bg-[#F7F7F7]">
+    <section className="w-full pt-[100px] lg:pt-[180px] pb-[40px] lg:pb-[60px] bg-[#F7F7F7]">
       <div className="w-full px-6 lg:px-[58px]">
         
         {/* Header Text */}

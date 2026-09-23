@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { easing } from './shared/Motion';
 import AntiMetalButton from './shared/AntiMetalButton';
 import heroVideo from '../assets/hero.mp4';
-
 import logo from '../assets/logo.png';
+import voxiText from '../assets/voxitext.png';
 import { platforms } from '../data/platform';
 import { solutions } from '../data/solutions';
 import { research } from '../data/research';
@@ -65,10 +65,10 @@ export default function Hero() {
   }, []);
 
   const navItems = [
-    { name: 'PLATFORM', href: '/platform', dropdown: platforms },
-    { name: 'SOLUTIONS', href: '/solutions', dropdown: solutions },
-    { name: 'VOXI RESEARCH', href: '/research', dropdown: research },
-    { name: 'COMPANY', href: '/company', dropdown: company },
+    { name: 'Platform', href: '/platform', dropdown: platforms },
+    { name: 'Solutions', href: '/solutions', dropdown: solutions },
+    { name: 'Voxi Research', href: '/research', dropdown: research },
+    { name: 'Company', href: '/company', dropdown: company },
   ];
 
   return (
@@ -172,10 +172,10 @@ export default function Hero() {
           {/* ── Left Content (Typography & Main CTA) ── */}
           <div className="lg:absolute lg:left-[43px] lg:top-[183px] w-full lg:max-w-[650px] flex flex-col mb-10 lg:mb-0">
             <motion.h1 {...f(0.05)} className="text-[clamp(44px,11vw,72px)] font-normal tracking-[-0.04em] leading-[1.05] text-[#999999] mb-0">
-              One Ecosystem.
+              Orchestrate Every Customer Journey.
             </motion.h1>
             <motion.h1 {...f(0.14)} className="text-[clamp(44px,11vw,72px)] font-medium tracking-[-0.04em] leading-[1.05] text-[#111111] mb-[24px]">
-              Every Conversation.
+              One Intelligence. Every Interaction.
             </motion.h1>
 
             <motion.p {...f(0.24)} className="text-[15px] md:text-[15.5px] text-black/60 max-w-[450px] leading-[1.5] mb-[28px] lg:mb-[24px]">
@@ -197,18 +197,12 @@ export default function Hero() {
             className="relative lg:absolute lg:right-[39px] lg:top-[190px] w-full lg:w-[335px] max-w-[335px] h-[315px] bg-white rounded-[22px] shadow-[0_12px_40px_rgba(0,0,0,0.06)] p-[16px] flex flex-col justify-between z-30 border border-black/[0.04]"
           >
           {/* Card Image Area */}
-          <div className="w-full h-[230px] rounded-[14px] bg-[#0c0c0c] overflow-hidden relative group cursor-pointer flex-shrink-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#12121a] to-[#0a0a0f] flex items-center justify-center overflow-hidden">
-              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
-              
-              <div className="w-[85%] h-[60%] border border-white/10 rounded-xl bg-white/5 backdrop-blur-md flex items-center justify-center relative z-10 group-hover:scale-[1.03] transition-transform duration-700 ease-out">
-                <div className="absolute w-[120%] h-[20%] bg-[#4d7aff]/20 blur-[28px] rotate-12" />
-                <div className="absolute w-12 h-12 border border-[#4d7aff]/40 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(77,122,255,0.2)]">
-                  <div className="w-4 h-4 bg-[#4d7aff] rounded-full blur-[2px]" />
-                </div>
-                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent absolute top-1/2" />
-              </div>
-            </div>
+          <div className="w-full h-[230px] rounded-[14px] bg-transparent overflow-hidden relative group cursor-pointer flex-shrink-0 flex items-center justify-center">
+            <img 
+              src={voxiText} 
+              alt="Digital Brain" 
+              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
+            />
           </div>
           {/* Card Footer */}
           <div className="flex items-center justify-between px-1 pb-0.5">
@@ -222,20 +216,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* ── Trust Statement ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: easing }}
-          className="relative lg:absolute lg:bottom-[130px] lg:left-[43px] z-30 px-6 lg:px-0 mt-12 lg:mt-0"
-        >
-          <div className="w-full lg:w-[320px]">
-            <p className="text-[12.5px] text-black/60 lg:text-white/90 leading-[1.6]">
-              +2,400 active deployments and 8,200 brands<br />
-              trust our high-performance architecture.
-            </p>
-          </div>
-        </motion.div>
+
         
         {/* ── Logo Row (Infinite Marquee) ── */}
         <motion.div
@@ -251,23 +232,18 @@ export default function Hero() {
           >
             {[...Array(2)].map((_, trackIndex) => (
               <div key={trackIndex} className="flex items-center justify-center gap-[60px] pr-[60px]">
-                {[...Array(3)].map((_, i) => (
+                {[...Array(2)].map((_, i) => (
                   <React.Fragment key={i}>
-                    <div className="text-white text-[15.5px] font-bold tracking-tighter flex items-center gap-0.5 whitespace-nowrap">
-                      Anthem<span className="text-[10px]">++</span><span className="text-[9px] opacity-80 mt-1 ml-0.5 text-blue-200 block border border-white/20 rounded-[2px] px-[2px]">🛡</span>
-                    </div>
-                    <div className="text-white text-[16px] font-bold tracking-tight flex items-center gap-1.5 whitespace-nowrap">
-                      <span className="text-red-400 font-serif text-[18px]">❤</span> CVS pharmacy
-                    </div>
-                    <div className="text-white text-[13px] font-medium leading-[1.1] whitespace-nowrap">
-                      United<br/>Healthcare
-                    </div>
-                    <div className="text-white text-[18px] font-serif font-bold italic tracking-tight whitespace-nowrap">
-                      ❤aetna
-                    </div>
-                    <div className="text-white text-[16px] font-semibold flex items-center gap-1 whitespace-nowrap">
-                      <span className="opacity-80">❀</span> cigna
-                    </div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Esme</div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Eastman</div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Oliva</div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Oasis</div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Eicher Motor</div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Chirok Health</div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Paramantra</div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">CarPortal</div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">Clofio</div>
+                    <div className="text-white text-[20px] font-bold tracking-tight whitespace-nowrap opacity-80">HRHnext</div>
                   </React.Fragment>
                 ))}
               </div>
