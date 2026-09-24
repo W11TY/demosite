@@ -11,10 +11,23 @@ import { Globe, Smartphone, Code2, ShieldCheck, Zap, Car } from 'lucide-react';
 
 const works = [
   {
-    industry: "Real Estate AI",
+    industry: "Real Estate",
     icon: Globe,
     image: cr1,
     desc: "Automated follow-ups and lead qualification to ensure zero missed opportunities and 3x lower CAC."
+  },
+
+  {
+    industry: "Fintech",
+    icon: ShieldCheck,
+    image: cr3,
+    desc: "Cut cost-to-collect by 75% using AI agents that outperform human collectors on every metric."
+  },
+  {
+    industry: "Healthcare",
+    icon: Code2,
+    image: cr4,
+    desc: "Reduce patient no-shows by 80% with intelligent scheduling and fully automated reminders."
   },
   {
     industry: "Consumer Durable",
@@ -23,25 +36,13 @@ const works = [
     desc: "Automate 80% of support queries while tripling customer satisfaction and cutting costs."
   },
   {
-    industry: "Fintech Solutions",
-    icon: ShieldCheck,
-    image: cr3,
-    desc: "Cut cost-to-collect by 75% using AI agents that outperform human collectors on every metric."
-  },
-  {
-    industry: "Healthcare Systems",
-    icon: Code2,
-    image: cr4,
-    desc: "Reduce patient no-shows by 80% with intelligent scheduling and fully automated reminders."
-  },
-  {
-    industry: "Utilities AI",
+    industry: "Utilities",
     icon: Zap,
     image: cr5,
     desc: "Achieve a 4.8/5 CSAT score with query resolution and bill reminders running on autopilot."
   },
   {
-    industry: "Automobile Tech",
+    industry: "Automobile",
     icon: Car,
     image: cr6,
     desc: "Boost conversion by 30% with instant lead qualification and automated service booking."
@@ -58,7 +59,7 @@ export default function WorksCarousel() {
     let isHovered = false;
     let startX;
     let scrollLeft;
-    
+
     const slider = scrollRef.current;
     if (!slider) return;
 
@@ -81,20 +82,20 @@ export default function WorksCarousel() {
       startX = e.pageX - slider.offsetLeft;
       scrollLeft = slider.scrollLeft;
     };
-    
+
     const onMouseLeave = () => {
       isDown = false;
       isHovered = false;
       slider.classList.remove('cursor-grabbing');
       slider.classList.add('cursor-grab');
     };
-    
+
     const onMouseUp = () => {
       isDown = false;
       slider.classList.remove('cursor-grabbing');
       slider.classList.add('cursor-grab');
     };
-    
+
     const onMouseMove = (e) => {
       if (!isDown) return;
       e.preventDefault();
@@ -102,7 +103,7 @@ export default function WorksCarousel() {
       const walk = (x - startX) * 2;
       slider.scrollLeft = scrollLeft - walk;
     };
-    
+
     const onMouseEnter = () => { isHovered = true; };
     const onTouchStart = () => { isHovered = true; };
     const onTouchEnd = () => { isHovered = false; };
@@ -134,12 +135,12 @@ export default function WorksCarousel() {
             slider.scrollLeft += resetWidth;
           }
         }
-        
+
         lastScrollLeft = slider.scrollLeft;
       }
       animationId = requestAnimationFrame(step);
     };
-    
+
     animationId = requestAnimationFrame(step);
 
     return () => {
@@ -167,7 +168,7 @@ export default function WorksCarousel() {
       </div>
 
       {/* Auto-scrolling Carousel Layout */}
-      <div 
+      <div
         ref={scrollRef}
         className="w-full pb-12 overflow-x-auto cursor-grab scrollbar-hide select-none"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
@@ -175,9 +176,9 @@ export default function WorksCarousel() {
         <div className="flex w-max gap-[24px]">
           {/* Create 10 identical sets to ensure a massive runway for scrolling in both directions */}
           {[...Array(10)].map((_, trackIndex) => (
-            <div 
-              key={`set-${trackIndex}`} 
-              ref={trackIndex === 0 ? set1Ref : null} 
+            <div
+              key={`set-${trackIndex}`}
+              ref={trackIndex === 0 ? set1Ref : null}
               className="flex gap-[24px] shrink-0"
             >
               {works.map((work, i) => {
@@ -188,14 +189,15 @@ export default function WorksCarousel() {
                     className="w-[300px] md:w-[340px] shrink-0 group"
                   >
                     {/* Card */}
-                    <div className="relative flex flex-col bg-white overflow-hidden h-[480px] md:h-[520px] rounded-[24px] border border-black/10 shadow-lg hover:shadow-xl transition-shadow duration-300 pointer-events-none">
-                      
+                    <div className="relative flex flex-col bg-white overflow-hidden h-[480px] md:h-[520px] rounded-[24px] border-2 border-black/10 group-hover:border-[#111] shadow-md group-hover:shadow-[8px_8px_0px_#111] group-hover:-translate-y-2 group-hover:-translate-x-2 transition-all duration-300 cursor-pointer">
+
                       {/* Background Image */}
                       <div className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105 flex items-center justify-center p-6">
                         <img
                           src={work.image}
                           alt={work.industry}
-                          className="w-full h-full object-contain object-top animate-float"
+                          draggable="false"
+                          className="w-full h-full object-contain object-top animate-float select-none pointer-events-none"
                           style={{
                             animationDelay: `-${i * 0.8}s`,
                             animationDuration: `${4 + (i % 3) * 0.7}s`
@@ -210,7 +212,7 @@ export default function WorksCarousel() {
 
                       {/* Bottom Content */}
                       <div className="relative z-10 mt-auto p-6 pt-20">
-                        <h3 className="text-[22px] font-semibold text-[#111111] tracking-tight mb-2">
+                        <h3 className="text-[28px] font-semibold text-[#111111] tracking-tight mb-2">
                           {work.industry}
                         </h3>
                         <p className="text-[14px] text-black/60 leading-relaxed">

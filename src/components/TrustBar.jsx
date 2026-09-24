@@ -17,7 +17,7 @@ export default function TrustBar() {
     >
       <div 
         className="flex w-max hover:[animation-play-state:paused]"
-        style={{ animation: 'marquee 40s linear infinite' }}
+        style={{ animation: 'marquee 70s linear infinite' }}
       >
         {[...Array(4)].map((_, trackIndex) => (
           <div key={trackIndex} className="flex items-center gap-[40px] pr-[40px]">

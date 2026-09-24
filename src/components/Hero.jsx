@@ -6,7 +6,7 @@ import { easing } from './shared/Motion';
 import AntiMetalButton from './shared/AntiMetalButton';
 import heroVideo from '../assets/hero.mp4';
 import logo from '../assets/logo.png';
-import voxiText from '../assets/voxitext.png';
+import digitalBrainVideo from '../assets/digitalbrain.mp4';
 import { platforms } from '../data/platform';
 import { solutions } from '../data/solutions';
 import { research } from '../data/research';
@@ -14,6 +14,28 @@ import { company } from '../data/company';
 import MegaMenu from './MegaMenu';
 import MobileMenu from './MobileMenu';
 import { Menu } from 'lucide-react';
+
+import logo1 from '../assets/companylogos/02-Logo-removebg-preview.png';
+import logo2 from '../assets/companylogos/Chirokhealth-logo.png-removebg-preview.png';
+import logo3 from '../assets/companylogos/Paramantra-Logo-e1754657963220-removebg-preview.png';
+import logo4 from '../assets/companylogos/Screenshot_2026-09-24_104422-removebg-preview.png';
+import logo5 from '../assets/companylogos/carportal-logo-blue-removebg-preview.png';
+import logo6 from '../assets/companylogos/images-removebg-preview.png';
+import logo7 from '../assets/companylogos/logo-removebg-preview.png';
+import logo8 from '../assets/companylogos/oasis-fertility-hyderabad-662cd4bf11b6a-removebg-preview.png';
+import logo9 from '../assets/companylogos/okaya-power-logo-png_seeklogo-497185-removebg-preview.png';
+
+const companyLogos = [
+  { src: logo1 },
+  { src: logo2 },
+  { src: logo3 },
+  { src: logo4 },
+  { src: logo5 },
+  { src: logo6 },
+  { src: logo7 },
+  { src: logo8, heightClass: 'h-[40px] lg:h-[52px]' },
+  { src: logo9, heightClass: 'h-[40px] lg:h-[52px]' }
+];
 
 const f = (delay = 0) => ({
   initial: { opacity: 0, y: 16 },
@@ -38,7 +60,7 @@ export default function Hero() {
     const playVideo = () => {
       const promise = video.play();
       if (promise !== undefined) {
-        promise.catch(() => {});
+        promise.catch(() => { });
       }
     };
 
@@ -74,7 +96,7 @@ export default function Hero() {
   return (
     <div className="w-full flex justify-center p-3 lg:p-[12px] bg-white">
       <section className="relative w-full max-w-[1600px] min-h-[85vh] lg:h-[calc(100vh-24px)] lg:min-h-[700px] rounded-[24px] overflow-hidden bg-[#f1f1f1] shadow-sm isolate flex flex-col lg:block pb-24 lg:pb-0">
-        
+
         {/* ── Background Video & Gradient ── */}
         <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
           <video
@@ -87,7 +109,7 @@ export default function Hero() {
             onEnded={() => {
               if (videoRef.current) {
                 videoRef.current.currentTime = 0;
-                videoRef.current.play().catch(() => {});
+                videoRef.current.play().catch(() => { });
               }
             }}
             className="w-full h-full object-cover object-[center_40%]"
@@ -97,9 +119,9 @@ export default function Hero() {
           {/* TV Localized Glow Enhancement */}
           <div className="absolute top-[365px] left-[700px] w-[140px] h-[90px] bg-orange-300/30 blur-[40px] rounded-full mix-blend-screen" />
           <div className="absolute top-[375px] left-[715px] w-[60px] h-[40px] bg-white/40 blur-[15px] rounded-full mix-blend-screen" />
-          
+
           {/* Soft gradient transition so content stays readable */}
-          <div 
+          <div
             className="absolute inset-0"
             style={{
               background: 'linear-gradient(to bottom, #f1f1f1 0%, #f1f1f1 30%, rgba(241,241,241,0.6) 40%, rgba(241,241,241,0.2) 50%, transparent 60%)'
@@ -110,7 +132,7 @@ export default function Hero() {
         </div>
 
         {/* ── Floating Navigation Pill ── */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: easing }}
@@ -120,11 +142,11 @@ export default function Hero() {
             <img src={logo} alt="Logo" className="h-[44px] lg:h-[56px] w-auto object-contain" />
             <span className="font-bold text-[18px] lg:text-[22px] tracking-[-0.03em] text-[#111] leading-none">VoxiFlow</span>
           </Link>
-          
+
           <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-black/70 ml-auto h-full">
             {navItems.map((item) => (
-              <div 
-                key={item.name} 
+              <div
+                key={item.name}
                 className="flex items-center relative h-[60px]"
                 onMouseEnter={() => setActiveDropdown(item.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
@@ -145,7 +167,7 @@ export default function Hero() {
             ))}
           </nav>
 
-          <button 
+          <button
             className="lg:hidden flex items-center justify-center text-black/80"
             onClick={() => setMobileMenuOpen(true)}
           >
@@ -169,7 +191,7 @@ export default function Hero() {
 
         {/* ── Main Content Container ── */}
         <div className="relative z-20 w-full h-full flex flex-col lg:block pt-[110px] lg:pt-0 px-6 lg:px-0 flex-1">
-          
+
           {/* ── Left Content (Typography & Main CTA) ── */}
           <div className="lg:absolute lg:left-[43px] lg:top-[183px] w-full lg:max-w-[1000px] flex flex-col mb-10 lg:mb-0">
             <motion.p {...f(0.02)} className="text-[12px] md:text-[14px] font-light tracking-[0.15em] text-black/50 uppercase mb-[16px]">
@@ -195,61 +217,62 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4, ease: easing }}
-            className="relative lg:absolute lg:right-[39px] lg:top-[190px] w-full lg:w-[335px] max-w-[335px] h-[315px] bg-white rounded-[22px] shadow-[0_12px_40px_rgba(0,0,0,0.06)] p-[16px] flex flex-col justify-between z-30 border border-black/[0.04]"
+            className="relative lg:absolute lg:right-[39px] lg:top-[190px] w-full lg:w-[335px] max-w-[335px] h-[315px] bg-[#111111] rounded-[22px] shadow-[0_12px_40px_rgba(0,0,0,0.2)] p-[16px] flex flex-col justify-between z-30 border border-white/10"
           >
-          {/* Card Image Area */}
-          <div className="w-full h-[230px] rounded-[14px] bg-transparent overflow-hidden relative group cursor-pointer flex-shrink-0 flex items-center justify-center">
-            <img 
-              src={voxiText} 
-              alt="Digital Brain" 
-              className="w-[75%] h-[75%] object-contain group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
-            />
-          </div>
-          {/* Card Footer */}
-          <div className="flex items-center justify-between px-1 pb-0.5">
-            <div>
-              <h3 className="text-[14.5px] font-semibold text-[#111] leading-tight">Digital Brain</h3>
-              <p className="text-[11.5px] text-black/40 mt-1 font-mono tracking-tight">// Model v4.0.2</p>
+            {/* Card Image Area */}
+            <div className="w-full h-[230px] rounded-[14px] bg-black overflow-hidden relative group cursor-pointer flex-shrink-0 flex items-center justify-center">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                src={digitalBrainVideo}
+                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+              />
             </div>
-            <div className="w-[30px] h-[30px] rounded-full border border-black/10 flex items-center justify-center group-hover:border-black/30 transition-colors cursor-pointer">
-              <ArrowRight size={12} className="text-black/60" />
-            </div>
-          </div>
-        </motion.div>
-
-
-        
-        {/* ── Logo Row (Infinite Marquee) ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.7, ease: easing }}
-          className="absolute bottom-[20px] lg:bottom-[70px] left-0 right-0 w-full overflow-hidden z-30 opacity-80"
-          style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%)' }}
-        >
-          <div 
-            className="flex w-max hover:[animation-play-state:paused]"
-            style={{ animation: 'marquee 40s linear infinite' }}
-          >
-            {[...Array(2)].map((_, trackIndex) => (
-              <div key={trackIndex} className="flex items-center justify-center gap-[60px] pr-[60px]">
-                {[...Array(2)].map((_, i) => (
-                  <React.Fragment key={i}>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Eastman</div>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Oliva</div>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Oasis</div>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Eicher Motor</div>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Chirok Health</div>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Paramantra</div>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">CarPortal</div>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Clofio</div>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">HRHnext</div>
-                  </React.Fragment>
-                ))}
+            {/* Card Footer */}
+            <div className="flex items-center justify-between px-1 pb-0.5">
+              <div>
+                <h3 className="text-[14.5px] font-semibold text-white leading-tight"> Voxi Orchestration Platform</h3>
               </div>
-            ))}
-          </div>
-        </motion.div>
+              <div className="w-[30px] h-[30px] rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/30 transition-colors cursor-pointer">
+                <ArrowRight size={12} className="text-white/60" />
+              </div>
+            </div>
+          </motion.div>
+
+
+
+          {/* ── Logo Row (Infinite Marquee) ── */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: easing }}
+            className="absolute bottom-[10px] lg:bottom-[30px] left-0 right-0 w-full overflow-hidden z-30 opacity-80"
+            style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%)' }}
+          >
+            <div
+              className="flex w-max hover:[animation-play-state:paused]"
+              style={{ animation: 'marquee 65s linear infinite' }}
+            >
+              {[...Array(2)].map((_, trackIndex) => (
+                <div key={trackIndex} className="flex items-center justify-center gap-[60px] lg:gap-[80px] pr-[60px] lg:pr-[80px]">
+                  {[...Array(2)].map((_, loopIndex) => (
+                    <React.Fragment key={loopIndex}>
+                      {companyLogos.map((logo, i) => (
+                        <img
+                          key={i}
+                          src={logo.src}
+                          alt="Company Logo"
+                          className={`${logo.heightClass || 'h-[28px] lg:h-[36px]'} w-auto object-contain hover:scale-105 transition-transform duration-300`}
+                        />
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </motion.div>
 
         </div> {/* Close Main Content Container */}
 
