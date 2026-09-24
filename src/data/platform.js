@@ -60,8 +60,8 @@ export const platforms = [
   {
     id: 'telephony-command-center',
     name: 'Telephony & Communication Command Center Solutions',
-    shortName: 'Telephony & Communication',
-    tagline: 'Voice infrastructure & communication',
+    shortName: 'AI Contact Center Solution',
+    tagline: 'Voice infrastructure & telephony communication',
     description: 'Centralized telephony and communication management for both human agents and AI voice agents, across inbound and outbound interactions.',
     capabilities: [
       { title: 'Cloud Telephony', definition: 'Enterprise-grade cloud calling platform for managing inbound, outbound, and automated business communications.', status: 'Live' },

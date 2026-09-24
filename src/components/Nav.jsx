@@ -58,11 +58,12 @@ export default function Nav() {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: easing }}
-      className="fixed top-[28px] lg:top-[32px] left-[28px] lg:left-[35px] right-[28px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white rounded-full px-5 lg:px-7 py-2 lg:w-[648px] h-[48px] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
+      className="fixed top-[28px] lg:top-[32px] left-[28px] lg:left-[35px] right-[28px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white rounded-full px-5 lg:px-7 py-2 lg:w-[760px] h-[60px] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
     >
       {/* Logo */}
-      <Link to="/" className="flex items-center">
-        <img src={logo} alt="Voxi Logo" className="h-[36px] lg:h-[45px] w-auto object-contain" />
+      <Link to="/" className="flex items-center gap-2 lg:gap-3">
+        <img src={logo} alt="Voxi Logo" className="h-[44px] lg:h-[56px] w-auto object-contain" />
+        <span className="font-bold text-[18px] lg:text-[22px] tracking-[-0.03em] text-[#111] leading-none">VoxiFlow</span>
       </Link>
 
       {/* Desktop Links */}
@@ -70,7 +71,7 @@ export default function Nav() {
         {navItems.map((item) => (
           <div 
             key={item.name} 
-            className="flex items-center relative h-[48px]"
+            className="flex items-center relative h-[60px]"
             onMouseEnter={() => setActiveDropdown(item.name)}
             onMouseLeave={() => setActiveDropdown(null)}
           >

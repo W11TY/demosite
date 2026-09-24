@@ -89,7 +89,7 @@ export default function MegaMenu({ item, topPosition = "72px" }) {
       {/* Left Canvas */}
       <div className="w-[30%] bg-[#111111] p-8 flex flex-col justify-between border-r border-white/5 relative overflow-hidden">
         <div className="relative z-10">
-          <h3 className="text-[11px] font-mono tracking-[0.1em] text-white/40 uppercase mb-4">{canvas.label}</h3>
+          <h3 className="text-[14px] font-mono tracking-[0.1em] text-white uppercase mb-4">{canvas.label}</h3>
           <p className="text-[16px] text-white/90 font-medium leading-[1.3] tracking-tight">
             {canvas.desc}
           </p>
@@ -112,7 +112,7 @@ export default function MegaMenu({ item, topPosition = "72px" }) {
           >
             <div className="flex items-center justify-between mb-0.5">
               <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-[8px] bg-[#4d7aff]/5 flex items-center justify-center text-[#4d7aff]/60 group-hover:bg-[#4d7aff]/15 group-hover:text-[#4d7aff] group-hover:border-[#4d7aff]/30 transition-all border border-[#4d7aff]/10">
+                <div className="w-7 h-7 rounded-[8px] bg-white/5 flex items-center justify-center text-white/90 group-hover:bg-white/15 group-hover:text-white group-hover:border-white transition-all border border-white/80">
                   {getIcon(subItem.shortName || subItem.industry || subItem.title || subItem.name)}
                 </div>
                 <h4 className="text-[14px] font-medium text-white/90 tracking-tight group-hover:text-white transition-colors">

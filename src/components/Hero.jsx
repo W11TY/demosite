@@ -114,17 +114,18 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: easing }}
-          className="absolute top-[16px] lg:top-[20px] left-[16px] lg:left-[23px] right-[16px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white rounded-full px-5 lg:px-7 py-2 lg:w-[648px] h-[48px] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
+          className="absolute top-[16px] lg:top-[20px] left-[16px] lg:left-[23px] right-[16px] lg:right-auto z-50 flex items-center justify-between lg:justify-start bg-white rounded-full px-5 lg:px-7 py-2 lg:w-[760px] h-[60px] shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
         >
-          <Link to="/" className="flex-shrink-0 relative z-50">
-            <img src={logo} alt="Logo" className="h-[36px] lg:h-[45px] w-auto object-contain" />
+          <Link to="/" className="flex items-center gap-2 lg:gap-3 flex-shrink-0 relative z-50">
+            <img src={logo} alt="Logo" className="h-[44px] lg:h-[56px] w-auto object-contain" />
+            <span className="font-bold text-[18px] lg:text-[22px] tracking-[-0.03em] text-[#111] leading-none">VoxiFlow</span>
           </Link>
           
-          <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-black/70 ml-auto">
+          <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-black/70 ml-auto h-full">
             {navItems.map((item) => (
               <div 
                 key={item.name} 
-                className="flex items-center relative h-[48px]"
+                className="flex items-center relative h-[60px]"
                 onMouseEnter={() => setActiveDropdown(item.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
@@ -170,17 +171,17 @@ export default function Hero() {
         <div className="relative z-20 w-full h-full flex flex-col lg:block pt-[110px] lg:pt-0 px-6 lg:px-0 flex-1">
           
           {/* ── Left Content (Typography & Main CTA) ── */}
-          <div className="lg:absolute lg:left-[43px] lg:top-[183px] w-full lg:max-w-[650px] flex flex-col mb-10 lg:mb-0">
-            <motion.h1 {...f(0.05)} className="text-[clamp(36px,9vw,56px)] font-normal tracking-[-0.04em] leading-[1.05] text-[#999999] mb-0">
-              Orchestrate Every Customer Journey.
-            </motion.h1>
-            <motion.h1 {...f(0.14)} className="text-[clamp(36px,9vw,56px)] font-medium tracking-[-0.04em] leading-[1.05] text-[#111111] mb-[24px]">
-              One Intelligence. Every Interaction.
-            </motion.h1>
-
-            <motion.p {...f(0.24)} className="text-[15px] md:text-[15.5px] text-black/60 max-w-[450px] leading-[1.5] mb-[28px] lg:mb-[24px]">
-              Deploy custom neural agents, LLMs, and automation in one seamless flow.
+          <div className="lg:absolute lg:left-[43px] lg:top-[183px] w-full lg:max-w-[1000px] flex flex-col mb-10 lg:mb-0">
+            <motion.p {...f(0.02)} className="text-[12px] md:text-[14px] font-light tracking-[0.15em] text-black/50 uppercase mb-[16px]">
+              AI-POWERED CUSTOMER ORCHESTRATION
             </motion.p>
+            <motion.h1 {...f(0.05)} className="text-[clamp(32px,8vw,56px)] font-normal tracking-[-0.04em] leading-[1.05] text-[#111111] mb-[20px]">
+              <span className="font-bold block text-[clamp(38px,9vw,62px)]">Orchestrate</span>
+              <span className="font-bold block text-black/50">Every Customer Journey</span>
+            </motion.h1>
+            <motion.h1 {...f(0.14)} className="text-[clamp(15px,1.5vw,17px)] font-medium tracking-normal leading-[1.2] text-[#111111] mb-[24px] lg:whitespace-nowrap">
+              One intelligence that connects every interaction, from the first touch to lasting relationships
+            </motion.h1>
 
             <motion.div {...f(0.32)}>
               <a href="#build">
@@ -234,7 +235,6 @@ export default function Hero() {
               <div key={trackIndex} className="flex items-center justify-center gap-[60px] pr-[60px]">
                 {[...Array(2)].map((_, i) => (
                   <React.Fragment key={i}>
-                    <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Esme</div>
                     <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Eastman</div>
                     <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Oliva</div>
                     <div className="text-white text-[20px] font-light tracking-tight whitespace-nowrap opacity-80">Oasis</div>
