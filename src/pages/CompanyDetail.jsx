@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { FadeInUp, StaggerContainer, StaggerItem, ScrollWordReveal } from '../components/shared/Motion';
 import { company } from '../data/company';
 import heroImg from '../assets/hero.png';
@@ -56,7 +56,64 @@ const THEMES = [
   },
 ];
 
+
+// ─── Abstract Illustrations ───────────────────────────────────────────────────
+const AbstractGeometricArt = ({ themeId, idx }) => {
+  const colors = [
+    ['bg-blue-400', 'bg-blue-600'],       // Work
+    ['bg-emerald-400', 'bg-emerald-600'], // Grow
+    ['bg-amber-400', 'bg-amber-600'],     // Connect
+    ['bg-purple-400', 'bg-purple-600']    // Live
+  ][themeId];
+
+  const shapeType = idx % 4;
+
+  const renderShape = () => {
+    if (shapeType === 0) {
+      return (
+        <motion.div 
+          animate={{ rotate: 90 }} 
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          className="relative w-12 h-12 flex flex-wrap gap-1"
+        >
+          {[0,1,2,3].map(i => (
+             <motion.div key={i} animate={{ scale: [1, 0.7, 1] }} transition={{ duration: 3, delay: i*0.4, repeat: Infinity }} className={`w-[22px] h-[22px] rounded-sm ${colors[0]} opacity-80`} />
+          ))}
+        </motion.div>
+      );
+    } else if (shapeType === 1) {
+      return (
+        <div className="relative w-12 h-12 flex items-end justify-center gap-1.5">
+          {[40, 70, 100].map((h, i) => (
+            <motion.div key={i} initial={{ height: "20%" }} whileInView={{ height: `${h}%` }} viewport={{ once: true }} transition={{ duration: 1, delay: i*0.2 }} className={`w-3 rounded-t-sm ${colors[1]} opacity-80`} />
+          ))}
+        </div>
+      );
+    } else if (shapeType === 2) {
+      return (
+        <motion.div animate={{ rotate: -180 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="relative w-12 h-12 rounded-full border-2 border-dashed border-black/20 flex items-center justify-center">
+          <motion.div animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 3, repeat: Infinity }} className={`w-4 h-4 rounded-full ${colors[0]}`} />
+        </motion.div>
+      );
+    } else {
+      return (
+        <div className="relative w-12 h-12 flex items-center justify-center">
+           <motion.div animate={{ x: [-10, 10, -10] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className={`absolute w-6 h-6 rounded-full ${colors[0]} mix-blend-multiply opacity-70`} />
+           <motion.div animate={{ x: [10, -10, 10] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className={`absolute w-6 h-6 rounded-full ${colors[1]} mix-blend-multiply opacity-70`} />
+        </div>
+      );
+    }
+  };
+
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      {renderShape()}
+    </div>
+  );
+};
+
 // ─── Culture Page ─────────────────────────────────────────────────────────────
+
 const CulturePage = () => {
   const [active, setActive] = useState(0);
   const theme = THEMES[active];
@@ -67,31 +124,27 @@ const CulturePage = () => {
   };
 
   return (
-    <div className="w-full bg-background">
+    <div className="w-full bg-background min-h-screen text-text-primary">
       {/* Header */}
       <div className="w-full px-6 md:px-16 lg:px-20 pt-28 md:pt-36 pb-16">
-        <div className="max-w-[1280px] mx-auto">
+        <div className="max-w-[900px] mx-auto text-center flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center gap-3 mb-5"
+            className="flex items-center gap-3 mb-6"
           >
-            <motion.div
-              className="h-px bg-[#4d7aff]"
-              initial={{ width: 0 }}
-              animate={{ width: 16 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            />
-            <span className="font-mono text-[11px] tracking-[0.18em] text-[#4d7aff] uppercase">Culture Manifesto · Voxi</span>
+            <div className="h-px bg-[#4d7aff] w-8" />
+            <span className="font-mono text-[11px] tracking-[0.18em] text-[#4d7aff] uppercase font-semibold">Culture Manifesto · Voxi</span>
+            <div className="h-px bg-[#4d7aff] w-8" />
           </motion.div>
 
-          <div className="overflow-hidden mb-5">
+          <div className="overflow-hidden mb-6">
             <motion.h1
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
-              className="text-[clamp(32px,5vw,64px)] font-medium tracking-tight text-text-primary leading-[1.05]"
+              className="text-[clamp(36px,6vw,72px)] font-medium tracking-tight text-text-primary leading-[1.05]"
             >
               The Voxi Culture Manifesto.
             </motion.h1>
@@ -101,35 +154,34 @@ const CulturePage = () => {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[15px] md:text-[17px] text-text-secondary max-w-[560px] leading-relaxed"
+            className="text-[16px] md:text-[20px] text-text-secondary max-w-[600px] leading-relaxed"
           >
-            Life at Voxi is built on purpose, trust, and well-being — 4 themes, 15 principles.
+            Life at Voxi is built on purpose, trust, and well-being. We've distilled our philosophy into 4 themes and 15 core principles.
           </motion.p>
         </div>
       </div>
 
       {/* Tab bar — sticky */}
-      <div className="sticky top-[72px] z-30 w-full bg-background/90 backdrop-blur-md border-b border-black/[0.04] px-6 md:px-16 lg:px-20 py-4">
-        <div className="max-w-[1280px] mx-auto flex items-center justify-between">
+      <div className="sticky top-[72px] z-30 w-full bg-background/90 backdrop-blur-md border-y border-black/[0.04] px-6 md:px-16 lg:px-20 py-4 shadow-sm">
+        <div className="max-w-[900px] mx-auto flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex items-center gap-1 bg-black/[0.04] border border-black/[0.06] rounded-full p-1 overflow-x-auto whitespace-nowrap scrollbar-hide max-w-full"
+            className="inline-flex items-center gap-2 bg-black/[0.03] border border-black/[0.05] rounded-full p-1.5 overflow-x-auto whitespace-nowrap scrollbar-hide max-w-full"
           >
             {THEMES.map((t) => (
               <motion.button
                 key={t.id}
                 onClick={() => handleTabChange(t.id)}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                className="relative px-6 py-2.5 rounded-full text-[13px] font-medium cursor-pointer shrink-0"
-                style={{ color: active === t.id ? '#fff' : 'rgba(0,0,0,0.45)' }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="relative px-6 md:px-8 py-2.5 rounded-full text-[14px] font-medium cursor-pointer shrink-0 transition-colors duration-300"
+                style={{ color: active === t.id ? '#fff' : 'rgba(0,0,0,0.5)' }}
               >
                 {active === t.id && (
                   <motion.span
-                    layoutId="tab-pill"
+                    layoutId="tab-pill-light"
                     className="absolute inset-0 rounded-full bg-[#111]"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
@@ -142,370 +194,46 @@ const CulturePage = () => {
       </div>
 
       {/* Content List */}
-      <div className="w-full px-6 md:px-16 lg:px-20 py-16 min-h-[60vh]">
-        <div className="max-w-[1280px] mx-auto">
+      <div className="w-full px-6 md:px-16 lg:px-20 py-16 md:py-24 min-h-[50vh]">
+        <div className="max-w-[900px] mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="flex items-center gap-4 mb-12">
-                <span className="font-mono text-[11px] tracking-[0.18em] text-black/30 uppercase">{theme.full}</span>
-                <div className="h-px bg-black/[0.08] flex-1 max-w-[200px]" />
+              <div className="flex items-center justify-center gap-4 mb-16">
+                <div className="h-px bg-black/[0.1] flex-1 max-w-[100px]" />
+                <span className="font-mono text-[13px] tracking-[0.2em] text-black/40 uppercase font-semibold">{theme.full}</span>
+                <div className="h-px bg-black/[0.1] flex-1 max-w-[100px]" />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="flex flex-col">
                 {theme.principles.map((p, idx) => (
                   <motion.div
                     key={`${active}-${idx}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className={`relative overflow-hidden bg-white border border-black/[0.06] rounded-[24px] shadow-lg ${idx === 0 ? 'md:col-span-2 lg:col-span-3' : ''} flex flex-col group brutalist-card`}
+                    transition={{ delay: idx * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex flex-col md:flex-row gap-4 md:gap-16 items-start py-10 md:py-16 border-b border-black/[0.08] last:border-0 group"
                   >
-                    {/* Full-bleed illustration top */}
-                    <div className="relative w-full h-[140px] overflow-hidden shrink-0 border-b border-black/[0.05]">
-                      <div className="absolute inset-0 bg-[#fafafa] flex flex-col">
-                        <div className="px-4 py-2.5 border-b border-black/[0.05] flex items-center gap-1.5 shrink-0">
-                          <div className="w-2 h-2 rounded-full bg-red-400/50" />
-                          <div className="w-2 h-2 rounded-full bg-yellow-400/50" />
-                          <div className="w-2 h-2 rounded-full bg-green-400/50" />
-                          <span className="text-[9px] font-mono text-black/20 ml-2 tracking-wide">{String(idx + 1).padStart(2, '0')} · {theme.full.toUpperCase()}</span>
-                        </div>
-                        <div className="p-3 flex-1 overflow-hidden flex flex-col gap-1.5">
-
-                          {/* Work theme illustrations */}
-                          {active === 0 && idx === 0 && (
-                            <div className="flex gap-2">
-                              {[{ l: 'Customer Impact', v: '98%', c: 'text-blue-600' }, { l: 'Outcomes Delivered', v: '4.8x', c: 'text-emerald-600' }, { l: 'Active Accounts', v: '240+', c: 'text-purple-600' }].map((s, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, scale: 0.9 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex-1 bg-white rounded-[8px] p-2 border border-black/5 shadow-sm"
-                                >
-                                  <span className={`text-[14px] font-bold ${s.c}`}>{s.v}</span>
-                                  <span className="text-[8px] text-black/40 block mt-0.5">{s.l}</span>
-                                </motion.div>
-                              ))}
-                            </div>
-                          )}
-                          {active === 0 && idx === 1 && (
-                            <>
-                              <div className="flex items-center gap-1.5 mb-0.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Impact Tracker</span>
-                              </div>
-                              {['Q1 Revenue Goal', 'Customer NPS', 'Deployment Speed'].map((item, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0 }}
-                                  animate={{ opacity: 1 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2"
-                                >
-                                  <span className="text-[8px] text-black/50 w-28 shrink-0">{item}</span>
-                                  <div className="flex-1 h-1 bg-black/5 rounded-full overflow-hidden">
-                                    <motion.div
-                                      initial={{ width: 0 }}
-                                      animate={{ width: `${[82, 91, 76][j]}%` }}
-                                      transition={{ delay: 0.4 + j * 0.2, duration: 0.8, ease: "easeOut" }}
-                                      className="h-full bg-blue-400 rounded-full"
-                                    />
-                                  </div>
-                                  <span className="text-[8px] font-mono text-black/40">{[82, 91, 76][j]}%</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-                          {active === 0 && idx === 2 && (
-                            <>
-                              <div className="flex justify-between mb-0.5">
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Ownership Board</span>
-                                <span className="text-[8px] text-emerald-500 font-medium">3 wins today</span>
-                              </div>
-                              {[{ name: 'Arun K.', task: 'Shipped new IVR flow', done: true }, { name: 'Meera S.', task: 'Resolved 120 tickets', done: true }, { name: 'Raj T.', task: 'Closed enterprise deal', done: true }].map((item, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-white border border-black/5 shadow-sm"
-                                >
-                                  <div className="w-3 h-3 rounded-full border border-emerald-400 flex items-center justify-center shrink-0">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                                  </div>
-                                  <span className="text-[8px] font-medium text-black/60 flex-1">{item.task}</span>
-                                  <span className="text-[7px] text-black/30">{item.name}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-                          {active === 0 && idx === 3 && (
-                            <>
-                              <div className="flex items-center gap-1.5 mb-0.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Founder Mode · Active</span>
-                              </div>
-                              {['Spotted inefficiency → fixed in 2hrs', 'Launched feature without a meeting', 'Improved NPS by 12pts autonomously'].map((item, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, y: 5 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: 0.2 + j * 0.15 }}
-                                  className="flex items-center gap-1.5 px-2 py-1 rounded-[6px] bg-orange-50 border border-orange-100 shadow-sm"
-                                >
-                                  <span className="text-[8px] text-orange-700">{item}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-
-                          {/* Grow theme illustrations */}
-                          {active === 1 && idx === 0 && (
-                            <>
-                              <div className="flex justify-between mb-0.5">
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Learning Budget</span>
-                                <span className="text-[8px] font-semibold text-purple-500">₹2,000/mo</span>
-                              </div>
-                              {['Deep Work — Cal Newport', 'Thinking Fast and Slow', 'The Lean Startup'].map((book, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-white border border-black/5 shadow-sm"
-                                >
-                                  <div className={`w-1 h-6 rounded-full ${['bg-purple-400', 'bg-blue-400', 'bg-emerald-400'][j]}`} />
-                                  <span className="text-[8px] text-black/60">{book}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-                          {active === 1 && idx === 1 && (
-                            <>
-                              <div className="flex items-center gap-1.5 mb-0.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">This Month's Rewards</span>
-                              </div>
-                              {[{ icon: '🌱', label: 'Wellness session' }, { icon: '📚', label: '2 books gifted' }, { icon: '🏔️', label: 'Family experience' }].map((item, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, y: 5 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-emerald-50 border border-emerald-100 shadow-sm"
-                                >
-                                  <span>{item.icon}</span>
-                                  <span className="text-[8px] text-emerald-700">{item.label}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-                          {active === 1 && idx === 2 && (
-                            <>
-                              <div className="flex justify-between mb-0.5">
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Team SIP Portfolio</span>
-                                <span className="text-[8px] font-semibold text-blue-500">+18% CAGR</span>
-                              </div>
-                              <div className="flex items-end gap-1 h-10 border-b border-black/5 pb-1 relative">
-                                {[40, 52, 48, 62, 68, 72, 80].map((v, j) => (
-                                  <motion.div
-                                    key={j}
-                                    initial={{ height: 0 }}
-                                    animate={{ height: `${v * 0.9}%` }}
-                                    transition={{ delay: 0.2 + j * 0.08, duration: 0.5, type: "spring", stiffness: 100 }}
-                                    className="flex-1 rounded-t-[2px]"
-                                    style={{ background: `hsl(${200 + j * 8},70%,52%)`, opacity: 0.6 + j * 0.05 }}
-                                  />
-                                ))}
-                              </div>
-                              <span className="text-[7px] text-black/30">Jan · Feb · Mar · Apr · May · Jun · Jul</span>
-                            </>
-                          )}
-
-                          {/* Connect theme illustrations */}
-                          {active === 2 && idx === 0 && (
-                            <>
-                              <div className="flex items-center gap-1.5 mb-0.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Monthly Sports · Cricket</span>
-                              </div>
-                              {['Team Alpha — 142 runs', 'Team Beta — 138 runs', 'Next match: Oct 5th'].map((item, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className={`flex items-center gap-2 px-2 py-1 rounded-[6px] shadow-sm ${j === 2 ? 'bg-blue-50 border border-blue-100' : 'bg-white border border-black/5'}`}
-                                >
-                                  <span className="text-[8px] text-black/60">{item}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-                          {active === 2 && idx === 1 && (
-                            <>
-                              <div className="flex items-center gap-1.5 mb-0.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Q4 Retreat · Manali</span>
-                              </div>
-                              {[{ l: 'Team members', v: '18' }, { l: 'Days', v: '3' }, { l: 'Activities', v: '7' }].map((s, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, scale: 0.9 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-cyan-50 border border-cyan-100 shadow-sm"
-                                >
-                                  <span className="text-[12px] font-bold text-cyan-600">{s.v}</span>
-                                  <span className="text-[8px] text-cyan-700">{s.l}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-                          {active === 2 && idx === 2 && (
-                            <>
-                              <div className="flex items-center gap-1.5 mb-0.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Next: Priya's Hometown · Jaipur</span>
-                              </div>
-                              {['Team flight booked ✓', 'Local experiences planned ✓', 'Family dinner scheduled ✓'].map((item, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-amber-50 border border-amber-100 shadow-sm"
-                                >
-                                  <span className="text-[8px] text-amber-700">{item}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-
-                          {/* Live theme illustrations */}
-                          {active === 3 && idx === 0 && (
-                            <>
-                              <div className="flex justify-between mb-0.5">
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Family Benefits</span>
-                                <span className="text-[8px] text-red-400 font-medium">Active</span>
-                              </div>
-                              {['Family Leave · 5 days/yr', 'Monthly Family Dinner · Sponsored', 'Health Insurance · Family covered'].map((item, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, y: 5 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-red-50 border border-red-100 shadow-sm"
-                                >
-                                  <div className="w-1 h-1 rounded-full bg-red-400 shrink-0" />
-                                  <span className="text-[8px] text-red-700">{item}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-                          {active === 3 && idx === 1 && (
-                            <>
-                              <div className="flex items-center gap-1.5 mb-0.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Health Coverage</span>
-                              </div>
-                              {['Self', 'Spouse', 'Children', 'Parents'].map((m, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-emerald-50 border border-emerald-100 shadow-sm"
-                                >
-                                  <div className="w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-                                  <span className="text-[8px] text-emerald-700">{m} · Covered</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-                          {active === 3 && idx === 2 && (
-                            <>
-                              <div className="flex justify-between mb-0.5">
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Steps This Month</span>
-                                <span className="text-[8px] font-semibold text-emerald-500">16/30 days ✓</span>
-                              </div>
-                              <div className="flex items-end gap-[2px] h-8 border-b border-black/5 pb-0.5 relative">
-                                {[8200, 10400, 9800, 11200, 10800, 12000, 9600, 10900].map((v, j) => (
-                                  <motion.div
-                                    key={j}
-                                    initial={{ height: 0 }}
-                                    animate={{ height: `${(v / 12000) * 100}%` }}
-                                    transition={{ delay: 0.2 + j * 0.08, duration: 0.4, type: "spring", stiffness: 120 }}
-                                    className="flex-1 rounded-t-[2px]"
-                                    style={{ background: v >= 10000 ? '#34d399' : '#d1d5db' }}
-                                  />
-                                ))}
-                              </div>
-                              <span className="text-[7px] text-black/30">Green = 10,000+ steps target met</span>
-                            </>
-                          )}
-                          {active === 3 && idx === 3 && (
-                            <>
-                              <div className="flex justify-between mb-0.5">
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Screen Time · Weekly Avg</span>
-                                <span className="text-[8px] font-semibold text-blue-500">-22% vs last mo</span>
-                              </div>
-                              {[{ name: 'Arun K.', hrs: '2h 14m', ok: true }, { name: 'Meera S.', hrs: '3h 02m', ok: true }, { name: 'Raj T.', hrs: '4h 58m', ok: false }].map((item, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, x: 10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-white border border-black/5 shadow-sm"
-                                >
-                                  <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.ok ? 'bg-emerald-400' : 'bg-amber-400'}`} />
-                                  <span className="text-[8px] text-black/60 flex-1">{item.name}</span>
-                                  <span className={`text-[8px] font-mono ${item.ok ? 'text-emerald-500' : 'text-amber-500'}`}>{item.hrs}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-                          {active === 3 && idx === 4 && (
-                            <>
-                              <div className="flex items-center gap-1.5 mb-0.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-                                <span className="text-[8px] font-mono text-black/30 uppercase tracking-widest">Daily Wellness · 9:00 AM</span>
-                              </div>
-                              {['🧘 Team yoga · 15 min', '🌬️ Breathwork · 5 min', '🎯 Intention setting · done'].map((item, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ opacity: 0, scale: 0.95 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{ delay: 0.2 + j * 0.1 }}
-                                  className="flex items-center gap-2 px-2 py-1 rounded-[6px] bg-purple-50 border border-purple-100 shadow-sm"
-                                >
-                                  <span className="text-[8px] text-purple-700">{item}</span>
-                                </motion.div>
-                              ))}
-                            </>
-                          )}
-
-                        </div>
+                    <div className="w-full md:w-[40%] shrink-0">
+                      <div className="text-[48px] md:text-[64px] font-light text-black/[0.05] group-hover:text-black/[0.1] transition-colors duration-500 mb-2 leading-none font-mono">
+                        0{idx + 1}
                       </div>
-                    </div>
-
-                    {/* Card content */}
-                    <div className={`relative z-10 flex flex-col h-full p-6 ${idx === 0 ? 'md:p-10' : ''}`}>
-                      <span className="font-mono text-[10px] text-[#4d7aff]/50 mb-5 block">
-                        {String(idx + 1).padStart(2, '0')} of {theme.principles.length}
-                      </span>
-                      <h3 className={`font-semibold text-text-primary tracking-tight leading-snug mb-3 ${idx === 0 ? 'text-[22px] md:text-[26px]' : 'text-[18px]'}`}>
+                      <h3 className="text-[22px] md:text-[28px] font-medium text-text-primary tracking-tight leading-[1.2]">
                         {p.title}
                       </h3>
-                      <p className={`text-text-secondary leading-relaxed mt-auto ${idx === 0 ? 'text-[15px] md:text-[16px] max-w-[800px]' : 'text-[14px]'}`}>
+                    </div>
+                    <div className="w-full md:w-[60%] md:pt-4 flex flex-col sm:flex-row gap-8 items-start">
+                      <p className="text-[16px] md:text-[19px] text-text-secondary leading-[1.6] flex-1">
                         {p.desc}
                       </p>
+                      <div className="w-full sm:w-[120px] aspect-[4/3] sm:aspect-square shrink-0 bg-black/[0.02] rounded-2xl flex items-center justify-center border border-black/[0.04] group-hover:bg-black/[0.04] group-hover:border-black/[0.08] group-hover:-translate-y-1 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.04)] transition-all duration-500 overflow-hidden relative">
+                        <AbstractGeometricArt themeId={active} idx={idx} />
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -539,6 +267,413 @@ const CulturePage = () => {
   );
 };
 
+
+// ─── About Page ─────────────────────────────────────────────────────────────
+const AboutPage = () => {
+  const { scrollYProgress } = useScroll();
+  
+  return (
+    <div className="w-full min-h-screen bg-white text-[#111] overflow-hidden relative font-sans">
+      
+      {/* Cinematic Header */}
+      <div className="w-full flex justify-center p-3 lg:p-[12px]">
+        <section className="relative w-full max-w-[1600px] min-h-[50vh] lg:min-h-[400px] rounded-[24px] overflow-hidden bg-[#0c0c0c] shadow-sm isolate flex flex-col justify-end pb-16 lg:pb-20 px-6 lg:px-[58px]">
+          {/* Background elements */}
+          <div className="absolute inset-0 w-full h-full pointer-events-none z-0 bg-[#0c0c0c]">
+            <img src={heroImg} alt="Hero Backdrop" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen" />
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-10" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#4d7aff]/20 blur-[120px] rounded-full mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/60 to-transparent" />
+          </div>
+
+          <div className="relative z-20 max-w-[900px] mt-32 text-left">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase mb-6 block"
+            >
+              About Us
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[clamp(40px,8vw,64px)] font-medium tracking-[-0.04em] leading-[1.05] text-white"
+            >
+              One Ecosystem. <span className="text-white/40">One Platform. Every Customer Conversation.</span>
+            </motion.h1>
+          </div>
+        </section>
+      </div>
+
+      {/* Premium Bento Mission with Explanatory Illustrations */}
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 py-32 border-b border-black/[0.03]">
+        <StaggerContainer>
+          <div className="flex items-center gap-5 mb-16">
+            <span className="font-mono text-[13px] tracking-[0.25em] text-black/30 uppercase font-medium">Vision & Ecosystem</span>
+            <div className="h-[1px] bg-gradient-to-r from-black/[0.08] to-transparent flex-1 max-w-[300px]" />
+          </div>
+
+          <div className="flex flex-col gap-8">
+            {/* Feature 1: The OS / Ecosystem */}
+            <FadeInUp className="group">
+              <div className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-[32px] bg-white border border-black/[0.04] shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_20px_60px_rgb(0,0,0,0.06)] hover:border-black/[0.08] transition-all duration-700 min-h-[500px]">
+                <div className="p-10 md:p-14 lg:p-16 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-black/[0.04] order-2 lg:order-1">
+                  <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center mb-10 group-hover:bg-[#111] group-hover:text-white transition-colors duration-500">
+                    <span className="font-serif italic text-lg">V</span>
+                  </div>
+                  <h3 className="text-[32px] md:text-[42px] font-medium leading-[1.1] mb-6 tracking-tight text-[#111]">
+                    The Voxi CX OS
+                  </h3>
+                  <p className="text-[18px] text-black/50 leading-relaxed max-w-[500px] font-light">
+                    We bridge the gap between academic research and commercial deployment. An AI-powered platform that unifies Voice AI, WhatsApp, and CRM Integration into a single intelligent ecosystem.
+                  </p>
+                </div>
+                
+                {/* Clean Explanatory Illustration: The Ecosystem */}
+                <div className="relative bg-[#FAFAFA] flex items-center justify-center p-12 overflow-hidden order-1 lg:order-2 min-h-[400px]">
+                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIvPgo8Y2lyY2xlIGN4PSIxIiBjeT0iMSIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+Cjwvc3ZnPg==')] opacity-50" />
+                  
+                  <div className="relative w-full max-w-[340px] aspect-square flex items-center justify-center">
+                    {/* Central Node */}
+                    <motion.div 
+                      animate={{ scale: [1, 1.05, 1] }} 
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute w-20 h-20 bg-white rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-black/[0.04] flex items-center justify-center z-20"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center">
+                        <div className="w-3 h-3 rounded-full bg-blue-500" />
+                      </div>
+                    </motion.div>
+                    
+                    {/* Rings */}
+                    <div className="absolute w-[200px] h-[200px] rounded-full border border-black/[0.04] z-10" />
+                    <div className="absolute w-[300px] h-[300px] rounded-full border border-black/[0.04] z-10 border-dashed" />
+                    
+                    {/* Orbiting Nodes */}
+                    {[
+                      { r: 200, angle: 0, label: "Voice AI", color: "bg-emerald-500", delay: 0 },
+                      { r: 200, angle: 180, label: "WhatsApp", color: "bg-amber-500", delay: -10 },
+                      { r: 300, angle: 90, label: "CRM", color: "bg-purple-500", delay: -5 },
+                      { r: 300, angle: 270, label: "Analytics", color: "bg-blue-400", delay: -15 }
+                    ].map((node, i) => (
+                      <motion.div
+                        key={i}
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: node.delay }}
+                        className="absolute w-full h-full flex items-center justify-center z-20 pointer-events-none"
+                        style={{ width: node.r, height: node.r }}
+                      >
+                        <div className="absolute top-0 -translate-y-1/2 flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-black/[0.05] shadow-sm pointer-events-auto">
+                          <div className={`w-2 h-2 rounded-full ${node.color}`} />
+                          <span className="text-[10px] font-mono text-black/60 font-medium uppercase tracking-wider">{node.label}</span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </FadeInUp>
+
+            {/* Feature 2: Intelligent Agents */}
+            <FadeInUp delay={0.1} className="group">
+              <div className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-[32px] bg-[#111] text-white border border-black/[0.04] shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_20px_60px_rgb(0,0,0,0.12)] transition-all duration-700 min-h-[500px]">
+                
+                {/* Clean Explanatory Illustration: Intelligent Agents */}
+                <div className="relative bg-[#0a0a0a] flex items-center justify-center p-8 md:p-12 overflow-hidden border-b lg:border-b-0 lg:border-r border-white/[0.05] min-h-[400px]">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-radial from-blue-500/10 to-transparent blur-[40px] pointer-events-none" />
+                  
+                  <div className="w-full max-w-[340px] flex flex-col gap-4 relative z-10">
+                    {/* AI Agent Context Header */}
+                    <div className="flex items-center gap-3 mb-2 px-2">
+                      <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                      <span className="font-mono text-[10px] text-white/40 uppercase tracking-widest">Active Call Context</span>
+                    </div>
+                    
+                    {/* Chat Bubbles */}
+                    {[
+                      { isAi: true, text: "Hi! I noticed your policy expires in 3 days. Would you like to renew it now with the same coverage?", delay: 0 },
+                      { isAi: false, text: "Yes, please. Can we use the card on file?", delay: 0.5 },
+                      { isAi: true, text: "Done. I've processed the renewal using your Visa ending in 4242. A confirmation receipt has been sent to your email.", delay: 1 }
+                    ].map((msg, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ delay: 0.3 + msg.delay, duration: 0.5 }}
+                        className={`flex ${msg.isAi ? 'justify-start' : 'justify-end'}`}
+                      >
+                        <div className={`px-4 py-3 text-[13px] md:text-[14px] leading-relaxed max-w-[90%] font-light ${msg.isAi ? 'bg-white/5 border border-white/10 rounded-[12px] rounded-tl-[4px] text-white/80' : 'bg-blue-600 rounded-[12px] rounded-tr-[4px] text-white'}`}>
+                          {msg.text}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-10 md:p-14 lg:p-16 flex flex-col justify-center relative">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-radial from-blue-500/10 to-transparent blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-10">
+                      <div className="w-2 h-2 rounded-full bg-blue-400 group-hover:animate-pulse" />
+                      <span className="font-mono text-[11px] tracking-[0.2em] text-white/50 uppercase">Voice AI Agents</span>
+                    </div>
+                    <h3 className="text-[32px] md:text-[42px] font-medium leading-[1.1] mb-6 tracking-tight">
+                      Intelligent agents that remember, adapt, and resolve.
+                    </h3>
+                    <p className="text-[18px] text-white/50 leading-relaxed font-light max-w-[500px]">
+                      Our AI Voice Agents don't just automate calls—they understand context, remember past interactions across all channels, adapt in real time, and communicate naturally like a human.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </FadeInUp>
+          </div>
+        </StaggerContainer>
+      </div>
+
+      {/* Elegant Team Section */}
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 py-32 border-b border-black/[0.03]">
+        <StaggerContainer>
+          <FadeInUp className="mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+            <div className="max-w-[700px]">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="font-mono text-[12px] tracking-[0.25em] text-black/40 uppercase font-medium">Leadership</span>
+              </div>
+              <h2 className="text-[clamp(32px,5vw,48px)] font-medium tracking-tight text-[#111] leading-[1.1]">
+                A collective of engineers, designers, and researchers dedicated to the frontier of AI.
+              </h2>
+            </div>
+          </FadeInUp>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { name: 'Sarah Jenkins', role: 'Head of Machine Learning' },
+              { name: 'Marcus Cheng', role: 'Principal Design Director' },
+              { name: 'Elena Vance', role: 'Lead Cognitive Scientist' },
+              { name: 'David Ross', role: 'Infrastructure Architect' },
+            ].map((person, idx) => (
+              <FadeInUp key={idx} delay={idx * 0.1} className="group cursor-pointer">
+                <div className="w-full aspect-[4/5] rounded-[24px] bg-[#F2F2F2] border border-black/[0.04] mb-6 relative overflow-hidden transition-all duration-700 group-hover:shadow-[0_15px_40px_rgb(0,0,0,0.06)] group-hover:-translate-y-1">
+                  {/* Placeholder content - highly professional */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-10 transition-opacity duration-700">
+                    <div className="w-16 h-16 rounded-full border border-black/20" />
+                  </div>
+                  {/* Hover reveal gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                </div>
+                <h4 className="text-[18px] font-medium text-[#111] mb-1 group-hover:text-blue-600 transition-colors duration-300">{person.name}</h4>
+                <p className="text-[14px] text-black/50 font-light">{person.role}</p>
+              </FadeInUp>
+            ))}
+          </div>
+        </StaggerContainer>
+      </div>
+
+      {/* Sophisticated Roadmap with Illustrations */}
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 py-32 mb-16">
+        <StaggerContainer>
+          <div className="flex flex-col items-center text-center mb-24">
+            <span className="font-mono text-[12px] tracking-[0.25em] text-black/40 uppercase font-medium mb-6">The 90-Day Framework</span>
+            <h2 className="text-[clamp(32px,5vw,48px)] font-medium tracking-tight text-[#111] leading-[1.1] max-w-[800px]">
+              Technology alone doesn't deliver success. Implementation does.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-16">
+            {/* Step 1: Discovery & Design */}
+            <FadeInUp delay={0.1}>
+              <div className="flex flex-col h-full bg-white border border-black/[0.04] shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:border-black/[0.08] rounded-[32px] transition-all duration-700 overflow-hidden group">
+                <div className="h-[240px] bg-[#FAFAFA] relative overflow-hidden flex items-center justify-center border-b border-black/[0.04]">
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIvPgo8Y2lyY2xlIGN4PSIxIiBjeT0iMSIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+Cjwvc3ZnPg==')] opacity-40" />
+                  
+                  {/* Illustration: Nodes/Mapping */}
+                  <div className="relative w-32 h-32">
+                    <motion.div animate={{ rotate: 360 }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }} className="absolute inset-0">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-10 bg-white shadow-sm rounded-[10px] flex items-center justify-center border border-black/[0.05]">
+                         <div className="w-3 h-3 bg-blue-500 rounded-full" />
+                      </div>
+                      <div className="absolute bottom-4 right-0 w-10 h-10 bg-white shadow-sm rounded-[10px] flex items-center justify-center border border-black/[0.05]">
+                         <div className="w-3 h-3 bg-emerald-500 rounded-[4px]" />
+                      </div>
+                      <div className="absolute bottom-4 left-0 w-10 h-10 bg-white shadow-sm rounded-[10px] flex items-center justify-center border border-black/[0.05]">
+                         <div className="w-3 h-3 bg-amber-500 rotate-45" />
+                      </div>
+                      {/* Connecting Lines */}
+                      <svg className="absolute inset-0 w-full h-full" style={{ zIndex: -1 }}>
+                        <path d="M 64 16 L 112 112 L 16 112 Z" fill="none" stroke="rgba(0,0,0,0.06)" strokeWidth="1.5" strokeDasharray="4 4" />
+                      </svg>
+                    </motion.div>
+                    <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[#111] rounded-full shadow-md border border-black/5 flex items-center justify-center z-10">
+                       <span className="font-serif italic font-bold text-white text-lg">1</span>
+                    </motion.div>
+                  </div>
+                </div>
+                <div className="p-10 md:p-12 flex flex-col flex-1 bg-white">
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-[12px] font-mono tracking-widest text-blue-600 uppercase font-semibold bg-blue-50 px-3 py-1 rounded-full">Day 1-14</span>
+                    <span className="text-[14px] font-mono text-black/20 group-hover:text-black/40 transition-colors duration-500">01</span>
+                  </div>
+                  <h4 className="text-[26px] font-medium text-[#111] mb-4 tracking-tight">Discovery & Design</h4>
+                  <p className="text-[16px] text-black/50 leading-relaxed font-light mt-auto">
+                    Mapping customer journeys and defining precise AI workflows to perfectly align with your enterprise business goals.
+                  </p>
+                </div>
+              </div>
+            </FadeInUp>
+
+            {/* Step 2: Deployment */}
+            <FadeInUp delay={0.2}>
+              <div className="flex flex-col h-full bg-white border border-black/[0.04] shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:border-black/[0.08] rounded-[32px] transition-all duration-700 overflow-hidden group">
+                <div className="h-[240px] bg-[#FAFAFA] relative overflow-hidden flex items-center justify-center border-b border-black/[0.04]">
+                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIvPgo8Y2lyY2xlIGN4PSIxIiBjeT0iMSIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+Cjwvc3ZnPg==')] opacity-40" />
+                  
+                  {/* Illustration: Deployment / Integrations */}
+                  <div className="relative flex flex-col gap-4">
+                     <div className="flex gap-4">
+                       {[1,2,3].map(i => (
+                         <motion.div key={i} initial={{ y: 0 }} animate={{ y: [0, -6, 0] }} transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.2 }} className="w-12 h-12 bg-white rounded-[12px] shadow-[0_4px_15px_rgba(0,0,0,0.03)] border border-black/5 flex flex-col items-center justify-center gap-1.5">
+                           <div className="w-5 h-1 bg-black/10 rounded-full" />
+                           <div className="w-7 h-1 bg-black/5 rounded-full" />
+                         </motion.div>
+                       ))}
+                     </div>
+                     <div className="flex justify-center gap-3 mt-1">
+                       <div className="w-px h-8 bg-gradient-to-b from-blue-400 to-transparent" />
+                       <div className="w-px h-8 bg-gradient-to-b from-emerald-400 to-transparent" />
+                       <div className="w-px h-8 bg-gradient-to-b from-amber-400 to-transparent" />
+                     </div>
+                     <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 3, repeat: Infinity }} className="mx-auto w-32 h-12 bg-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-black/[0.04]">
+                        <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse mr-2" />
+                        <span className="text-[11px] font-mono text-[#111] tracking-widest uppercase font-medium">Live Deploy</span>
+                     </motion.div>
+                  </div>
+                </div>
+                <div className="p-10 md:p-12 flex flex-col flex-1 bg-white">
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-[12px] font-mono tracking-widest text-blue-600 uppercase font-semibold bg-blue-50 px-3 py-1 rounded-full">Day 15-45</span>
+                    <span className="text-[14px] font-mono text-black/20 group-hover:text-black/40 transition-colors duration-500">02</span>
+                  </div>
+                  <h4 className="text-[26px] font-medium text-[#111] mb-4 tracking-tight">Deployment</h4>
+                  <p className="text-[16px] text-black/50 leading-relaxed font-light mt-auto">
+                    Seamless, secure integration with your existing CRM and telephony infrastructure, followed by an intelligent agent rollout.
+                  </p>
+                </div>
+              </div>
+            </FadeInUp>
+
+            {/* Step 3: Adoption & Optimization */}
+            <FadeInUp delay={0.3}>
+              <div className="flex flex-col h-full bg-white border border-black/[0.04] shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:border-black/[0.08] rounded-[32px] transition-all duration-700 overflow-hidden group">
+                <div className="h-[240px] bg-[#FAFAFA] relative overflow-hidden flex items-center justify-center border-b border-black/[0.04]">
+                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIvPgo8Y2lyY2xlIGN4PSIxIiBjeT0iMSIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+Cjwvc3ZnPg==')] opacity-40" />
+                  
+                  {/* Illustration: Optimization Graph */}
+                  <div className="relative w-56 h-36 flex items-end justify-between px-4 pb-4">
+                     <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+                        <motion.path 
+                          initial={{ pathLength: 0 }} 
+                          whileInView={{ pathLength: 1 }} 
+                          viewport={{ once: true }}
+                          transition={{ duration: 2, ease: "easeOut" }}
+                          d="M 0 80 Q 20 70, 40 60 T 80 30 T 100 10" 
+                          fill="none" 
+                          stroke="rgba(59, 130, 246, 0.4)" 
+                          strokeWidth="3" 
+                          strokeLinecap="round" 
+                        />
+                     </svg>
+                     {[40, 55, 70, 85, 100].map((h, i) => (
+                       <motion.div 
+                         key={i} 
+                         initial={{ height: 0 }} 
+                         whileInView={{ height: `${h}%` }}
+                         viewport={{ once: true }} 
+                         transition={{ duration: 0.8, delay: i * 0.15 }}
+                         className="w-8 bg-gradient-to-t from-black/5 to-black/10 rounded-t-[4px]" 
+                       />
+                     ))}
+                     <motion.div 
+                       initial={{ opacity: 0, y: 10 }}
+                       whileInView={{ opacity: 1, y: 0 }}
+                       viewport={{ once: true }}
+                       transition={{ delay: 1 }}
+                       className="absolute top-4 right-4 bg-white border border-black/5 shadow-[0_8px_20px_rgba(0,0,0,0.06)] px-4 py-1.5 rounded-full flex items-center gap-2"
+                     >
+                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                       <span className="text-[10px] font-mono font-medium text-black/60 tracking-widest uppercase">Optimizing</span>
+                     </motion.div>
+                  </div>
+                </div>
+                <div className="p-10 md:p-12 flex flex-col flex-1 bg-white">
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-[12px] font-mono tracking-widest text-blue-600 uppercase font-semibold bg-blue-50 px-3 py-1 rounded-full">Day 46-75</span>
+                    <span className="text-[14px] font-mono text-black/20 group-hover:text-black/40 transition-colors duration-500">03</span>
+                  </div>
+                  <h4 className="text-[26px] font-medium text-[#111] mb-4 tracking-tight">Adoption & Optimization</h4>
+                  <p className="text-[16px] text-black/50 leading-relaxed font-light mt-auto">
+                    Rigorous fine-tuning of AI responses and comprehensive training for your human operators to leverage the new ecosystem.
+                  </p>
+                </div>
+              </div>
+            </FadeInUp>
+
+            {/* Step 4: Business Outcomes */}
+            <FadeInUp delay={0.4}>
+              <div className="flex flex-col h-full bg-white border border-black/[0.04] shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:border-black/[0.08] rounded-[32px] transition-all duration-700 overflow-hidden group">
+                <div className="h-[240px] bg-[#FAFAFA] relative overflow-hidden flex items-center justify-center border-b border-black/[0.04]">
+                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIvPgo8Y2lyY2xlIGN4PSIxIiBjeT0iMSIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+Cjwvc3ZnPg==')] opacity-40" />
+                  
+                  {/* Illustration: Outcomes Dashboard Metric */}
+                  <div className="relative">
+                     <motion.div 
+                       whileHover={{ scale: 1.05 }}
+                       className="bg-white rounded-[20px] p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] border border-black/[0.04] min-w-[240px]"
+                     >
+                       <div className="flex justify-between items-start mb-6">
+                          <span className="text-[11px] font-mono tracking-widest text-black/40 uppercase font-medium">CSAT Score</span>
+                          <div className="bg-emerald-100 text-emerald-600 text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                            +42%
+                          </div>
+                       </div>
+                       <div className="text-[40px] font-medium tracking-tight text-[#111] leading-none mb-3">
+                         94.8%
+                       </div>
+                       <div className="w-full h-1.5 bg-black/5 rounded-full overflow-hidden mt-6">
+                         <motion.div 
+                           initial={{ width: 0 }}
+                           whileInView={{ width: "94.8%" }}
+                           viewport={{ once: true }}
+                           transition={{ duration: 1.5, ease: "easeOut" }}
+                           className="h-full bg-emerald-500 rounded-full"
+                         />
+                       </div>
+                     </motion.div>
+                  </div>
+                </div>
+                <div className="p-10 md:p-12 flex flex-col flex-1 bg-white">
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-[12px] font-mono tracking-widest text-emerald-600 uppercase font-semibold bg-emerald-50 px-3 py-1 rounded-full">Day 76-90</span>
+                    <span className="text-[14px] font-mono text-black/20 group-hover:text-black/40 transition-colors duration-500">04</span>
+                  </div>
+                  <h4 className="text-[26px] font-medium text-[#111] mb-4 tracking-tight">Business Outcomes</h4>
+                  <p className="text-[16px] text-black/50 leading-relaxed font-light mt-auto">
+                    Measuring and delivering real impact: higher CSAT scores, significantly lower customer acquisition costs, and faster resolutions.
+                  </p>
+                </div>
+              </div>
+            </FadeInUp>
+          </div>
+        </StaggerContainer>
+      </div>
+    </div>
+  );
+};
+
 export default function CompanyDetail() {
   const { id } = useParams();
 
@@ -550,427 +685,8 @@ export default function CompanyDetail() {
 
   // Specifically rendering the About Us layout if the id is 'about'
   if (id === 'about') {
-    return (
-      <div className="w-full min-h-screen bg-background">
-        {/* Cinematic Header */}
-        <div className="w-full flex justify-center p-3 lg:p-[12px]">
-          <section className="relative w-full max-w-[1600px] min-h-[50vh] lg:min-h-[400px] rounded-[24px] overflow-hidden bg-[#0c0c0c] shadow-sm isolate flex flex-col justify-end pb-16 lg:pb-20 px-6 lg:px-[58px]">
-            {/* Background elements */}
-            <div className="absolute inset-0 w-full h-full pointer-events-none z-0 bg-[#0c0c0c]">
-              <img src={heroImg} alt="Hero Backdrop" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen" />
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-10" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#4d7aff]/20 blur-[120px] rounded-full mix-blend-screen" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/60 to-transparent" />
-            </div>
-
-            <div className="relative z-20 max-w-[900px] mt-32">
-              <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[11px] font-mono tracking-[0.15em] text-white/50 uppercase mb-6 block"
-              >
-                About Us
-              </motion.span>
-              <motion.h1
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[clamp(40px,8vw,64px)] font-medium tracking-[-0.04em] leading-[1.05] text-white"
-              >
-                One Ecosystem. <span className="text-white/40">One Platform. Every Customer Conversation.</span>
-              </motion.h1>
-            </div>
-          </section>
-        </div>
-
-        <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 pt-20 pb-32">
-          <StaggerContainer>
-
-            {/* Bento-style Mission / About Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-4 mb-24">
-
-              {/* Card 1: Vision Text */}
-              <FadeInUp className="bg-[#1a1a1a] rounded-[24px] p-8 md:p-12 flex flex-col justify-between overflow-hidden relative brutalist-card">
-                <div className="absolute inset-0 z-0">
-                  <img src={aboutMission} alt="Mission Vision" className="w-full h-full object-cover opacity-[0.15] mix-blend-screen" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a] to-transparent opacity-80" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/60 to-transparent" />
-                </div>
-                <div className="relative z-10 mb-12">
-                  <div className="w-12 h-12 border border-white/10 rounded-xl bg-white/5 backdrop-blur-md flex items-center justify-center mb-8">
-                    <span className="text-white font-serif italic text-xl">V</span>
-                  </div>
-                  <ScrollWordReveal
-                    as="h3"
-                    className="text-[26px] md:text-[34px] text-white font-medium tracking-tight leading-[1.2] mb-6 max-w-[600px]"
-                    text="Our mission is simple: to help businesses deliver exceptional customer experiences while improving operational efficiency, increasing conversions, and reducing communication costs."
-                  />
-                </div>
-                <div className="relative z-10 space-y-4 text-[16px] text-white/60 leading-relaxed max-w-[600px]">
-                  <p>
-                    At VoxiFlow AI, we believe customer communication shouldn't be managed through disconnected tools. Every interaction—from the first enquiry to post-sales support—should operate as one intelligent, connected ecosystem.
-                  </p>
-                </div>
-              </FadeInUp>
-
-              {/* Card 2 & 3 Column */}
-              <div className="flex flex-col gap-4">
-                <FadeInUp delay={0.1} className="bg-[#F7F7F7] rounded-[24px] flex-1 border border-black/[0.04] flex flex-col relative overflow-hidden group brutalist-card">
-                  {/* Illustration top */}
-                  <div className="relative w-full h-[180px] overflow-hidden shrink-0">
-                    <div className="absolute inset-0 bg-white flex flex-col">
-                      <div className="px-4 py-2.5 border-b border-black/5 flex items-center gap-1.5 shrink-0">
-                        <div className="w-2 h-2 rounded-full bg-red-400/60" />
-                        <div className="w-2 h-2 rounded-full bg-yellow-400/60" />
-                        <div className="w-2 h-2 rounded-full bg-green-400/60" />
-                        <span className="text-[9px] font-mono text-black/25 ml-2 tracking-wide">VOXI CX OS</span>
-                      </div>
-                      <div className="p-3 flex-1 overflow-hidden flex flex-col gap-2">
-                        <div className="flex items-center gap-2 mb-1">
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                          <span className="text-[9px] font-mono text-black/35 uppercase tracking-widest">Platform Ecosystem · Live</span>
-                        </div>
-                        <div className="grid grid-cols-4 gap-1.5">
-                          {['Voice AI', 'WhatsApp', 'Telephony', 'Quality'].map((s, j) => (
-                            <motion.div
-                              key={j}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: 0.3 + j * 0.15, type: "spring", stiffness: 200 }}
-                              className="bg-[#f4f4f4] rounded-[6px] p-1.5 flex flex-col items-center gap-1 shadow-sm"
-                            >
-                              <div className={`w-1.5 h-1.5 rounded-full ${j === 0 ? 'bg-blue-400 animate-pulse' : j === 1 ? 'bg-emerald-400' : j === 2 ? 'bg-purple-400' : 'bg-amber-400'}`} />
-                              <span className="text-[7px] text-black/50 text-center leading-tight">{s}</span>
-                            </motion.div>
-                          ))}
-                        </div>
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 1, duration: 0.4 }}
-                          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[6px] bg-blue-50 border border-blue-100 mt-auto shadow-sm"
-                        >
-                          <span className="text-[8px] text-blue-600 font-medium">2.4M conversations unified across all channels today</span>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-8 md:p-10">
-                    <h4 className="text-[22px] font-semibold text-[#111] mb-4 tracking-tight">The Voxi CX OS</h4>
-                    <p className="text-[16px] text-black/60 leading-relaxed">
-                      An AI-powered platform that unifies Voice AI, WhatsApp, Contact Center, Telephony, Workflow Automation, Quality Management, CRM Integration, and Customer Journey Orchestration into a single intelligent ecosystem.
-                    </p>
-                  </div>
-                </FadeInUp>
-                <FadeInUp delay={0.2} className="bg-[#EBEBEB] rounded-[24px] flex-1 border border-black/[0.04] flex flex-col relative overflow-hidden group brutalist-card">
-                  {/* Illustration top */}
-                  <div className="relative w-full h-[180px] overflow-hidden shrink-0">
-                    <div className="absolute inset-0 bg-white flex flex-col">
-                      <div className="px-4 py-2.5 border-b border-black/5 flex items-center gap-1.5 shrink-0">
-                        <div className="w-2 h-2 rounded-full bg-red-400/60" />
-                        <div className="w-2 h-2 rounded-full bg-yellow-400/60" />
-                        <div className="w-2 h-2 rounded-full bg-green-400/60" />
-                        <span className="text-[9px] font-mono text-black/25 ml-2 tracking-wide">AI VOICE AGENT · LIVE</span>
-                      </div>
-                      <div className="p-3 flex-1 overflow-hidden flex flex-col gap-1.5">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                          <span className="text-[9px] font-mono text-black/35 uppercase tracking-widest">Call · 01:44</span>
-                        </div>
-                        {[{ a: true, t: 'Hi! I noticed your policy expires in 3 days. Want to renew now?' }, { a: false, t: 'Yes, what are my options?' }, { a: true, t: 'Same coverage, same rate. I can process it right now.' }].map((m, j) => (
-                          <motion.div
-                            key={j}
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 + j * 0.4, duration: 0.3 }}
-                            className={`flex ${m.a ? 'justify-start' : 'justify-end'}`}
-                          >
-                            <div className={`px-2 py-1 rounded-[6px] text-[8px] leading-relaxed max-w-[85%] shadow-sm ${m.a ? 'bg-[#f4f4f4] text-black/70 rounded-tl-[2px]' : 'bg-[#111] text-white rounded-tr-[2px]'}`}>{m.t}</div>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-8 md:p-10">
-                    <h4 className="text-[22px] font-semibold text-[#111] mb-4 tracking-tight">Intelligent Agents</h4>
-                    <p className="text-[16px] text-black/60 leading-relaxed">
-                      Our AI Voice Agents don't just automate calls—they understand context, remember conversations, adapt in real time, and communicate naturally like a human. Every interaction is personalized.
-                    </p>
-                  </div>
-                </FadeInUp>
-              </div>
-            </div>
-          </StaggerContainer>
-        </div>
-
-        {/* Full-width Dark Team Section */}
-        <div className="w-full bg-[#141414] py-24">
-          <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20">
-            <StaggerContainer>
-              <FadeInUp delay={0.1} className="w-full overflow-hidden">
-
-                {/* Header Grid */}
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-16 lg:mb-20">
-                  <h2 className="text-[clamp(32px,5vw,60px)] font-medium tracking-tight text-white leading-[1.05] max-w-[850px]">
-                    We are a collective of engineers, designers, and researchers dedicated to the frontier of AI.
-                  </h2>
-
-                  <div className="flex flex-col items-start gap-6 max-w-[320px]">
-                    <p className="text-[14px] lg:text-[15px] text-white/60 leading-relaxed text-left">
-                      Bridging the gap between academic research and commercial deployment with precision engineering.
-                    </p>
-                    <button className="flex items-center gap-3 bg-[#1e1e1e] hover:bg-[#2a2a2a] transition-colors rounded-[14px] px-5 py-3 border border-white/5 cursor-pointer">
-                      <div className="flex space-x-[-2px]">
-                        <span className="text-white text-[10px]">&gt;</span>
-                        <span className="text-white text-[10px]">&gt;</span>
-                      </div>
-                      <span className="text-[14px] text-white/90 font-medium ml-2">Our Story</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-
-                  {/* Person 1 */}
-                  <FadeInUp delay={0.1} className="flex flex-col group cursor-pointer">
-                    <div className="w-full aspect-[4/5] rounded-[24px] bg-[#F7C948] mb-4 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
-                      <div className="absolute top-5 right-5 w-8 h-4 rounded-full border-[1.5px] border-white/40" />
-                      <span className="text-black/30 font-medium text-sm">Image Placeholder</span>
-                    </div>
-                    <h4 className="text-[12px] font-bold text-white tracking-[0.1em] uppercase mb-1">Sarah Jenkins</h4>
-                    <p className="text-[12px] text-white/40 font-mono tracking-tight">Head of Machine Learning</p>
-                  </FadeInUp>
-
-                  {/* Person 2 */}
-                  <FadeInUp delay={0.2} className="flex flex-col group cursor-pointer">
-                    <div className="w-full aspect-[4/5] rounded-[24px] bg-[#0E9F98] mb-4 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
-                      <div className="absolute top-5 right-5 w-8 h-4 rounded-full border-[1.5px] border-white/40" />
-                      <span className="text-black/30 font-medium text-sm">Image Placeholder</span>
-                    </div>
-                    <h4 className="text-[12px] font-bold text-white tracking-[0.1em] uppercase mb-1">Marcus Cheng</h4>
-                    <p className="text-[12px] text-white/40 font-mono tracking-tight">Principal Design Director</p>
-                  </FadeInUp>
-
-                  {/* Person 3 */}
-                  <FadeInUp delay={0.3} className="flex flex-col group cursor-pointer">
-                    <div className="w-full aspect-[4/5] rounded-[24px] bg-[#3B82F6] mb-4 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
-                      <div className="absolute top-5 right-5 w-8 h-4 rounded-full border-[1.5px] border-white/40" />
-                      <span className="text-black/30 font-medium text-sm">Image Placeholder</span>
-                    </div>
-                    <h4 className="text-[12px] font-bold text-white tracking-[0.1em] uppercase mb-1">Elena Vance</h4>
-                    <p className="text-[12px] text-white/40 font-mono tracking-tight">Lead Cognitive Scientist</p>
-                  </FadeInUp>
-
-                  {/* Person 4 (Text Card) */}
-                  <FadeInUp delay={0.4} className="w-full aspect-[4/5] rounded-[24px] bg-gradient-to-b from-[#f9f9f9] to-[#eaeaea] p-8 flex flex-col relative cursor-pointer brutalist-card">
-                    <div className="flex justify-between items-start mb-8">
-                      <div className="flex gap-1.5">
-                        <div className="w-7 h-7 rounded-full bg-[#111] flex items-center justify-center">
-                          <span className="text-white text-[10px] font-bold">X</span>
-                        </div>
-                        <div className="w-7 h-7 rounded-full bg-[#111] flex items-center justify-center">
-                          <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
-                        </div>
-                      </div>
-                      <div className="w-7 h-4 rounded-full border-[1.5px] border-black" />
-                    </div>
-
-                    <p className="text-[14px] lg:text-[15px] text-black/80 leading-relaxed font-medium pr-2">
-                      Latency is the enemy of adoption. I architect the backbone of our solutions to ensure that even the most complex RAG systems deliver sub-second responses, maintaining 99.9% uptime across distributed global compute clusters.
-                    </p>
-
-                    <div className="mt-auto">
-                      <h4 className="text-[11px] font-bold text-[#111] tracking-[0.1em] uppercase mb-1">David Ross</h4>
-                      <p className="text-[11px] text-black/50 font-mono tracking-tight">Infrastructure Architect</p>
-                    </div>
-                  </FadeInUp>
-                </div>
-              </FadeInUp>
-            </StaggerContainer>
-          </div>
-        </div>
-
-        {/* Why Voxi - Full Width */}
-        <div className="w-full bg-[#111] pt-24 pb-32 relative overflow-hidden">
-          {/* Background elements */}
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-5 z-0" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4d7aff]/10 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
-
-          <div className="w-full max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 relative z-10">
-            <StaggerContainer>
-              <FadeInUp delay={0.2} className="text-white">
-                <div className="flex items-center gap-4 mb-12">
-                  <div className="w-10 h-6 rounded-full border border-white/20 flex items-center justify-center bg-transparent shrink-0" />
-                  <div className="h-px bg-white/10 flex-1 max-w-[120px]" />
-                  <span className="text-[12px] font-mono tracking-[0.15em] text-white/50 uppercase">
-                    Why Voxi
-                  </span>
-                </div>
-
-                <ScrollWordReveal
-                  as="h2"
-                  className="text-[clamp(32px,5vw,54px)] font-medium tracking-tight text-white leading-[1.1] mb-16 max-w-[800px]"
-                  text="One Ecosystem. One Platform. Every Customer Conversation."
-                />
-
-                {/* Visual Ecosystem Showcase */}
-                <div className="flex flex-col gap-12 lg:gap-20">
-                  
-                  {/* Ecosystem Block */}
-                  <div className="bg-[#1a1a1a] rounded-[24px] p-8 md:p-12 border border-white/5 relative overflow-hidden group brutalist-card">
-                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20" />
-                    <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-blue-500/10 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
-                    
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 relative z-10 items-center">
-                      {/* Interactive Visual Left */}
-                      <div className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-square flex items-center justify-center">
-                        {/* Center Orb */}
-                        <motion.div 
-                          animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }}
-                          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                          className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.3)] z-20"
-                        >
-                          <span className="text-white font-bold tracking-tight text-center text-sm leading-tight">VoxiFlow<br/>Core</span>
-                        </motion.div>
-                        
-                        {/* Rings */}
-                        {[120, 200, 280, 360].map((size, i) => (
-                          <div key={`ring-${i}`} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" style={{ width: size, height: size }} />
-                        ))}
-                        
-                        {/* Orbiting Nodes */}
-                        {[
-                          { l: 'Enquiry', r: 120, color: 'bg-emerald-400', dur: 15 },
-                          { l: 'Support', r: 200, color: 'bg-blue-400', dur: 22 },
-                          { l: 'Collections', r: 280, color: 'bg-amber-400', dur: 30 },
-                          { l: 'Retention', r: 360, color: 'bg-purple-400', dur: 40 },
-                        ].map((node, i) => (
-                          <motion.div
-                            key={`node-${i}`}
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: node.dur, repeat: Infinity, ease: "linear" }}
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                            style={{ width: node.r, height: node.r }}
-                          >
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2">
-                              <div className={`w-3 h-3 rounded-full ${node.color} shadow-[0_0_15px_currentColor]`} />
-                              <div className="px-2 py-1 bg-black/60 backdrop-blur-md rounded-[4px] border border-white/10">
-                                <span className="text-[10px] text-white whitespace-nowrap font-medium tracking-wide">{node.l}</span>
-                              </div>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
-
-                      {/* Text Right */}
-                      <div className="flex flex-col justify-center">
-                        <h3 className="text-[28px] md:text-[36px] font-medium text-white leading-tight mb-6 tracking-tight">
-                          Every Customer Conversation.
-                        </h3>
-                        <p className="text-[16px] md:text-[18px] text-white/60 leading-relaxed mb-8">
-                          At VoxiFlow AI, we believe customer communication shouldn't be managed through disconnected tools and isolated touchpoints. Every customer interaction—from the first enquiry to post-sales support, collections, and retention—should operate as one intelligent, connected ecosystem.
-                        </p>
-                        
-                        {/* Ecosystem Features List */}
-                        <div className="space-y-4">
-                          {[
-                            "Unified Context: Agents remember past interactions across all channels.",
-                            "Seamless Handoffs: Transition perfectly from AI to human operators.",
-                            "Proactive Engagement: Anticipate customer needs before they ask."
-                          ].map((feat, j) => (
-                            <motion.div 
-                              key={j} 
-                              initial={{ opacity: 0, x: 20 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.2 + j * 0.1 }}
-                              className="flex items-start gap-3"
-                            >
-                              <div className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                              </div>
-                              <span className="text-[14px] text-white/80">{feat}</span>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Methodology & 90-Day Framework Block */}
-                  <div className="bg-[#1a1a1a] rounded-[24px] p-8 md:p-12 border border-white/5 brutalist-card relative overflow-hidden">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
-                      <div className="max-w-[600px]">
-                        <h3 className="text-[28px] md:text-[36px] font-medium text-white leading-tight mb-4 tracking-tight">
-                          Our Methodology
-                        </h3>
-                        <p className="text-[16px] md:text-[18px] text-white/60 leading-relaxed">
-                          Technology alone doesn't deliver success. <span className="text-white font-medium">Implementation does.</span> We work closely with you from discovery to optimization to ensure measurable business outcomes.
-                        </p>
-                      </div>
-                      <div className="px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-[12px] font-mono tracking-widest uppercase">
-                        The 90-Day Success Framework
-                      </div>
-                    </div>
-
-                    {/* Timeline Pipeline */}
-                    <div className="relative w-full pt-8 pb-4">
-                      {/* Base Line */}
-                      <div className="absolute top-12 left-0 w-full h-[2px] bg-white/5" />
-                      {/* Animated Progress Line */}
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        whileInView={{ width: "100%" }}
-                        transition={{ duration: 1.5, ease: "easeOut" }}
-                        className="absolute top-12 left-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400"
-                      />
-
-                      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
-                        {[
-                          { day: "Day 1-14", title: "Discovery & Design", desc: "Mapping customer journeys and defining precise AI workflows.", color: "text-blue-400", dot: "bg-blue-500" },
-                          { day: "Day 15-45", title: "Deployment", desc: "Seamless integration, testing, and intelligent agent rollout.", color: "text-indigo-400", dot: "bg-indigo-500" },
-                          { day: "Day 46-75", title: "Adoption & Optimization", desc: "Fine-tuning responses and training teams on the new ecosystem.", color: "text-emerald-400", dot: "bg-emerald-500" },
-                          { day: "Day 76-90", title: "Business Outcomes", desc: "Measuring impact: higher CSAT, lower CAC, and automated resolutions.", color: "text-amber-400", dot: "bg-amber-500" }
-                        ].map((step, i) => (
-                          <motion.div 
-                            key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 + i * 0.2 }}
-                            className="flex flex-col relative pt-8"
-                          >
-                            <div className="absolute top-[-4px] left-0 w-3 h-3 rounded-full bg-[#1a1a1a] border-2 border-white/20" />
-                            <motion.div 
-                              initial={{ scale: 0 }}
-                              whileInView={{ scale: 1 }}
-                              transition={{ delay: 1 + i * 0.2, type: "spring" }}
-                              className={`absolute top-[-1px] left-[3px] w-1.5 h-1.5 rounded-full ${step.dot} shadow-[0_0_10px_currentColor]`}
-                            />
-                            
-                            <span className={`text-[12px] font-mono tracking-wider uppercase mb-3 ${step.color}`}>
-                              {step.day}
-                            </span>
-                            <h4 className="text-[18px] font-medium text-white mb-2 tracking-tight">
-                              {step.title}
-                            </h4>
-                            <p className="text-[14px] text-white/50 leading-relaxed pr-4">
-                              {step.desc}
-                            </p>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </FadeInUp>
-            </StaggerContainer>
-          </div>
-        </div>
-      </div>
-    );
+    return <AboutPage />;
   }
-
   // Render the Culture Manifesto layout if the id is 'culture'
   if (id === 'culture') {
     return <CulturePage />;
