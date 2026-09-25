@@ -2,7 +2,7 @@ export const company = [
   {
     id: 'about',
     title: 'About Us',
-    description: 'Automate the manual, accelerate the future. Our custom AI solutions deliver measurable growth and operational excellence. Empowering teams with intelligent tools that turn complex'
+    description: "At VoxiFlow AI, we believe customer communication shouldn't be managed through disconnected tools and isolated touchpoints."
   },
   {
     id: 'culture',
