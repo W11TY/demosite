@@ -70,7 +70,7 @@ const VisualLinesHero = () => (
     <svg width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" stroke="currentColor" fill="none">
        {/* Beautiful intersecting bezier curves representing Ideas, People, Conversations, Work, Life */}
        <path d="M-100,300 C200,400 300,100 500,300 S800,200 1100,300" strokeWidth="1" className="text-[#111]" strokeDasharray="10 10" />
-       <path d="M-100,200 C300,100 400,500 500,300 S700,500 1100,100" strokeWidth="1.5" className="text-blue-500" />
+       <path d="M-100,200 C300,100 400,500 500,300 S700,500 1100,100" strokeWidth="1.5" className="text-brand-blue" />
        <path d="M-100,400 C100,200 300,500 500,300 S800,400 1100,200" strokeWidth="0.5" className="text-emerald-500" />
        <path d="M200,-100 C100,200 600,400 500,700" strokeWidth="1" className="text-purple-500/50" />
     </svg>
@@ -93,8 +93,8 @@ const VisualWorkProcess = () => {
                transition={{ delay: i * 0.15, duration: 0.6 }}
                className="flex flex-col items-center gap-4"
             >
-              <div className={`w-3 h-3 rounded-full shrink-0 ${i === steps.length - 1 ? 'bg-blue-600 scale-150' : 'bg-white border-2 border-black/20'}`} />
-              <span className={`font-mono text-[10px] tracking-[0.2em] ${i === steps.length - 1 ? 'text-blue-600 font-bold' : 'text-black/40'}`}>{step}</span>
+              <div className={`w-3 h-3 rounded-full shrink-0 ${i === steps.length - 1 ? 'bg-brand-blue scale-150' : 'bg-white border-2 border-black/20'}`} />
+              <span className={`font-mono text-[10px] tracking-[0.2em] ${i === steps.length - 1 ? 'text-brand-blue font-bold' : 'text-black/40'}`}>{step}</span>
             </motion.div>
           ))}
         </div>
@@ -119,7 +119,7 @@ const VisualIntersection = () => (
          <span className="font-mono text-[10px] tracking-widest text-black/30 absolute bottom-4">AMBITION</span>
       </div>
     </motion.div>
-    <div className="w-3 h-3 md:w-4 md:h-4 bg-blue-600 rounded-full z-10 shadow-[0_0_20px_rgba(37,99,235,0.5)]" />
+    <div className="w-3 h-3 md:w-4 md:h-4 bg-brand-blue rounded-full z-10 shadow-[0_0_20px_rgba(37,99,235,0.5)]" />
   </div>
 );
 
@@ -268,7 +268,7 @@ const CulturePage = () => {
           <FadeInUp>
             <h1 className="text-[clamp(40px,8vw,100px)] font-medium tracking-tighter text-[#111] leading-[1]">
               WORK THAT MATTERS.<br/>
-              <span className="text-blue-600">LIFE THAT COUNTS.</span>
+              <span className="text-brand-blue">LIFE THAT COUNTS.</span>
             </h1>
             <p className="mt-8 md:mt-12 text-[18px] md:text-[24px] text-black/60 max-w-[700px] mx-auto leading-relaxed font-light">
               We're building technology that moves customer conversations forward — without losing sight of the people building it.
@@ -284,7 +284,7 @@ const CulturePage = () => {
              <button 
                key={i} 
                onClick={() => scrollToChapter(i)}
-               className={`flex items-center gap-2 font-mono text-[11px] md:text-[13px] tracking-[0.15em] whitespace-nowrap transition-all duration-300 ${activeChapter === i ? 'text-blue-600 font-bold' : 'text-black/40 hover:text-black/80'}`}
+               className={`flex items-center gap-2 font-mono text-[11px] md:text-[13px] tracking-[0.15em] whitespace-nowrap transition-all duration-300 ${activeChapter === i ? 'text-brand-blue font-bold' : 'text-black/40 hover:text-black/80'}`}
              >
                <span className="opacity-50">0{i+1}</span> {ch}
              </button>
@@ -299,16 +299,16 @@ const CulturePage = () => {
          <section id="chapter-0" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 border-b border-black/5 relative overflow-hidden">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(100px,20vw,300px)] font-bold text-black/[0.02] tracking-tighter pointer-events-none select-none">BUILD.</div>
             <div className="max-w-[900px] mx-auto relative z-10">
-               <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-blue-600 uppercase font-bold mb-6 md:mb-8 block">01 / Work With Purpose</span>
+               <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-brand-blue uppercase font-bold mb-6 md:mb-8 block">01 / Work With Purpose</span>
                <h2 className="text-[clamp(28px,4vw,56px)] font-medium tracking-tight text-[#111] leading-[1.2] mb-12 md:mb-16">
                  We don't build technology because it can be built.<br/>
-                 <span className="text-blue-600">We build it because something meaningful can happen when it works.</span>
+                 <span className="text-brand-blue">We build it because something meaningful can happen when it works.</span>
                </h2>
                
                <VisualWorkProcess />
 
                <div className="mt-24 md:mt-32">
-                 <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-blue-600 uppercase font-bold mb-6 md:mb-8 block">02 / Own The Outcome</span>
+                 <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-brand-blue uppercase font-bold mb-6 md:mb-8 block">02 / Own The Outcome</span>
                  <p className="text-[18px] md:text-[24px] text-black/60 leading-relaxed font-light mb-8 md:mb-16 max-w-[700px]">
                    Trust is given, ownership is expected. Don't wait for permission. If you see an opportunity to improve something, own it and make it happen.
                  </p>
@@ -386,7 +386,7 @@ const CulturePage = () => {
       {/* 09 — FINAL MANIFESTO & 10 — CTA */}
       <section className="relative w-full py-40 md:py-64 bg-[#050505] text-white flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-10 pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#4d7aff]/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-blue/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none" />
         
         <div className="max-w-[1000px] mx-auto px-6 z-10">
           <FadeInUp>
@@ -428,7 +428,7 @@ const CulturePage = () => {
 
 // Data for Ecosystem
 const ECOSYSTEM_NODES = [
-  { id: 'voice', label: 'Voice AI', desc: 'Human-like conversations that understand context, intent and history.', icon: Mic, color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20', angle: -90 },
+  { id: 'voice', label: 'Voice AI', desc: 'Human-like conversations that understand context, intent and history.', icon: Mic, color: 'text-brand-blue', bg: 'bg-brand-blue/10', border: 'border-brand-blue/20', angle: -90 },
   { id: 'whatsapp', label: 'WhatsApp', desc: 'Rich conversational journeys across the channel customers already use.', icon: MessageCircle, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', angle: -45 },
   { id: 'cc', label: 'Contact Center', desc: 'Intelligent routing, queuing & agent assist in one place.', icon: Phone, color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', angle: 0 },
   { id: 'telephony', label: 'Telephony', desc: 'Cloud telephony with IVR, recording & real-time transcription.', icon: Smartphone, color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', angle: 45 },
@@ -481,7 +481,7 @@ const AboutPage = () => {
   const pullOpacity = useTransform(problemScroll, [0.2, 0.4, 0.6], [0, 1, 1]);
 
   return (
-    <div className="w-full bg-[#FAFAFA] text-[#111] overflow-hidden relative font-sans selection:bg-blue-500/30">
+    <div className="w-full bg-[#FAFAFA] text-[#111] overflow-hidden relative font-sans selection:bg-brand-blue/30">
       
       {/* ──────────────────────────────────────────────────────────────
           01 — CINEMATIC HERO
@@ -492,8 +492,8 @@ const AboutPage = () => {
           <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#4d7aff" stopOpacity="0" />
-                <stop offset="50%" stopColor="#4d7aff" stopOpacity="0.3" />
+                <stop offset="0%" stopColor="#1283a9" stopOpacity="0" />
+                <stop offset="50%" stopColor="#1283a9" stopOpacity="0.3" />
                 <stop offset="100%" stopColor="#9333ea" stopOpacity="0" />
               </linearGradient>
             </defs>
@@ -514,7 +514,7 @@ const AboutPage = () => {
         </div>
         
         {/* Subtle Ambient Glows */}
-        <div className="absolute top-1/4 -left-1/4 w-[800px] h-[800px] bg-[#4d7aff]/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/4 -left-1/4 w-[800px] h-[800px] bg-brand-blue/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-1/4 -right-1/4 w-[800px] h-[800px] bg-[#9333ea]/10 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 text-center">
@@ -581,8 +581,8 @@ const AboutPage = () => {
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                 className="p-3 md:p-4 bg-white border border-black/[0.08] rounded-2xl shadow-xl flex items-center gap-3 md:gap-4"
               >
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0 border border-blue-500/20">
-                  <Mic size={18} className="text-blue-600" />
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 border border-brand-blue/20">
+                  <Mic size={18} className="text-brand-blue" />
                 </div>
                 <div className="flex flex-col pr-2 text-left">
                   <span className="text-[13px] md:text-[15px] font-semibold text-[#111] leading-tight">Voice AI</span>
@@ -641,11 +641,11 @@ const AboutPage = () => {
             
             {/* The Unified State */}
             <motion.div style={{ opacity: pullOpacity }} className="relative z-20 flex flex-col items-center gap-4">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-blue-600/30">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-brand-blue rounded-2xl flex items-center justify-center shadow-2xl shadow-brand-blue/30">
                 <Network className="text-white" size={isMobile ? 24 : 32} strokeWidth={1.5} />
               </div>
               <div className="flex flex-col gap-1 text-center scale-90 md:scale-100">
-                <span className="font-mono text-[10px] md:text-[12px] tracking-[0.2em] text-blue-600 uppercase font-bold">One Customer</span>
+                <span className="font-mono text-[10px] md:text-[12px] tracking-[0.2em] text-brand-blue uppercase font-bold">One Customer</span>
                 <span className="font-mono text-[10px] md:text-[12px] tracking-[0.2em] text-black/40 uppercase">One Conversation</span>
                 <span className="font-mono text-[10px] md:text-[12px] tracking-[0.2em] text-black/40 uppercase">One Intelligent Journey</span>
               </div>
@@ -653,8 +653,8 @@ const AboutPage = () => {
             
             {/* Connection lines that fade in */}
             <motion.svg style={{ opacity: pullOpacity }} className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50%" cy="50%" r={isMobile ? "100" : "140"} fill="none" stroke="currentColor" className="text-blue-500/20" strokeWidth="1" strokeDasharray="4 4" />
-              <circle cx="50%" cy="50%" r={isMobile ? "150" : "200"} fill="none" stroke="currentColor" className="text-blue-500/10" strokeWidth="1" strokeDasharray="4 4" />
+              <circle cx="50%" cy="50%" r={isMobile ? "100" : "140"} fill="none" stroke="currentColor" className="text-brand-blue/20" strokeWidth="1" strokeDasharray="4 4" />
+              <circle cx="50%" cy="50%" r={isMobile ? "150" : "200"} fill="none" stroke="currentColor" className="text-brand-blue/10" strokeWidth="1" strokeDasharray="4 4" />
             </motion.svg>
           </div>
         </div>
@@ -672,7 +672,7 @@ const AboutPage = () => {
           <div className="lg:col-span-5 lg:pr-10">
             <FadeInUp>
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-2 h-2 rounded-full bg-blue-500" />
+                <div className="w-2 h-2 rounded-full bg-brand-blue" />
                 <span className="font-mono text-[11px] tracking-[0.2em] text-white/50 uppercase font-medium">The Solution</span>
               </div>
               <h2 className="text-[clamp(32px,4vw,48px)] font-medium tracking-tight text-white leading-[1.15] mb-8">
@@ -725,7 +725,7 @@ const AboutPage = () => {
             <div className="relative z-20 w-24 h-24 md:w-32 md:h-32 bg-[#111] border border-white/10 rounded-full flex flex-col items-center justify-center shadow-[0_0_60px_rgba(77,122,255,0.2)]">
               <img src={logoImg} alt="Voxi CX OS" className="w-12 md:w-16 h-auto drop-shadow-[0_0_15px_rgba(255,255,255,0.15)]" />
               {/* Pulsing ring */}
-              <div className="absolute inset-0 rounded-full border border-blue-500/30 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]" />
+              <div className="absolute inset-0 rounded-full border border-brand-blue/30 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]" />
             </div>
 
             {/* Orbital Rings */}
@@ -810,14 +810,14 @@ const AboutPage = () => {
                   transition={{ delay: i * 0.1, duration: 0.6 }}
                   className="w-[240px] flex flex-col gap-4"
                 >
-                  <span className="font-mono text-[11px] tracking-[0.2em] text-blue-600 uppercase font-semibold">{item.stage}</span>
+                  <span className="font-mono text-[11px] tracking-[0.2em] text-brand-blue uppercase font-semibold">{item.stage}</span>
                   
                   {/* Conversation snippet card */}
                   <div className="bg-[#f8f9fa] border border-black/5 rounded-2xl p-5 shadow-sm relative isolate overflow-hidden group hover:shadow-md transition-shadow">
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-bl-full pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-brand-blue/10 to-transparent rounded-bl-full pointer-events-none" />
                     <div className="flex gap-3 items-start">
-                      <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center shrink-0 mt-0.5">
-                        <User size={12} className="text-blue-600" />
+                      <div className="w-6 h-6 rounded-full bg-brand-blue flex items-center justify-center shrink-0 mt-0.5">
+                        <User size={12} className="text-brand-blue" />
                       </div>
                       <p className="text-[14px] text-black/70 leading-[1.6] font-light">
                         "{item.snippet}"
@@ -828,9 +828,9 @@ const AboutPage = () => {
                 
                 {/* Connector line */}
                 {i < JOURNEY_STAGES.length - 1 && (
-                  <div className="w-[60px] md:w-[100px] h-px bg-gradient-to-r from-blue-200 to-transparent mx-4 relative">
+                  <div className="w-[60px] md:w-[100px] h-px bg-gradient-to-r from-brand-blue to-transparent mx-4 relative">
                     <motion.div 
-                      className="absolute top-1/2 -translate-y-1/2 left-0 w-2 h-2 rounded-full bg-blue-400"
+                      className="absolute top-1/2 -translate-y-1/2 left-0 w-2 h-2 rounded-full bg-brand-blue"
                       animate={{ left: ['0%', '100%'], opacity: [0, 1, 0] }}
                       transition={{ duration: 2, repeat: Infinity, delay: i * 0.5, ease: "linear" }}
                     />
@@ -868,8 +868,8 @@ const AboutPage = () => {
               <ul className="flex flex-col gap-4">
                 {['Zero context loss between channels', 'Empowered agents, happier customers', 'Massive reduction in operational cost'].map((point, i) => (
                   <li key={i} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center">
-                      <CheckCircle size={12} className="text-blue-600" />
+                    <div className="w-5 h-5 rounded-full bg-brand-blue flex items-center justify-center">
+                      <CheckCircle size={12} className="text-brand-blue" />
                     </div>
                     <span className="text-[15px] text-black/70 font-medium">{point}</span>
                   </li>
@@ -910,13 +910,13 @@ const AboutPage = () => {
           09 — THE MISSION (Oversized Typography)
           ────────────────────────────────────────────────────────────── */}
       <section className="relative w-full py-32 md:py-48 bg-[#FAFAFA] flex flex-col items-center justify-center text-center overflow-hidden isolate">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-blue-100/40 to-purple-100/40 blur-[100px] rounded-full pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-brand-blue/40 to-purple-100/40 blur-[100px] rounded-full pointer-events-none -z-10" />
         
         <FadeInUp>
-          <div className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 text-blue-600">
+          <div className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 text-brand-blue">
             <IllustrationInnovation />
           </div>
-          <div className="font-mono text-[14px] tracking-[0.2em] text-blue-600 uppercase font-semibold mb-6">Our mission is simple:</div>
+          <div className="font-mono text-[14px] tracking-[0.2em] text-brand-blue uppercase font-semibold mb-6">Our mission is simple:</div>
           <h2 className="text-[clamp(28px,4vw,56px)] font-medium tracking-tight text-[#111] leading-[1.1] max-w-[1000px] mx-auto px-6">
             To help businesses deliver exceptional customer experiences while improving operational efficiency, increasing conversions, and reducing communication costs.
           </h2>
@@ -928,7 +928,7 @@ const AboutPage = () => {
           ────────────────────────────────────────────────────────────── */}
       <section className="relative w-full py-24 md:py-32 bg-[#0c0c0c] text-white overflow-hidden flex items-center justify-center text-center isolate border-t border-white/10">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20 pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#4d7aff]/10 blur-[100px] rounded-full mix-blend-screen pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-blue/10 blur-[100px] rounded-full mix-blend-screen pointer-events-none -z-10" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] max-w-[1200px] h-[600px] opacity-[0.03] pointer-events-none -z-10 mix-blend-screen">
           <IllustrationAgentNetwork />
         </div>

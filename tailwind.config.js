@@ -14,6 +14,7 @@ export default {
         'text-secondary': 'rgba(0, 0, 0, 0.6)',
         'cta-fill': '#111111',
         'cta-text': '#FFFFFF',
+        'brand-blue': '#1283a9',
       },
       fontFamily: {
         sans: ['Inter', 'General Sans', '-apple-system', 'sans-serif'],

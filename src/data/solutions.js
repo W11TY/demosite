@@ -20,12 +20,19 @@ export const solutions = [
   {
     id: 'automobile',
     industry: 'Automobile',
+    area: 'Dealership & Service OS',
+    benefits: 'Automate test drive bookings, service appointments, and follow-ups to increase showroom footfall and service center utilization.',
     useCases: [
       'Feedback & Survey Collection',
       'Customer Engagement Campaigns',
       'Event/Offer Reminders',
       'Brand Awareness via Voice Campaigns',
       'Lead Generation Campaigns'
+    ],
+    stats: [
+      { value: 30, suffix: '%', label: 'More Test Drives' },
+      { value: 85, suffix: '%', label: 'Service Turnout' },
+      { value: 50, suffix: '%', label: 'Lower CAC' }
     ]
   },
   {

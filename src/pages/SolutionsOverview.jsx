@@ -286,9 +286,12 @@ export default function SolutionsOverview() {
 
                   {/* Content Bottom */}
                   <div className={`p-6 md:p-8 flex flex-col flex-grow ${darkGradients[i % darkGradients.length]}`}>
-                    <h3 className="text-[20px] font-semibold tracking-tight text-white mb-6">
+                    <h3 className="text-[20px] font-semibold tracking-tight text-white mb-3">
                       {solution.area || 'Customer Intelligence'}
                     </h3>
+                    <p className="text-[13px] leading-[1.6] text-white/60 font-light mb-6 line-clamp-3">
+                      {solution.benefits}
+                    </p>
                     
                     {/* Stat Row */}
                     {solution.stats && solution.stats.length > 0 ? (
