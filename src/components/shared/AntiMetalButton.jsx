@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { MagneticElement } from './Interactive';
 
 // Simple utility to concatenate classes since clsx/tailwind-merge isn't installed
 const cn = (...args) => args.filter(Boolean).join(" ");
@@ -61,51 +62,53 @@ export const AntiMetalButton = React.forwardRef(
     const content = label ?? children ?? "Book a demo";
 
     return (
-      <button
-        ref={ref}
-        className={cn(
-          "group/btn relative inline-flex h-[48px] min-w-[174px] w-auto overflow-hidden rounded-full transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          "bg-[linear-gradient(180deg,#1a1a1a_0%,#0a0a0a_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_4px_12px_rgba(0,0,0,0.18)]",
-          "dark:bg-[linear-gradient(180deg,#ffffff_0%,#ededed_100%)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_4px_12px_rgba(0,0,0,0.35)]",
-          className
-        )}
-        {...props}
-      >
-        <style>{`
-          @keyframes bd-dot-wave {
-            0%, 70%, 100% { opacity: 0.25; transform: scale(0.85); }
-            35% { opacity: 1; transform: scale(1); }
-          }
-          .bd-dot {
-            transform-box: fill-box;
-            transform-origin: center;
-            animation: bd-dot-wave 1.4s ease-in-out infinite;
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .bd-dot { animation: none; opacity: 1; }
-          }
-        `}</style>
-
-        <span className="relative z-0 flex h-full w-full items-center justify-center pl-[56px] pr-[24px] text-[16px] font-semibold tracking-tight text-white whitespace-nowrap dark:text-[#0a0a0a]">
-          {content}
-        </span>
-
-        <span
-          aria-hidden="true"
-          className="absolute bottom-1.5 left-1.5 top-1.5 z-10 flex w-[43px] items-center justify-start gap-2.5 overflow-hidden rounded-full pl-3.5 pr-2.5 transition-[width,gap] duration-200 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/btn:w-[calc(100%-0.75rem)]"
-          style={{
-            background: `linear-gradient(180deg, ${accentFrom} 0%, ${accentTo} 100%)`,
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -2px 4px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08)",
-          }}
+      <MagneticElement className="inline-block">
+        <button
+          ref={ref}
+          className={cn(
+            "group/btn relative inline-flex h-[48px] min-w-[174px] w-auto overflow-hidden rounded-full transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "bg-[linear-gradient(180deg,#1a1a1a_0%,#0a0a0a_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_4px_12px_rgba(0,0,0,0.18)]",
+            "dark:bg-[linear-gradient(180deg,#ffffff_0%,#ededed_100%)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_4px_12px_rgba(0,0,0,0.35)]",
+            className
+          )}
+          {...props}
         >
-          <DoubleChevron index={0} dotColor={dotColor} />
-          <DoubleChevron index={1} dotColor={dotColor} />
-          <DoubleChevron index={2} dotColor={dotColor} />
-          <DoubleChevron index={3} dotColor={dotColor} />
-          <DoubleChevron index={4} dotColor={dotColor} />
-        </span>
-      </button>
+          <style>{`
+            @keyframes bd-dot-wave {
+              0%, 70%, 100% { opacity: 0.25; transform: scale(0.85); }
+              35% { opacity: 1; transform: scale(1); }
+            }
+            .bd-dot {
+              transform-box: fill-box;
+              transform-origin: center;
+              animation: bd-dot-wave 1.4s ease-in-out infinite;
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .bd-dot { animation: none; opacity: 1; }
+            }
+          `}</style>
+
+          <span className="relative z-0 flex h-full w-full items-center justify-center pl-[56px] pr-[24px] text-[16px] font-semibold tracking-tight text-white whitespace-nowrap dark:text-[#0a0a0a]">
+            {content}
+          </span>
+
+          <span
+            aria-hidden="true"
+            className="absolute bottom-1.5 left-1.5 top-1.5 z-10 flex w-[43px] items-center justify-start gap-2.5 overflow-hidden rounded-full pl-3.5 pr-2.5 transition-[width,gap] duration-200 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/btn:w-[calc(100%-0.75rem)]"
+            style={{
+              background: `linear-gradient(180deg, ${accentFrom} 0%, ${accentTo} 100%)`,
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -2px 4px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08)",
+            }}
+          >
+            <DoubleChevron index={0} dotColor={dotColor} />
+            <DoubleChevron index={1} dotColor={dotColor} />
+            <DoubleChevron index={2} dotColor={dotColor} />
+            <DoubleChevron index={3} dotColor={dotColor} />
+            <DoubleChevron index={4} dotColor={dotColor} />
+          </span>
+        </button>
+      </MagneticElement>
     );
   }
 );

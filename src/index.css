@@ -3,6 +3,22 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
+@property --global-accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #1283a9;
+}
+
+@property --global-dark-accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #0B6584;
+}
+
+:root {
+  transition: --global-accent 600ms ease, --global-dark-accent 600ms ease;
+}
+
 @layer base {
   html, body {
     overflow-x: hidden;

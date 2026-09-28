@@ -1,64 +1,99 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useSpring, useTransform, useScroll, useMotionValue } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { research } from '../data/research';
-import { FadeInUp, SlideInLeft } from '../components/shared/Motion';
+import { FadeInUp } from '../components/shared/Motion';
+import { ParallaxText, MagneticElement } from '../components/shared/Interactive';
+import { BRAND, BRAND_TEXT, ACCENTS } from '../data/accents';
+import { useChapterColor } from '../hooks/useChapterColor';
+import ChapterNav from '../components/shared/ChapterNav';
+import IllustrationCard from '../components/shared/IllustrationCard';
 
-const darkGradients = [
-  'bg-gradient-to-t from-brand-blue via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
-  'bg-gradient-to-t from-indigo-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
-  'bg-gradient-to-t from-sky-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
-  'bg-gradient-to-t from-brand-blue via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
-  'bg-gradient-to-t from-violet-800 via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y'
-];
+const NAV_LABELS = ['Speech', 'Agents', 'Reasoning', 'Agentic', 'Small', 'AI', 'LLM'];
+
+const accentColors = [BRAND, ...research.map((_, i) => ACCENTS[i % ACCENTS.length].accent), BRAND];
+const tintColors = [ACCENTS[0].tint, ...research.map((_, i) => ACCENTS[i % ACCENTS.length].tint), ACCENTS[0].tint];
+const darkAccentColors = [BRAND_TEXT, ...research.map((_, i) => ACCENTS[i % ACCENTS.length].dark), BRAND_TEXT];
+
+const bgWords = ['INNOVATE.', 'REASON.', 'AUTONOMY.', 'SCALE.', 'EDGE.', 'INFRA.', 'GEN AI.'];
 
 const VisualResearchHero = () => {
-  const nodes = Array.from({ length: 20 }).map((_, i) => ({
+  const nodes = Array.from({ length: 30 }).map((_, i) => ({
     x: 5 + Math.random() * 90,
     y: 5 + Math.random() * 90,
     size: 3 + Math.random() * 6,
     delay: Math.random() * 5
   }));
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  React.useEffect(() => {
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      mouseX.set((clientX / innerWidth) - 0.5);
+      mouseY.set((clientY / innerHeight) - 0.5);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  const moveX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-40, 40]), { damping: 25, stiffness: 100 });
+  const moveY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-40, 40]), { damping: 25, stiffness: 100 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), { damping: 25, stiffness: 100 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), { damping: 25, stiffness: 100 });
+  
+  const moveX2 = useSpring(useTransform(mouseX, [-0.5, 0.5], [20, -20]), { damping: 25, stiffness: 100 });
+  const moveY2 = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), { damping: 25, stiffness: 100 });
+
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center" style={{ perspective: 1000 }}>
       {/* Subtle Dot Grid */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100" />
-      
-      {/* Animated Concentric Rings & Constellations */}
-      <motion.svg 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-        width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" stroke="currentColor" fill="none"
-        className="absolute inset-0"
-      >
-        <motion.g animate={{ rotate: 360 }} transition={{ duration: 200, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "500px 300px" }}>
-          <circle cx="500" cy="300" r="250" strokeWidth="1.5" className="text-brand-blue/50" strokeDasharray="4 12" />
-          <circle cx="500" cy="300" r="400" strokeWidth="1.5" className="text-emerald-500/40" strokeDasharray="10 10" />
-          <circle cx="500" cy="300" r="550" strokeWidth="1.5" className="text-purple-500/30" strokeDasharray="2 8" />
-          
-          {/* Geometric Abstract Lines */}
-          <path d="M500 50 L850 450 L150 450 Z" strokeWidth="1" className="text-black/20" />
-          <path d="M250 150 L750 150 L500 550 Z" strokeWidth="1" className="text-black/20" />
-        </motion.g>
-      </motion.svg>
 
-      {/* Floating Neural Nodes */}
-      <div className="absolute inset-0">
+      {/* Animated Concentric Rings & Constellations (Parallax Layer 1) */}
+      <motion.div 
+        style={{ x: moveX, y: moveY, rotateX, rotateY, transformStyle: "preserve-3d" }} 
+        className="absolute inset-0 flex justify-center items-center"
+      >
+        <motion.svg
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" stroke="currentColor" fill="none"
+          className="absolute inset-0"
+        >
+          <motion.g animate={{ rotate: 360 }} transition={{ duration: 200, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "500px 300px" }}>
+            <circle cx="500" cy="300" r="250" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-50 transition-colors duration-300" strokeDasharray="4 12" />
+            <circle cx="500" cy="300" r="400" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-30 transition-colors duration-300" strokeDasharray="10 10" />
+            <circle cx="500" cy="300" r="550" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-20 transition-colors duration-300" strokeDasharray="2 8" />
+
+            {/* Geometric Abstract Lines */}
+            <path d="M500 50 L850 450 L150 450 Z" strokeWidth="1" className="text-[#14110F]/20" />
+            <path d="M250 150 L750 150 L500 550 Z" strokeWidth="1" className="text-[#14110F]/20" />
+          </motion.g>
+        </motion.svg>
+      </motion.div>
+
+      {/* Floating Neural Nodes (Parallax Layer 2) */}
+      <motion.div style={{ x: moveX2, y: moveY2 }} className="absolute inset-0">
         {nodes.map((node, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-brand-blue/80"
+            className="absolute rounded-full transition-colors duration-300"
             style={{
               width: node.size,
               height: node.size,
               left: `${node.x}%`,
               top: `${node.y}%`,
+              backgroundColor: 'var(--global-accent)'
             }}
             animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 1, 0.3]
+              y: [0, -30, 0],
+              x: [0, Math.random() > 0.5 ? 20 : -20, 0],
+              opacity: [0.3, 0.8, 0.3],
+              scale: [1, 1.5, 1]
             }}
             transition={{
               duration: 3 + Math.random() * 4,
@@ -68,235 +103,160 @@ const VisualResearchHero = () => {
             }}
           />
         ))}
-      </div>
+      </motion.div>
 
       {/* Ambient Glow */}
-      <motion.div 
-        animate={{ 
+      <motion.div
+        animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.4, 0.7, 0.4]
+          opacity: [0.2, 0.5, 0.2]
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-gradient-to-tr from-brand-blue/20 to-brand-blue/20 blur-[100px] rounded-full mix-blend-multiply" 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[600px] md:h-[800px] blur-[100px] rounded-full mix-blend-multiply pointer-events-none transition-colors duration-300"
+        style={{
+          background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 40%, transparent), transparent)`
+        }}
       />
     </div>
   );
 };
 
-const bgWords = ['INNOVATE.', 'REASON.', 'AUTONOMY.', 'SCALE.', 'EDGE.', 'INFRA.', 'GEN AI.'];
-const bgColors = ['bg-white', 'bg-[#FAFAFA]', 'bg-white', 'bg-[#FAFAFA]', 'bg-white', 'bg-[#FAFAFA]', 'bg-white'];
-
 export default function ResearchOverview() {
-  const [activeChapter, setActiveChapter] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-       const sections = research.map((_, i) => document.getElementById(`chapter-${i}`));
-       const scrollY = window.scrollY;
-       const viewportHeight = window.innerHeight;
-       
-       sections.forEach((sec, i) => {
-         if (sec) {
-           const rect = sec.getBoundingClientRect();
-           if (rect.top <= viewportHeight / 2 && rect.bottom >= viewportHeight / 2) {
-             setActiveChapter(i);
-           }
-         }
-       });
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToChapter = (i) => {
-    const el = document.getElementById(`chapter-${i}`);
-    if (el) {
-       const y = el.getBoundingClientRect().top + window.scrollY - 100;
-       window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
+  const heroRef = useRef(null);
+  
+  const { activeChapter, scrollY } = useChapterColor(
+    research.length,
+    accentColors,
+    tintColors,
+    darkAccentColors
+  );
 
   return (
-    <div className="w-full bg-white min-h-screen text-[#111]">
+    <div className="w-full min-h-screen text-[#14110F] relative">
+      <div 
+        className="fixed inset-0 pointer-events-none -z-10 transition-colors duration-300"
+        style={{ backgroundImage: 'linear-gradient(180deg, #F5F1EA 0%, var(--global-tint, #F5F1EA) 100%)' }}
+      />
+
       {/* 01 — HERO */}
-      <section className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden border-b border-black/5 bg-[#FAFAFA] isolate pt-20">
+      <section ref={heroRef} className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualResearchHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10">
           <FadeInUp>
-            <h1 className="text-[clamp(40px,8vw,100px)] font-medium tracking-tighter text-[#111] leading-[1]">
-              PIONEERING THE NEXT.<br/>
-              <span className="text-brand-blue">GENERATION OF AI.</span>
+            <h1 className="text-[clamp(40px,8vw,100px)] font-medium tracking-tighter text-[#14110F] leading-[1]">
+              Pioneering the next<br />
+              <span style={{ color: BRAND }}>Generation of AI.</span>
             </h1>
-            <p className="mt-8 md:mt-12 text-[18px] md:text-[24px] text-black/60 max-w-[700px] mx-auto leading-relaxed font-light">
+            <p className="mt-8 md:mt-12 text-[18px] md:text-[24px] text-[#14110F]/75 max-w-[700px] mx-auto leading-relaxed font-light">
               We're pushing the boundaries of speech, reasoning, and autonomous agents to transform enterprise communication.
             </p>
           </FadeInUp>
         </div>
+        <div className="absolute bottom-0 left-0 w-full h-px bg-[linear-gradient(90deg,transparent,rgba(20,17,15,0.15),transparent)]" />
       </section>
 
       {/* 02 — NAVIGATION */}
-      <div className="sticky top-[100px] z-40 w-full bg-white/90 backdrop-blur-md border-b border-black/[0.05] py-4 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
-        <div className="max-w-[1280px] mx-auto px-6 flex items-center justify-start md:justify-center gap-6 md:gap-12 overflow-x-auto scrollbar-hide">
-           {research.map((ch, i) => (
-             <button 
-               key={i} 
-               onClick={() => scrollToChapter(i)}
-               className={`flex items-center gap-2 font-mono text-[11px] md:text-[13px] tracking-[0.15em] whitespace-nowrap transition-all duration-300 ${activeChapter === i ? 'text-brand-blue font-bold' : 'text-black/40 hover:text-black/80'}`}
-             >
-               <span className="opacity-50">0{i+1}</span> {ch.title.split(' ')[0].toUpperCase()}
-             </button>
-           ))}
-        </div>
-      </div>
+      <ChapterNav 
+        items={research.map((ch, i) => NAV_LABELS[i] || ch.title.split(' ')[0])} 
+        activeChapter={activeChapter} 
+        scrollY={scrollY} 
+      />
 
       {/* 03 — RESEARCH THEMES AS CHAPTERS */}
-      <div className="w-full relative bg-white">
-         {research.map((theme, i) => (
-           <section id={`chapter-${i}`} key={theme.id} className={`w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 border-b border-black/5 ${bgColors[i % bgColors.length]} relative overflow-hidden`}>
-              <div className={`absolute top-1/2 ${i % 2 === 0 ? 'left-[-10%]' : 'right-[-10%]'} -translate-y-1/2 text-[clamp(100px,20vw,300px)] font-bold text-black/[0.02] tracking-tighter pointer-events-none select-none`}>
-                {bgWords[i % bgWords.length]}
-              </div>
-              <div className="max-w-[1280px] mx-auto relative z-10 flex flex-col md:flex-row gap-12 md:gap-24">
-                 
-                 {/* Theme Header */}
-                 <div className="md:w-[400px] shrink-0">
-                   <div className="sticky top-32">
-                     <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-brand-blue uppercase font-bold mb-6 md:mb-8 block">0{i+1} / {theme.category}</span>
-                     <h2 className="text-[clamp(28px,4vw,56px)] font-medium tracking-tight text-[#111] leading-[1.2] mb-6">
-                       {theme.title}
-                     </h2>
-                     <p className="text-[16px] md:text-[20px] text-black/60 leading-relaxed font-light mb-8 max-w-[700px]">
-                       {theme.description}
-                     </p>
-                     
-                     <Link to={`/research/${theme.id}`} className="font-mono text-[12px] tracking-widest text-brand-blue hover:text-[#1283a9]/80 uppercase font-bold flex items-center gap-2">
-                       Explore Detail →
-                     </Link>
-                   </div>
-                 </div>
+      <div className="w-full relative z-10">
+        {research.map((theme, i) => (
+          <section id={`chapter-${i}`} key={theme.id} className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent">
+            <ParallaxText text={bgWords[i % bgWords.length]} alignLeft={i % 2 === 0} className="text-[var(--global-accent)] opacity-[0.06] transition-colors duration-300" />
+            <div className="max-w-[1280px] mx-auto relative z-10 flex flex-col md:flex-row gap-12 md:gap-24">
 
-                 {/* Sub Items */}
-                 <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {theme.subItems && theme.subItems.length > 0 ? (
-                      theme.subItems.map((item, idx) => (
-                        <FadeInUp 
-                          key={idx}
-                          delay={idx * 0.08}
-                          className="rounded-[16px] bg-[#111] hover:bg-[#1a1a1a] transition-colors brutalist-card flex flex-col overflow-hidden"
-                        >
-                          <div className="p-6 pb-4 bg-white border-b border-black/5">
-                            {/* Mini illustration */}
-                            <div className="w-full h-[90px] rounded-[10px] bg-[#f4f4f4] border border-black/5 flex items-center justify-center overflow-hidden">
-                              <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                              <defs>
-                                <filter id={`glow-r${idx}-${i}`} x="-50%" y="-50%" width="200%" height="200%">
-                                  <feGaussianBlur stdDeviation="2" result="blur"/>
-                                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                                </filter>
-                              </defs>
-                              {idx % 4 === 0 && (
-                                <g>
-                                  {[[20,30],[45,15],[45,45],[75,20],[75,40],[100,30]].map(([x,y],k)=>(
-                                    <circle key={k} cx={x} cy={y} r={k===0||k===5?5:3.5} fill="#111" opacity={0.7+(k*0.05)} filter={`url(#glow-r${idx}-${i})`}/>
-                                  ))}
-                                  {[[0,1],[0,2],[1,3],[2,4],[3,5],[4,5],[1,4],[2,3]].map(([a,b],k)=>{
-                                    const pts=[[20,30],[45,15],[45,45],[75,20],[75,40],[100,30]];
-                                    return <line key={k} x1={pts[a][0]} y1={pts[a][1]} x2={pts[b][0]} y2={pts[b][1]} stroke="#111" strokeOpacity="0.15" strokeWidth="1"/>;
-                                  })}
-                                  <circle cx="100" cy="30" r="2" fill="#1283a9" filter={`url(#glow-r${idx}-${i})`} opacity="0.9"/>
-                                </g>
-                              )}
-                              {idx % 4 === 1 && (
-                                <g>
-                                  <path d="M10 30 Q20 10 30 30 T50 30 T70 30 T90 30 T110 30" stroke="#111" strokeWidth="1.5" fill="none" opacity="0.15"/>
-                                  <path d="M10 30 Q20 10 30 30 T50 30 T70 30" stroke="#1283a9" strokeWidth="1.5" fill="none" opacity="0.8" filter={`url(#glow-r${idx}-${i})`}/>
-                                  {[30,50,70].map((x,k)=>(<circle key={k} cx={x} cy="30" r="2.5" fill="#1283a9" opacity={0.6+k*0.15}/>))}
-                                </g>
-                              )}
-                              {idx % 4 === 2 && (
-                                <g>
-                                  {[20,35,28,42,38,48].map((h,k)=>(
-                                    <rect key={k} x={12+k*17} y={50-h} width="10" height={h} rx="2"
-                                      fill={k===5?"#10b981":"#111"} opacity={k===5?0.9:0.12+(k*0.05)} filter={k===5?`url(#glow-r${idx}-${i})`:""}/>
-                                  ))}
-                                  <line x1="10" y1="50" x2="110" y2="50" stroke="#111" strokeOpacity="0.1" strokeWidth="1"/>
-                                </g>
-                              )}
-                              {idx % 4 === 3 && (
-                                <g>
-                                  {[0,60,120,180,240,300].map((deg,k)=>{
-                                    const r=(deg*Math.PI)/180,cx=60+22*Math.cos(r),cy=30+22*Math.sin(r);
-                                    return(<g key={k}><line x1="60" y1="30" x2={cx} y2={cy} stroke="#111" strokeOpacity="0.15" strokeWidth="1"/><circle cx={cx} cy={cy} r="3" fill="#111" opacity="0.5"/></g>);
-                                  })}
-                                  <circle cx="60" cy="30" r="8" fill="#111" opacity="0.08"/>
-                                  <circle cx="60" cy="30" r="3" fill="#f59e0b" filter={`url(#glow-r${idx}-${i})`}/>
-                                </g>
-                              )}
-                            </svg>
-                            </div>
-                          </div>
-                          <div className={`p-6 pt-4 flex-1 ${darkGradients[idx % darkGradients.length]}`}>
-                            <h3 className="text-[18px] font-medium text-white mb-2">
-                              {item.name}
-                            </h3>
-                            <p className="text-[14px] text-white/70">
-                              {item.desc}
-                            </p>
-                          </div>
-                        </FadeInUp>
-                      ))
-                    ) : (
-                      <div className="rounded-[16px] overflow-hidden flex flex-col items-center justify-center col-span-full border border-black/5 bg-[#FAFAFA] min-h-[250px] relative">
-                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-50 pointer-events-none" />
-                        
-                        <div className="relative z-10 flex flex-col items-center">
-                          <div className="relative w-16 h-16 flex items-center justify-center mb-6">
-                            <motion.svg 
-                              animate={{ rotate: 360 }} 
-                              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                              viewBox="0 0 100 100" 
-                              className="absolute inset-0 w-full h-full text-black/10" 
-                              fill="none" 
-                              stroke="currentColor" 
-                              strokeWidth="2"
-                            >
-                              <circle cx="50" cy="50" r="40" strokeDasharray="10 10" />
-                              <circle cx="50" cy="50" r="30" strokeDasharray="4 12" />
-                            </motion.svg>
-                            <motion.svg 
-                              animate={{ rotate: -360 }} 
-                              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                              viewBox="0 0 100 100" 
-                              className="absolute inset-0 w-full h-full text-brand-blue/30" 
-                              fill="none" 
-                              stroke="currentColor" 
-                              strokeWidth="1.5"
-                            >
-                              <path d="M50 10 A40 40 0 0 1 90 50" strokeDasharray="5 5" />
-                              <path d="M50 90 A40 40 0 0 1 10 50" strokeDasharray="5 5" />
-                            </motion.svg>
-                            <motion.div 
-                              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }} 
-                              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                              className="w-3 h-3 bg-brand-blue rounded-full shadow-[0_0_15px_rgba(18,131,169,0.5)]"
-                            />
-                          </div>
-                          
-                          <span className="font-mono text-[12px] text-brand-blue font-bold tracking-[0.2em] uppercase text-center mb-2">Research in progress</span>
-                          <span className="text-[14px] text-black/40 font-light text-center max-w-[300px]">Our applied AI labs are currently exploring this frontier.</span>
-                        </div>
-                      </div>
-                    )}
-                 </div>
+              {/* Theme Header */}
+              <div className="md:w-[400px] shrink-0">
+                <div className="sticky top-32">
+                  <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] uppercase font-bold mb-6 md:mb-8 block text-[var(--global-dark-accent)] transition-colors duration-300">0{i + 1} / {theme.category}</span>
+                  <h2 className="text-[clamp(28px,4vw,56px)] font-medium tracking-tight text-[#14110F] leading-[1.2] mb-6">
+                    {theme.title}
+                  </h2>
+                  <p className="text-[16px] md:text-[20px] text-[#14110F]/75 leading-relaxed font-light mb-8 max-w-[700px]">
+                    {theme.description}
+                  </p>
+
+                  <MagneticElement className="inline-block mt-4">
+                    <Link to={`/research/${theme.id}`} style={{ color: BRAND_TEXT }} className="font-mono text-[12px] tracking-widest uppercase font-bold flex items-center gap-2 py-3 px-4 -ml-4 rounded-xl hover:bg-black/5 transition-colors">
+                      Explore Detail →
+                    </Link>
+                  </MagneticElement>
+                </div>
               </div>
-           </section>
-         ))}
+
+              {/* Sub Items */}
+              <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {theme.subItems && theme.subItems.length > 0 ? (
+                  theme.subItems.map((item, idx) => (
+                    <IllustrationCard 
+                      key={idx}
+                      name={item.name}
+                      desc={item.desc}
+                      motifIndex={(i * 3 + idx) % 8}
+                      idx={idx}
+                      delay={idx * 0.08}
+                    />
+                  ))
+                ) : (
+                  <div className="rounded-[16px] overflow-hidden flex flex-col items-center justify-center col-span-full border border-[#14110F]/10 bg-[#F5F1EA] min-h-[250px] relative">
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-50 pointer-events-none" />
+
+                    <div className="relative z-10 flex flex-col items-center transition-colors duration-300">
+                      <div className="relative w-16 h-16 flex items-center justify-center mb-6">
+                        <motion.svg
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                          viewBox="0 0 100 100"
+                          className="absolute inset-0 w-full h-full text-[#14110F]/10"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <circle cx="50" cy="50" r="40" strokeDasharray="10 10" />
+                          <circle cx="50" cy="50" r="30" strokeDasharray="4 12" />
+                        </motion.svg>
+                        <motion.svg
+                          animate={{ rotate: -360 }}
+                          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                          viewBox="0 0 100 100"
+                          className="absolute inset-0 w-full h-full text-[var(--global-accent)]"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          style={{ opacity: 0.3 }}
+                        >
+                          <path d="M50 10 A40 40 0 0 1 90 50" strokeDasharray="5 5" />
+                          <path d="M50 90 A40 40 0 0 1 10 50" strokeDasharray="5 5" />
+                        </motion.svg>
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                          className="w-3 h-3 rounded-full"
+                          style={{ backgroundColor: 'var(--global-accent)', boxShadow: '0 0 15px var(--global-accent)' }}
+                        />
+                      </div>
+
+                      <span className="font-mono text-[12px] font-bold tracking-[0.2em] uppercase text-center mb-2 text-[var(--global-dark-accent)]">Research in progress</span>
+                      <span className="text-[14px] text-[#14110F]/40 font-light text-center max-w-[300px]">Our applied AI labs are currently exploring this frontier.</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            <div className="absolute bottom-0 left-0 w-full h-px bg-[linear-gradient(90deg,transparent,rgba(20,17,15,0.15),transparent)]" />
+          </section>
+        ))}
       </div>
 
       {/* 04 — FINAL CTA */}
-      <section className="relative w-full py-40 md:py-64 bg-[#050505] text-white flex flex-col items-center justify-center text-center overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-blue/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none" />
-        
+      <section id="final-cta" className="relative w-full py-40 md:py-64 bg-[#050505] text-white flex flex-col items-center justify-center text-center overflow-hidden transition-colors duration-300 z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-[150px] rounded-full mix-blend-screen pointer-events-none" style={{ backgroundColor: `color-mix(in srgb, ${BRAND} 20%, transparent)` }} />
+
         <div className="max-w-[1000px] mx-auto px-6 z-10">
           <FadeInUp>
             <h2 className="text-[clamp(36px,7vw,96px)] font-medium tracking-tighter text-white leading-[1.05] mb-6">
@@ -305,17 +265,19 @@ export default function ResearchOverview() {
             <h3 className="text-[clamp(20px,4vw,48px)] font-light tracking-tight text-white/50 leading-[1.2] mb-24">
               Join us in shaping the future of enterprise AI.
             </h3>
-            
+
             <div className="flex flex-col gap-6 items-center">
               <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-white/30 uppercase">Partner with our labs</span>
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <motion.button
-                  whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(255,255,255,0.1)' }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full sm:w-auto px-10 py-4 bg-white text-[#111] rounded-full text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)]"
-                >
-                  CONTACT RESEARCH
-                </motion.button>
+                <MagneticElement>
+                  <motion.button
+                    whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(255,255,255,0.1)' }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full sm:w-auto px-10 py-4 bg-[#F5F1EA] text-[#14110F] rounded-full text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)] cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[#1283a9]/60"
+                  >
+                    CONTACT RESEARCH
+                  </motion.button>
+                </MagneticElement>
               </div>
             </div>
           </FadeInUp>

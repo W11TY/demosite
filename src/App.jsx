@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import ScrollToTop from './components/shared/ScrollToTop';
+import { GlobalClickRipple, CursorSpotlight } from './components/shared/Interactive';
 
 // Pages
 import Home from './pages/Home';
@@ -23,6 +24,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-text-primary selection:bg-black/20">
+      <GlobalClickRipple />
+      <CursorSpotlight />
       <ScrollToTop />
       {!isHome && <Nav />}
       <main>
