@@ -34,6 +34,14 @@ export default {
       },
       backgroundImage: {
         'accent-gradient': 'radial-gradient(circle, rgba(138,43,226,1) 0%, rgba(0,255,255,1) 100%)',
+      },
+      keyframes: {
+        shimmer: {
+          '100%': { transform: 'translateX(200%)' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 3s infinite',
       }
     },
   },

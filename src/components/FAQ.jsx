@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, ChevronsRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { FadeInUp } from './shared/Motion';
 import AntiMetalButton from './shared/AntiMetalButton';
 
@@ -55,9 +56,9 @@ export default function FAQ() {
           </FadeInUp>
 
           <FadeInUp delay={0.3}>
-            <a href="#contact">
+            <Link to="/contact">
               <AntiMetalButton label="Contact Support" />
-            </a>
+            </Link>
           </FadeInUp>
         </div>
 

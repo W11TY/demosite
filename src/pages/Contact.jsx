@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, ChevronsRight } from 'lucide-react';
+import { Phone, ChevronsRight, Mail, MapPin, Clock } from 'lucide-react';
 import heroImg from '../assets/hero.png';
 import { easing } from '../components/shared/Motion';
 
@@ -24,7 +24,7 @@ export default function Contact() {
           alt="Neural Future" 
           className="w-full h-full object-cover opacity-60 grayscale filter contrast-125"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
         
         <div className="absolute bottom-10 lg:bottom-16 left-6 lg:left-12 text-white z-10 flex flex-col gap-8">
           <motion.h1 
@@ -33,21 +33,30 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.2, ease: easing }}
             className="text-[clamp(40px,6vw,72px)] font-medium leading-[1.05] tracking-tight max-w-[550px]"
           >
-            Let's build your neural future together.
+            Get in Touch
           </motion.h1>
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: easing }}
-            className="flex flex-col gap-2 text-[15px] font-medium text-white/90"
+            className="flex flex-col gap-4 text-[15px] font-medium text-white/90 max-w-[450px]"
           >
             <div className="flex items-center gap-3">
-              <Phone size={18} className="text-white/70" /> 
-              +234 805 169 8842
+              <Mail size={18} className="text-[var(--global-accent)] flex-shrink-0" /> 
+              <span>hello@voxiflow.ai</span>
             </div>
-            <div className="flex items-center gap-3 mt-1 text-[16px]">
-              info@spartanai.org
+            <div className="flex items-center gap-3">
+              <Phone size={18} className="text-[var(--global-accent)] flex-shrink-0" /> 
+              <span>+91-8218447171</span>
+            </div>
+            <div className="flex items-start gap-3">
+              <MapPin size={18} className="text-[var(--global-accent)] flex-shrink-0 mt-0.5" /> 
+              <span className="leading-relaxed">H1A/20, PLOT NO- 20, Sector 63 Rd, H Block, Sector 63, Noida, Uttar Pradesh 201301</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Clock size={18} className="text-[var(--global-accent)] flex-shrink-0" /> 
+              <span>Mon - Sat, 9:00 AM - 7:00 PM IST</span>
             </div>
           </motion.div>
         </div>
@@ -64,7 +73,7 @@ export default function Contact() {
             Deploy your first agent today.
           </h2>
           <p className="text-[15px] text-black/60 leading-[1.6] mb-10 max-w-[450px]">
-            Ready to transform your legacy data into a strategic asset? Reach out to our research team to discuss a custom neural integration or a pilot of Digital Brain v4.0.2.
+            Ready to transform your customer experience? Reach out to our team to discuss a custom AI integration or start your pilot today and experience the future of customer engagement.
           </p>
           
           <form className="flex flex-col gap-5 w-full max-w-[500px]">

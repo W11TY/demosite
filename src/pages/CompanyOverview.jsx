@@ -119,7 +119,7 @@ export default function CompanyOverview() {
             </span>
             <h1 className="text-[clamp(40px,8vw,90px)] font-medium tracking-tighter text-[#14110F] leading-[1.05]">
               Automate the manual, <br />
-              <span className="text-[#14110F]/40">accelerate the future.</span>
+              <span className="text-[var(--global-accent)] transition-colors duration-300">accelerate the future.</span>
             </h1>
           </FadeInUp>
         </div>

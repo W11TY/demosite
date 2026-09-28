@@ -15,20 +15,20 @@ export default function PlatformDetail() {
   }
 
   return (
-    <div className="w-full bg-background min-h-screen">
+    <div className="w-full bg-[#FAFAFA] min-h-screen text-[#14110F] selection:bg-[var(--global-accent)]/20">
       
       {/* Hero Section */}
-      <section className="relative w-full pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden border-b border-border">
+      <section className="relative w-full pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden border-b border-[rgba(20,17,15,0.05)] bg-transparent">
         {/* Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-500/20 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-[120px] rounded-full pointer-events-none" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 15%, transparent)' }} />
         
         <div className="relative max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 z-10">
           <Link 
             to="/platform"
-            className="inline-flex items-center gap-2 text-[13px] font-medium text-text-secondary hover:text-text-primary transition-colors mb-12"
+            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-widest text-[#14110F]/40 hover:text-[var(--global-accent)] transition-colors mb-12 uppercase font-bold"
           >
             <ArrowLeft size={16} />
-            Back to Platform
+            BACK TO PLATFORM
           </Link>
           
           <div className="max-w-[900px]">
@@ -38,17 +38,20 @@ export default function PlatformDetail() {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-4 mb-6"
             >
-              <span className="inline-block px-3 py-1 rounded-[4px] bg-surface border border-border text-[11px] font-mono text-text-primary">
+              <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-[var(--global-accent)] uppercase font-bold transition-colors duration-300">
                 {platform.shortName}
               </span>
-              <span className="text-eyebrow">{platform.tagline}</span>
+              <span className="text-[#14110F]/30">•</span>
+              <span className="font-mono text-[11px] md:text-[12px] tracking-[0.1em] text-[#14110F]/50 uppercase font-light">
+                {platform.tagline}
+              </span>
             </motion.div>
             
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-[48px] md:text-[72px] lg:text-[84px] font-semibold tracking-tight leading-[1.05] text-text-primary mb-8"
+              className="text-[clamp(40px,7vw,84px)] font-medium tracking-tighter leading-[1.05] text-[#14110F] mb-8"
             >
               {platform.name}
             </motion.h1>
@@ -57,7 +60,7 @@ export default function PlatformDetail() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-[18px] md:text-[22px] text-text-secondary leading-relaxed max-w-[700px]"
+              className="text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] max-w-[700px] font-light"
             >
               {platform.description}
             </motion.p>
@@ -72,11 +75,13 @@ export default function PlatformDetail() {
             
             {/* Header */}
             <SlideInLeft>
-              <span className="text-eyebrow block mb-4">Core Features</span>
-              <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight text-text-primary mb-6">
+              <span className="font-mono text-[11px] tracking-[0.2em] text-[var(--global-dark-accent)] uppercase font-bold block mb-4 transition-colors duration-300">
+                01 / CORE FEATURES
+              </span>
+              <h2 className="text-[clamp(28px,4vw,40px)] font-medium tracking-tight text-[#14110F] leading-[1.2] mb-6">
                 Platform Capabilities
               </h2>
-              <p className="text-[15px] text-text-secondary leading-relaxed max-w-[600px]">
+              <p className="text-[16px] text-[#14110F]/60 leading-[1.6] font-light max-w-[600px]">
                 Discover how {platform.shortName} enables you to automate, orchestrate, and optimize your business processes.
               </p>
             </SlideInLeft>

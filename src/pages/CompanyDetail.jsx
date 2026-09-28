@@ -338,8 +338,8 @@ const CulturePage = () => {
               Culture Manifesto
             </span>
             <h1 className="text-[clamp(40px,7vw,100px)] font-medium tracking-tighter text-[#14110F] leading-[1.05]">
-              WORK THAT MATTERS.<br/>
-              <span className="text-[#14110F]/40 italic">LIFE THAT COUNTS.</span>
+              Work that matters,<br/>
+              <span className="text-[var(--global-accent)] italic transition-colors duration-300">Life that counts.</span>
             </h1>
             <p className="mt-8 text-[18px] md:text-[24px] text-[#14110F]/60 leading-[1.6] font-light max-w-[700px] mx-auto">
               We're building technology that moves customer conversations forward — without losing sight of the people building it.
@@ -451,10 +451,62 @@ const FOUNDERS = [
   { name: 'Abhinash Khare', role: 'CTO', image: '' }
 ];
 
+const SOLUTION_POINTERS = [
+  {
+    title: "Unified Platform",
+    desc: "A single intelligent ecosystem for all customer interactions.",
+    illustration: IllustrationAgentNetwork
+  },
+  {
+    title: "Scalable Architecture",
+    desc: "Designed to handle millions of interactions with zero downtime.",
+    illustration: IllustrationReliability
+  },
+  {
+    title: "Continuous Innovation",
+    desc: "Self-learning models that improve with every conversation.",
+    illustration: IllustrationInnovation
+  },
+  {
+    title: "Measurable Impact",
+    desc: "Clear ROI and business outcomes for every deployment.",
+    illustration: IllustrationImpact
+  }
+];
+
+const STATS = [
+  { value: '10M+', label: 'Conversations/Month' },
+  { value: '98%', label: 'Resolution Rate' },
+  { value: '4.8★', label: 'Average CSAT' },
+  { value: '75%', label: 'Cost Reduction' }
+];
+
+const FRAMEWORK_STAGES = [
+  {
+    step: '01',
+    timeline: 'Days 1-15',
+    title: 'Discovery & Design',
+    description: 'We map out your current customer journey, identify bottlenecks, and design a unified AI workflow tailored to your specific business goals.'
+  },
+  {
+    step: '02',
+    timeline: 'Days 16-45',
+    title: 'Integration & Pilot',
+    description: 'Our engineering team integrates Voxi with your existing CRM and telephony systems, deploying a pilot to test real-world scenarios.'
+  },
+  {
+    step: '03',
+    timeline: 'Days 46-90',
+    title: 'Optimization & Scaling',
+    description: 'We analyze the pilot data to fine-tune the AI models, ensuring maximum ROI before scaling the solution across your entire customer base.'
+  }
+];
+
 const ABOUT_NAV_LABELS = ['Story', 'Intelligence', 'Implementation', 'Team', 'Mission'];
 const aboutAccentColors = [BRAND, ACCENTS[0].accent, ACCENTS[1].accent, ACCENTS[2].accent, ACCENTS[3].accent, ACCENTS[0].accent, BRAND];
 const aboutTintColors = [ACCENTS[0].tint, ACCENTS[0].tint, ACCENTS[1].tint, ACCENTS[2].tint, ACCENTS[3].tint, ACCENTS[0].tint, ACCENTS[0].tint];
 const aboutDarkColors = [BRAND_TEXT, ACCENTS[0].dark, ACCENTS[1].dark, ACCENTS[2].dark, ACCENTS[3].dark, ACCENTS[0].dark, BRAND_TEXT];
+
 
 const AboutPage = () => {
   const { activeChapter, scrollY } = useChapterColor(
@@ -480,7 +532,7 @@ const AboutPage = () => {
             </span>
             <h1 className="text-[clamp(40px,7vw,84px)] font-medium tracking-tighter text-[#14110F] leading-[1.05]">
               Every customer conversation. <br />
-              <span className="text-[#14110F]/40 italic">Connected.</span>
+              <span className="text-[var(--global-accent)] italic transition-colors duration-300">Connected.</span>
             </h1>
             <p className="mt-8 text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] font-light max-w-[600px] mx-auto">
               Thousands of isolated interactions transformed into one intelligent, self-learning infrastructure.

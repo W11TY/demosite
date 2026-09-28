@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, BarChart2, MessageSquare, Phone, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { FadeInUp } from './shared/Motion';
 
 const products = [
@@ -69,12 +70,12 @@ export default function Capabilities() {
             </FadeInUp>
           </div>
           <FadeInUp delay={0.2} className="self-start md:self-end">
-            <a
-              href="#platform"
+            <Link
+              to="/platform"
               className="inline-flex items-center justify-center bg-surface border border-border text-text-primary rounded-full px-6 py-3 text-[14px] font-medium transition-colors duration-200 hover:bg-black/5 whitespace-nowrap"
             >
               Explore Platform
-            </a>
+            </Link>
           </FadeInUp>
         </div>
 
@@ -148,9 +149,9 @@ export default function Capabilities() {
                             <p className="text-[15px] text-text-secondary leading-relaxed max-w-[460px]">
                               {product.desc}
                             </p>
-                            <a href="#platform" className="inline-flex items-center gap-1.5 text-[13px] font-medium text-text-primary hover:gap-3 transition-all duration-200 w-fit">
+                            <Link to="/platform" className="inline-flex items-center gap-1.5 text-[13px] font-medium text-text-primary hover:gap-3 transition-all duration-200 w-fit">
                               Learn more <ArrowRight size={13} />
-                            </a>
+                            </Link>
                           </div>
                         </motion.div>
                       )}

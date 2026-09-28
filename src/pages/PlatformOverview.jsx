@@ -81,6 +81,7 @@ const VisualPlatformHero = () => {
 const ArchitectureDiagram = () => {
   const containerRef = useRef(null);
   const [scale, setScale] = useState(1);
+  
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -96,35 +97,126 @@ const ArchitectureDiagram = () => {
   return (
     <section className="w-full py-24 md:py-40 px-4 sm:px-6 md:px-16 lg:px-20 relative overflow-x-clip bg-transparent">
       <div className="max-w-[1280px] mx-auto relative z-10 flex flex-col items-center">
-        <h2 className="text-[clamp(28px,4vw,48px)] font-medium tracking-tight text-[#14110F] mb-16 text-center">
-          Unified Platform Architecture
-        </h2>
+        <FadeInUp>
+          <h2 className="text-[clamp(28px,4vw,48px)] font-medium tracking-tight text-[#14110F] mb-6 text-center">
+            Unified Platform Architecture
+          </h2>
+          <p className="text-[16px] md:text-[20px] text-[#14110F]/75 font-light text-center max-w-[600px] mx-auto mb-16 md:mb-24">
+            A seamless orchestration layer connecting every module across your customer experience.
+          </p>
+        </FadeInUp>
+
         <div ref={containerRef} className="w-full max-w-[800px] flex justify-center">
-          <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }} className="w-[800px] h-[400px] relative">
-            <svg width="800" height="400" viewBox="0 0 800 400" className="absolute inset-0">
-              {/* Paths */}
-              <path d="M 200 100 L 400 100 L 400 200" fill="none" stroke="#14110F" strokeOpacity="0.15" strokeWidth="2" strokeDasharray="4 4" />
-              <path d="M 600 100 L 400 100 L 400 200" fill="none" stroke="#14110F" strokeOpacity="0.15" strokeWidth="2" strokeDasharray="4 4" />
-              <path d="M 400 260 L 400 320" fill="none" stroke="var(--global-accent)" strokeWidth="3" className="transition-colors duration-300" />
-              <path d="M 300 350 L 200 350 L 200 260 L 300 260" fill="none" stroke="#14110F" strokeOpacity="0.15" strokeWidth="2" />
-              <path d="M 500 350 L 600 350 L 600 260 L 500 260" fill="none" stroke="#14110F" strokeOpacity="0.15" strokeWidth="2" />
+          <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }} className="w-[800px] h-[450px] relative">
+            
+            <svg width="800" height="450" viewBox="0 0 800 450" className="absolute inset-0 overflow-visible">
+              <defs>
+                <linearGradient id="line-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#14110F" stopOpacity="0.1" />
+                  <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.6" />
+                </linearGradient>
+                <linearGradient id="line-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#14110F" stopOpacity="0.1" />
+                  <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.6" />
+                </linearGradient>
+                <linearGradient id="line-grad-3" x1="50%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#14110F" stopOpacity="0.1" />
+                </linearGradient>
+                <linearGradient id="line-grad-4" x1="50%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#14110F" stopOpacity="0.1" />
+                </linearGradient>
+              </defs>
 
-              {/* Nodes */}
-              <rect x="100" y="70" width="200" height="60" rx="12" fill="#F5F1EA" stroke="#14110F" strokeOpacity="0.2" strokeWidth="1.5" />
-              <text x="200" y="105" textAnchor="middle" fontSize="14" fontFamily="mono" fill="#14110F" fillOpacity="0.8">AI Voice Agents</text>
-              
-              <rect x="500" y="70" width="200" height="60" rx="12" fill="#F5F1EA" stroke="#14110F" strokeOpacity="0.2" strokeWidth="1.5" />
-              <text x="600" y="105" textAnchor="middle" fontSize="14" fontFamily="mono" fill="#14110F" fillOpacity="0.8">WhatsApp Business</text>
+              {/* Connecting Lines */}
+              <motion.path 
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: "easeInOut" }}
+                d="M 200 130 L 200 165 L 400 165 L 400 200" fill="none" stroke="url(#line-grad-1)" strokeWidth="2" strokeDasharray="6 6"
+              />
+              <motion.path 
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: "easeInOut" }}
+                d="M 600 130 L 600 165 L 400 165 L 400 200" fill="none" stroke="url(#line-grad-2)" strokeWidth="2" strokeDasharray="6 6"
+              />
+              <motion.path 
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
+                d="M 400 260 L 400 295 L 250 295 L 250 330" fill="none" stroke="url(#line-grad-3)" strokeWidth="2" strokeDasharray="6 6"
+              />
+              <motion.path 
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
+                d="M 400 260 L 400 295 L 550 295 L 550 330" fill="none" stroke="url(#line-grad-4)" strokeWidth="2" strokeDasharray="6 6"
+              />
 
-              <rect x="250" y="200" width="300" height="60" rx="12" fill="color-mix(in srgb, var(--global-accent) 5%, transparent)" stroke="var(--global-accent)" strokeWidth="2" className="transition-colors duration-300" />
-              <text x="400" y="235" textAnchor="middle" fontSize="16" fontWeight="bold" fontFamily="sans-serif" fill="var(--global-dark-accent)" className="transition-colors duration-300">Telephony & Command Center</text>
-
-              <rect x="150" y="320" width="200" height="60" rx="12" fill="#F5F1EA" stroke="#14110F" strokeOpacity="0.2" strokeWidth="1.5" />
-              <text x="250" y="355" textAnchor="middle" fontSize="14" fontFamily="mono" fill="#14110F" fillOpacity="0.8">Quality Management</text>
-
-              <rect x="450" y="320" width="200" height="60" rx="12" fill="#F5F1EA" stroke="#14110F" strokeOpacity="0.2" strokeWidth="1.5" />
-              <text x="550" y="355" textAnchor="middle" fontSize="14" fontFamily="mono" fill="#14110F" fillOpacity="0.8">Customer Engagement</text>
+              {/* Animated Dots */}
+              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" repeatCount="indefinite" path="M 200 130 L 200 165 L 400 165 L 400 200" />
+              </circle>
+              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M 200 130 L 200 165 L 400 165 L 400 200" />
+              </circle>
+              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" repeatCount="indefinite" path="M 600 130 L 600 165 L 400 165 L 400 200" />
+              </circle>
+              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M 600 130 L 600 165 L 400 165 L 400 200" />
+              </circle>
+              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" repeatCount="indefinite" path="M 400 260 L 400 295 L 250 295 L 250 330" />
+              </circle>
+              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M 400 260 L 400 295 L 250 295 L 250 330" />
+              </circle>
+              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" repeatCount="indefinite" path="M 400 260 L 400 295 L 550 295 L 550 330" />
+              </circle>
+              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M 400 260 L 400 295 L 550 295 L 550 330" />
+              </circle>
             </svg>
+
+            {/* Nodes */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }}
+              className="absolute left-[100px] top-[70px] w-[200px] h-[60px] bg-white/70 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default"
+            >
+              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">AI Voice Agents</span>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.2 }}
+              className="absolute left-[500px] top-[70px] w-[200px] h-[60px] bg-white/70 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default"
+            >
+              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">WhatsApp Business</span>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.4 }}
+              style={{ 
+                backgroundColor: 'color-mix(in srgb, var(--global-accent) 5%, transparent)',
+                borderColor: 'var(--global-accent)'
+              }}
+              className="absolute left-[250px] top-[200px] w-[300px] h-[60px] rounded-[16px] border flex items-center justify-center shadow-[0_10px_40px_-10px_var(--global-accent)] hover:shadow-[0_20px_50px_-10px_var(--global-accent)] hover:scale-[1.02] transition-all duration-300 cursor-default backdrop-blur-xl relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[200%] animate-[shimmer_3s_infinite]" />
+              <span style={{ color: 'var(--global-dark-accent)' }} className="font-sans text-[16px] font-semibold transition-colors duration-300 tracking-tight relative z-10">
+                Telephony & Command Center
+              </span>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.6 }}
+              className="absolute left-[150px] top-[330px] w-[200px] h-[60px] bg-white/70 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default"
+            >
+              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">Quality Management</span>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.8 }}
+              className="absolute left-[450px] top-[330px] w-[200px] h-[60px] bg-white/70 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default"
+            >
+              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">Customer Engagement</span>
+            </motion.div>
+
           </div>
         </div>
       </div>

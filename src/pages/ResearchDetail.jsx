@@ -93,16 +93,16 @@ export default function ResearchDetail() {
   }
 
   return (
-    <div className="w-full bg-white min-h-screen text-[#111] overflow-hidden">
+    <div className="w-full bg-[#FAFAFA] min-h-screen text-[#14110F] overflow-hidden selection:bg-[var(--global-accent)]/20">
       
       {/* 01 — HERO */}
-      <section className="relative w-full pt-32 pb-24 md:pt-48 md:pb-32 overflow-hidden border-b border-black/5 bg-[#FAFAFA] isolate">
+      <section className="relative w-full pt-32 pb-24 md:pt-48 md:pb-32 overflow-hidden border-b border-[rgba(20,17,15,0.05)] bg-transparent isolate">
         <VisualResearchHero />
         
         <div className="relative max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 z-10">
           <Link 
             to="/research"
-            className="inline-flex items-center gap-2 text-[13px] font-mono font-medium text-black/40 hover:text-brand-blue transition-colors mb-12 uppercase tracking-widest"
+            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-widest text-[#14110F]/40 hover:text-[var(--global-accent)] transition-colors mb-12 uppercase font-bold"
           >
             <ArrowLeft size={16} />
             BACK TO RESEARCH
@@ -115,7 +115,7 @@ export default function ResearchDetail() {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-4 mb-6"
             >
-              <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-brand-blue uppercase font-bold">
+              <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-[var(--global-accent)] uppercase font-bold transition-colors duration-300">
                 {theme.category}
               </span>
             </motion.div>
@@ -124,7 +124,7 @@ export default function ResearchDetail() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-[clamp(40px,6vw,84px)] font-medium tracking-tighter leading-[1.05] text-[#111] mb-8"
+              className="text-[clamp(40px,7vw,84px)] font-medium tracking-tighter leading-[1.05] text-[#14110F] mb-8"
             >
               {theme.title}
             </motion.h1>
@@ -133,7 +133,7 @@ export default function ResearchDetail() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-[18px] md:text-[24px] text-black/60 leading-relaxed max-w-[700px] font-light"
+              className="text-[18px] md:text-[24px] text-[#14110F]/60 leading-[1.6] max-w-[700px] font-light"
             >
               {theme.description}
             </motion.p>
@@ -153,11 +153,11 @@ export default function ResearchDetail() {
             {/* Sticky Sidebar */}
             <SlideInLeft className="md:w-[320px] shrink-0">
               <div className="sticky top-32">
-                 <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-brand-blue uppercase font-bold mb-6 block">01 / Focus Areas</span>
-                <h2 className="text-[32px] md:text-[40px] font-medium tracking-tight leading-tight text-[#111] mb-6">
+                 <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-[var(--global-dark-accent)] uppercase font-bold mb-6 block transition-colors duration-300">01 / Focus Areas</span>
+                <h2 className="text-[clamp(28px,4vw,40px)] font-medium tracking-tight leading-tight text-[#14110F] mb-6">
                   Key Capabilities
                 </h2>
-                <p className="text-[16px] text-black/60 leading-relaxed font-light">
+                <p className="text-[16px] text-[#14110F]/60 leading-[1.6] font-light">
                   Explore the specific architectures, models, and technologies we are developing under the {theme.title} theme.
                 </p>
               </div>
@@ -284,15 +284,15 @@ export default function ResearchDetail() {
       </section>
 
       {/* 03 — FINAL CTA */}
-      <section className="relative w-full py-32 md:py-48 bg-[#050505] text-white flex flex-col items-center justify-center text-center overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-blue/20 blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
+      <section className="relative w-full py-40 md:py-64 bg-[#16130F] text-white flex flex-col items-center justify-center text-center overflow-hidden transition-colors duration-300 z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-[150px] rounded-full mix-blend-screen pointer-events-none" style={{ backgroundColor: `color-mix(in srgb, var(--global-accent) 20%, transparent)` }} />
         
         <div className="max-w-[1000px] mx-auto px-6 z-10">
           <FadeInUp>
-            <h2 className="text-[clamp(32px,6vw,72px)] font-medium tracking-tighter text-white leading-[1.05] mb-6">
+            <h2 className="text-[clamp(36px,7vw,72px)] font-medium tracking-tighter text-white leading-[1.05] mb-6">
               Ready to innovate?
             </h2>
-            <h3 className="text-[clamp(18px,3vw,32px)] font-light tracking-tight text-white/50 leading-[1.2] mb-16">
+            <h3 className="text-[clamp(20px,4vw,32px)] font-light tracking-tight text-white/50 leading-[1.2] mb-16">
               Connect with our research team to learn more.
             </h3>
             
@@ -300,7 +300,7 @@ export default function ResearchDetail() {
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(255,255,255,0.1)' }}
                 whileTap={{ scale: 0.98 }}
-                className="px-10 py-4 bg-white text-[#111] rounded-full text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)]"
+                className="w-full sm:w-auto px-10 py-4 bg-[#F5F1EA] text-[#14110F] rounded-[24px] text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)] cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[var(--global-accent)]/60"
               >
                 CONTACT RESEARCH LABS
               </motion.button>

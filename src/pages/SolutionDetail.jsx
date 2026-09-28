@@ -16,20 +16,20 @@ export default function SolutionDetail() {
   }
 
   return (
-    <div className="w-full bg-background min-h-screen">
+    <div className="w-full bg-[#FAFAFA] min-h-screen text-[#14110F] selection:bg-[var(--global-accent)]/20">
       
       {/* Hero Section */}
-      <section className="relative w-full pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden border-b border-border">
+      <section className="relative w-full pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden border-b border-[rgba(20,17,15,0.05)] bg-transparent">
         {/* Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-green-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-[120px] rounded-full pointer-events-none" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 15%, transparent)' }} />
         
         <div className="relative max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 z-10">
           <Link 
             to="/solutions"
-            className="inline-flex items-center gap-2 text-[13px] font-medium text-text-secondary hover:text-text-primary transition-colors mb-12"
+            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-widest text-[#14110F]/40 hover:text-[var(--global-accent)] transition-colors mb-12 uppercase font-bold"
           >
             <ArrowLeft size={16} />
-            Back to Solutions
+            BACK TO SOLUTIONS
           </Link>
           
           <div className="max-w-[900px]">
@@ -39,7 +39,7 @@ export default function SolutionDetail() {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-4 mb-6"
             >
-              <span className="inline-block px-3 py-1 rounded-[4px] bg-surface border border-border text-[11px] font-mono text-text-primary uppercase tracking-wider">
+              <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-[var(--global-accent)] uppercase font-bold transition-colors duration-300">
                 {solution.industry}
               </span>
             </motion.div>
@@ -48,7 +48,7 @@ export default function SolutionDetail() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-[48px] md:text-[72px] lg:text-[84px] font-semibold tracking-tight leading-[1.05] text-text-primary mb-8"
+              className="text-[clamp(40px,7vw,84px)] font-medium tracking-tighter leading-[1.05] text-[#14110F] mb-8"
             >
               {solution.area || 'Customer Intelligence Platform'}
             </motion.h1>
@@ -58,7 +58,7 @@ export default function SolutionDetail() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-[18px] md:text-[22px] text-text-secondary leading-relaxed max-w-[700px]"
+                className="text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] max-w-[700px] font-light"
               >
                 {solution.benefits}
               </motion.p>
@@ -74,8 +74,10 @@ export default function SolutionDetail() {
             
             {/* Use Cases */}
             <SlideInLeft className="lg:col-span-7">
-              <span className="text-eyebrow block mb-4">Use Cases</span>
-              <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight text-text-primary mb-10">
+              <span className="font-mono text-[11px] tracking-[0.2em] text-[var(--global-dark-accent)] uppercase font-bold block mb-4 transition-colors duration-300">
+                01 / USE CASES
+              </span>
+              <h2 className="text-[clamp(28px,4vw,40px)] font-medium tracking-tight text-[#14110F] leading-[1.2] mb-10">
                 How it works in {solution.industry}
               </h2>
               <UseCaseList useCases={solution.useCases} />
@@ -83,8 +85,10 @@ export default function SolutionDetail() {
 
             {/* Stats / Results */}
             <SlideInRight delay={0.1} className="lg:col-span-5">
-              <div className="sticky top-32 p-8 rounded-[24px] bg-surface border border-border brutalist-card">
-                <span className="text-eyebrow block mb-8">Business Impact</span>
+              <div className="sticky top-32 p-8 rounded-[24px] bg-white border border-[rgba(20,17,15,0.05)] shadow-[0_10px_40px_rgba(20,17,15,0.02)]">
+                <span className="font-mono text-[11px] tracking-[0.2em] text-[#14110F]/40 uppercase font-bold block mb-8">
+                  Business Impact
+                </span>
                 
                 {solution.stats && solution.stats.length > 0 ? (
                   <div className="flex flex-col gap-8">
@@ -93,7 +97,7 @@ export default function SolutionDetail() {
                     ))}
                   </div>
                 ) : (
-                  <div className="flex flex-col gap-4 text-text-secondary text-[15px]">
+                  <div className="flex flex-col gap-4 text-[#14110F]/60 text-[15px] font-light leading-relaxed">
                     <p>
                       Automate operations, engage leads instantly, and drive scalable growth with AI-powered communication.
                     </p>

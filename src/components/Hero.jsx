@@ -184,9 +184,9 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.1, ease: easing }}
           className="hidden lg:flex absolute top-[20px] right-[23px] z-50"
         >
-          <a href="#demo">
+          <Link to="/contact">
             <AntiMetalButton label="Hire Team" />
-          </a>
+          </Link>
         </motion.div>
 
         {/* ── Main Content Container ── */}
@@ -206,9 +206,9 @@ export default function Hero() {
             </motion.h1>
 
             <motion.div {...f(0.32)}>
-              <a href="#build">
+              <Link to="/contact">
                 <AntiMetalButton label="Start Build" />
-              </a>
+              </Link>
             </motion.div>
           </div>
 
