@@ -54,10 +54,7 @@ export default function Contact() {
               <MapPin size={18} className="text-[var(--global-accent)] flex-shrink-0 mt-0.5" /> 
               <span className="leading-relaxed">H1A/20, PLOT NO- 20, Sector 63 Rd, H Block, Sector 63, Noida, Uttar Pradesh 201301</span>
             </div>
-            <div className="flex items-center gap-3">
-              <Clock size={18} className="text-[var(--global-accent)] flex-shrink-0" /> 
-              <span>Mon - Sat, 9:00 AM - 7:00 PM IST</span>
-            </div>
+
           </motion.div>
         </div>
       </motion.div>
@@ -99,15 +96,12 @@ export default function Contact() {
             </div>
             
             <div className="flex flex-col gap-2">
-              <label className="text-[13px] text-black/60 font-medium">Budget</label>
-              <div className="relative">
-                <input 
-                  type="text" 
-                  placeholder="Enter budget" 
-                  className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[15px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
-                />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-black/40 text-[15px] font-medium">$</span>
-              </div>
+              <label className="text-[13px] text-black/60 font-medium">Phone Number</label>
+              <input 
+                type="tel" 
+                placeholder="Enter phone number" 
+                className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[15px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
+              />
             </div>
             
             <div className="flex flex-col gap-2">

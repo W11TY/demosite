@@ -272,24 +272,40 @@ export default function PlatformOverview() {
           <section id={`chapter-${i}`} key={platform.id} className="w-full py-24 md:py-40 px-4 sm:px-6 md:px-16 lg:px-20 relative overflow-x-clip bg-transparent">
             <ParallaxText text={bgWords[i % bgWords.length]} alignLeft={i % 2 === 0} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
             
-            <div className="max-w-[1280px] mx-auto relative z-10 flex flex-col md:flex-row gap-12 md:gap-24 items-start">
+            <div className="max-w-[1280px] mx-auto relative z-10 flex flex-col md:flex-row gap-12 md:gap-24 items-start md:items-center">
               
               {/* Theme Header */}
-              <div className="md:w-[400px] shrink-0">
+              <div className="md:w-[460px] lg:w-[500px] shrink-0">
                 <div className="md:sticky md:top-32">
                   <span className="font-mono text-[11px] sm:text-[12px] tracking-[0.2em] uppercase font-bold block whitespace-normal mb-6 md:mb-8 text-[var(--global-dark-accent)] transition-colors duration-300">
                     0{i + 1} / MODULE
                   </span>
-                  <h2 className="text-[clamp(28px,4vw,56px)] font-medium tracking-tight text-[#14110F] leading-[1.2] mb-6">
-                    {platform.shortName}
-                  </h2>
-                  <p className="text-[16px] md:text-[20px] text-[#14110F]/75 leading-relaxed font-light mb-8 max-w-[700px]">
-                    {platform.tagline}
-                  </p>
+                  <Link to={`/platform/${platform.id}`} className="block w-fit hover:opacity-80 transition-opacity outline-none mb-6">
+                    <h2 className="text-[clamp(28px,4vw,56px)] font-medium tracking-tight text-[#14110F] leading-[1.2]">
+                      {platform.shortName}
+                    </h2>
+                  </Link>
+                  <div className="mb-8 max-w-[700px]">
+                    <p className="text-[18px] md:text-[22px] text-[#14110F] font-medium leading-snug mb-3 lg:whitespace-nowrap">
+                      {platform.tagline}
+                    </p>
+                    <p 
+                      className="text-[15px] md:text-[18px] text-[#14110F]/70 leading-relaxed font-light ml-2 md:ml-4 pl-4 md:pl-5 border-l-[3px] transition-colors duration-300"
+                      style={{ borderColor: 'var(--global-accent)' }}
+                    >
+                      {platform.description}
+                    </p>
+                  </div>
 
                   <MagneticElement className="inline-block mt-4">
-                    <Link to={`/platform/${platform.id}`} style={{ color: BRAND_TEXT }} className="font-mono text-[12px] tracking-widest uppercase font-bold flex items-center gap-2 py-3 px-4 -ml-4 rounded-xl hover:bg-black/5 transition-colors">
-                      Explore Layer →
+                    <Link 
+                      to={`/platform/${platform.id}`} 
+                      className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold flex items-center justify-center gap-3 py-4 px-8 rounded-full text-white shadow-[0_8px_25px_color-mix(in_srgb,var(--global-accent)_40%,transparent)] hover:shadow-[0_12px_35px_color-mix(in_srgb,var(--global-accent)_60%,transparent)] transition-all duration-300 relative overflow-hidden group"
+                      style={{ backgroundColor: 'var(--global-accent)' }}
+                    >
+                      <span className="relative z-10">Explore Layer</span>
+                      <svg className="relative z-10 group-hover:translate-x-1 transition-transform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                      <div className="absolute inset-0 bg-white/20 translate-y-[101%] group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                     </Link>
                   </MagneticElement>
                 </div>
@@ -297,16 +313,15 @@ export default function PlatformOverview() {
 
               {/* One Illustration Card per Module */}
               <div className="flex-1 w-full flex md:justify-end">
-                <div className="w-full md:max-w-[480px]">
+                <Link to={`/platform/${platform.id}`} className="w-full md:max-w-[480px] block outline-none transition-all duration-500 ease-out hover:-translate-y-4 hover:scale-[1.02] hover:shadow-[0_40px_80px_-20px_color-mix(in_srgb,var(--global-accent)_30%,transparent)] rounded-[24px]">
                   <IllustrationCard 
                     name={platform.name}
-                    desc={platform.description}
                     motifIndex={motifMapping[i]}
                     idx={i}
                     delay={0.1}
                     metricRow={{ label: 'STATUS', value: 'LIVE' }}
                   />
-                </div>
+                </Link>
               </div>
 
             </div>

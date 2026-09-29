@@ -8,6 +8,9 @@ import { BRAND, BRAND_TEXT, ACCENTS } from '../data/accents';
 import { useChapterColor } from '../hooks/useChapterColor';
 import ChapterNav from '../components/shared/ChapterNav';
 import IllustrationCard from '../components/shared/IllustrationCard';
+import { Building2, Car, Tv, Wallet, HeartPulse, Zap } from 'lucide-react';
+import { RealEstateScene, AutomobileScene, ConsumerDurablesScene, FintechScene, HealthcareScene, UtilitiesScene } from '../components/shared/SolutionScenes';
+import voxiLogo from '../assets/logo.png';
 
 const NAV_LABELS = ['Real Estate', 'Automobile', 'Durables', 'Fintech', 'Healthcare', 'Utilities'];
 
@@ -33,18 +36,7 @@ const getMotif = (id, idx) => {
 };
 
 const VisualSolutionsHero = () => {
-  // Deterministic nodes converging to center
-  const nodes = Array.from({ length: 45 }).map((_, i) => {
-    const angle = ((i * 137.5) % 360) * (Math.PI / 180); // Golden angle distribution
-    const radius = 250 + (i % 3) * 80;
-    return {
-      x: Math.cos(angle) * radius,
-      y: Math.sin(angle) * radius,
-      size: 2 + (i % 4) * 1.5,
-      delay: (i % 8) * 0.4
-    };
-  });
-
+  const [windowWidth, setWindowWidth] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1000);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -55,92 +47,152 @@ const VisualSolutionsHero = () => {
       mouseX.set((clientX / innerWidth) - 0.5);
       mouseY.set((clientY / innerHeight) - 0.5);
     };
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Init
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
+    };
   }, [mouseX, mouseY]);
 
-  const moveX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-30, 30]), { damping: 25, stiffness: 100 });
-  const moveY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-30, 30]), { damping: 25, stiffness: 100 });
+  // Smoother parallax
+  const moveX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-25, 25]), { damping: 40, stiffness: 60 });
+  const moveY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-25, 25]), { damping: 40, stiffness: 60 });
+
+  const icons = [Building2, Car, Tv, Wallet, HeartPulse, Zap];
+  const labels = ['Real Estate', 'Automobile', 'Durables', 'Fintech', 'Healthcare', 'Utilities'];
+
+  // On smaller screens, scale the whole diagram so it doesn't overflow horizontally
+  const scale = windowWidth < 768 ? Math.max(0.45, windowWidth / 768) : 1;
+
+  // Calculate positions for 6 nodes in a wide ellipse
+  const nodes = icons.map((Icon, i) => {
+    const angle = (i * 60 - 90) * (Math.PI / 180); 
+    const rx = 320;
+    const ry = 180;
+    return {
+      x: Math.cos(angle) * rx,
+      y: Math.sin(angle) * ry,
+      Icon,
+      label: labels[i]
+    };
+  });
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center" style={{ perspective: 1000 }}>
-      {/* Subtle Dot Grid */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100" />
+    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center select-none -translate-y-[10vh]" style={{ perspective: 1000 }}>
+      {/* Blueprint Dot Grid */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100" />
 
-      {/* Central Core Connection */}
-      <motion.div 
-        style={{ x: moveX, y: moveY, transformStyle: "preserve-3d" }} 
-        className="absolute inset-0 flex justify-center items-center"
-      >
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }} 
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[150px] h-[150px] rounded-full border border-[var(--global-accent)] flex justify-center items-center"
-        >
-          <div className="w-[80px] h-[80px] rounded-full border border-[var(--global-accent)] opacity-50" />
+      {/* Responsive Scaling Wrapper for the entire diagram */}
+      <div className="absolute inset-0 flex justify-center items-center" style={{ transform: `scale(${scale})` }}>
+        
+        {/* ── 1. SVG Data Streams (Background layer) ── */}
+        <motion.div style={{ x: moveX, y: moveY }} className="absolute inset-0 flex justify-center items-center z-0">
+          <svg width="1000" height="800" viewBox="-500 -400 1000 800" className="overflow-visible">
+            {nodes.map((n, i) => {
+              const controlX = n.x * 0.4;
+              const controlY = n.y * 0.1;
+              const d = `M 0 0 Q ${controlX} ${controlY} ${n.x} ${n.y}`;
+              return (
+                <g key={`stream-${i}`}>
+                  {/* Static faint path */}
+                  <path d={d} fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.15" />
+                  
+                  {/* Animated data packets (marching ants) */}
+                  <motion.path 
+                    d={d}
+                    fill="none" 
+                    stroke="var(--global-accent)" 
+                    strokeWidth="2"
+                    strokeOpacity="0.8"
+                    strokeDasharray="4 28"
+                    strokeLinecap="round"
+                    animate={{ strokeDashoffset: i % 2 === 0 ? [32, 0] : [0, 32] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                  />
+                </g>
+              );
+            })}
+          </svg>
         </motion.div>
-      </motion.div>
 
-      {/* Converging Nodes */}
-      <motion.div style={{ x: moveX, y: moveY }} className="absolute inset-0 flex justify-center items-center">
-        {nodes.map((node, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full transition-colors duration-300"
-            style={{
-              width: node.size,
-              height: node.size,
-              backgroundColor: 'var(--global-accent)'
-            }}
-            animate={{
-              x: [node.x, node.x * 0.2, node.x],
-              y: [node.y, node.y * 0.2, node.y],
-              opacity: [0.1, 0.8, 0.1],
-              scale: [1, 1.5, 1]
-            }}
-            transition={{
-              duration: 4 + (i % 3) * 2,
-              repeat: Infinity,
-              delay: node.delay,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </motion.div>
-
-      {/* Connecting Lines to Center */}
-      <motion.div style={{ x: moveX, y: moveY }} className="absolute inset-0 flex justify-center items-center">
-        <svg width="100%" height="100%" viewBox="-500 -500 1000 1000" className="absolute inset-0 opacity-20">
-          {nodes.filter((_, i) => i % 3 === 0).map((node, i) => (
-            <motion.line
-              key={`line-${i}`}
-              x1={node.x}
-              y1={node.y}
-              x2="0"
-              y2="0"
-              stroke="var(--global-accent)"
-              strokeWidth="1"
-              strokeDasharray="4 8"
-              animate={{
-                strokeDashoffset: [0, 24]
+        {/* ── 2. Peripheral Industry Nodes ── */}
+        <motion.div style={{ x: moveX, y: moveY }} className="absolute inset-0 flex justify-center items-center z-10">
+          {nodes.map((n, i) => (
+            <div 
+              key={`node-${i}`} 
+              className="absolute flex items-center gap-3 px-4 py-2.5 rounded-xl backdrop-blur-md"
+              style={{ 
+                left: `calc(50% + ${n.x}px)`, 
+                top: `calc(50% + ${n.y}px)`,
+                transform: 'translate(-50%, -50%)',
+                background: 'rgba(255,255,255,0.75)',
+                border: '1px solid rgba(255,255,255,0.9)',
+                boxShadow: '0 4px 20px rgba(20,17,15,0.05), inset 0 1px 0 rgba(255,255,255,0.9)'
               }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            />
+            >
+              <div className="w-8 h-8 rounded-full flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-[var(--global-accent)] opacity-10" />
+                <n.Icon size={16} strokeWidth={1.8} style={{ color: 'var(--global-dark-accent)' }} />
+              </div>
+              <span className="text-[12px] font-medium tracking-tight text-[#14110F]">{n.label}</span>
+            </div>
           ))}
-        </svg>
-      </motion.div>
+        </motion.div>
 
-      {/* Ambient Glow */}
-      <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] blur-[100px] rounded-full mix-blend-multiply pointer-events-none transition-colors duration-300"
-        style={{ background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 40%, transparent), transparent)` }}
-      />
+        {/* ── 3. Central AI Orchestration Core ── */}
+        <motion.div style={{ x: moveX, y: moveY }} className="absolute z-20 flex flex-col items-center justify-center">
+          <div className="relative flex items-center justify-center">
+            
+            {/* Core Pulsing Glow */}
+            <motion.div 
+              animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.4, 0.15] }} 
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-[-30px] rounded-full bg-[var(--global-accent)] blur-2xl"
+            />
+
+            {/* Core Glass Hub */}
+            <div className="w-[120px] h-[120px] rounded-full flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-xl"
+                 style={{ background: 'rgba(255,255,255,0.65)', border: '1px solid rgba(255,255,255,0.9)', boxShadow: '0 8px 32px rgba(20,17,15,0.08)' }}>
+              
+              {/* Spinning tech rings */}
+              <motion.div 
+                animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-2 rounded-full border border-dashed border-[var(--global-accent)] opacity-30" 
+              />
+              <motion.div 
+                animate={{ rotate: -360 }} transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-[14px] rounded-full border border-[var(--global-accent)] opacity-15" 
+              />
+              
+              <div className="absolute inset-0 bg-[var(--global-accent)] opacity-10 mix-blend-multiply" />
+              
+              {/* Core Icon */}
+              <div className="flex flex-col items-center gap-2 z-10 mt-1">
+                <div className="relative w-10 h-10 flex items-center justify-center">
+                  <div className="absolute inset-0 rounded-full bg-[var(--global-accent)] blur-md opacity-40" />
+                  <div className="relative w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden shadow-[0_0_15px_var(--global-accent)]">
+                    <img src={voxiLogo} alt="Voxi AI" className="w-[65%] h-[65%] object-contain" />
+                  </div>
+                </div>
+                <span className="text-[9px] font-mono font-bold tracking-[0.2em] text-[var(--global-dark-accent)] uppercase">Engine</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── 4. Ambient Page Glow ── */}
+        <motion.div
+          animate={{ scale: [1, 1.1, 1], opacity: [0.08, 0.15, 0.08] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-[120px] rounded-full mix-blend-multiply pointer-events-none z-[-1]"
+          style={{ background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 80%, transparent), transparent)` }}
+        />
+      </div>
     </div>
   );
 };
@@ -194,6 +246,82 @@ const Cursor = () => {
   );
 };
 
+const getIndustryBgIcon = (id) => {
+  const props = { 
+    size: 320, 
+    strokeWidth: 0.5, 
+    className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.08] pointer-events-none mix-blend-multiply",
+    style: { color: 'var(--global-dark-accent, #14110F)' }
+  };
+  switch(id) {
+    case 'real-estate': return <Building2 {...props} />;
+    case 'automobile': return <Car {...props} />;
+    case 'consumer-durables': return <Tv {...props} />;
+    case 'fintech': return <Wallet {...props} />;
+    case 'healthcare': return <HeartPulse {...props} />;
+    case 'utilities': return <Zap {...props} />;
+    default: return null;
+  }
+};
+
+const getIndustryIcon = (id) => {
+  switch(id) {
+    case 'real-estate': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>;
+    case 'automobile': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a2 2 0 00-1.6-.8H9.3a2 2 0 00-1.6.8L5 11l-5.16.86a1 1 0 00-.84.99V16h3m10 0a2 2 0 100 4 2 2 0 000-4zm-10 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>;
+    case 'fintech': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>;
+    case 'healthcare': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>;
+    case 'utilities': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>;
+    case 'consumer-durables': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>;
+    default: return <div className="w-2 h-2 rounded-full bg-current" />;
+  }
+};
+
+const VoxiVisual = ({ solution }) => {
+  return (
+    <div className="w-full h-[70px] shrink-0 mb-3 rounded-lg bg-white border border-[#14110F]/5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex items-center justify-between px-6 relative overflow-visible">
+      {/* Background Grid */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNiIvPjwvc3ZnPg==')] opacity-50" />
+      
+      {/* Animated Path */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
+        <motion.path 
+          d="M 0 35 C 50 35, 80 15, 150 35 C 220 55, 250 35, 400 35"
+          fill="none" 
+          stroke="var(--global-accent)" 
+          strokeWidth="1.5" 
+          strokeOpacity="0.3"
+          strokeDasharray="4 4"
+          animate={{ strokeDashoffset: [20, 0] }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        />
+      </svg>
+
+      {/* Input / Data source */}
+      <div className="relative z-10 w-8 h-8 rounded-full bg-[#FAFAFA] border border-[#14110F]/10 flex items-center justify-center shadow-sm text-[var(--global-accent)]">
+        <div className="w-3 h-3 rounded-full bg-current opacity-40" />
+      </div>
+
+      {/* Voxi AI Core */}
+      <motion.div 
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="relative z-10 flex flex-col items-center justify-center"
+      >
+        <div className="w-10 h-10 rounded-full border border-[var(--global-accent)] bg-white flex items-center justify-center shadow-md relative">
+          <div className="absolute inset-0 rounded-full bg-[var(--global-accent)] opacity-10 animate-ping" />
+          <div className="w-4 h-4 rounded-full bg-[var(--global-accent)]" />
+        </div>
+        <span className="absolute -bottom-4 z-20 text-[8px] font-bold tracking-widest uppercase bg-white px-1 rounded-sm shadow-sm border border-[#14110F]/5" style={{ color: 'var(--global-accent)' }}>VOXI AI</span>
+      </motion.div>
+
+      {/* Output / Industry Action */}
+      <div className="relative z-10 w-8 h-8 rounded-lg bg-[var(--global-accent)] text-white flex items-center justify-center shadow-md">
+        {getIndustryIcon(solution.id)}
+      </div>
+    </div>
+  );
+};
+
 const SolutionCard = ({ solution, index }) => {
   const containerRef = React.useRef(null);
   const [scale, setScale] = React.useState(1);
@@ -229,214 +357,64 @@ const SolutionCard = ({ solution, index }) => {
     })
   };
 
-  const getIndustryIcon = (id) => {
-    switch(id) {
-      case 'real-estate': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>;
-      case 'automobile': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a2 2 0 00-1.6-.8H9.3a2 2 0 00-1.6.8L5 11l-5.16.86a1 1 0 00-.84.99V16h3m10 0a2 2 0 100 4 2 2 0 000-4zm-10 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>;
-      case 'fintech': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>;
-      case 'healthcare': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>;
-      case 'utilities': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>;
-      case 'consumer-durables': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>;
-      default: return <div className="w-2 h-2 rounded-full bg-current" />;
-    }
-  };
-
   return (
     <motion.div 
       whileHover="hover"
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       variants={{ rest: { scale: 1, y: 0 }, hover: { scale: 1.02, y: -4 } }}
       style={{ WebkitTapHighlightColor: 'transparent' }}
-      className="rounded-[20px] md:rounded-[24px] overflow-hidden flex flex-col border border-[#14110F]/10 shadow-[0_12px_40px_rgba(20,17,15,0.10)] focus-visible:ring-1 focus-visible:ring-[#1283a9]/60 outline-none cursor-pointer group bg-[#16130F] w-full max-w-[720px] mx-auto"
+      className="rounded-[16px] md:rounded-[24px] overflow-hidden flex flex-col border border-[#14110F]/10 shadow-[0_8px_30px_rgba(20,17,15,0.10)] focus-visible:ring-1 focus-visible:ring-[#1283a9]/60 outline-none cursor-pointer group bg-[#16130F] w-full max-w-[560px] md:max-w-[720px] mx-auto"
     >
       <Link to={`/solutions/${solution.id}`} className="flex flex-col h-full outline-none">
         
         {/* STAGE: Top Half */}
-        <div className="bg-[#EAE4D8] relative p-4 sm:p-6 md:p-8 flex flex-col justify-center items-center overflow-visible">
+        <div className="bg-[#EAE4D8] relative flex flex-col justify-center items-center overflow-hidden" style={{ minHeight: 'clamp(160px, 35vw, 260px)' }}>
           {/* Blueprint Dot Grid */}
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNiIvPjwvc3ZnPg==')] overflow-hidden" />
-          
-          {/* Radial Pool */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] blur-[60px] rounded-full pointer-events-none" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 18%, transparent)' }} />
-          
-          {/* LAPTOP */}
-          <div className="relative w-full max-w-[520px] flex flex-col z-10 mt-2 mx-auto">
-            
-            {/* Lid */}
-            <div className="aspect-[16/10] w-full rounded-t-[14px] bg-[#0E0C0A] p-[10px] border border-white/10 relative flex flex-col z-10">
-              {/* Camera Dot */}
-              <div className="absolute top-[3px] left-1/2 -translate-x-1/2 w-[4px] h-[4px] rounded-full bg-white/20" />
-              
-              {/* Screen Container (Scales inner content) */}
-              <div ref={containerRef} className="flex-1 rounded-[6px] overflow-hidden relative w-full h-full" style={{ background: 'linear-gradient(135deg, color-mix(in srgb, var(--global-accent) 22%, #F5F1EA), #F5F1EA 60%)' }}>
-                <div className="absolute inset-0 pointer-events-none z-20" style={{ background: 'linear-gradient(115deg, rgba(255,255,255,0.18), transparent 40%)' }} />
-                
-                {/* 640x400 Canvas for OS */}
-                <div 
-                  className="absolute top-0 left-0 w-[640px] h-[400px] origin-top-left"
-                  style={{ transform: `scale(${scale})` }}
-                >
-                  <Cursor />
 
-                  <div className="absolute inset-0 flex flex-col z-10">
-                    {/* Menu bar */}
-                    <div className="h-7 bg-white/60 backdrop-blur-md px-3 flex items-center justify-between text-[12px] font-medium text-[#14110F]/80">
-                      <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-[18px] h-[18px] rounded-md shadow-sm text-white" style={{ backgroundColor: 'var(--global-accent)' }}>
-                          {getIndustryIcon(solution.id)}
-                        </div>
-                        <span className="font-bold">{solution.industry}</span>
-                        <span className="text-[#14110F]/50">File</span>
-                        <span className="text-[#14110F]/50">View</span>
-                      </div>
-                      <span>9:41</span>
-                    </div>
+          {/* Ambient glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] blur-[60px] rounded-full pointer-events-none" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 12%, transparent)' }} />
 
-                    {/* Window */}
-                    <div className="absolute inset-x-6 top-12 bottom-[64px] rounded-lg bg-white shadow-[0_10px_30px_rgba(20,17,15,0.18)] overflow-hidden flex flex-col">
-                      {/* Title bar */}
-                      <div className="h-7 border-b border-[#14110F]/5 flex items-center px-3 bg-[#F5F1EA]/50 gap-2">
-                        <div className="flex gap-1.5 flex-none">
-                          <div className="w-[8px] h-[8px] rounded-full bg-[#F28B82]" />
-                          <div className="w-[8px] h-[8px] rounded-full bg-[#FBD34D]" />
-                          <div className="w-[8px] h-[8px] rounded-full bg-[#81D99A]" />
-                        </div>
-                        <span className="flex-1 truncate min-w-0 pl-2 font-mono text-[10px] uppercase tracking-[0.15em] text-[#14110F]/50">
-                          {solution.title || solution.area}
-                        </span>
-                      </div>
-
-                      {/* Window Body */}
-                      <div className="flex-1 overflow-hidden p-3 bg-[#FAFAFA]">
-                        {layoutType === 'list' && (
-                          <div className="flex flex-col gap-2">
-                            <div className="flex items-center gap-2 mb-1 px-1">
-                              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                              <span className="text-[10px] font-mono text-[#14110F]/40 uppercase tracking-widest">Active System</span>
-                            </div>
-                            {solution.useCases.slice(0,3).map((uc, idx) => (
-                              <motion.div 
-                                key={idx}
-                                custom={idx}
-                                variants={rowVariants}
-                                animate="animate"
-                                className="flex items-center gap-3 px-3 h-[34px] rounded-md shadow-sm border border-[#14110F]/5 origin-left"
-                              >
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                                <span className="text-[13px] text-[#14110F]/80 flex-1 truncate">{uc}</span>
-                                {solution.stats?.[idx] && (
-                                  <span className="text-[13px] font-semibold text-emerald-600 whitespace-nowrap">
-                                    {solution.stats[idx].prefix || ''}{solution.stats[idx].value}{solution.stats[idx].suffix || ''}
-                                  </span>
-                                )}
-                              </motion.div>
-                            ))}
-                            {solution.useCases.length < 3 && Array.from({ length: 3 - solution.useCases.length }).map((_, i) => (
-                               <div key={`empty-${i}`} className="h-[34px]" />
-                            ))}
-                          </div>
-                        )}
-
-                        {layoutType === 'stat' && (
-                          <div className="flex flex-col gap-2">
-                            <div className="grid grid-cols-3 gap-2 mb-2">
-                              {solution.stats?.slice(0,3).map((stat, idx) => (
-                                <div key={idx} className="bg-white rounded-md p-2 shadow-sm border border-[#14110F]/5 flex flex-col items-center text-center">
-                                  <span className="text-[14px] font-semibold" style={{ color: 'var(--global-accent)' }}>{stat.prefix || ''}{stat.value}{stat.suffix || ''}</span>
-                                  <span className="text-[8px] text-[#14110F]/40 block mt-1 uppercase tracking-wider truncate w-full">{stat.label}</span>
-                                </div>
-                              ))}
-                            </div>
-                            {solution.useCases.slice(0,2).map((uc, idx) => (
-                              <motion.div 
-                                key={idx}
-                                custom={idx}
-                                variants={rowVariants}
-                                animate="animate"
-                                className="flex items-center gap-3 px-3 h-[34px] rounded-md shadow-sm border border-[#14110F]/5 origin-left"
-                              >
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                                <div className="flex flex-col overflow-hidden justify-center">
-                                  <span className="text-[12px] font-medium text-[#14110F]/80 truncate">{uc}</span>
-                                  <span className="text-[9px] text-[#14110F]/40 mt-[1px]">Automated by AI</span>
-                                </div>
-                              </motion.div>
-                            ))}
-                          </div>
-                        )}
-
-                        {layoutType === 'chat' && (
-                          <div className="flex flex-col gap-2">
-                            <div className="flex items-center justify-center gap-2 mb-2 px-3 py-1.5 rounded-md w-fit mx-auto border shadow-sm bg-[var(--global-accent)] border-[var(--global-accent)] bg-opacity-10 border-opacity-20">
-                              <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: 'var(--global-accent)' }} />
-                              <span className="text-[10px] font-medium" style={{ color: 'var(--global-accent)' }}>AI Active</span>
-                            </div>
-                            <div className="flex flex-col gap-2 px-1">
-                              {solution.useCases.slice(0,2).map((uc, idx) => (
-                                <React.Fragment key={idx}>
-                                  <div className="self-end px-3 py-2 rounded-md rounded-tr-sm bg-white border border-[#14110F]/10 text-[12px] text-[#14110F]/60 max-w-[85%] shadow-sm truncate w-fit">
-                                    Query regarding {uc.toLowerCase()}
-                                  </div>
-                                  <div className="self-start px-3 py-2 rounded-md rounded-tl-sm border text-[12px] max-w-[90%] shadow-sm truncate w-fit text-[#14110F]/80 bg-[var(--global-accent)] border-[var(--global-accent)] bg-opacity-10 border-opacity-20">
-                                    I can help you with {uc.toLowerCase()}.
-                                  </div>
-                                </React.Fragment>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Dock */}
-                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 h-10 px-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/60 flex items-center gap-2.5 shadow-sm">
-                      {[0, 1, 2, 3, 4].map((i) => (
-                        <div key={i} className="w-[22px] h-[22px] rounded-lg shadow-sm opacity-90 flex items-center justify-center text-white" style={{ 
-                          backgroundColor: i === 2 ? 'var(--global-accent)' : `color-mix(in srgb, var(--global-accent) ${20 + i * 15}%, #F5F1EA)` 
-                        }}>
-                          {i === 2 && getIndustryIcon(solution.id)}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {/* Scene area — glass card */}
+          <div className="relative z-10 w-full h-full" style={{ padding: '10px 10px 24px 10px' }}>
+            <div className="w-full h-full rounded-xl overflow-hidden relative"
+              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.9)', boxShadow: '0 4px 20px rgba(20,17,15,0.07), inset 0 1px 0 rgba(255,255,255,0.8)', minHeight: 'clamp(130px, 30vw, 220px)', maxHeight: '220px', overflow: 'hidden' }}>
+              {solution.id === 'real-estate'       && <RealEstateScene />}
+              {solution.id === 'automobile'         && <AutomobileScene />}
+              {solution.id === 'consumer-durables'  && <ConsumerDurablesScene />}
+              {solution.id === 'fintech'            && <FintechScene />}
+              {solution.id === 'healthcare'         && <HealthcareScene />}
+              {solution.id === 'utilities'          && <UtilitiesScene />}
             </div>
-            
-            {/* Base */}
-            <div className="absolute -bottom-[12px] left-[-4%] w-[108%] h-[12px] rounded-b-[12px] bg-gradient-to-b from-[#CFC8BB] to-[#B8B0A2] shadow-[0_18px_30px_-12px_rgba(20,17,15,0.35)] z-0 flex justify-center">
-              {/* Notch */}
-              <div className="w-[60px] h-[4px] rounded-b-md bg-[#A69E90]" />
-            </div>
-            
           </div>
         </div>
 
+
         {/* INFO STRIP: Dark Panel */}
         <div 
-          className="p-5 md:p-8 flex flex-col relative z-10 flex-1"
+          className="p-4 md:p-6 flex flex-col relative z-10 flex-1"
           style={{ 
             background: 'linear-gradient(180deg, #16130F 0%, #16130F 60%, color-mix(in srgb, var(--global-accent) 26%, #16130F) 100%)' 
           }}
         >
-          <h3 className="text-[20px] md:text-[22px] font-medium tracking-tight text-white mb-2 leading-tight">
+          <h3 className="text-[17px] md:text-[20px] font-medium tracking-tight text-white mb-1.5 leading-tight">
             {solution.area}
           </h3>
-          <p className="text-[14px] text-white/65 font-light leading-relaxed line-clamp-3 md:line-clamp-2">
+          <p className="text-[12px] md:text-[14px] text-white/60 font-light leading-relaxed line-clamp-2">
             {solution.benefits}
           </p>
 
           {solution.stats && solution.stats.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-5 md:gap-4 mt-5">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-3 mt-4">
               {solution.stats.slice(0, 4).map((stat, idx) => (
-                <div key={idx} className="flex flex-col">
-                  <span className="text-[24px] md:text-[22px] font-normal text-white tabular-nums tracking-tight leading-none">
+                <div key={idx} className={`flex flex-col ${idx >= 2 ? 'hidden md:flex' : ''}`}>
+                  <span className="text-[20px] md:text-[22px] font-normal text-white tabular-nums tracking-tight leading-none">
                     {stat.value === 0 && stat.label === 'Missed Follow-Ups' 
                       ? 'Zero' 
                       : `${stat.prefix || ''}${stat.value}${stat.suffix || ''}`
                     }
                   </span>
-                  <span className="font-mono uppercase tracking-[0.12em] text-[10px] text-white/60 mt-1.5">
+                  <span className="font-mono uppercase tracking-[0.1em] text-[9px] md:text-[10px] text-white/55 mt-1">
                     {stat.label}
                   </span>
                 </div>
@@ -444,8 +422,8 @@ const SolutionCard = ({ solution, index }) => {
             </div>
           )}
 
-          <div className="mt-8 pt-5 border-t border-white/10 flex justify-between items-center">
-            <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold text-[#6CC4E0] group-hover:opacity-80 transition-opacity">
+          <div className="mt-4 md:mt-6 pt-4 border-t border-white/10 flex justify-between items-center">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-[#6CC4E0] group-hover:opacity-80 transition-opacity">
               Explore Detail →
             </span>
           </div>
@@ -475,7 +453,7 @@ export default function SolutionsOverview() {
       {/* 01 — HERO */}
       <section ref={heroRef} className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualSolutionsHero />
-        <div className="max-w-[1000px] mx-auto px-6 text-center z-10 mt-16">
+        <div className="max-w-[1000px] mx-auto px-6 text-center relative z-30 mt-[20vh] md:mt-[15vh]">
           <FadeInUp>
             <span className="text-[11px] font-mono tracking-[0.15em] text-[#14110F]/50 uppercase mb-8 block text-center">
               Industry Solutions
@@ -495,29 +473,39 @@ export default function SolutionsOverview() {
         scrollY={scrollY} 
       />
 
-      {/* 03 — SOLUTIONS AS CHAPTERS */}
+      {/* 03 — SOLUTIONS AS CHAPTERS (2 CARDS PER SECTION) */}
       <div className="w-full relative z-10">
-        {solutions.map((solution, i) => (
-          <section id={`chapter-${i}`} key={solution.id} className="w-full py-24 md:py-40 px-4 sm:px-6 md:px-16 lg:px-20 relative overflow-x-clip bg-transparent">
-            <ParallaxText text={bgWords[i % bgWords.length]} alignLeft={i % 2 === 0} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
-            
-            <div className="max-w-[1280px] mx-auto relative z-10 flex flex-col items-center gap-8 md:gap-12">
-              {/* Theme Header */}
-              <div className="w-full max-w-[720px] text-left">
-                <span className="font-mono text-[11px] sm:text-[12px] tracking-[0.2em] uppercase font-bold block whitespace-normal text-[var(--global-dark-accent)] transition-colors duration-300">
-                  0{i + 1} / {solution.industry}
-                </span>
-              </div>
+        {Array.from({ length: Math.ceil(solutions.length / 2) }).map((_, rowIndex) => {
+          const rowSolutions = solutions.slice(rowIndex * 2, rowIndex * 2 + 2);
+          return (
+            <section key={rowIndex} className="w-full py-24 md:py-40 px-4 sm:px-6 md:px-16 lg:px-20 relative overflow-x-clip bg-transparent">
+              <ParallaxText text={bgWords[rowIndex % bgWords.length]} alignLeft={rowIndex % 2 === 0} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
+              
+              <div className="max-w-[1440px] mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                {rowSolutions.map((solution, colIndex) => {
+                  const i = rowIndex * 2 + colIndex;
+                  return (
+                    <div id={`chapter-${i}`} key={solution.id} className="flex flex-col items-center gap-6 md:gap-8">
+                      {/* Theme Header */}
+                      <div className="w-full max-w-[720px] text-left">
+                        <span className="font-mono text-[11px] sm:text-[12px] tracking-[0.2em] uppercase font-bold block whitespace-normal text-[var(--global-dark-accent)] transition-colors duration-300">
+                          0{i + 1} / {solution.industry}
+                        </span>
+                      </div>
 
-              {/* One Big Solution Card */}
-              <div className="w-full flex justify-center z-10">
-                <SolutionCard solution={solution} index={i} />
+                      {/* Solution Card */}
+                      <div className="w-full flex justify-center z-10 h-full">
+                        <SolutionCard solution={solution} index={i} />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            </div>
-            
-            <div className="absolute bottom-0 left-0 w-full h-px bg-[linear-gradient(90deg,transparent,rgba(20,17,15,0.15),transparent)]" />
-          </section>
-        ))}
+              
+              <div className="absolute bottom-0 left-0 w-full h-px bg-[linear-gradient(90deg,transparent,rgba(20,17,15,0.15),transparent)]" />
+            </section>
+          );
+        })}
       </div>
 
       {/* 04 — FINAL CTA */}

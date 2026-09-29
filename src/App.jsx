@@ -42,7 +42,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
-      {!isContact && <Footer />}
+      <Footer />
     </div>
   );
 }

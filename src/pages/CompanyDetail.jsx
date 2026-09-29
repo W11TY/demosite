@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, Link as RouterLink } from 'react-router-dom';
+import AntiMetalButton from '../components/shared/AntiMetalButton';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, useSpring, useMotionValue } from 'framer-motion';
 import { FadeInUp, StaggerContainer, StaggerItem, ScrollWordReveal } from '../components/shared/Motion';
 import { MagneticElement, ParallaxText } from '../components/shared/Interactive';
@@ -16,7 +17,9 @@ import logoImg from '../assets/logo.png';
 import { 
   IllustrationIntelligentAgents, IllustrationAgentNetwork, IllustrationInnovation, IllustrationImpact, 
   IllustrationReliability, IllustrationHealthcare, IllustrationFintech, IllustrationConsumerDurable, 
-  IllustrationRealEstate, IllustrationUtilities 
+  IllustrationRealEstate, IllustrationUtilities,
+  IllustrationAgentNetwork_Tile, IllustrationReliability_Tile, IllustrationImpact_Tile,
+  IllustrationInnovation_Tile, IllustrationInnovation_Full
 } from '../components/shared/CardIllustrations';
 import { Mic, MessageCircle, Phone, Smartphone, Zap, CheckCircle, Link, Map, Briefcase, ShieldCheck, BarChart3, User, Network, Database, Cpu, ArrowRight, ArrowDown, Activity, Compass, Sliders, Users, Rocket, Target, Sparkles } from 'lucide-react';
 
@@ -146,13 +149,6 @@ const PracticeSection = () => (
 
 
 const VisualCompanyHero = () => {
-  const nodes = Array.from({ length: 30 }).map((_, i) => ({
-    x: 5 + Math.random() * 90,
-    y: 5 + Math.random() * 90,
-    size: 3 + Math.random() * 6,
-    delay: Math.random() * 5
-  }));
-
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -167,79 +163,102 @@ const VisualCompanyHero = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  const moveX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-40, 40]), { damping: 25, stiffness: 100 });
-  const moveY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-40, 40]), { damping: 25, stiffness: 100 });
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), { damping: 25, stiffness: 100 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), { damping: 25, stiffness: 100 });
+  const moveX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-50, 50]), { damping: 30, stiffness: 100 });
+  const moveY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-50, 50]), { damping: 30, stiffness: 100 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), { damping: 30, stiffness: 100 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), { damping: 30, stiffness: 100 });
   
-  const moveX2 = useSpring(useTransform(mouseX, [-0.5, 0.5], [20, -20]), { damping: 25, stiffness: 100 });
-  const moveY2 = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), { damping: 25, stiffness: 100 });
+  const moveX2 = useSpring(useTransform(mouseX, [-0.5, 0.5], [25, -25]), { damping: 40, stiffness: 80 });
+  const moveY2 = useSpring(useTransform(mouseY, [-0.5, 0.5], [25, -25]), { damping: 40, stiffness: 80 });
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center" style={{ perspective: 1000 }}>
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100" />
+    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center" style={{ perspective: 1200 }}>
+      {/* Premium subtle dot grid */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100 z-0" />
+
+      {/* Background massive glowing aura */}
+      <motion.div
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.15, 0.25, 0.15]
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-[120px] rounded-full mix-blend-multiply pointer-events-none transition-colors duration-500 z-0"
+        style={{
+          background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 50%, transparent), transparent)`
+        }}
+      />
 
       <motion.div 
         style={{ x: moveX, y: moveY, rotateX, rotateY, transformStyle: "preserve-3d" }} 
-        className="absolute inset-0 flex justify-center items-center"
+        className="absolute inset-0 flex justify-center items-center z-10"
       >
         <motion.svg
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
-          width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" stroke="currentColor" fill="none"
+          transition={{ duration: 2 }}
+          width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" stroke="currentColor" fill="none"
           className="absolute inset-0"
         >
-          <motion.g animate={{ rotate: 360 }} transition={{ duration: 200, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "500px 300px" }}>
-            <circle cx="500" cy="300" r="250" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-50 transition-colors duration-300" strokeDasharray="4 12" />
-            <circle cx="500" cy="300" r="400" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-30 transition-colors duration-300" strokeDasharray="10 10" />
-            <circle cx="500" cy="300" r="550" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-20 transition-colors duration-300" strokeDasharray="2 8" />
+          {/* Base Grid Lines (Systems diagram style) */}
+          <g className="text-[var(--global-dark-accent)] opacity-[0.08]">
+            {Array.from({ length: 13 }).map((_, i) => (
+              <line key={`v-${i}`} x1={i * 100} y1="0" x2={i * 100} y2="800" strokeWidth="1" />
+            ))}
+            {Array.from({ length: 9 }).map((_, i) => (
+              <line key={`h-${i}`} x1="0" y1={i * 100} x2="1200" y2={i * 100} strokeWidth="1" />
+            ))}
+          </g>
 
-            <path d="M500 50 L850 450 L150 450 Z" strokeWidth="1" className="text-[var(--global-accent)] opacity-20 transition-colors duration-300" />
-            <path d="M250 150 L750 150 L500 550 Z" strokeWidth="1" className="text-[var(--global-accent)] opacity-20 transition-colors duration-300" />
+          {/* Core Orbital Rings */}
+          <motion.g style={{ transformOrigin: "600px 400px" }} animate={{ rotate: 360 }} transition={{ duration: 150, repeat: Infinity, ease: "linear" }}>
+            <circle cx="600" cy="400" r="300" strokeWidth="1" className="text-[var(--global-accent)] opacity-20" strokeDasharray="2 10" />
+            <circle cx="600" cy="400" r="450" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-15" />
+            <circle cx="600" cy="400" r="600" strokeWidth="1" className="text-[var(--global-accent)] opacity-10" strokeDasharray="10 20" />
+            
+            {/* Orbital Nodes */}
+            <circle cx="600" cy="100" r="4" className="text-[var(--global-accent)] opacity-60" fill="currentColor" />
+            <circle cx="900" cy="400" r="6" className="text-[var(--global-accent)] opacity-40" fill="currentColor" />
+            <circle cx="300" cy="400" r="3" className="text-[var(--global-accent)] opacity-50" fill="currentColor" />
           </motion.g>
+
+          {/* Inner Counter-Rotating Ring */}
+          <motion.g style={{ transformOrigin: "600px 400px" }} animate={{ rotate: -360 }} transition={{ duration: 100, repeat: Infinity, ease: "linear" }}>
+            <circle cx="600" cy="400" r="200" strokeWidth="1" className="text-[var(--global-accent)] opacity-30" strokeDasharray="20 40 10 40" />
+            <circle cx="600" cy="200" r="5" className="text-[var(--global-accent)] opacity-80" fill="currentColor" />
+          </motion.g>
+
+          {/* Sweeping Bezier Connections */}
+          <path d="M 0 200 C 400 200, 400 600, 1200 600" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-[0.15]" />
+          <path d="M 0 600 C 400 600, 800 200, 1200 200" strokeWidth="1" className="text-[var(--global-dark-accent)] opacity-[0.15]" />
+          <path d="M 600 0 C 600 300, 800 500, 800 800" strokeWidth="1" className="text-[var(--global-accent)] opacity-[0.1]" />
+
+          {/* Data Particles moving along Paths */}
+          <motion.circle r="3" fill="var(--global-accent)" style={{ filter: 'drop-shadow(0 0 8px var(--global-accent))' }}
+            animate={{
+              cx: [0, 400, 800, 1200],
+              cy: [200, 400, 500, 600],
+              opacity: [0, 1, 1, 0]
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.circle r="4" fill="var(--global-accent)" style={{ filter: 'drop-shadow(0 0 10px var(--global-accent))' }}
+            animate={{
+              cx: [1200, 800, 400, 0],
+              cy: [200, 350, 500, 600],
+              opacity: [0, 1, 1, 0]
+            }}
+            transition={{ duration: 6, delay: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
         </motion.svg>
       </motion.div>
 
-      <motion.div style={{ x: moveX2, y: moveY2 }} className="absolute inset-0">
-        {nodes.map((node, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full transition-colors duration-300"
-            style={{
-              width: node.size,
-              height: node.size,
-              left: `${node.x}%`,
-              top: `${node.y}%`,
-              backgroundColor: 'var(--global-accent)'
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() > 0.5 ? 20 : -20, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.5, 1]
-            }}
-            transition={{
-              duration: 3 + Math.random() * 4,
-              repeat: Infinity,
-              delay: node.delay,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
+      {/* Interactive foreground glass layers */}
+      <motion.div style={{ x: moveX2, y: moveY2, rotateX, rotateY, transformStyle: "preserve-3d" }} className="absolute inset-0 flex justify-center items-center pointer-events-none z-20">
+        <div className="w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full border border-[var(--global-accent)]/10 bg-white/[0.02] backdrop-blur-[2px] absolute" style={{ transform: "translateZ(100px)" }} />
+        <div className="w-[150px] h-[150px] md:w-[250px] md:h-[250px] rounded-full border border-[var(--global-accent)]/20 bg-[var(--global-accent)]/[0.02] backdrop-blur-[4px] absolute" style={{ transform: "translateZ(200px)" }} />
+        <div className="w-4 h-4 rounded-full bg-[var(--global-accent)] absolute shadow-[0_0_20px_var(--global-accent)]" style={{ transform: "translateZ(300px)" }} />
       </motion.div>
-
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.15, 0.3, 0.15]
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] blur-[100px] rounded-full mix-blend-multiply pointer-events-none transition-colors duration-300"
-        style={{
-          background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 40%, transparent), transparent)`
-        }}
-      />
     </div>
   );
 };
@@ -248,20 +267,20 @@ const VisualCompanyHero = () => {
 const VisualIntersection = () => (
   <div className="w-full max-w-[500px] mx-auto py-12 relative flex items-center justify-center h-[300px] md:h-[400px]">
     <motion.div animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }} className="absolute inset-0 flex items-center justify-center">
-      <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border border-[var(--global-accent)]/20 -translate-x-8 -translate-y-8 md:-translate-x-10 md:-translate-y-10 flex items-center justify-center">
-         <span className="font-mono text-[10px] tracking-widest text-[var(--global-accent)]/50 absolute top-4">WORK</span>
+      <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border-2 border-[var(--global-accent)]/60 bg-[var(--global-accent)]/5 -translate-x-8 -translate-y-8 md:-translate-x-10 md:-translate-y-10 flex items-center justify-center shadow-[0_0_15px_color-mix(in_srgb,var(--global-accent)_20%,transparent)]">
+         <span className="font-mono font-bold text-[10px] tracking-widest text-[var(--global-accent)]/90 absolute top-4">WORK</span>
       </div>
-      <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border border-[var(--global-accent)]/20 translate-x-8 -translate-y-8 md:translate-x-10 md:-translate-y-10 flex items-center justify-center">
-         <span className="font-mono text-[10px] tracking-widest text-[var(--global-accent)]/50 absolute top-4">LIFE</span>
+      <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border-2 border-[var(--global-accent)]/60 bg-[var(--global-accent)]/5 translate-x-8 -translate-y-8 md:translate-x-10 md:-translate-y-10 flex items-center justify-center shadow-[0_0_15px_color-mix(in_srgb,var(--global-accent)_20%,transparent)]">
+         <span className="font-mono font-bold text-[10px] tracking-widest text-[var(--global-accent)]/90 absolute top-4">LIFE</span>
       </div>
-      <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border border-[var(--global-accent)]/20 -translate-x-8 translate-y-8 md:-translate-x-10 md:translate-y-10 flex items-center justify-center">
-         <span className="font-mono text-[10px] tracking-widest text-[var(--global-accent)]/50 absolute bottom-4">FAMILY</span>
+      <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border-2 border-[var(--global-accent)]/60 bg-[var(--global-accent)]/5 -translate-x-8 translate-y-8 md:-translate-x-10 md:translate-y-10 flex items-center justify-center shadow-[0_0_15px_color-mix(in_srgb,var(--global-accent)_20%,transparent)]">
+         <span className="font-mono font-bold text-[10px] tracking-widest text-[var(--global-accent)]/90 absolute bottom-4">FAMILY</span>
       </div>
-      <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border border-[var(--global-accent)]/20 translate-x-8 translate-y-8 md:translate-x-10 md:translate-y-10 flex items-center justify-center">
-         <span className="font-mono text-[10px] tracking-widest text-[var(--global-accent)]/50 absolute bottom-4">AMBITION</span>
+      <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border-2 border-[var(--global-accent)]/60 bg-[var(--global-accent)]/5 translate-x-8 translate-y-8 md:translate-x-10 md:translate-y-10 flex items-center justify-center shadow-[0_0_15px_color-mix(in_srgb,var(--global-accent)_20%,transparent)]">
+         <span className="font-mono font-bold text-[10px] tracking-widest text-[var(--global-accent)]/90 absolute bottom-4">AMBITION</span>
       </div>
     </motion.div>
-    <div className="w-3 h-3 md:w-4 md:h-4 rounded-full z-10 shadow-[0_0_20px_rgba(0,0,0,0.2)] bg-[var(--global-accent)] transition-colors duration-300" />
+    <div className="w-4 h-4 md:w-5 md:h-5 rounded-full z-10 shadow-[0_0_20px_var(--global-accent)] bg-[var(--global-accent)] transition-colors duration-300" />
   </div>
 );
 
@@ -283,8 +302,105 @@ const VisualCuriosity = () => (
   </div>
 );
 
+const VisualLifeBalance = () => (
+  <div className="w-full max-w-[360px] mx-auto py-12 relative flex flex-col gap-5 z-10 isolate">
+     
+     {/* Premium Aurora Glow */}
+     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] z-[-2] pointer-events-none">
+       <motion.div 
+         animate={{ 
+           rotate: [0, 90, 0],
+           scale: [1, 1.1, 1],
+           filter: ['hue-rotate(0deg)', 'hue-rotate(40deg)', 'hue-rotate(0deg)']
+         }}
+         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+         className="absolute top-0 left-0 w-[80%] h-[80%] bg-[var(--global-accent)] blur-[50px] opacity-20 rounded-full mix-blend-screen"
+       />
+       <motion.div 
+         animate={{ 
+           rotate: [0, -90, 0],
+           scale: [1.1, 1, 1.1],
+           filter: ['hue-rotate(0deg)', 'hue-rotate(-40deg)', 'hue-rotate(0deg)']
+         }}
+         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+         className="absolute bottom-0 right-0 w-[80%] h-[80%] bg-[var(--global-dark-accent)] blur-[50px] opacity-20 rounded-full mix-blend-screen"
+       />
+     </div>
+
+     <motion.div 
+       initial={{ opacity: 0, y: 20 }}
+       whileInView={{ opacity: 1, y: 0 }}
+       animate={{ y: [0, -3, 0] }}
+       transition={{ y: { duration: 5, repeat: Infinity, ease: "easeInOut" }, opacity: { duration: 0.6 } }}
+       viewport={{ once: true }}
+       className="w-full bg-white/70 backdrop-blur-md border border-[var(--global-accent)]/20 rounded-2xl p-5 flex items-center justify-between shadow-[0_8px_30px_rgba(20,17,15,0.03)] hover:border-[var(--global-accent)]/40 transition-colors"
+     >
+       <div className="flex items-center gap-4">
+         <div className="w-10 h-10 rounded-full bg-[var(--global-accent)]/10 flex items-center justify-center">
+           <Activity size={18} className="text-[var(--global-accent)]" />
+         </div>
+         <div className="flex flex-col">
+           <span className="text-[10px] font-mono tracking-[0.15em] text-[var(--global-dark-accent)]/60 uppercase font-bold mb-0.5">Daily Steps</span>
+           <span className="text-[18px] font-medium text-[#14110F] leading-none">10,000<span className="text-[var(--global-accent)]">+</span></span>
+         </div>
+       </div>
+       <div className="w-[60px] h-7 rounded-full bg-[var(--global-accent)]/10 relative overflow-hidden flex items-center justify-center">
+          <motion.div 
+             initial={{ width: 0 }} 
+             whileInView={{ width: "100%" }} 
+             transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+             className="absolute left-0 top-0 bottom-0 bg-[var(--global-accent)] opacity-20" 
+          />
+          <span className="relative z-10 text-[9px] font-mono font-bold text-[var(--global-accent)] tracking-widest">GOAL</span>
+       </div>
+     </motion.div>
+
+     <motion.div 
+       initial={{ opacity: 0, y: 20 }}
+       whileInView={{ opacity: 1, y: 0 }}
+       animate={{ y: [0, -4, 0] }}
+       transition={{ y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }, opacity: { duration: 0.6, delay: 0.15 } }}
+       viewport={{ once: true }}
+       className="w-full bg-white/70 backdrop-blur-md border border-[var(--global-accent)]/20 rounded-2xl p-5 flex items-center justify-between shadow-[0_8px_30px_rgba(20,17,15,0.03)] ml-4 hover:border-[var(--global-accent)]/40 transition-colors"
+     >
+       <div className="flex items-center gap-4">
+         <div className="w-10 h-10 rounded-full bg-[var(--global-accent)]/10 flex items-center justify-center">
+           <Smartphone size={18} className="text-[var(--global-accent)]" />
+         </div>
+         <div className="flex flex-col">
+           <span className="text-[10px] font-mono tracking-[0.15em] text-[var(--global-dark-accent)]/60 uppercase font-bold mb-0.5">Screen Time</span>
+           <span className="text-[18px] font-medium text-[#14110F] leading-none">-40%</span>
+         </div>
+       </div>
+       <div className="w-8 h-8 rounded-full border-[1.5px] border-[var(--global-accent)]/40 flex items-center justify-center bg-[var(--global-accent)]/5">
+         <ArrowDown size={14} className="text-[var(--global-accent)]" />
+       </div>
+     </motion.div>
+
+     <motion.div 
+       initial={{ opacity: 0, y: 20 }}
+       whileInView={{ opacity: 1, y: 0 }}
+       animate={{ y: [0, -3, 0] }}
+       transition={{ y: { duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 2 }, opacity: { duration: 0.6, delay: 0.3 } }}
+       viewport={{ once: true }}
+       className="w-full bg-gradient-to-r from-[var(--global-accent)] to-[var(--global-dark-accent)] rounded-2xl p-5 flex items-center justify-between shadow-[0_12px_40px_color-mix(in_srgb,var(--global-accent)_35%,transparent)] mt-2 -ml-2"
+     >
+       <div className="flex items-center gap-4">
+         <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm shadow-inner">
+           <Users size={18} className="text-white" />
+         </div>
+         <div className="flex flex-col">
+           <span className="text-[10px] font-mono tracking-[0.15em] text-white/70 uppercase font-bold mb-0.5">Priority</span>
+           <span className="text-[18px] font-medium text-white leading-none">Family & Life</span>
+         </div>
+       </div>
+       <CheckCircle size={22} className="text-white drop-shadow-md" />
+     </motion.div>
+  </div>
+);
+
 const VisualWorkProcess = () => {
-  const steps = ['DISCOVER', 'STRATEGIZE', 'EXECUTE', 'MEASURE', 'SCALE'];
+  const steps = ['Success', 'Measure Impact', 'Ownership', 'Founder'];
   return (
     <div className="w-full py-16 relative">
       <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--global-accent)] to-transparent opacity-30 -translate-y-1/2" />
@@ -300,7 +416,7 @@ const VisualWorkProcess = () => {
                className="flex flex-col items-center gap-4"
             >
               <div className={`w-3 h-3 rounded-full shrink-0 transition-colors duration-300 ${i === steps.length - 1 ? 'bg-[var(--global-accent)] scale-150 shadow-[0_0_15px_var(--global-accent)]' : 'bg-[#F5F1EA] border-2 border-[var(--global-accent)]/40'}`} />
-              <span className={`font-mono text-[10px] tracking-[0.2em] transition-colors duration-300 ${i === steps.length - 1 ? 'text-[var(--global-accent)] font-bold' : 'text-[#14110F]/40'}`}>{step}</span>
+              <span className={`font-mono uppercase text-[10px] tracking-[0.2em] transition-colors duration-300 text-center ${i === steps.length - 1 ? 'text-[var(--global-accent)] font-bold' : 'text-[#14110F]/40'}`}>{step}</span>
             </motion.div>
           ))}
         </div>
@@ -310,9 +426,9 @@ const VisualWorkProcess = () => {
 };
 
 const CULTURE_NAV_LABELS = ['Work', 'Grow', 'Connect', 'Live'];
-const cultureAccentColors = [BRAND, ACCENTS[1].accent, ACCENTS[2].accent, ACCENTS[3].accent, BRAND];
-const cultureTintColors = [ACCENTS[0].tint, ACCENTS[1].tint, ACCENTS[2].tint, ACCENTS[3].tint, ACCENTS[0].tint];
-const cultureDarkColors = [BRAND_TEXT, ACCENTS[1].dark, ACCENTS[2].dark, ACCENTS[3].dark, BRAND_TEXT];
+const cultureAccentColors = [BRAND, ACCENTS[1].accent, ACCENTS[2].accent, ACCENTS[3].accent, BRAND, BRAND];
+const cultureTintColors = [ACCENTS[0].tint, ACCENTS[1].tint, ACCENTS[2].tint, ACCENTS[3].tint, ACCENTS[0].tint, ACCENTS[0].tint];
+const cultureDarkColors = [BRAND_TEXT, ACCENTS[1].dark, ACCENTS[2].dark, ACCENTS[3].dark, BRAND_TEXT, BRAND_TEXT];
 
 const CulturePage = () => {
   const { activeChapter, scrollY } = useChapterColor(
@@ -376,9 +492,7 @@ const CulturePage = () => {
                       {idx === 0 ? <VisualWorkProcess /> :
                        idx === 1 ? <VisualCuriosity /> :
                        idx === 2 ? <VisualIntersection /> :
-                       <div className="w-full aspect-square rounded-[24px] bg-[var(--global-accent)]/5 flex items-center justify-center p-12 border border-[rgba(20,17,15,0.05)]">
-                         <IllustrationReliability className="w-full h-full text-[var(--global-accent)]" />
-                       </div>
+                       <VisualLifeBalance />
                       }
                     </div>
                  </div>
@@ -447,30 +561,29 @@ const CulturePage = () => {
 
 const FOUNDERS = [
   { name: 'Manish Joshi', role: 'CEO', image: '' },
-  { name: 'Rakesh Kanugula', role: 'COO', image: '' },
-  { name: 'Abhinash Khare', role: 'CTO', image: '' }
+  { name: 'Rakesh Kanugula', role: 'COO', image: '' }
 ];
 
 const SOLUTION_POINTERS = [
   {
     title: "Unified Platform",
     desc: "A single intelligent ecosystem for all customer interactions.",
-    illustration: IllustrationAgentNetwork
+    illustration: IllustrationAgentNetwork_Tile
   },
   {
     title: "Scalable Architecture",
     desc: "Designed to handle millions of interactions with zero downtime.",
-    illustration: IllustrationReliability
+    illustration: IllustrationReliability_Tile
   },
   {
     title: "Continuous Innovation",
     desc: "Self-learning models that improve with every conversation.",
-    illustration: IllustrationInnovation
+    illustration: IllustrationInnovation_Tile
   },
   {
     title: "Measurable Impact",
     desc: "Clear ROI and business outcomes for every deployment.",
-    illustration: IllustrationImpact
+    illustration: IllustrationImpact_Tile
   }
 ];
 
@@ -484,19 +597,19 @@ const STATS = [
 const FRAMEWORK_STAGES = [
   {
     step: '01',
-    timeline: 'Days 1-15',
+    timeline: 'Days 1-5',
     title: 'Discovery & Design',
     description: 'We map out your current customer journey, identify bottlenecks, and design a unified AI workflow tailored to your specific business goals.'
   },
   {
     step: '02',
-    timeline: 'Days 16-45',
+    timeline: 'Days 6-10',
     title: 'Integration & Pilot',
     description: 'Our engineering team integrates Voxi with your existing CRM and telephony systems, deploying a pilot to test real-world scenarios.'
   },
   {
     step: '03',
-    timeline: 'Days 46-90',
+    timeline: 'Days 11-15',
     title: 'Optimization & Scaling',
     description: 'We analyze the pilot data to fine-tune the AI models, ensuring maximum ROI before scaling the solution across your entire customer base.'
   }
@@ -508,6 +621,72 @@ const aboutTintColors = [ACCENTS[0].tint, ACCENTS[0].tint, ACCENTS[1].tint, ACCE
 const aboutDarkColors = [BRAND_TEXT, ACCENTS[0].dark, ACCENTS[1].dark, ACCENTS[2].dark, ACCENTS[3].dark, ACCENTS[0].dark, BRAND_TEXT];
 
 
+const DynamicFrameworkIllustration = ({ activeStage }) => {
+  return (
+    <div className="w-full h-full relative flex items-center justify-center isolate">
+      {/* Main SVG Orchestrator */}
+      <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" className="overflow-visible">
+        {/* Stage 0: Discovery & Design */}
+        <motion.g
+          animate={{ opacity: activeStage === 0 ? 1 : 0, scale: activeStage === 0 ? 1 : 0.8 }}
+          transition={{ duration: 0.6 }}
+        >
+          <circle cx="100" cy="100" r="40" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" className="text-[var(--global-accent)] opacity-40" />
+          <motion.path 
+            animate={{ pathLength: activeStage === 0 ? [0, 1] : 0 }} 
+            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+            d="M50 100 C 50 50, 150 50, 150 100 C 150 150, 50 150, 50 100" stroke="currentColor" strokeWidth="1.5" className="text-[var(--global-accent)]" fill="none" 
+          />
+          <circle cx="50" cy="100" r="4" fill="currentColor" className="text-[var(--global-accent)]" />
+          <circle cx="150" cy="100" r="4" fill="currentColor" className="text-[var(--global-accent)]" />
+          <circle cx="100" cy="50" r="4" fill="currentColor" className="text-[var(--global-accent)] opacity-50" />
+        </motion.g>
+
+        {/* Stage 1: Integration & Pilot */}
+        <motion.g
+          animate={{ opacity: activeStage === 1 ? 1 : 0, rotate: activeStage === 1 ? 360 : 0 }}
+          transition={{ opacity: { duration: 0.6 }, rotate: { duration: 15, repeat: Infinity, ease: "linear" } }}
+          style={{ transformOrigin: "100px 100px" }}
+        >
+          <circle cx="100" cy="100" r="50" stroke="currentColor" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-20" />
+          <polygon points="100,60 135,120 65,120" stroke="currentColor" strokeWidth="1.5" className="text-[var(--global-accent)]" fill="none" />
+          <motion.circle 
+            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} 
+            transition={{ duration: 2, repeat: Infinity }}
+            cx="100" cy="100" r="8" fill="currentColor" className="text-[var(--global-accent)]" 
+          />
+          <circle cx="100" cy="50" r="3" fill="currentColor" className="text-[var(--global-accent)]" />
+          <circle cx="143" cy="125" r="3" fill="currentColor" className="text-[var(--global-accent)]" />
+          <circle cx="57" cy="125" r="3" fill="currentColor" className="text-[var(--global-accent)]" />
+        </motion.g>
+
+        {/* Stage 2: Optimization & Scaling */}
+        <motion.g
+          animate={{ opacity: activeStage === 2 ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.circle 
+            animate={{ r: activeStage === 2 ? [20, 80] : 20, opacity: activeStage === 2 ? [0.6, 0] : 0 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+            cx="100" cy="100" stroke="currentColor" strokeWidth="2" className="text-[var(--global-accent)]" fill="none"
+          />
+          <motion.circle 
+            animate={{ r: activeStage === 2 ? [20, 80] : 20, opacity: activeStage === 2 ? [0.6, 0] : 0 }}
+            transition={{ duration: 2, repeat: Infinity, delay: 1, ease: "easeOut" }}
+            cx="100" cy="100" stroke="currentColor" strokeWidth="2" className="text-[var(--global-accent)]" fill="none"
+          />
+          <circle cx="100" cy="100" r="20" fill="currentColor" className="text-[var(--global-accent)] opacity-20" />
+          <circle cx="100" cy="100" r="10" fill="currentColor" className="text-[var(--global-accent)]" />
+          <rect x="70" y="90" width="8" height="20" rx="4" fill="currentColor" className="text-[var(--global-accent)] opacity-40" />
+          <rect x="90" y="75" width="8" height="35" rx="4" fill="currentColor" className="text-[var(--global-accent)] opacity-60" />
+          <rect x="110" y="60" width="8" height="50" rx="4" fill="currentColor" className="text-[var(--global-accent)] opacity-80" />
+          <rect x="130" y="40" width="8" height="70" rx="4" fill="currentColor" className="text-[var(--global-accent)]" />
+        </motion.g>
+      </svg>
+    </div>
+  );
+};
+
 const AboutPage = () => {
   const { activeChapter, scrollY } = useChapterColor(
     ABOUT_NAV_LABELS.length,
@@ -515,6 +694,8 @@ const AboutPage = () => {
     aboutTintColors,
     aboutDarkColors
   );
+
+  const [activeFrameworkStage, setActiveFrameworkStage] = useState(0);
 
   return (
     <div className="w-full min-h-screen text-[#14110F] relative selection:bg-[var(--global-accent)]/20">
@@ -564,7 +745,7 @@ const AboutPage = () => {
                <div className="lg:col-span-5 flex items-center justify-center">
                  <div className="w-full aspect-[4/3] rounded-[24px] bg-[var(--global-accent)]/5 flex items-center justify-center p-8 border border-[rgba(20,17,15,0.05)] shadow-[0_10px_40px_rgba(20,17,15,0.02)] transition-colors duration-300">
                    <div className="w-full h-full text-[var(--global-accent)] [&>svg]:!text-[var(--global-accent)] transition-colors duration-300 flex items-center justify-center">
-                     <IllustrationInnovation />
+                     <IllustrationInnovation_Full />
                    </div>
                  </div>
                </div>
@@ -625,8 +806,10 @@ const AboutPage = () => {
         </section>
 
         {/* CHAPTER 3: IMPLEMENTATION */}
-        <section id="chapter-2" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[80vh] flex items-center justify-center">
-          <ParallaxText text="SHIP." alignLeft={true} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
+        <section id="chapter-2" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative bg-transparent min-h-[80vh] flex items-center justify-center">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <ParallaxText text="SHIP." alignLeft={true} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300" />
+          </div>
           <div className="max-w-[1000px] mx-auto relative z-10 w-full">
              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold block mb-12 text-[var(--global-dark-accent)]">03 / IMPLEMENTATION</span>
              
@@ -639,7 +822,7 @@ const AboutPage = () => {
                      className="text-[clamp(32px,5vw,56px)] font-medium tracking-tight text-[#14110F] leading-[1.08] mb-6"
                    />
                    <ScrollWordReveal 
-                     text="Our Customer Success and Implementation teams work closely with customers through every stage. Our 90-Day Success Framework ensures every deployment delivers measurable business outcomes."
+                     text="Our Customer Success and Implementation teams work closely with customers through every stage. Our 15-Day Success Framework ensures every deployment delivers measurable business outcomes."
                      as="p"
                      className="text-[18px] text-[#14110F]/70 leading-[1.75] font-light max-w-[800px]"
                    />
@@ -658,6 +841,7 @@ const AboutPage = () => {
                            boxShadow: "0 0 15px 4px rgba(16, 185, 129, 0.4)"
                          }}
                          viewport={{ margin: "-50% 0px -50% 0px" }}
+                         onViewportEnter={() => setActiveFrameworkStage(idx)}
                        />
                        
                        <div className="flex flex-col">
@@ -684,9 +868,7 @@ const AboutPage = () => {
                
                <div className="lg:col-span-5 flex items-center justify-center lg:sticky lg:top-40 h-fit">
                  <div className="w-full aspect-[4/3] rounded-[24px] bg-[var(--global-accent)]/5 flex items-center justify-center p-8 border border-[rgba(20,17,15,0.05)] shadow-[0_10px_40px_rgba(20,17,15,0.02)] transition-colors duration-300">
-                   <div className="w-full h-full text-[var(--global-accent)] [&>svg]:!text-[var(--global-accent)] transition-colors duration-300 flex items-center justify-center">
-                     <IllustrationImpact />
-                   </div>
+                   <DynamicFrameworkIllustration activeStage={activeFrameworkStage} />
                  </div>
                </div>
              </div>
@@ -760,9 +942,9 @@ const AboutPage = () => {
             </h2>
             <div className="mt-12 flex justify-center">
               <MagneticElement>
-                <Link to="/contact" className="px-10 py-4 bg-[#F5F1EA] text-[#14110F] rounded-[24px] text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)] cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[#1283a9]/60 inline-block">
-                  Start Your Pilot
-                </Link>
+                <RouterLink to="/contact">
+                  <AntiMetalButton label="Start Your Pilot" />
+                </RouterLink>
               </MagneticElement>
             </div>
           </FadeInUp>

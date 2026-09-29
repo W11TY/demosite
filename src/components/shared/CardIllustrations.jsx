@@ -1,450 +1,531 @@
+/**
+ * CardIllustrations.jsx
+ * Five precision, geometric "systems diagram" SVG illustrations for the About page.
+ * Palette: steel-blue/teal (#3F87B0 → #A9CADB) on pale surface.
+ * Accent 1 (Innovation): soft violet  #8B7FD6
+ * Accent 2 (Impact):     warm coral   #E8896B
+ * All motion: CSS @keyframes inside each SVG, 6-10s ease-in-out loops.
+ */
+
 import React from 'react';
 
-const S = {
-  thin: '0.5',
-  mid: '1',
-  thick: '1.5',
-};
+/* ─── shared CSS, injected inline per SVG to keep them self-contained ─── */
+const sharedCSS = `
+  @media (prefers-reduced-motion: reduce) {
+    .il-dot, .il-pulse, .il-grow, .il-dash { animation: none !important; }
+  }
+`;
 
-// Reusable premium SVG definitions
-const PremiumDefs = () => (
-  <defs>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-      <feMerge>
-        <feMergeNode in="coloredBlur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    <filter id="glow-soft" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="coloredBlur" />
-      <feMerge>
-        <feMergeNode in="coloredBlur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    <style>{`
-      @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-4px); }
-      }
-      @keyframes pulse-slow {
-        0%, 100% { opacity: 0.4; }
-        50% { opacity: 1; }
-      }
-      @keyframes dash {
-        to { stroke-dashoffset: -20; }
-      }
-      @keyframes rotate-slow {
-        from { transform: rotate(0deg); transform-origin: center; }
-        to { transform: rotate(360deg); transform-origin: center; }
-      }
-      .anim-float { animation: float 6s ease-in-out infinite; }
-      .anim-pulse { animation: pulse-slow 4s ease-in-out infinite; }
-      .anim-dash { animation: dash 10s linear infinite; stroke-dasharray: 4; }
-      .anim-rotate { animation: rotate-slow 20s linear infinite; }
-    `}</style>
-  </defs>
-);
+/* ══════════════════════════════════════════════════════════════════════════════
+   1) HERO — "Conversations happening everywhere, converging to one hub"
+      viewBox="0 0 480 360"
+   ══════════════════════════════════════════════════════════════════════════════ */
+export function IllustrationInnovation() {
+  // Channel nodes: [x, y, glyph-type]
+  const channels = [
+    { x: 72,  y: 60,  label: 'WA',     path: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10h10V12C22 6.48 17.52 2 12 2z M8 13h4v4H8v-4z M14 9h4v4h-4V9z', opacity: 1    },
+    { x: 48,  y: 160, label: 'CALL',   path: 'M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z', opacity: 1    },
+    { x: 80,  y: 270, label: 'EMAIL',  path: 'M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z', opacity: 1    },
+    { x: 210, y: 36,  label: 'SMS',    path: 'M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z', opacity: 0.75 },
+    { x: 390, y: 55,  label: 'CHAT',   path: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z', opacity: 0.75 },
+    { x: 408, y: 180, label: 'DM',     path: 'M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z', opacity: 0.6  },
+    { x: 370, y: 295, label: 'VOICE',  path: 'M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3zM19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V22H7v2h10v-2h-4v-1.06A9 9 0 0 0 21 12v-2h-2z', opacity: 0.6  },
+  ];
 
-export function IllustrationRealEstate() {
+  const hub = { x: 240, y: 180 };
+
   return (
-    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-blue-500">
-      <PremiumDefs />
+    <svg viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <style>{`
+        ${sharedCSS}
+        @keyframes travel { 0%{offset-distance:0%} 100%{offset-distance:100%} }
+        @keyframes hubpulse { 0%,100%{opacity:.15} 50%{opacity:.35} }
+        @keyframes msgdrift { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+        .il-hub-ring { animation: hubpulse 4s ease-in-out infinite; }
+        .il-msg { animation: msgdrift 7s ease-in-out infinite; }
+        .il-msg2 { animation: msgdrift 9s ease-in-out infinite 1.5s; }
+        .il-msg3 { animation: msgdrift 8s ease-in-out infinite 3s; }
+      `}</style>
+
       <defs>
-        <linearGradient id="re-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="currentColor" stopOpacity="0.08"/>
-          <stop offset="100%" stopColor="currentColor" stopOpacity="0.01"/>
+        <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#3F87B0" stopOpacity="0.22"/>
+          <stop offset="100%" stopColor="#3F87B0" stopOpacity="0"/>
+        </radialGradient>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#A9CADB" stopOpacity="0"/>
+          <stop offset="50%" stopColor="#6BAECE" stopOpacity="0.6"/>
+          <stop offset="100%" stopColor="#3F87B0" stopOpacity="0.8"/>
         </linearGradient>
-        <linearGradient id="re-accent" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor="currentColor" stopOpacity="0.5"/>
-          <stop offset="100%" stopColor="currentColor" stopOpacity="0.8"/>
+        <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="6"/>
+        </filter>
+        <filter id="tinyBlur">
+          <feGaussianBlur stdDeviation="1.5"/>
+        </filter>
+        <marker id="dot" markerWidth="4" markerHeight="4" refX="2" refY="2">
+          <circle cx="2" cy="2" r="2" fill="#6BAECE" opacity="0.7"/>
+        </marker>
+      </defs>
+
+      {/* ambient glow behind hub */}
+      <circle cx={hub.x} cy={hub.y} r="110" fill="url(#hubGlow)" filter="url(#softBlur)"/>
+
+      {/* connections + traveling dots */}
+      {channels.map((ch, i) => {
+        const id = `path${i}`;
+        const dur = 5 + i * 0.6;
+        const delay = i * 0.9;
+        // cubic bezier: start at channel, curve inward toward hub
+        const mx = (ch.x + hub.x) / 2 + (i % 2 === 0 ? 30 : -30);
+        const my = (ch.y + hub.y) / 2 + (i % 2 === 0 ? -30 : 20);
+        const d  = `M${ch.x},${ch.y} Q${mx},${my} ${hub.x},${hub.y}`;
+        return (
+          <g key={i} opacity={ch.opacity}>
+            <path id={id} d={d} stroke="#6BAECE" strokeWidth="1" strokeOpacity="0.28"
+              strokeDasharray="4 6" fill="none"/>
+            {/* traveling dot via SMIL */}
+            <circle r="2.5" fill="#6BAECE" fillOpacity="0.85" filter="url(#tinyBlur)">
+              <animateMotion dur={`${dur}s`} begin={`${delay}s`} repeatCount="indefinite" calcMode="spline"
+                keySplines="0.4 0 0.6 1">
+                <mpath xlinkHref={`#${id}`}/>
+              </animateMotion>
+            </circle>
+            {/* second offset dot */}
+            <circle r="1.8" fill="#A9CADB" fillOpacity="0.6">
+              <animateMotion dur={`${dur}s`} begin={`${delay + dur * 0.45}s`} repeatCount="indefinite" calcMode="spline"
+                keySplines="0.4 0 0.6 1">
+                <mpath xlinkHref={`#${id}`}/>
+              </animateMotion>
+            </circle>
+          </g>
+        );
+      })}
+
+      {/* channel nodes */}
+      {channels.map((ch, i) => (
+        <g key={i} opacity={ch.opacity}>
+          {/* glass card */}
+          <rect x={ch.x - 22} y={ch.y - 22} width="44" height="44" rx="10"
+            fill="#F0F6FA" fillOpacity="0.55" stroke="#6BAECE" strokeWidth="1.2" strokeOpacity="0.4"/>
+          {/* glyph */}
+          <g transform={`translate(${ch.x - 12}, ${ch.y - 12})`}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3F87B0"
+              strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d={ch.path}/>
+            </svg>
+          </g>
+          {/* label */}
+          <text x={ch.x} y={ch.y + 32} textAnchor="middle" fontSize="7" fontFamily="monospace"
+            fill="#3F87B0" fillOpacity="0.55" letterSpacing="1.5">{ch.label}</text>
+        </g>
+      ))}
+
+      {/* floating skeleton message bubbles */}
+      <g className="il-msg" style={{transformOrigin:`${hub.x - 80}px ${hub.y - 60}px`}}>
+        <rect x={hub.x - 115} y={hub.y - 75} width="70" height="30" rx="8"
+          fill="#E8F4FA" fillOpacity="0.55" stroke="#6BAECE" strokeWidth="0.9" strokeOpacity="0.35"/>
+        <rect x={hub.x - 108} y={hub.y - 65} width="30" height="4" rx="2" fill="#6BAECE" fillOpacity="0.3"/>
+        <rect x={hub.x - 108} y={hub.y - 57} width="44" height="4" rx="2" fill="#6BAECE" fillOpacity="0.2"/>
+      </g>
+      <g className="il-msg2" style={{transformOrigin:`${hub.x + 80}px ${hub.y - 50}px`}}>
+        <rect x={hub.x + 52} y={hub.y - 65} width="58" height="26" rx="8"
+          fill="#E8F4FA" fillOpacity="0.45" stroke="#6BAECE" strokeWidth="0.9" strokeOpacity="0.3"/>
+        <rect x={hub.x + 60} y={hub.y - 57} width="38" height="4" rx="2" fill="#6BAECE" fillOpacity="0.25"/>
+        <rect x={hub.x + 60} y={hub.y - 49} width="22" height="4" rx="2" fill="#6BAECE" fillOpacity="0.15"/>
+      </g>
+      <g className="il-msg3" style={{transformOrigin:`${hub.x}px ${hub.y + 80}px`}}>
+        <rect x={hub.x - 35} y={hub.y + 65} width="70" height="26" rx="8"
+          fill="#E8F4FA" fillOpacity="0.4" stroke="#6BAECE" strokeWidth="0.9" strokeOpacity="0.25"/>
+        <rect x={hub.x - 28} y={hub.y + 73} width="44" height="4" rx="2" fill="#6BAECE" fillOpacity="0.2"/>
+        <rect x={hub.x - 28} y={hub.y + 81} width="28" height="4" rx="2" fill="#6BAECE" fillOpacity="0.15"/>
+      </g>
+
+      {/* hub rings */}
+      {[52, 40, 28].map((r, i) => (
+        <circle key={i} cx={hub.x} cy={hub.y} r={r}
+          fill="none" stroke="#3F87B0" strokeWidth={i === 2 ? 1.5 : 0.8}
+          strokeOpacity={i === 2 ? 0.45 : 0.18} className="il-hub-ring"
+          style={{animationDelay: `${i * 0.6}s`}}
+        />
+      ))}
+      {/* hub core */}
+      <rect x={hub.x - 18} y={hub.y - 18} width="36" height="36" rx="9"
+        fill="#3F87B0" fillOpacity="0.14" stroke="#3F87B0" strokeWidth="1.5" strokeOpacity="0.6"/>
+      {/* voxi chevron mark */}
+      <polyline points={`${hub.x - 7},${hub.y - 2} ${hub.x},${hub.y + 7} ${hub.x + 7},${hub.y - 2}`}
+        stroke="#3F87B0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <polyline points={`${hub.x - 7},${hub.y - 8} ${hub.x},${hub.y + 1} ${hub.x + 7},${hub.y - 8}`}
+        stroke="#3F87B0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.5"/>
+    </svg>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   2) UNIFIED PLATFORM — Hub-and-spoke, one central system
+      viewBox="0 0 240 180"
+   ══════════════════════════════════════════════════════════════════════════════ */
+export function IllustrationAgentNetwork() {
+  const cx = 120, cy = 90;
+  const spokes = [
+    { angle: -70, r: 70 },
+    { angle: -20, r: 72 },
+    { angle: 38,  r: 68 },
+    { angle: 105, r: 72 },
+    { angle: 160, r: 70 },
+    { angle: 215, r: 68 },
+  ];
+
+  return (
+    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <style>{`
+        ${sharedCSS}
+        @keyframes radglow { 0%,100%{opacity:.12} 50%{opacity:.28} }
+        @keyframes nodepop { 0%,100%{r:5} 50%{r:6.5} }
+        .il-pulse { animation: radglow 5s ease-in-out infinite; }
+      `}</style>
+      <defs>
+        <radialGradient id="upGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#3F87B0" stopOpacity="0.28"/>
+          <stop offset="100%" stopColor="#3F87B0" stopOpacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <circle cx={cx} cy={cy} r="80" fill="url(#upGlow)" className="il-pulse"/>
+
+      {spokes.map((sp, i) => {
+        const rad = sp.angle * Math.PI / 180;
+        const nx = cx + sp.r * Math.cos(rad);
+        const ny = cy + sp.r * Math.sin(rad);
+        const pathId = `sp${i}`;
+        return (
+          <g key={i}>
+            <path id={pathId}
+              d={`M${cx},${cy} L${nx},${ny}`}
+              stroke="#6BAECE" strokeWidth="1" strokeOpacity="0.35" strokeDasharray="3 5"/>
+            {/* traveling dot */}
+            <circle r="2" fill="#6BAECE" fillOpacity="0.7">
+              <animateMotion dur={`${6 + i * 0.5}s`} begin={`${i * 0.8}s`} repeatCount="indefinite">
+                <mpath xlinkHref={`#sp${i}`}/>
+              </animateMotion>
+            </circle>
+            {/* spoke node */}
+            <circle cx={nx} cy={ny} r="8"
+              fill="#EDF5FA" fillOpacity="0.6" stroke="#6BAECE" strokeWidth="1.2" strokeOpacity="0.5"/>
+            <circle cx={nx} cy={ny} r="3" fill="#3F87B0" fillOpacity="0.6"/>
+          </g>
+        );
+      })}
+
+      {/* centre node */}
+      <circle cx={cx} cy={cy} r="22" fill="#D6EAF4" fillOpacity="0.5"
+        stroke="#3F87B0" strokeWidth="1.5" strokeOpacity="0.55"/>
+      <circle cx={cx} cy={cy} r="14" fill="#3F87B0" fillOpacity="0.18"
+        stroke="#3F87B0" strokeWidth="1" strokeOpacity="0.4"/>
+      <circle cx={cx} cy={cy} r="6" fill="#3F87B0" fillOpacity="0.8"/>
+    </svg>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   3) SCALABLE ARCHITECTURE — Isometric server layer stack
+      viewBox="0 0 240 180"
+   ══════════════════════════════════════════════════════════════════════════════ */
+export function IllustrationReliability() {
+  // Isometric layer: draw 3 thin translucent slab pairs
+  // Each slab = top face (parallelogram) + right side + left side
+  const layers = [
+    { yOff: 0,   opac: 0.55, topFill: '#D6EAF4', sideFillR: '#B3D5E8', sideFillL: '#C4DDF0' },
+    { yOff: 28,  opac: 0.45, topFill: '#D6EAF4', sideFillR: '#B3D5E8', sideFillL: '#C4DDF0' },
+    { yOff: 56,  opac: 0.35, topFill: '#D6EAF4', sideFillR: '#B3D5E8', sideFillL: '#C4DDF0' },
+  ];
+
+  // Isometric params
+  const ox = 120, oy = 62, W = 84, H = 14, D = 18;
+  // Top face corners (isometric): 4 pts
+  // Centered on ox,oy
+  const tp = [
+    { x: ox,       y: oy },           // top
+    { x: ox + W/2, y: oy + H },       // right
+    { x: ox,       y: oy + H*2 },     // bottom
+    { x: ox - W/2, y: oy + H },       // left
+  ];
+
+  return (
+    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <style>{`
+        ${sharedCSS}
+        @keyframes basepulse { 0%,100%{opacity:0.3} 50%{opacity:0.7} }
+        .il-pulse { animation: basepulse 4s ease-in-out infinite; }
+        .il-dot2 { animation: basepulse 6s ease-in-out infinite; }
+      `}</style>
+      <defs>
+        <linearGradient id="slabTop" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#D6EAF4" stopOpacity="0.7"/>
+          <stop offset="100%" stopColor="#A9CADB" stopOpacity="0.3"/>
+        </linearGradient>
+        <linearGradient id="slabSide" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#3F87B0" stopOpacity="0.18"/>
+          <stop offset="100%" stopColor="#3F87B0" stopOpacity="0.08"/>
         </linearGradient>
       </defs>
-      
-      {/* Premium Grid */}
-      <g stroke="currentColor" strokeOpacity="0.03" strokeWidth={S.thin}>
-        {[...Array(12)].map((_, i) => <line key={`v${i}`} x1={i*20} y1="0" x2={i*20} y2="180" />)}
-        {[...Array(9)].map((_, i) => <line key={`h${i}`} x1="0" y1={i*20} x2="240" y2={i*20} />)}
-      </g>
 
-      <g className="anim-float">
-        {/* Building Back */}
-        <rect x="128" y="70" width="32" height="88" fill="url(#re-bg)" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.2"/>
-        <line x1="144" y1="70" x2="144" y2="158" stroke="currentColor" strokeOpacity="0.1" strokeWidth={S.thin} />
-        <rect x="176" y="90" width="24" height="68" fill="url(#re-bg)" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.2"/>
-        
-        {/* Building Front - Focus */}
-        <rect x="48" y="50" width="48" height="108" fill="currentColor" fillOpacity="0.04" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.5"/>
-        <rect x="48" y="50" width="48" height="108" fill="url(#re-accent)" fillOpacity="0.1"/>
-        
-        {/* Data points / Windows */}
-        {[60, 76, 92, 108, 124, 140].map((y, i) => (
-          <g key={y}>
-            <rect x="56" y={y} width="12" height="8" fill="currentColor" fillOpacity={i%2===0 ? "0.6" : "0.2"} filter={i%2===0 ? "url(#glow)" : ""} className={i%2===0 ? "anim-pulse" : ""} />
-            <rect x="76" y={y} width="12" height="8" fill="currentColor" fillOpacity={i%3===0 ? "0.8" : "0.2"} filter={i%3===0 ? "url(#glow)" : ""} />
+      {layers.map((lay, li) => {
+        const y = lay.yOff;
+        // top-face polygon
+        const top   = `${ox},${tp[0].y+y} ${tp[1].x},${tp[1].y+y} ${tp[2].x},${tp[2].y+y} ${tp[3].x},${tp[3].y+y}`;
+        // right side
+        const right = `${tp[1].x},${tp[1].y+y} ${tp[2].x},${tp[2].y+y} ${tp[2].x},${tp[2].y+y+D} ${tp[1].x},${tp[1].y+y+D}`;
+        // left side
+        const left  = `${tp[3].x},${tp[3].y+y} ${tp[2].x},${tp[2].y+y} ${tp[2].x},${tp[2].y+y+D} ${tp[3].x},${tp[3].y+y+D}`;
+
+        return (
+          <g key={li} opacity={lay.opac}>
+            <polygon points={left}  fill="url(#slabSide)" stroke="#6BAECE" strokeWidth="0.8" strokeOpacity="0.4"/>
+            <polygon points={right} fill="url(#slabSide)" stroke="#6BAECE" strokeWidth="0.8" strokeOpacity="0.5"/>
+            <polygon points={top}   fill="url(#slabTop)"  stroke="#6BAECE" strokeWidth="1"   strokeOpacity="0.6"/>
+
+            {/* node grid on top layer only */}
+            {li === 0 && [-28, -14, 0, 14, 28].map((dx, di) => (
+              <circle key={di} cx={ox + dx} cy={tp[0].y + y + H} r="2"
+                fill="#3F87B0" fillOpacity={0.7 - di * 0.1} className="il-dot2"
+                style={{animationDelay:`${di*0.4}s`}}/>
+            ))}
           </g>
-        ))}
-        
-        {/* Network Arcs */}
-        <path d="M72 40 Q130 10 200 60" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.4" fill="none" className="anim-dash" />
-        <circle cx="72" cy="40" r="4" fill="currentColor" filter="url(#glow)" className="anim-pulse" />
-        <circle cx="200" cy="60" r="3" fill="currentColor" fillOpacity="0.6" />
-        <circle cx="72" cy="40" r="16" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.3" fill="none" className="anim-pulse" />
-      </g>
-      
-      <line x1="20" y1="158" x2="220" y2="158" stroke="currentColor" strokeOpacity="0.1" strokeWidth={S.mid}/>
+        );
+      })}
+
+      {/* base pulse line — zero downtime signal */}
+      <line x1="36" y1="158" x2="204" y2="158" stroke="#6BAECE" strokeWidth="1" strokeOpacity="0.25"/>
+      <line x1="36" y1="158" x2="36" y2="155" stroke="#6BAECE" strokeWidth="1" strokeOpacity="0.35"/>
+      <line x1="204" y1="158" x2="204" y2="155" stroke="#6BAECE" strokeWidth="1" strokeOpacity="0.35"/>
+      {/* pulse travelling dot */}
+      <circle r="3" fill="#3F87B0" fillOpacity="0.7" className="il-pulse">
+        <animateMotion dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1">
+          <mpath xlinkHref="#baseLine"/>
+        </animateMotion>
+      </circle>
+      <path id="baseLine" d="M36,158 L204,158" opacity="0"/>
     </svg>
   );
 }
 
-export function IllustrationAutomobile() {
+/* ══════════════════════════════════════════════════════════════════════════════
+   4) CONTINUOUS INNOVATION — Self-learning arc loop with growing rings
+      viewBox="0 0 240 180"
+      Accent: soft violet #8B7FD6
+   ══════════════════════════════════════════════════════════════════════════════ */
+export function IllustrationInnovation_Full() {
   return (
-    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-emerald-500">
-      <PremiumDefs />
-      <g stroke="currentColor" strokeOpacity="0.05" strokeWidth={S.thin}>
-        {[...Array(6)].map((_, i) => <circle key={i} cx="120" cy="140" r={40 + i*20} fill="none" />)}
+    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <style>{`
+        ${sharedCSS}
+        @keyframes ringgrow { 0%{r:12;opacity:.6} 60%{r:36;opacity:0} 100%{r:36;opacity:0} }
+        @keyframes arcspin  { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+        .il-ring1 { animation: ringgrow 4s ease-out infinite 0s; transform-origin: 120px 90px; }
+        .il-ring2 { animation: ringgrow 4s ease-out infinite 1.3s; transform-origin: 120px 90px; }
+        .il-ring3 { animation: ringgrow 4s ease-out infinite 2.6s; transform-origin: 120px 90px; }
+        .il-arc   { animation: arcspin 8s linear infinite; transform-origin: 120px 90px; }
+      `}</style>
+      <defs>
+        <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#6BAECE" stopOpacity="0"/>
+          <stop offset="60%" stopColor="#6BAECE" stopOpacity="0.5"/>
+          <stop offset="100%" stopColor="#3F87B0" stopOpacity="0.8"/>
+        </linearGradient>
+      </defs>
+
+      {/* outer guide circle (static, very faint) */}
+      <circle cx="120" cy="90" r="66" stroke="#6BAECE" strokeWidth="1" strokeOpacity="0.12" strokeDasharray="3 7"/>
+
+      {/* spinning arc */}
+      <g className="il-arc">
+        {/* 300° arc, gap at top = arrowhead */}
+        <path
+          d="M120,24 A66,66 0 1,1 86.2,148.8"
+          stroke="url(#arcGrad)" strokeWidth="2" strokeLinecap="round" fill="none"/>
+        {/* arrowhead */}
+        <polyline points="80,142 86,150 94,145"
+          stroke="#3F87B0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.8"/>
       </g>
-      
-      {/* Speed lines */}
-      <g className="anim-dash" stroke="currentColor" strokeOpacity="0.15" strokeWidth={S.mid}>
-        <line x1="20" y1="140" x2="220" y2="140" />
-        <line x1="40" y1="120" x2="200" y2="120" />
-        <line x1="40" y1="160" x2="200" y2="160" />
-      </g>
-      
-      <g className="anim-float">
-        {/* Sleek EV Car Profile */}
-        <path d="M50 115 Q60 105 75 105 L150 105 Q170 105 180 120 L185 130 L45 130 Z" fill="currentColor" fillOpacity="0.08" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.6"/>
-        <path d="M75 105 L150 105" stroke="currentColor" strokeWidth={S.thick} strokeOpacity="0.9" filter="url(#glow)"/>
-        
-        {/* Wheels */}
-        <circle cx="80" cy="130" r="12" fill="#111" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.8"/>
-        <circle cx="80" cy="130" r="4" fill="currentColor" fillOpacity="0.8" filter="url(#glow)"/>
-        <circle cx="150" cy="130" r="12" fill="#111" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.8"/>
-        <circle cx="150" cy="130" r="4" fill="currentColor" fillOpacity="0.8" filter="url(#glow)"/>
-        
-        {/* LiDAR/Sensors */}
-        <path d="M120 105 L120 90 M110 90 L130 90" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.4" />
-        <circle cx="120" cy="90" r="2" fill="currentColor" filter="url(#glow)" className="anim-pulse" />
-        
-        {/* Data Stream */}
-        <path d="M185 125 Q210 120 220 110" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.5" fill="none" strokeDasharray="2 4" />
-      </g>
+
+      {/* growing ring pulses — violet accent on center */}
+      <circle cx="120" cy="90" r="12" fill="#8B7FD6" fillOpacity="0.15" className="il-ring1"/>
+      <circle cx="120" cy="90" r="12" fill="#8B7FD6" fillOpacity="0.12" className="il-ring2"/>
+      <circle cx="120" cy="90" r="12" fill="#8B7FD6" fillOpacity="0.1"  className="il-ring3"/>
+
+      {/* centre node — violet accent */}
+      <circle cx="120" cy="90" r="12" fill="#8B7FD6" fillOpacity="0.22"
+        stroke="#8B7FD6" strokeWidth="1.5" strokeOpacity="0.7"/>
+      <circle cx="120" cy="90" r="5"  fill="#8B7FD6" fillOpacity="0.85"/>
+
+      {/* orbit tick marks at 90° intervals */}
+      {[0, 90, 180, 270].map((deg, i) => {
+        const rad = deg * Math.PI / 180;
+        return (
+          <line key={i}
+            x1={120 + 60 * Math.cos(rad)} y1={90 + 60 * Math.sin(rad)}
+            x2={120 + 66 * Math.cos(rad)} y2={90 + 66 * Math.sin(rad)}
+            stroke="#6BAECE" strokeWidth="1.5" strokeOpacity="0.4" strokeLinecap="round"/>
+        );
+      })}
     </svg>
   );
 }
 
-export function IllustrationConsumerDurable() {
-  return (
-    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-purple-500">
-      <PremiumDefs />
-      
-      {/* Background radial pulse */}
-      <circle cx="120" cy="90" r="60" fill="currentColor" fillOpacity="0.02" filter="url(#glow-soft)" className="anim-pulse" />
-      
-      <g className="anim-float">
-        {/* AI Processing Core */}
-        <rect x="90" y="60" width="60" height="60" rx="12" fill="currentColor" fillOpacity="0.05" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.4"/>
-        <rect x="96" y="66" width="48" height="48" rx="8" fill="none" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.2" className="anim-rotate"/>
-        
-        {/* Core brain glow */}
-        <circle cx="120" cy="90" r="10" fill="currentColor" fillOpacity="0.8" filter="url(#glow)" className="anim-pulse"/>
-        <circle cx="120" cy="90" r="20" fill="none" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.3" strokeDasharray="4 4" className="anim-rotate"/>
-        
-        {/* Input/Output data flows */}
-        <path d="M30 90 L80 90 M30 70 L85 80 M30 110 L85 100" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.3" className="anim-dash" strokeLinecap="round" />
-        <path d="M160 90 L210 90 M155 80 L210 70 M155 100 L210 110" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.6" className="anim-dash" strokeLinecap="round" filter="url(#glow)"/>
-        
-        {/* Nodes */}
-        <circle cx="40" cy="70" r="3" fill="currentColor" fillOpacity="0.5" />
-        <circle cx="40" cy="90" r="3" fill="currentColor" fillOpacity="0.5" />
-        <circle cx="40" cy="110" r="3" fill="currentColor" fillOpacity="0.5" />
-        
-        <circle cx="200" cy="70" r="4" fill="currentColor" filter="url(#glow)" />
-        <circle cx="200" cy="90" r="4" fill="currentColor" filter="url(#glow)" />
-        <circle cx="200" cy="110" r="4" fill="currentColor" filter="url(#glow)" />
-      </g>
-    </svg>
-  );
-}
+/* ══════════════════════════════════════════════════════════════════════════════
+   5) MEASURABLE IMPACT — Ascending bar chart + trend line
+      viewBox="0 0 240 180"
+      Accent: warm coral #E8896B on trend endpoint
+   ══════════════════════════════════════════════════════════════════════════════ */
+export function IllustrationImpact() {
+  const bars = [
+    { x: 44,  h: 38, delay: 0    },
+    { x: 84,  h: 58, delay: 0.15 },
+    { x: 124, h: 80, delay: 0.30 },
+    { x: 164, h: 104,delay: 0.45 },
+    { x: 204, h: 126,delay: 0.60 },
+  ];
+  const baseline = 150;
+  const trendPts = bars.map(b => ({ x: b.x + 14, y: baseline - b.h }));
 
-export function IllustrationFintech() {
   return (
-    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-orange-500">
-      <PremiumDefs />
-      
-      {/* Grid */ }
-      <g stroke="currentColor" strokeOpacity="0.03" strokeWidth={S.thin}>
-        {[...Array(6)].map((_, i) => <line key={`h${i}`} x1="20" y1={40 + i*20} x2="220" y2={40 + i*20} />)}
-      </g>
-      
-      <g className="anim-float">
-        {/* Glowing Data Area */}
-        <path d="M30 140 L50 110 L90 120 L130 80 L170 90 L210 40 L210 140 Z" fill="currentColor" fillOpacity="0.08" />
-        <path d="M30 140 L50 110 L90 120 L130 80 L170 90 L210 40" stroke="currentColor" strokeWidth={S.thick} strokeOpacity="0.8" fill="none" strokeLinejoin="round" filter="url(#glow)"/>
-        
-        {/* Bar charts (background) */}
-        {[40, 70, 100, 130, 160, 190].map((x, i) => (
-          <rect key={x} x={x} y={140 - (30 + i*15)} width="10" height={30 + i*15} rx="3" fill="currentColor" fillOpacity="0.15" />
-        ))}
-        
-        {/* Active nodes */}
-        {[
-          {x: 50, y: 110}, {x: 90, y: 120}, {x: 130, y: 80}, {x: 170, y: 90}, {x: 210, y: 40}
-        ].map((pt, i) => (
-          <circle key={i} cx={pt.x} cy={pt.y} r={i === 4 ? 6 : 4} fill="#111" stroke="currentColor" strokeWidth={S.mid} filter={i === 4 ? "url(#glow)" : ""} className={i === 4 ? "anim-pulse" : ""} />
-        ))}
-        
-        {/* Forecast line */}
-        <path d="M210 40 L230 20" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.5" strokeDasharray="2 3" />
-      </g>
-      
-      <line x1="20" y1="140" x2="220" y2="140" stroke="currentColor" strokeOpacity="0.2" strokeWidth={S.mid}/>
-    </svg>
-  );
-}
+    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <style>{`
+        ${sharedCSS}
+        @keyframes barrise { 0%{transform:scaleY(0)} 100%{transform:scaleY(1)} }
+        @keyframes endpulse { 0%,100%{r:5} 50%{r:7} }
+        .il-bar { animation: barrise 1.2s ease-out forwards; transform-origin: bottom; }
+        .il-endpulse { animation: endpulse 3s ease-in-out infinite; }
+      `}</style>
+      <defs>
+        <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#3F87B0" stopOpacity="0.45"/>
+          <stop offset="100%" stopColor="#3F87B0" stopOpacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="trendGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#6BAECE" stopOpacity="0.4"/>
+          <stop offset="100%" stopColor="#3F87B0" stopOpacity="0.9"/>
+        </linearGradient>
+      </defs>
 
-export function IllustrationHealthcare() {
-  return (
-    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-cyan-500">
-      <PremiumDefs />
-      
-      {/* DNA Helix / Sine Wave base */}
-      <path d="M20 90 Q60 40 100 90 T180 90 T220 90" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.2" fill="none" />
-      <path d="M20 90 Q60 140 100 90 T180 90 T220 90" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.1" fill="none" />
-      
-      <g className="anim-float">
-        {/* Medical / Calendar Interface */}
-        <rect x="50" y="40" width="140" height="100" rx="16" fill="currentColor" fillOpacity="0.03" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.3" backdropFilter="blur(8px)"/>
-        
-        {/* Glowing health cross center */}
-        <g transform="translate(120, 90)">
-          <circle cx="0" cy="0" r="28" fill="currentColor" fillOpacity="0.05" className="anim-pulse" />
-          <path d="M-8 -24 L8 -24 L8 -8 L24 -8 L24 8 L8 8 L8 24 L-8 24 L-8 8 L-24 8 L-24 -8 L-8 -8 Z" fill="currentColor" fillOpacity="0.15" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.5" />
-          {/* Inner core */}
-          <path d="M-4 -12 L4 -12 L4 -4 L12 -4 L12 4 L4 4 L4 12 L-4 12 L-4 4 L-12 4 L-12 -4 L-4 -4 Z" fill="currentColor" fillOpacity="0.9" filter="url(#glow)" className="anim-pulse" />
+      {/* faint horizontal gridlines */}
+      {[30, 50, 70, 90].map(y => (
+        <line key={y} x1="30" y1={baseline - y} x2="230" y2={baseline - y}
+          stroke="#6BAECE" strokeWidth="0.8" strokeOpacity="0.18" strokeDasharray="3 5"/>
+      ))}
+
+      {/* axis */}
+      <line x1="30" y1="24" x2="30" y2={baseline} stroke="#6BAECE" strokeWidth="1" strokeOpacity="0.25"/>
+      <line x1="30" y1={baseline} x2="230" y2={baseline} stroke="#6BAECE" strokeWidth="1" strokeOpacity="0.25"/>
+
+      {/* bars — glass style */}
+      {bars.map((b, i) => (
+        <g key={i}>
+          <rect x={b.x} y={baseline - b.h} width="28" height={b.h} rx="4"
+            fill="url(#barGrad)" stroke="#6BAECE" strokeWidth="1" strokeOpacity="0.4"
+            className="il-bar" style={{animationDelay:`${b.delay}s`}}/>
+          {/* inner highlight */}
+          <rect x={b.x + 3} y={baseline - b.h + 3} width="6" height={Math.min(b.h - 6, 18)} rx="2"
+            fill="#A9CADB" fillOpacity="0.4"/>
         </g>
-        
-        {/* Data rings */}
-        <circle cx="120" cy="90" r="40" fill="none" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.3" strokeDasharray="4 8" className="anim-rotate"/>
-        
-        {/* Appointment nodes */}
-        {[
-          {x: 70, y: 60}, {x: 170, y: 60}, {x: 70, y: 120}, {x: 170, y: 120}
-        ].map((pt, i) => (
-          <g key={i}>
-            <circle cx={pt.x} cy={pt.y} r="4" fill="currentColor" fillOpacity="0.8" filter="url(#glow)"/>
-            <path d={`M${pt.x} ${pt.y} L120 90`} stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.2" className="anim-dash" />
-          </g>
-        ))}
-      </g>
+      ))}
+
+      {/* trend line */}
+      <polyline
+        points={trendPts.map(p => `${p.x},${p.y}`).join(' ')}
+        stroke="url(#trendGrad)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+
+      {/* trend nodes */}
+      {trendPts.slice(0, -1).map((p, i) => (
+        <circle key={i} cx={p.x} cy={p.y} r="3"
+          fill="white" fillOpacity="0.8" stroke="#3F87B0" strokeWidth="1.2" strokeOpacity="0.6"/>
+      ))}
+
+      {/* endpoint — coral accent */}
+      <circle cx={trendPts[4].x} cy={trendPts[4].y} r="5"
+        fill="#E8896B" fillOpacity="0.2" stroke="#E8896B" strokeWidth="1.5" strokeOpacity="0.8"
+        className="il-endpulse"/>
+      <circle cx={trendPts[4].x} cy={trendPts[4].y} r="3" fill="#E8896B" fillOpacity="0.9"/>
+
+      {/* pill label */}
+      <rect x={trendPts[4].x + 9} y={trendPts[4].y - 10} width="22" height="14" rx="5"
+        fill="#E8896B" fillOpacity="0.15" stroke="#E8896B" strokeWidth="1" strokeOpacity="0.55"/>
+      <text x={trendPts[4].x + 20} y={trendPts[4].y + 1} textAnchor="middle" fontSize="8"
+        fontFamily="monospace" fill="#E8896B" fillOpacity="0.9">↑</text>
     </svg>
   );
 }
 
-export function IllustrationUtilities() {
-  return (
-    <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-amber-500">
-      <PremiumDefs />
-      
-      {/* Background ripples */}
-      <circle cx="120" cy="90" r="80" fill="none" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.05" />
-      <circle cx="120" cy="90" r="60" fill="none" stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.1" />
-      
-      <g className="anim-float">
-        {/* Central Energy Hub */}
-        <circle cx="120" cy="90" r="28" fill="currentColor" fillOpacity="0.08" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.5"/>
-        <path d="M125 75 L110 95 L120 95 L115 105 L130 85 L120 85 Z" fill="currentColor" fillOpacity="0.9" filter="url(#glow)" className="anim-pulse"/>
-        
-        {/* Satellite Nodes */}
-        {[0, 60, 120, 180, 240, 300].map((deg, i) => {
-          const rad = (deg * Math.PI) / 180;
-          const cx = 120 + 46 * Math.cos(rad);
-          const cy = 90 + 46 * Math.sin(rad);
-          const isPulse = i % 2 === 0;
-          return (
-            <g key={i}>
-              <line x1={120 + 28*Math.cos(rad)} y1={90 + 28*Math.sin(rad)} x2={cx} y2={cy} stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.3" className="anim-dash"/>
-              <circle cx={cx} cy={cy} r={isPulse ? 6 : 4} fill="#111" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.8" />
-              <circle cx={cx} cy={cy} r={2} fill="currentColor" filter={isPulse ? "url(#glow)" : ""} className={isPulse ? "anim-pulse" : ""} />
-            </g>
-          );
-        })}
-      </g>
-    </svg>
-  );
-}
+/* ══════════════════════════════════════════════════════════════════════════════
+   ICON-SIZE TILE VARIANTS (24×24 viewBox, used inside 44px tiles)
+   ══════════════════════════════════════════════════════════════════════════════ */
 
-export function IllustrationAgentNetwork() {
-  const nodes = [
-    { cx: 120, cy: 90, r: 16, main: true },
-    { cx: 60, cy: 54, r: 8 },
-    { cx: 180, cy: 54, r: 8 },
-    { cx: 44, cy: 120, r: 6 },
-    { cx: 196, cy: 120, r: 6 },
-    { cx: 80, cy: 150, r: 6 },
-    { cx: 160, cy: 150, r: 6 },
-  ];
-  const edges = [
-    [0,1],[0,2],[0,3],[0,4],[0,5],[0,6],
-    [1,3],[2,4],[5,6],[1,5],[2,6],
-  ];
+/* Unified Platform tile */
+export function IllustrationAgentNetwork_Tile() {
   return (
-    <svg viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-blue-500">
-      <PremiumDefs />
-      
-      {/* Background glow */}
-      <circle cx="120" cy="90" r="80" fill="currentColor" fillOpacity="0.02" filter="url(#glow-soft)" />
-      
-      {/* Connections */}
-      <g stroke="currentColor" strokeOpacity="0.2" strokeWidth={S.mid} className="anim-dash">
-        {edges.map(([a,b],i) => (
-          <line key={i} x1={nodes[a].cx} y1={nodes[a].cy} x2={nodes[b].cx} y2={nodes[b].cy} />
-        ))}
-      </g>
-      
-      {/* Nodes */}
-      {nodes.map((n, i) => (
-        <g key={i} className={n.main ? "anim-float" : ""}>
-          <circle cx={n.cx} cy={n.cy} r={n.r + (n.main ? 8 : 4)} fill="currentColor" fillOpacity="0.05" />
-          <circle cx={n.cx} cy={n.cy} r={n.r} fill="#111" stroke="currentColor" strokeWidth={n.main ? S.thick : S.mid} strokeOpacity={n.main ? 0.9 : 0.6} filter={n.main ? "url(#glow)" : ""} />
-          {n.main && (
-            <circle cx={n.cx} cy={n.cy} r={6} fill="currentColor" fillOpacity="0.8" className="anim-pulse" filter="url(#glow)" />
-          )}
+    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full" stroke="#3F87B0" strokeWidth="1.5" strokeLinecap="round">
+      <circle cx="12" cy="12" r="3" strokeOpacity="0.9"/>
+      {[[12,4],[20,8],[20,16],[12,20],[4,16],[4,8]].map(([x,y],i) => (
+        <g key={i}>
+          <line x1="12" y1="12" x2={x} y2={y} strokeOpacity="0.4" strokeDasharray="2 2"/>
+          <circle cx={x} cy={y} r="1.8" fill="#3F87B0" fillOpacity="0.7" stroke="none"/>
         </g>
       ))}
     </svg>
   );
 }
 
-export function IllustrationInnovation() {
+/* Scalable Architecture tile */
+export function IllustrationReliability_Tile() {
   return (
-    <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-purple-600">
-      <PremiumDefs />
-      <g className="anim-float">
-        <path d="M60 20 Q80 20 80 40 Q80 56 66 64 L66 74 L54 74 L54 64 Q40 56 40 40 Q40 20 60 20Z"
-          fill="currentColor" fillOpacity="0.1" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.8" filter="url(#glow)"/>
-        
-        {/* Filament */}
-        <path d="M54 44 Q60 30 66 44" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.8" fill="none" filter="url(#glow)"/>
-        
-        {/* Base */}
-        <path d="M54 76 L66 76 M56 80 L64 80 M58 84 L62 84" stroke="currentColor" strokeWidth={S.thick} strokeOpacity="0.5" strokeLinecap="round"/>
-        
-        {/* Sparks */}
-        {[0, 45, 90, 135, 180, 225, 270, 315].map((deg,i) => {
-          const rad = deg * Math.PI / 180;
-          return <line key={i}
-            x1={60 + 28*Math.cos(rad)} y1={40 + 28*Math.sin(rad)}
-            x2={60 + 36*Math.cos(rad)} y2={40 + 36*Math.sin(rad)}
-            stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.4" className="anim-pulse"/>;
-        })}
-      </g>
+    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full" stroke="#3F87B0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="14" width="18" height="4" rx="1.5" strokeOpacity="0.8"/>
+      <rect x="5" y="9"  width="14" height="4" rx="1.5" strokeOpacity="0.6"/>
+      <rect x="7" y="4"  width="10" height="4" rx="1.5" strokeOpacity="0.4"/>
     </svg>
   );
 }
 
-export function IllustrationReliability() {
+/* Continuous Innovation tile */
+export function IllustrationInnovation_Tile() {
   return (
-    <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-emerald-600">
-      <PremiumDefs />
-      <g className="anim-float">
-        {/* Hex shield */}
-        <path d="M60 16 L90 30 L90 60 Q90 80 60 90 Q30 80 30 60 L30 30 Z"
-          fill="currentColor" fillOpacity="0.08" stroke="currentColor" strokeWidth={S.thick} strokeOpacity="0.6" />
-        <path d="M60 16 L90 30 L90 60 Q90 80 60 90 Q30 80 30 60 L30 30 Z"
-          stroke="currentColor" strokeWidth={S.thin} strokeOpacity="0.8" fill="none" filter="url(#glow)" />
-        
-        {/* Infinity or stable pulse line inside */}
-        <path d="M42 54 L52 54 L58 44 L66 64 L72 54 L80 54" stroke="currentColor" strokeWidth={S.thick} strokeOpacity="0.9" fill="none" strokeLinejoin="round" filter="url(#glow)"/>
-        <circle cx="42" cy="54" r="2" fill="currentColor"/>
-        <circle cx="80" cy="54" r="2" fill="currentColor"/>
-      </g>
+    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3 A9 9 0 1 1 6 17.5" stroke="#3F87B0" strokeWidth="1.5" fill="none"/>
+      <polyline points="4,15 6,18 9,16" stroke="#3F87B0" strokeWidth="1.5" fill="none"/>
+      <circle cx="12" cy="12" r="3" fill="#8B7FD6" fillOpacity="0.8" stroke="none"/>
     </svg>
   );
 }
 
-export function IllustrationImpact() {
+/* Measurable Impact tile */
+export function IllustrationImpact_Tile() {
   return (
-    <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-orange-600">
-      <PremiumDefs />
-      
-      {/* Background grid */}
-      <g stroke="currentColor" strokeOpacity="0.1" strokeWidth={S.thin}>
-        {[...Array(4)].map((_, i) => <line key={`h${i}`} x1="16" y1={20 + i*20} x2="104" y2={20 + i*20} />)}
-        {[...Array(5)].map((_, i) => <line key={`v${i}`} x1={20 + i*20} y1="16" x2={20 + i*20} y2="84" />)}
-      </g>
-
-      <g className="anim-float">
-        {/* Glow Area */}
-        <path d="M20 70 L40 50 L60 55 L80 30 L100 20 L100 80 L20 80 Z" fill="currentColor" fillOpacity="0.1" />
-        
-        {/* Trend line */}
-        <polyline points="20,70 40,50 60,55 80,30 100,20"
-          stroke="currentColor" strokeWidth={S.thick} strokeOpacity="0.9" fill="none" strokeLinejoin="round" filter="url(#glow)"/>
-        
-        {/* Data points */}
-        {[[40,50], [60,55], [80,30], [100,20]].map(([x,y],i) => (
-          <circle key={i} cx={x} cy={y} r={3} fill="#111" stroke="currentColor" strokeWidth={S.mid} filter="url(#glow)" className="anim-pulse"/>
-        ))}
-      </g>
+    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="3" y1="21" x2="21" y2="21" stroke="#3F87B0" strokeWidth="1.2" strokeOpacity="0.4"/>
+      <rect x="4"  y="16" width="4" height="5" rx="1" fill="#3F87B0" fillOpacity="0.3" stroke="#3F87B0" strokeWidth="1"/>
+      <rect x="10" y="11" width="4" height="10" rx="1" fill="#3F87B0" fillOpacity="0.4" stroke="#3F87B0" strokeWidth="1"/>
+      <rect x="16" y="7"  width="4" height="14" rx="1" fill="#3F87B0" fillOpacity="0.5" stroke="#3F87B0" strokeWidth="1"/>
+      <circle cx="18" cy="6" r="2.5" fill="#E8896B" fillOpacity="0.85" stroke="none"/>
     </svg>
   );
 }
 
+/* ── Re-exports so CompanyDetail.jsx import names stay unchanged ── */
+export { IllustrationInnovation_Full as IllustrationInnovation_Hero };
+export { IllustrationAgentNetwork_Tile  as IllustrationAgentNetwork_Small  };
+export { IllustrationReliability_Tile   as IllustrationReliability_Small   };
+export { IllustrationImpact_Tile        as IllustrationImpact_Small        };
+
+/* ── Kept for SolutionsOverview or other pages that import these ── */
+export function IllustrationRealEstate()     { return <IllustrationAgentNetwork_Tile />; }
+export function IllustrationAutomobile()     { return <IllustrationReliability_Tile />; }
+export function IllustrationConsumerDurable(){ return <IllustrationInnovation_Tile />; }
+export function IllustrationFintech()        { return <IllustrationImpact_Tile />; }
+export function IllustrationHealthcare()     { return <IllustrationAgentNetwork_Tile />; }
+export function IllustrationUtilities()      { return <IllustrationReliability_Tile />; }
 export function IllustrationIntelligentAgents() {
-  return (
-    <svg viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-indigo-500">
-      <PremiumDefs />
-      
-      <circle cx="160" cy="100" r="120" fill="currentColor" fillOpacity="0.02" filter="url(#glow-soft)" />
-      
-      {/* Waveforms / Context Lines */}
-      <g stroke="currentColor" strokeOpacity="0.2" strokeWidth={S.mid} fill="none" className="anim-pulse">
-        <path d="M40 100 Q100 60 160 100 T280 100" />
-        <path d="M40 100 Q100 140 160 100 T280 100" />
-      </g>
-
-      <g className="anim-float">
-        {/* Multi-Agent Core */}
-        <circle cx="160" cy="100" r="32" fill="#111" stroke="currentColor" strokeWidth={S.thick} strokeOpacity="0.8" filter="url(#glow)"/>
-        <path d="M148 94 Q160 84 172 94 Q180 102 172 110 Q160 120 148 110 Q140 102 148 94Z"
-          stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.6" fill="currentColor" fillOpacity="0.1"/>
-        <circle cx="160" cy="102" r="6" fill="currentColor" fillOpacity="0.9" filter="url(#glow)" className="anim-pulse"/>
-        
-        {/* Sub-agents orbiting */}
-        {[0, 60, 120, 180, 240, 300].map((deg,i) => {
-          const rad = deg * Math.PI / 180;
-          const cx = 160 + 64 * Math.cos(rad);
-          const cy = 100 + 64 * Math.sin(rad);
-          return (
-            <g key={i}>
-              <line x1={160 + 32*Math.cos(rad)} y1={100 + 32*Math.sin(rad)} x2={cx} y2={cy} stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.3" className="anim-dash"/>
-              <circle cx={cx} cy={cy} r="12" fill="#111" stroke="currentColor" strokeWidth={S.mid} strokeOpacity="0.6"/>
-              <circle cx={cx} cy={cy} r="4" fill="currentColor" fillOpacity="0.8" filter="url(#glow)" className="anim-pulse"/>
-            </g>
-          );
-        })}
-      </g>
-    </svg>
-  );
+  // Chapter 2: Intelligence — reuse the hub-and-spoke (full-size)
+  return <IllustrationAgentNetwork />;
 }
-
-export function IllustrationResearchNodes() {
-  return (
-    <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-slate-400">
-       <PremiumDefs />
-       <g className="anim-float">
-         <line x1="20" y1="20" x2="100" y2="80" stroke="currentColor" strokeOpacity="0.4" strokeWidth="1" className="anim-dash" />
-         <line x1="20" y1="80" x2="100" y2="20" stroke="currentColor" strokeOpacity="0.4" strokeWidth="1" className="anim-dash" />
-         <circle cx="60" cy="50" r="14" fill="#111" stroke="currentColor" strokeOpacity="0.6" strokeWidth={S.mid} filter="url(#glow)" />
-         <circle cx="60" cy="50" r="4" fill="currentColor" filter="url(#glow)" className="anim-pulse"/>
-         
-         {[[20,20], [100,80], [20,80], [100,20]].map(([x,y],i) => (
-           <circle key={i} cx={x} cy={y} r="6" fill="#111" stroke="currentColor" strokeOpacity="0.8" strokeWidth={S.mid} />
-         ))}
-       </g>
-    </svg>
-  );
-}
+export function IllustrationResearchNodes()  { return <IllustrationAgentNetwork_Tile />; }
