@@ -58,7 +58,7 @@ export default function SolutionDetail() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] max-w-[700px] font-light"
+                className="text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] max-w-[700px] font-bold"
               >
                 {solution.benefits}
               </motion.p>
@@ -97,7 +97,7 @@ export default function SolutionDetail() {
                     ))}
                   </div>
                 ) : (
-                  <div className="flex flex-col gap-4 text-[#14110F]/60 text-[15px] font-light leading-relaxed">
+                  <div className="flex flex-col gap-4 text-[#14110F]/60 text-[15px] font-bold leading-relaxed">
                     <p>
                       Automate operations, engage leads instantly, and drive scalable growth with AI-powered communication.
                     </p>

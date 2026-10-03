@@ -95,7 +95,7 @@ export default function Hero() {
 
   return (
     <div className="w-full flex justify-center p-3 lg:p-[12px] bg-white">
-      <section className="relative w-full max-w-[1600px] min-h-[85vh] lg:h-[calc(100vh-24px)] lg:min-h-[700px] rounded-[24px] overflow-hidden bg-[#f1f1f1] shadow-sm isolate flex flex-col lg:block pb-24 lg:pb-0">
+      <section className="relative w-full max-w-[1600px] min-h-[85dvh] lg:h-[calc(100dvh-24px)] lg:min-h-[700px] rounded-[24px] overflow-hidden bg-[#f1f1f1] shadow-sm isolate flex flex-col lg:block pb-24 lg:pb-0">
 
         {/* ── Background Video & Gradient ── */}
         <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
@@ -168,10 +168,13 @@ export default function Hero() {
           </nav>
 
           <button
-            className="lg:hidden flex items-center justify-center text-black/80"
+            className="lg:hidden flex items-center justify-center text-black/80 w-11 h-11"
             onClick={() => setMobileMenuOpen(true)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav"
+            aria-label="Toggle menu"
           >
-            <Menu size={20} />
+            <Menu size={24} />
           </button>
         </motion.div>
 
@@ -217,7 +220,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4, ease: easing }}
-            className="relative lg:absolute lg:right-[39px] lg:top-[190px] w-full lg:w-[335px] max-w-[335px] h-[315px] bg-[#111111] rounded-[22px] shadow-[0_12px_40px_rgba(0,0,0,0.2)] p-[16px] flex flex-col justify-between z-30 border border-white/10"
+            className="relative lg:absolute lg:right-[39px] lg:top-[190px] w-full lg:w-[335px] max-w-[335px] h-[315px] bg-[#111111] rounded-[22px] shadow-[0_12px_40px_rgba(0,0,0,0.2)] p-[16px] flex flex-col justify-between z-30 border border-white/10 mx-auto lg:mx-0 mb-20 lg:mb-0"
           >
             {/* Card Image Area */}
             <div className="w-full h-[230px] rounded-[14px] bg-black overflow-hidden relative group cursor-pointer flex-shrink-0 flex items-center justify-center">

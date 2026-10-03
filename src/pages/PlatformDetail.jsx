@@ -42,7 +42,7 @@ export default function PlatformDetail() {
                 {platform.shortName}
               </span>
               <span className="text-[#14110F]/30">•</span>
-              <span className="font-mono text-[11px] md:text-[12px] tracking-[0.1em] text-[#14110F]/50 uppercase font-light">
+              <span className="font-mono text-[11px] md:text-[12px] tracking-[0.1em] text-[#14110F]/50 uppercase font-bold">
                 {platform.tagline}
               </span>
             </motion.div>
@@ -60,7 +60,7 @@ export default function PlatformDetail() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] max-w-[700px] font-light"
+              className="text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] max-w-[700px] font-bold"
             >
               {platform.description}
             </motion.p>
@@ -81,7 +81,7 @@ export default function PlatformDetail() {
               <h2 className="text-[clamp(28px,4vw,40px)] font-medium tracking-tight text-[#14110F] leading-[1.2] mb-6">
                 Platform Capabilities
               </h2>
-              <p className="text-[16px] text-[#14110F]/60 leading-[1.6] font-light max-w-[600px]">
+              <p className="text-[16px] text-[#14110F]/60 leading-[1.6] font-bold max-w-[600px]">
                 Discover how {platform.shortName} enables you to automate, orchestrate, and optimize your business processes.
               </p>
             </SlideInLeft>

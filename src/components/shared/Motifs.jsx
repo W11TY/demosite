@@ -70,9 +70,7 @@ export const Motifs = [
         );
       })}
 
-      {/* centre dot */}
-      <motion.circle cx="0" cy="0" r="4" fill="var(--global-accent)"
-        {...pulse} transition={{ duration: 1.8, repeat: Infinity }} />
+      {/* Logo acts as centre dot now */}
 
       <text x="-16" y="52" fontSize="5.5" fontFamily="monospace" fill="var(--global-accent)" fillOpacity="0.7" letterSpacing="2">VOICE AI</text>
     </g>
@@ -112,11 +110,7 @@ export const Motifs = [
         transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
       />
 
-      {/* pulse dot centre */}
-      <motion.circle cx="101" cy="50" r="3.5" fill="var(--global-accent)"
-        animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
-        transition={{ duration: 1.4, repeat: Infinity }}
-      />
+      {/* Logo acts as pulse dot centre now */}
 
       <text x="72" y="90" fontSize="5.5" fontFamily="monospace" fill="var(--global-accent)" fillOpacity="0.7" letterSpacing="2">WHATSAPP AI</text>
     </g>
@@ -132,16 +126,10 @@ export const Motifs = [
       <line x1="0" y1="38" x2="164" y2="38" stroke="#14110F" strokeOpacity="0.15" strokeWidth="1" />
 
       {/* nodes */}
-      {[0, 40, 82, 124, 164].map((x, i) => (
+      {[0, 40, 124, 164].map((x, i) => (
         <g key={x}>
-          <circle cx={x} cy="38" r={i === 2 ? 7 : 4} fill="#fff" fillOpacity="0.7"
-            stroke="var(--global-accent)" strokeWidth={i === 2 ? 1.5 : 1} strokeOpacity={i === 2 ? 0.9 : 0.4} />
-          {i === 2 && (
-            <motion.circle cx={x} cy="38" r="7" fill="none" stroke="var(--global-accent)" strokeWidth="1.5"
-              animate={{ scale: [1, 1.8], opacity: [0.8, 0] }}
-              transition={{ duration: 1.6, repeat: Infinity }}
-            />
-          )}
+          <circle cx={x} cy="38" r={4} fill="#fff" fillOpacity="0.7"
+            stroke="var(--global-accent)" strokeWidth={1} strokeOpacity={0.4} />
         </g>
       ))}
 
@@ -189,16 +177,7 @@ export const Motifs = [
         transition={{ duration: 2, delay: 0.5, ease: 'easeOut', repeat: Infinity, repeatDelay: 2 }}
       />
 
-      {/* inner ring */}
-      <circle cx="0" cy="0" r="22" fill="none" stroke="#14110F" strokeOpacity="0.08" strokeWidth="1" />
-
-      {/* score text */}
-      <motion.text x="-12" y="6" fontSize="14" fontWeight="700" fontFamily="monospace"
-        fill="var(--global-accent)"
-        animate={{ opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 2.5, repeat: Infinity }}
-      >99</motion.text>
-      <text x="-6" y="16" fontSize="5" fontFamily="monospace" fill="#14110F" fillOpacity="0.5">SCORE</text>
+      {/* inner ring & text removed for Logo space */}
 
       {/* tick marks */}
       {Array.from({ length: 9 }).map((_, i) => {
@@ -213,14 +192,8 @@ export const Motifs = [
         );
       })}
 
-      {/* needle */}
-      <motion.line x1="0" y1="0" x2="0" y2="-30"
-        stroke="var(--global-accent)" strokeWidth="1.5" strokeLinecap="round"
-        animate={{ rotate: [-80, 72, -80] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ originX: '0px', originY: '0px', transformBox: 'fill-box' }}
-      />
-      <circle cx="0" cy="0" r="3" fill="var(--global-accent)" />
+      {/* needle removed to clean up around logo */}
+      {/* needle pivot removed for Logo space */}
 
       <text x="-12" y="48" fontSize="5.5" fontFamily="monospace" fill="var(--global-accent)" fillOpacity="0.7" letterSpacing="2">QMS AI</text>
     </g>
@@ -267,11 +240,7 @@ export const Motifs = [
         );
       })}
 
-      {/* core */}
-      <motion.circle cx="0" cy="0" r="10" fill="var(--global-accent)" fillOpacity="0.15"
-        animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity }} />
-      <circle cx="0" cy="0" r="5" fill="var(--global-accent)" />
-      <text x="-4" y="2" fontSize="4" fontFamily="monospace" fill="#fff">AI</text>
+      {/* core replaced by Logo */}
     </g>
   ),
 ];

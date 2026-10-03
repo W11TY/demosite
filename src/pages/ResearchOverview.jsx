@@ -8,6 +8,7 @@ import { BRAND, BRAND_TEXT, ACCENTS } from '../data/accents';
 import { useChapterColor } from '../hooks/useChapterColor';
 import ChapterNav from '../components/shared/ChapterNav';
 import IllustrationCard from '../components/shared/IllustrationCard';
+import AntiMetalButton from '../components/shared/AntiMetalButton';
 
 const NAV_LABELS = ['Speech', 'Agents', 'Reasoning', 'Agentic', 'Small', 'AI', 'LLM'];
 
@@ -139,7 +140,7 @@ export default function ResearchOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section ref={heroRef} className="relative w-full h-[80dvh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualResearchHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10">
           <FadeInUp>
@@ -270,13 +271,9 @@ export default function ResearchOverview() {
               <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-white/30 uppercase">Partner with our labs</span>
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <MagneticElement>
-                  <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(255,255,255,0.1)' }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto px-10 py-4 bg-[#F5F1EA] text-[#14110F] rounded-full text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)] cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[#1283a9]/60"
-                  >
-                    CONTACT RESEARCH
-                  </motion.button>
+                  <Link to="/contact">
+                    <AntiMetalButton label="Hire Team" />
+                  </Link>
                 </MagneticElement>
               </div>
             </div>

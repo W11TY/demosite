@@ -11,6 +11,7 @@ import IllustrationCard from '../components/shared/IllustrationCard';
 import { Building2, Car, Tv, Wallet, HeartPulse, Zap } from 'lucide-react';
 import { RealEstateScene, AutomobileScene, ConsumerDurablesScene, FintechScene, HealthcareScene, UtilitiesScene } from '../components/shared/SolutionScenes';
 import voxiLogo from '../assets/logo.png';
+import AntiMetalButton from '../components/shared/AntiMetalButton';
 
 const NAV_LABELS = ['Real Estate', 'Automobile', 'Durables', 'Fintech', 'Healthcare', 'Utilities'];
 
@@ -83,9 +84,13 @@ const VisualSolutionsHero = () => {
   });
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center select-none -translate-y-[10vh]" style={{ perspective: 1000 }}>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center select-none mt-[15dvh]" style={{ perspective: 1000 }}>
       {/* Blueprint Dot Grid */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100" />
+      <motion.div 
+        className="absolute inset-[0%] w-[200%] h-[200%] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100"
+        animate={{ x: [0, -20], y: [0, -20] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+      />
 
       {/* Responsive Scaling Wrapper for the entire diagram */}
       <div className="absolute inset-0 flex justify-center items-center" style={{ transform: `scale(${scale})` }}>
@@ -400,7 +405,7 @@ const SolutionCard = ({ solution, index }) => {
           <h3 className="text-[17px] md:text-[20px] font-medium tracking-tight text-white mb-1.5 leading-tight">
             {solution.area}
           </h3>
-          <p className="text-[12px] md:text-[14px] text-white/60 font-light leading-relaxed line-clamp-2">
+          <p className="text-[12px] md:text-[14px] text-white/60 font-bold leading-relaxed line-clamp-2">
             {solution.benefits}
           </p>
 
@@ -451,15 +456,15 @@ export default function SolutionsOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section ref={heroRef} className="relative w-full h-[80dvh] min-h-[700px] flex flex-col items-center justify-start overflow-hidden isolate pt-[15vh] md:pt-[20vh] pb-10 z-0 bg-transparent">
         <VisualSolutionsHero />
-        <div className="max-w-[1000px] mx-auto px-6 text-center relative z-30 mt-[20vh] md:mt-[15vh]">
+        <div className="max-w-[1000px] mx-auto px-6 text-center relative z-30">
           <FadeInUp>
-            <span className="text-[11px] font-mono tracking-[0.15em] text-[#14110F]/50 uppercase mb-8 block text-center">
+            <span className="text-[11px] font-mono tracking-[0.15em] text-[#14110F]/50 uppercase mb-6 block text-center">
               Industry Solutions
             </span>
             <h1 className="text-[clamp(44px,8vw,72px)] font-medium tracking-tight text-[#14110F] leading-[1.05]">
-              Tailored AI orchestration for every <span style={{ color: BRAND }}>industry.</span>
+              Tailored AI orchestration for every <br className="hidden md:block" /><span style={{ color: BRAND }}>industry.</span>
             </h1>
           </FadeInUp>
         </div>
@@ -517,7 +522,7 @@ export default function SolutionsOverview() {
             <h2 className="text-[clamp(36px,7vw,96px)] font-medium tracking-tighter text-white leading-[1.05] mb-6">
               Ready to transform your industry?
             </h2>
-            <h3 className="text-[clamp(20px,4vw,48px)] font-light tracking-tight text-white/50 leading-[1.2] mb-24">
+            <h3 className="text-[clamp(20px,4vw,48px)] font-bold tracking-tight text-white/50 leading-[1.2] mb-24">
               See tailored orchestration in action.
             </h3>
 
@@ -525,13 +530,9 @@ export default function SolutionsOverview() {
               <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-white/30 uppercase">Get Started</span>
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <MagneticElement>
-                  <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(255,255,255,0.1)' }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto px-10 py-4 bg-[#F5F1EA] text-[#14110F] rounded-full text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)] cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[#1283a9]/60"
-                  >
-                    BOOK A DEMO
-                  </motion.button>
+                  <Link to="/contact">
+                    <AntiMetalButton label="Hire Team" />
+                  </Link>
                 </MagneticElement>
               </div>
             </div>

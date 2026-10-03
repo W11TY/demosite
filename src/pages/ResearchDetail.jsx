@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { research } from '../data/research';
 import { SlideInLeft, SlideInRight, FadeInUp } from '../components/shared/Motion';
+import AntiMetalButton from '../components/shared/AntiMetalButton';
 
 const darkGradients = [
   'bg-gradient-to-t from-brand-blue via-[#1a1a1a] to-[#1a1a1a] animate-gradient-y',
@@ -297,13 +298,9 @@ export default function ResearchDetail() {
             </h3>
             
             <div className="flex justify-center w-full">
-              <motion.button
-                whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(255,255,255,0.1)' }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full sm:w-auto px-10 py-4 bg-[#F5F1EA] text-[#14110F] rounded-[24px] text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)] cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[var(--global-accent)]/60"
-              >
-                CONTACT RESEARCH LABS
-              </motion.button>
+              <Link to="/contact">
+                <AntiMetalButton label="Hire Team" />
+              </Link>
             </div>
           </FadeInUp>
         </div>

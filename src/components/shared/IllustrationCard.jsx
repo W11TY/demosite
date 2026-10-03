@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GridBg, Motifs } from './Motifs';
 import { FadeInUp } from './Motion';
+import logo from '../../assets/logo.png';
 
 export default function IllustrationCard({ name, desc, motifIndex, idx, delay = 0, metricRow }) {
   const cardId = `card-${motifIndex}-${idx}`;
@@ -11,38 +12,40 @@ export default function IllustrationCard({ name, desc, motifIndex, idx, delay = 
   return (
     <FadeInUp delay={delay} className="h-full">
       <div
-        className="rounded-[20px] bg-[#16130F] flex flex-col overflow-hidden h-full cursor-pointer group outline-none"
+        className="relative rounded-[24px] bg-white flex flex-col overflow-hidden h-full cursor-pointer group outline-none border border-black/5 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_color-mix(in_srgb,var(--global-accent)_25%,rgba(0,0,0,0.1))]"
         style={{
-          boxShadow: '0 4px 32px rgba(20,17,15,0.22), 0 1.5px 0 0 color-mix(in srgb, var(--global-accent) 40%, transparent) inset'
+          boxShadow: '0 8px 30px rgba(0,0,0,0.03)'
         }}
       >
+        {/* Subtle accent glow behind the whole card on hover */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--global-accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
         {/* ── Illustration zone ── */}
         <div
-          className="relative w-full overflow-hidden"
+          className="relative w-full overflow-hidden flex items-center justify-center transition-transform duration-700 group-hover:scale-[1.02]"
           style={{
-            height: '200px',
-            background: 'radial-gradient(ellipse 80% 70% at 50% 60%, color-mix(in srgb, var(--global-accent) 18%, #1C1814) 0%, #16130F 100%)',
+            height: '240px',
+            background: 'radial-gradient(ellipse 120% 100% at 50% 100%, color-mix(in srgb, var(--global-accent) 15%, transparent) 0%, #FAFAFA 100%)',
           }}
         >
           {/* subtle top shine */}
           <div
             className="absolute inset-x-0 top-0 h-px"
-            style={{ background: 'linear-gradient(90deg, transparent, color-mix(in srgb, var(--global-accent) 60%, transparent), transparent)' }}
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent)' }}
           />
 
           {/* corner label */}
           <div
-            className="absolute top-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-            style={{ background: 'color-mix(in srgb, var(--global-accent) 15%, transparent)', border: '1px solid color-mix(in srgb, var(--global-accent) 30%, transparent)' }}
+            className="absolute top-4 left-5 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md shadow-sm border border-black/5"
           >
             <motion.div
               className="w-1.5 h-1.5 rounded-full"
               style={{ backgroundColor: 'var(--global-accent)' }}
-              animate={{ opacity: [1, 0.3, 1] }}
-              transition={{ duration: 1.6, repeat: Infinity }}
+              animate={{ opacity: [1, 0.4, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             />
-            <span className="font-mono text-[9px] uppercase tracking-[0.18em]" style={{ color: 'var(--global-accent)' }}>
-              Live
+            <span className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-black/70">
+              Live Module
             </span>
           </div>
 
@@ -50,49 +53,45 @@ export default function IllustrationCard({ name, desc, motifIndex, idx, delay = 
           <svg
             viewBox="0 0 200 100"
             preserveAspectRatio="xMidYMid meet"
-            className="w-full h-full"
+            className="w-full h-full opacity-90 group-hover:opacity-100 transition-opacity duration-500"
           >
             <GridBg id={cardId} />
             <Motif />
           </svg>
 
-          {/* bottom fade */}
+          {/* Center Logo overlay */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 backdrop-blur-sm border border-black/5 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+            <img src={logo} alt="Logo" className="w-9 h-9 object-contain opacity-90" />
+          </div>
+
+          {/* bottom fade to blend smoothly with the white card body */}
           <div
-            className="absolute inset-x-0 bottom-0 h-12 pointer-events-none"
-            style={{ background: 'linear-gradient(to bottom, transparent, #16130F)' }}
+            className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
+            style={{ background: 'linear-gradient(to bottom, transparent, white)' }}
           />
         </div>
 
         {/* ── Info zone ── */}
-        <div
-          className="p-6 flex-1 flex flex-col"
-          style={{
-            borderTop: '1px solid color-mix(in srgb, var(--global-accent) 25%, transparent)',
-          }}
-        >
-          <h3 className="text-[17px] font-semibold text-white mb-2 leading-snug">{name}</h3>
+        <div className="p-7 flex-1 flex flex-col bg-white relative z-10">
+          <h3 className="text-[20px] font-semibold text-[#111111] mb-3 leading-tight tracking-tight group-hover:text-[var(--global-accent)] transition-colors duration-300">{name}</h3>
 
           {desc && (
-            <p className="text-[13px] text-white/55 leading-relaxed font-light flex-1">{desc}</p>
+            <p className="text-[14px] text-black/60 leading-relaxed font-light flex-1">{desc}</p>
           )}
 
           {metricRow && (
-            <div
-              className="mt-5 pt-4 flex items-center justify-between"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
-            >
-              <span
-                className="font-mono text-[10px] uppercase tracking-[0.18em]"
-                style={{ color: 'var(--global-accent)' }}
-              >
+            <div className="mt-6 pt-5 flex items-center justify-between border-t border-black/5">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-black/40">
                 {metricRow.label}
               </span>
-              <span
-                className="font-mono text-[13px] font-semibold"
-                style={{ color: 'var(--global-accent)' }}
-              >
-                {metricRow.value}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="font-sans text-[13px] font-medium" style={{ color: 'var(--global-accent)' }}>
+                  {metricRow.value}
+                </span>
+                <div className="w-4 h-4 rounded-full flex items-center justify-center bg-[var(--global-accent)]/10">
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--global-accent)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+              </div>
             </div>
           )}
         </div>

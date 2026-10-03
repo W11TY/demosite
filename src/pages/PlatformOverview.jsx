@@ -8,6 +8,7 @@ import { BRAND, BRAND_TEXT, ACCENTS } from '../data/accents';
 import { useChapterColor } from '../hooks/useChapterColor';
 import ChapterNav from '../components/shared/ChapterNav';
 import IllustrationCard from '../components/shared/IllustrationCard';
+import AntiMetalButton from '../components/shared/AntiMetalButton';
 
 const NAV_LABELS = ['Voice', 'WhatsApp', 'Command', 'Quality', 'Engagement'];
 
@@ -16,7 +17,7 @@ const tintColors = [ACCENTS[1].tint, ...platforms.map((_, i) => ACCENTS[(i + 1) 
 const darkAccentColors = [BRAND_TEXT, ...platforms.map((_, i) => ACCENTS[(i + 1) % ACCENTS.length].dark), BRAND_TEXT];
 
 const bgWords = ['ORCHESTRATE.', 'CONNECT.', 'DEPLOY.', 'OBSERVE.', 'ENGAGE.'];
-const motifMapping = [0, 5, 4, 1, 3];
+const motifMapping = [0, 1, 2, 3, 4];
 
 const VisualPlatformHero = () => {
   const { scrollY } = useScroll();
@@ -40,39 +41,77 @@ const VisualPlatformHero = () => {
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100" />
+      <motion.div 
+        className="absolute inset-[0%] w-[200%] h-[200%] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100"
+        animate={{ x: [0, -20], y: [0, -20] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+      />
       
       <div style={{ transform: `scale(${scale})` }} className="relative w-[600px] h-[600px] flex justify-center items-center origin-center">
+        {/* Floating container with subtle rotation/scale to make it feel alive */}
+        <motion.div 
+          className="absolute inset-0 flex justify-center items-center"
+          animate={{ scale: [1, 1.02, 1], rotate: [0, 1, -1, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        >
         {/* Layer 1 (Base) */}
         <motion.div style={{ y: y1 }} className="absolute">
-          <svg width="400" height="200" viewBox="0 0 400 200">
-            <path d="M200,170 L30,85 L200,0 L370,85 Z" fill="rgba(20,17,15,0.03)" stroke="rgba(20,17,15,0.1)" strokeWidth="1" />
-            <path d="M200,170 L30,85 L30,95 L200,180 L370,95 L370,85 Z" fill="rgba(20,17,15,0.06)" />
-          </svg>
+          <motion.svg 
+            width="400" height="200" viewBox="0 0 400 200"
+            animate={{ y: [0, -10, 0], filter: ['brightness(1)', 'brightness(1.2)', 'brightness(1)'] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <path d="M200,170 L30,85 L200,0 L370,85 Z" fill="color-mix(in srgb, var(--global-accent) 4%, transparent)" stroke="color-mix(in srgb, var(--global-accent) 15%, transparent)" strokeWidth="1" />
+            <path d="M200,170 L30,85 L30,95 L200,180 L370,95 L370,85 Z" fill="color-mix(in srgb, var(--global-accent) 8%, transparent)" />
+          </motion.svg>
         </motion.div>
         
         {/* Layer 2 (Middle) */}
         <motion.div style={{ y: y2 }} className="absolute">
-          <svg width="400" height="200" viewBox="0 0 400 200">
-            <path d="M200,130 L60,60 L200,0 L340,60 Z" fill="rgba(20,17,15,0.05)" stroke="rgba(20,17,15,0.15)" strokeWidth="1" />
-            <path d="M200,130 L60,60 L60,70 L200,140 L340,70 L340,60 Z" fill="rgba(20,17,15,0.08)" />
-          </svg>
+          <motion.svg 
+            width="400" height="200" viewBox="0 0 400 200"
+            animate={{ y: [0, -20, 0], filter: ['brightness(1)', 'brightness(1.4)', 'brightness(1)'] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          >
+            <path d="M200,130 L60,60 L200,0 L340,60 Z" fill="color-mix(in srgb, var(--global-accent) 8%, transparent)" stroke="color-mix(in srgb, var(--global-accent) 25%, transparent)" strokeWidth="1" />
+            <path d="M200,130 L60,60 L60,70 L200,140 L340,70 L340,60 Z" fill="color-mix(in srgb, var(--global-accent) 12%, transparent)" />
+            {/* Active Data Node running across Layer 2 */}
+            <motion.circle 
+              r="3" fill="var(--global-accent)"
+              animate={{ 
+                cx: [200, 340, 200, 60, 200], 
+                cy: [0, 60, 130, 60, 0],
+                opacity: [0, 1, 1, 1, 0]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            />
+          </motion.svg>
         </motion.div>
         
         {/* Layer 3 (Top - Accent) */}
-        <motion.div style={{ y: y3 }} className="absolute">
-          <svg width="400" height="200" viewBox="0 0 400 200">
-            <path d="M200,90 L90,35 L200,0 L310,35 Z" fill="color-mix(in srgb, var(--global-accent) 15%, transparent)" stroke="var(--global-accent)" strokeWidth="2" className="transition-colors duration-300" />
-            <path d="M200,90 L90,35 L90,45 L200,100 L310,45 L310,35 Z" fill="color-mix(in srgb, var(--global-accent) 25%, transparent)" className="transition-colors duration-300" />
-          </svg>
+        <motion.div style={{ y: y3 }} className="absolute z-10">
+          <motion.svg 
+            width="400" height="200" viewBox="0 0 400 200"
+            animate={{ y: [0, -35, 0], filter: ['drop-shadow(0px 0px 10px var(--global-accent))', 'drop-shadow(0px 10px 30px var(--global-accent))', 'drop-shadow(0px 0px 10px var(--global-accent))'] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          >
+            <path d="M200,90 L90,35 L200,0 L310,35 Z" fill="color-mix(in srgb, var(--global-accent) 20%, transparent)" stroke="var(--global-accent)" strokeWidth="2.5" className="transition-colors duration-300" />
+            <path d="M200,90 L90,35 L90,45 L200,100 L310,45 L310,35 Z" fill="color-mix(in srgb, var(--global-accent) 35%, transparent)" className="transition-colors duration-300" />
+            {/* Pulsing Core */}
+            <motion.circle cx="200" cy="45" r="8" fill="var(--global-accent)" 
+              animate={{ scale: [1, 2, 1], opacity: [1, 0.4, 1] }} 
+              transition={{ duration: 2, repeat: Infinity }} 
+            />
+          </motion.svg>
+        </motion.div>
         </motion.div>
       </div>
 
       <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] blur-[100px] rounded-full mix-blend-multiply transition-colors duration-300 pointer-events-none"
-        style={{ background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 30%, transparent), transparent)` }}
+        animate={{ scale: [1, 1.4, 1], opacity: [0.1, 0.4, 0.1] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-[100px] rounded-full mix-blend-multiply transition-colors duration-300 pointer-events-none"
+        style={{ background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 40%, transparent), transparent)` }}
       />
     </div>
   );
@@ -97,11 +136,20 @@ const ArchitectureDiagram = () => {
   return (
     <section className="w-full py-24 md:py-40 px-4 sm:px-6 md:px-16 lg:px-20 relative overflow-x-clip bg-transparent">
       <div className="max-w-[1280px] mx-auto relative z-10 flex flex-col items-center">
-        <FadeInUp>
-          <h2 className="text-[clamp(28px,4vw,48px)] font-medium tracking-tight text-[#14110F] mb-6 text-center">
-            Unified Platform Architecture
+        <FadeInUp className="flex flex-col items-center relative">
+          {/* Subtle background glow for the header */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[100px] blur-[80px] opacity-30 pointer-events-none" style={{ backgroundColor: 'var(--global-accent)' }} />
+          
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/5 bg-white/60 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.02)] mb-8">
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--global-accent)' }} />
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#14110F]/60 uppercase">The Core Engine</span>
+          </div>
+          
+          <h2 className="text-[clamp(36px,5vw,60px)] font-normal tracking-[-0.04em] text-[#14110F] mb-6 text-center leading-[1.1]">
+            Unified Platform <br className="md:hidden" /><span className="font-semibold" style={{ color: 'var(--global-accent)' }}>Architecture</span>
           </h2>
-          <p className="text-[16px] md:text-[20px] text-[#14110F]/75 font-light text-center max-w-[600px] mx-auto mb-16 md:mb-24">
+          
+          <p className="text-[17px] md:text-[22px] text-[#14110F]/60 font-bold text-center max-w-[650px] mx-auto mb-16 md:mb-24 leading-relaxed">
             A seamless orchestration layer connecting every module across your customer experience.
           </p>
         </FadeInUp>
@@ -112,20 +160,20 @@ const ArchitectureDiagram = () => {
             <svg width="800" height="450" viewBox="0 0 800 450" className="absolute inset-0 overflow-visible">
               <defs>
                 <linearGradient id="line-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#14110F" stopOpacity="0.1" />
+                  <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.05" />
                   <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.6" />
                 </linearGradient>
                 <linearGradient id="line-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#14110F" stopOpacity="0.1" />
+                  <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.05" />
                   <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.6" />
                 </linearGradient>
                 <linearGradient id="line-grad-3" x1="50%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#14110F" stopOpacity="0.1" />
+                  <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.05" />
                 </linearGradient>
                 <linearGradient id="line-grad-4" x1="50%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#14110F" stopOpacity="0.1" />
+                  <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.05" />
                 </linearGradient>
               </defs>
 
@@ -243,7 +291,7 @@ export default function PlatformOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section ref={heroRef} className="relative w-full h-[80dvh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualPlatformHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10 mt-32">
           <FadeInUp>
@@ -290,7 +338,7 @@ export default function PlatformOverview() {
                       {platform.tagline}
                     </p>
                     <p 
-                      className="text-[15px] md:text-[18px] text-[#14110F]/70 leading-relaxed font-light ml-2 md:ml-4 pl-4 md:pl-5 border-l-[3px] transition-colors duration-300"
+                      className="text-[15px] md:text-[18px] text-[#14110F]/70 leading-relaxed font-bold ml-2 md:ml-4 pl-4 md:pl-5 border-l-[3px] transition-colors duration-300"
                       style={{ borderColor: 'var(--global-accent)' }}
                     >
                       {platform.description}
@@ -342,20 +390,16 @@ export default function PlatformOverview() {
             <h2 className="text-[clamp(36px,7vw,72px)] font-medium tracking-tighter text-white leading-[1.05] mb-6">
               Ready to transform your business?
             </h2>
-            <h3 className="text-[clamp(20px,4vw,32px)] font-light tracking-tight text-white/50 leading-[1.2] mb-16">
+            <h3 className="text-[clamp(20px,4vw,32px)] font-bold tracking-tight text-white/50 leading-[1.2] mb-16">
               Deploy our autonomous platform today.
             </h3>
 
             <div className="flex flex-col gap-6 items-center">
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <MagneticElement>
-                  <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(255,255,255,0.1)' }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto px-10 py-4 bg-[#F5F1EA] text-[#14110F] rounded-[24px] text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)] cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[#1283a9]/60"
-                  >
-                    CONTACT SALES
-                  </motion.button>
+                  <Link to="/contact">
+                    <AntiMetalButton label="Hire Team" />
+                  </Link>
                 </MagneticElement>
               </div>
             </div>

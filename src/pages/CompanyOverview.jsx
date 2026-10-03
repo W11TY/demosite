@@ -6,6 +6,7 @@ import { ParallaxText, MagneticElement } from '../components/shared/Interactive'
 import { BRAND, BRAND_TEXT, ACCENTS } from '../data/accents';
 import { useChapterColor } from '../hooks/useChapterColor';
 import ChapterNav from '../components/shared/ChapterNav';
+import AntiMetalButton from '../components/shared/AntiMetalButton';
 
 const NAV_LABELS = ['Story', 'Values'];
 
@@ -110,7 +111,7 @@ export default function CompanyOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section ref={heroRef} className="relative w-full h-[80dvh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualCompanyHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10 mt-32">
           <FadeInUp>
@@ -137,7 +138,7 @@ export default function CompanyOverview() {
       <div className="w-full relative z-10">
         
         {/* STORY */}
-        <section id="chapter-0" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[60vh] flex items-center justify-center">
+        <section id="chapter-0" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[60dvh] flex items-center justify-center">
           <ParallaxText text="BUILD." alignLeft={true} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
           <div className="max-w-[1000px] mx-auto relative z-10 flex flex-col items-center text-center">
             <span className="font-mono text-[11px] sm:text-[12px] tracking-[0.2em] uppercase font-bold block mb-6 md:mb-8 text-[var(--global-dark-accent)] transition-colors duration-300">
@@ -146,7 +147,7 @@ export default function CompanyOverview() {
             <h2 className="text-[clamp(28px,4vw,56px)] font-medium tracking-tight text-[#14110F] leading-[1.2] mb-8">
               Empowering teams with intelligent tools.
             </h2>
-            <p className="text-[18px] md:text-[24px] text-[#14110F]/75 leading-relaxed font-light max-w-[800px]">
+            <p className="text-[18px] md:text-[24px] text-[#14110F]/75 leading-relaxed font-bold max-w-[800px]">
               Our custom AI solutions deliver measurable growth and operational excellence, turning complex challenges into simple workflows.
             </p>
           </div>
@@ -168,7 +169,7 @@ export default function CompanyOverview() {
                   <div className="absolute top-0 left-0 w-full h-px bg-[linear-gradient(90deg,rgba(20,17,15,0.15),transparent)]" />
                   <span className="font-mono text-[12px] text-[var(--global-dark-accent)] md:w-16 transition-colors duration-300 pt-2">0{idx + 1}</span>
                   <h3 className="text-[24px] md:text-[32px] font-medium text-[#14110F] md:w-[250px] shrink-0">{val.title}</h3>
-                  <p className="text-[16px] md:text-[20px] text-[#14110F]/75 font-light leading-relaxed flex-1">{val.desc}</p>
+                  <p className="text-[16px] md:text-[20px] text-[#14110F]/75 font-bold leading-relaxed flex-1">{val.desc}</p>
                 </div>
               ))}
               <div className="w-full h-px bg-[linear-gradient(90deg,rgba(20,17,15,0.15),transparent)]" />
@@ -188,8 +189,8 @@ export default function CompanyOverview() {
             </h2>
             <div className="mt-12 flex justify-center">
               <MagneticElement>
-                <Link to="/contact" className="px-10 py-4 bg-[#F5F1EA] text-[#14110F] rounded-[24px] text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)] cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[#1283a9]/60 inline-block">
-                  CONTACT US
+                <Link to="/contact">
+                  <AntiMetalButton label="Hire Team" />
                 </Link>
               </MagneticElement>
             </div>

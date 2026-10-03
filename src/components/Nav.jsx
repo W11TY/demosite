@@ -94,10 +94,13 @@ export default function Nav() {
 
       {/* Mobile Toggle */}
       <button 
-        className="lg:hidden flex items-center justify-center text-black/80 ml-auto"
+        className="lg:hidden flex items-center justify-center text-black/80 ml-auto w-11 h-11"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls="mobile-nav"
+        aria-label="Toggle menu"
       >
-        {isOpen ? <X size={20} /> : <Menu size={20} />}
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
 

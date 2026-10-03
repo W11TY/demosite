@@ -10,7 +10,45 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
   const [expandedItem, setExpandedItem] = useState(null);
 
   useEffect(() => {
-    if (!isOpen) setExpandedItem(null);
+    if (!isOpen) {
+      setExpandedItem(null);
+      document.body.style.overflow = '';
+      return;
+    }
+    
+    document.body.style.overflow = 'hidden';
+    
+    // Focus Trap
+    const menuEl = document.getElementById('mobile-nav');
+    if (!menuEl) return;
+    
+    const focusableEls = menuEl.querySelectorAll('a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select');
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+
+    const handleTab = (e) => {
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusableEl) {
+            lastFocusableEl.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastFocusableEl) {
+            firstFocusableEl.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleTab);
+    firstFocusableEl?.focus();
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleTab);
+    };
   }, [isOpen]);
 
   const toggleItem = (name) => {
@@ -21,6 +59,7 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          id="mobile-nav"
           initial={{ opacity: 0, y: -20, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -20, scale: 0.98 }}
@@ -45,9 +84,10 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
               </Link>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-white/60 hover:text-white transition-colors bg-white/5 w-10 h-10 rounded-full flex items-center justify-center"
+                className="text-white/60 hover:text-white transition-colors bg-white/5 w-11 h-11 rounded-full flex items-center justify-center"
+                aria-label="Close menu"
               >
-                <X size={20} strokeWidth={2} />
+                <X size={24} strokeWidth={2} />
               </button>
             </div>
 
@@ -67,7 +107,8 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
                     {item.dropdown && (
                       <button 
                         onClick={() => toggleItem(item.name)} 
-                        className="ml-auto p-2 text-white/50 hover:text-white transition-colors"
+                        className="ml-auto w-11 h-11 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                        aria-label={`Toggle ${item.name} submenu`}
                       >
                         <ChevronDown size={24} className={`transition-transform duration-300 ${expandedItem === item.name ? 'rotate-180' : ''}`} />
                       </button>
@@ -106,7 +147,7 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
             {/* CTA Button */}
             <div className="mt-auto w-full flex justify-center pb-2">
               <Link to="/contact" onClick={() => setIsOpen(false)}>
-                <AntiMetalButton label="Book a Demo" className="w-full sm:w-[174px]" />
+                <AntiMetalButton label="Hire Team" className="w-full sm:w-[174px]" />
               </Link>
             </div>
           </div>

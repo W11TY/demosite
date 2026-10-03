@@ -21,7 +21,8 @@ import {
   IllustrationAgentNetwork_Tile, IllustrationReliability_Tile, IllustrationImpact_Tile,
   IllustrationInnovation_Tile, IllustrationInnovation_Full
 } from '../components/shared/CardIllustrations';
-import { Mic, MessageCircle, Phone, Smartphone, Zap, CheckCircle, Link, Map, Briefcase, ShieldCheck, BarChart3, User, Network, Database, Cpu, ArrowRight, ArrowDown, Activity, Compass, Sliders, Users, Rocket, Target, Sparkles } from 'lucide-react';
+import { Mic, MessageCircle, Phone, Smartphone, Zap, CheckCircle, Map, Briefcase, ShieldCheck, BarChart3, User, Network, Database, Cpu, ArrowRight, ArrowDown, Activity, Compass, Sliders, Users, Rocket, Target, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // ─── Culture Manifesto: data ───────────────────────────────────────────────────
 const THEMES = [
@@ -139,7 +140,7 @@ const PracticeSection = () => (
            <div key={i} className="relative">
              <div className="absolute -left-[33px] md:-left-[57px] top-1 md:top-2 w-3 h-3 md:w-4 md:h-4 rounded-full bg-[#FAFAFA] border-2 border-black/20" />
              <h4 className="font-mono text-[12px] md:text-[14px] tracking-[0.1em] text-[#111] font-bold mb-2">{item.title}</h4>
-             <p className="text-[18px] md:text-[28px] text-black/50 font-light leading-snug">→ {item.reason}</p>
+             <p className="text-[18px] md:text-[28px] text-black/50 font-bold leading-snug">→ {item.reason}</p>
            </div>
          ))}
       </div>
@@ -296,7 +297,7 @@ const VisualCuriosity = () => (
          className="flex items-center gap-4 relative"
        >
          <div className="absolute -left-12 w-6 h-px bg-[var(--global-accent)]/30" />
-         <span className="font-mono text-[24px] md:text-[32px] tracking-widest font-light text-[var(--global-dark-accent)] transition-colors duration-300">{q}</span>
+         <span className="font-mono text-[24px] md:text-[32px] tracking-widest font-bold text-[var(--global-dark-accent)] transition-colors duration-300">{q}</span>
        </motion.div>
      ))}
   </div>
@@ -446,7 +447,7 @@ const CulturePage = () => {
       />
       
       {/* HERO */}
-      <section className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section className="relative w-full h-[80dvh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualCompanyHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10 mt-32">
           <FadeInUp>
@@ -457,7 +458,7 @@ const CulturePage = () => {
               Work that matters,<br/>
               <span className="text-[var(--global-accent)] italic transition-colors duration-300">Life that counts.</span>
             </h1>
-            <p className="mt-8 text-[18px] md:text-[24px] text-[#14110F]/60 leading-[1.6] font-light max-w-[700px] mx-auto">
+            <p className="mt-8 text-[18px] md:text-[24px] text-[#14110F]/60 leading-[1.6] font-bold max-w-[700px] mx-auto">
               We're building technology that moves customer conversations forward — without losing sight of the people building it.
             </p>
           </FadeInUp>
@@ -469,7 +470,7 @@ const CulturePage = () => {
 
       <div className="w-full relative z-10">
         {THEMES.map((theme, idx) => (
-          <section key={idx} id={`chapter-${idx}`} className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70vh] flex flex-col items-center justify-center">
+          <section key={idx} id={`chapter-${idx}`} className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70dvh] flex flex-col items-center justify-center">
             <ParallaxText text={theme.label.toUpperCase() + "."} alignLeft={idx % 2 === 0} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
             <div className="max-w-[1200px] mx-auto relative z-10 w-full">
                
@@ -507,7 +508,7 @@ const CulturePage = () => {
                          <h3 className="text-[20px] md:text-[22px] font-medium text-[#14110F] tracking-tight mb-2 group-hover:text-[var(--global-dark-accent)] transition-colors duration-300">
                            {principle.title}
                          </h3>
-                         <p className="text-[15px] md:text-[16px] text-[#14110F]/70 leading-[1.6] font-light max-w-[600px]">
+                         <p className="text-[15px] md:text-[16px] text-[#14110F]/70 leading-[1.6] font-bold max-w-[600px]">
                            {principle.desc}
                          </p>
                        </div>
@@ -542,9 +543,9 @@ const CulturePage = () => {
             
             <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
               <MagneticElement>
-                <button className="w-full sm:w-auto px-10 py-4 bg-[#F5F1EA] text-[#14110F] rounded-[24px] text-[15px] font-medium transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.05)] cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-[#1283a9]/60 inline-block">
-                  JOIN VOXI
-                </button>
+                <Link to="/contact">
+                  <AntiMetalButton label="Hire Team" />
+                </Link>
               </MagneticElement>
               <MagneticElement>
                 <button className="w-full sm:w-auto px-10 py-4 bg-transparent border border-white/20 text-white rounded-[24px] text-[15px] font-medium transition-all duration-300 cursor-pointer hover:bg-white/5">
@@ -704,7 +705,7 @@ const AboutPage = () => {
         style={{ backgroundImage: 'linear-gradient(180deg, #F5F1EA 0%, var(--global-tint, #F5F1EA) 100%)' }}
       />
       
-      <section className="relative w-full h-[80vh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section className="relative w-full h-[80dvh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualCompanyHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10 mt-32">
           <FadeInUp>
@@ -715,7 +716,7 @@ const AboutPage = () => {
               Every customer conversation. <br />
               <span className="text-[var(--global-accent)] italic transition-colors duration-300">Connected.</span>
             </h1>
-            <p className="mt-8 text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] font-light max-w-[600px] mx-auto">
+            <p className="mt-8 text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] font-bold max-w-[600px] mx-auto">
               Thousands of isolated interactions transformed into one intelligent, self-learning infrastructure.
             </p>
           </FadeInUp>
@@ -728,7 +729,7 @@ const AboutPage = () => {
       <div className="w-full relative z-10">
         
         {/* CHAPTER 1: STORY */}
-        <section id="chapter-0" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70vh] flex items-center justify-center">
+        <section id="chapter-0" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70dvh] flex items-center justify-center">
           <ParallaxText text="CONNECT." alignLeft={true} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
           <div className="max-w-[1000px] mx-auto relative z-10 w-full">
              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold block mb-12 text-[var(--global-dark-accent)]">01 / STORY</span>
@@ -738,7 +739,7 @@ const AboutPage = () => {
                  <h2 className="text-[clamp(32px,5vw,56px)] font-medium tracking-tight text-[#14110F] leading-[1.1] mb-8">
                    Customer conversations don't happen in one place. They happen everywhere.
                  </h2>
-                 <p className="text-[18px] md:text-[20px] text-[#14110F]/70 leading-relaxed font-light">
+                 <p className="text-[18px] md:text-[20px] text-[#14110F]/70 leading-relaxed font-bold">
                    Fragmented tools create broken journeys, isolated context, and frustrated customers. Every customer interaction—from the first enquiry to post-sales support, collections, and retention—should operate as one intelligent ecosystem. That's why we built the Voxi CX Operating System.
                  </p>
                </div>
@@ -769,7 +770,7 @@ const AboutPage = () => {
         </section>
 
         {/* CHAPTER 2: INTELLIGENCE */}
-        <section id="chapter-1" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70vh] flex items-center justify-center">
+        <section id="chapter-1" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70dvh] flex items-center justify-center">
           <ParallaxText text="THINK." alignLeft={false} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
           <div className="max-w-[1000px] mx-auto relative z-10 w-full">
              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold block mb-12 text-[var(--global-dark-accent)]">02 / INTELLIGENCE</span>
@@ -779,7 +780,7 @@ const AboutPage = () => {
                    <h2 className="text-[clamp(28px,4vw,40px)] font-medium tracking-tight text-[#14110F] leading-[1.15] mb-6">
                      Our AI Voice Agents don't just automate calls—they understand context, adapt in real time, and communicate naturally like a human.
                    </h2>
-                   <p className="text-[17px] text-[#14110F]/70 leading-[1.8] font-light mb-12">
+                   <p className="text-[17px] text-[#14110F]/70 leading-[1.8] font-bold mb-12">
                      Every interaction is personalized, every conversation is meaningful, and every customer journey is intelligently orchestrated.
                    </p>
                    
@@ -806,7 +807,7 @@ const AboutPage = () => {
         </section>
 
         {/* CHAPTER 3: IMPLEMENTATION */}
-        <section id="chapter-2" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative bg-transparent min-h-[80vh] flex items-center justify-center">
+        <section id="chapter-2" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative bg-transparent min-h-[80dvh] flex items-center justify-center">
           <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
             <ParallaxText text="SHIP." alignLeft={true} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300" />
           </div>
@@ -824,7 +825,7 @@ const AboutPage = () => {
                    <ScrollWordReveal 
                      text="Our Customer Success and Implementation teams work closely with customers through every stage. Our 15-Day Success Framework ensures every deployment delivers measurable business outcomes."
                      as="p"
-                     className="text-[18px] text-[#14110F]/70 leading-[1.75] font-light max-w-[800px]"
+                     className="text-[18px] text-[#14110F]/70 leading-[1.75] font-bold max-w-[800px]"
                    />
                  </div>
 
@@ -857,7 +858,7 @@ const AboutPage = () => {
                          <h3 className="text-[20px] md:text-[26px] font-medium text-[#14110F] tracking-tight mb-3">
                            {stage.title}
                          </h3>
-                         <p className="text-[16px] text-[#14110F]/70 leading-[1.6] font-light max-w-[700px]">
+                         <p className="text-[16px] text-[#14110F]/70 leading-[1.6] font-bold max-w-[700px]">
                            {stage.description}
                          </p>
                        </div>
@@ -876,7 +877,7 @@ const AboutPage = () => {
         </section>
 
         {/* CHAPTER 4: TEAM */}
-        <section id="chapter-3" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70vh] flex items-center justify-center">
+        <section id="chapter-3" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70dvh] flex items-center justify-center">
           <ParallaxText text="TEAM." alignLeft={true} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
           <div className="max-w-[1000px] mx-auto relative z-10 w-full flex flex-col items-center">
              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold block mb-12 text-[var(--global-dark-accent)]">04 / TEAM</span>
@@ -910,7 +911,7 @@ const AboutPage = () => {
         </section>
 
         {/* CHAPTER 5: MISSION */}
-        <section id="chapter-4" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70vh] flex items-center justify-center">
+        <section id="chapter-4" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70dvh] flex items-center justify-center">
           <ParallaxText text="IMPACT." alignLeft={false} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
           <div className="max-w-[1000px] mx-auto relative z-10 w-full flex flex-col items-center text-center">
              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold block mb-12 text-[var(--global-dark-accent)]">05 / MISSION</span>
@@ -943,7 +944,7 @@ const AboutPage = () => {
             <div className="mt-12 flex justify-center">
               <MagneticElement>
                 <RouterLink to="/contact">
-                  <AntiMetalButton label="Start Your Pilot" />
+                  <AntiMetalButton label="Hire Team" />
                 </RouterLink>
               </MagneticElement>
             </div>
@@ -974,7 +975,7 @@ export default function CompanyDetail() {
 
   // Fallback layout for other company pages
   return (
-    <div className="w-full min-h-[80vh] flex flex-col items-center justify-center pt-24 pb-32">
+    <div className="w-full min-h-[80dvh] flex flex-col items-center justify-center pt-24 pb-32">
       <div className="max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 text-center">
         <StaggerContainer>
           <FadeInUp as="h1" className="text-[48px] md:text-[64px] font-semibold tracking-tight text-text-primary mb-8">

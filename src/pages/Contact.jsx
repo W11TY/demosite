@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, ChevronsRight, Mail, MapPin, Clock } from 'lucide-react';
-import heroImg from '../assets/hero.png';
+import heroImg from '../assets/voxitext.png';
 import { easing } from '../components/shared/Motion';
 
 export default function Contact() {
@@ -17,12 +17,14 @@ export default function Contact() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: easing }}
-        className="relative w-full lg:w-[60%] h-[50vh] lg:h-[calc(100vh-24px)] rounded-[24px] overflow-hidden bg-black flex-shrink-0"
+        className="relative w-full lg:w-[60%] h-[50dvh] lg:h-[calc(100dvh-24px)] rounded-[24px] overflow-hidden bg-black flex-shrink-0"
       >
-        <img 
+        <motion.img 
           src={heroImg} 
-          alt="Neural Future" 
-          className="w-full h-full object-cover opacity-60 grayscale filter contrast-125"
+          alt="Voxi" 
+          className="w-full h-full object-contain p-12 lg:p-24 opacity-80"
+          animate={{ y: [-15, 15, -15], scale: [0.98, 1.02, 0.98] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
         
@@ -79,8 +81,9 @@ export default function Contact() {
                 <label className="text-[13px] text-black/60 font-medium">Name</label>
                 <input 
                   type="text" 
+                  inputMode="text"
                   placeholder="Jane Smith" 
-                  className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[15px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
+                  className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[16px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
                   required
                 />
               </div>
@@ -88,8 +91,9 @@ export default function Contact() {
                 <label className="text-[13px] text-black/60 font-medium">Email</label>
                 <input 
                   type="email" 
+                  inputMode="email"
                   placeholder="jane@framer.com" 
-                  className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[15px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
+                  className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[16px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
                   required
                 />
               </div>
@@ -99,8 +103,9 @@ export default function Contact() {
               <label className="text-[13px] text-black/60 font-medium">Phone Number</label>
               <input 
                 type="tel" 
+                inputMode="tel"
                 placeholder="Enter phone number" 
-                className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[15px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
+                className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[16px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
               />
             </div>
             
@@ -109,7 +114,7 @@ export default function Contact() {
               <textarea 
                 placeholder="Type here..." 
                 rows={4} 
-                className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[15px] outline-none focus:border-black/30 focus:bg-white transition-colors resize-none" 
+                className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[16px] outline-none focus:border-black/30 focus:bg-white transition-colors resize-none" 
                 required
               />
             </div>
