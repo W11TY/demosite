@@ -19,13 +19,93 @@ export default function Contact() {
         transition={{ duration: 0.8, ease: easing }}
         className="relative w-full lg:w-[55%] h-[55dvh] lg:h-[calc(100dvh-24px)] rounded-[24px] overflow-hidden bg-[#0a0a0a] flex-shrink-0 flex flex-col"
       >
-        {/* floating image */}
-        <div className="flex-1 flex items-center justify-center">
+        {/* animated SVG scene */}
+        <div className="flex-1 relative flex items-center justify-center overflow-hidden">
+          {/* SVG layer */}
+          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* outer slow-rotating ring */}
+            <motion.circle cx="250" cy="200" r="160"
+              stroke="var(--global-accent)" strokeWidth="1" strokeOpacity="0.18" strokeDasharray="6 10"
+              animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+              style={{ transformOrigin: '250px 200px' }} />
+
+            {/* mid ring counter-rotating */}
+            <motion.circle cx="250" cy="200" r="120"
+              stroke="var(--global-accent)" strokeWidth="0.8" strokeOpacity="0.12" strokeDasharray="3 8"
+              animate={{ rotate: -360 }} transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
+              style={{ transformOrigin: '250px 200px' }} />
+
+            {/* inner ring pulsing */}
+            <motion.circle cx="250" cy="200" r="80"
+              stroke="white" strokeWidth="0.6" strokeOpacity="0.06"
+              animate={{ r: [78, 84, 78], strokeOpacity: [0.06, 0.12, 0.06] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} />
+
+            {/* orbiting dot on outer ring */}
+            <motion.circle r="4" fill="var(--global-accent)" fillOpacity="0.9"
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
+              style={{ transformOrigin: '250px 200px', offsetPath: 'none' }}>
+              <animateMotion dur="12s" repeatCount="indefinite" path="M250,200 m-160,0 a160,160 0 1,1 0,0.001" />
+            </motion.circle>
+
+            {/* second orbiting dot (smaller, opposite) */}
+            <motion.circle r="2.5" fill="white" fillOpacity="0.5">
+              <animateMotion dur="8s" repeatCount="indefinite" begin="-4s" path="M250,200 m0,-120 a120,120 0 1,0 0,0.001" />
+            </motion.circle>
+
+            {/* radiating pulse rings from center */}
+            {[0, 1.5, 3].map((delay, i) => (
+              <motion.circle key={i} cx="250" cy="200" r="40"
+                stroke="var(--global-accent)" strokeWidth="1" fill="none"
+                animate={{ r: [40, 170], strokeOpacity: [0.3, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: 'easeOut', delay }} />
+            ))}
+
+            {/* corner data-tick marks */}
+            {[
+              [90, 120], [410, 120], [90, 280], [410, 280]
+            ].map(([x, y], i) => (
+              <motion.g key={i} animate={{ opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.6 }}>
+                <line x1={x - 8} y1={y} x2={x + 8} y2={y} stroke="var(--global-accent)" strokeWidth="1" strokeOpacity="0.5" />
+                <line x1={x} y1={y - 8} x2={x} y2={y + 8} stroke="var(--global-accent)" strokeWidth="1" strokeOpacity="0.5" />
+              </motion.g>
+            ))}
+
+            {/* horizontal scanning line */}
+            <motion.line x1="60" y1="200" x2="440" y2="200"
+              stroke="var(--global-accent)" strokeWidth="0.6" strokeOpacity="0"
+              animate={{ y1: [140, 260, 140], y2: [140, 260, 140], strokeOpacity: [0, 0.2, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} />
+
+            {/* floating data nodes */}
+            {[
+              [148, 130], [352, 130], [112, 240], [388, 240], [200, 310], [300, 310]
+            ].map(([x, y], i) => (
+              <motion.circle key={i} cx={x} cy={y} r="2.5"
+                fill="white" fillOpacity="0.2"
+                animate={{ opacity: [0.2, 0.7, 0.2], scale: [1, 1.6, 1] }}
+                transition={{ duration: 2 + i * 0.4, repeat: Infinity, delay: i * 0.5 }}
+                style={{ transformOrigin: `${x}px ${y}px` }} />
+            ))}
+
+            {/* connecting lines between nodes and center */}
+            {[
+              [148, 130], [352, 130], [388, 240]
+            ].map(([x, y], i) => (
+              <motion.line key={i} x1="250" y1="200" x2={x} y2={y}
+                stroke="var(--global-accent)" strokeWidth="0.6" strokeOpacity="0"
+                animate={{ strokeOpacity: [0, 0.18, 0] }}
+                transition={{ duration: 3, repeat: Infinity, delay: i * 1 }} />
+            ))}
+          </svg>
+
+          {/* Logo on top of SVG */}
           <motion.img
             src={heroImg}
             alt="VoxiFlow"
-            className="w-[70%] max-w-[420px] object-contain opacity-85"
-            animate={{ y: [-12, 12, -12], scale: [0.98, 1.02, 0.98] }}
+            className="relative z-10 w-[60%] max-w-[380px] object-contain opacity-90"
+            animate={{ y: [-10, 10, -10], scale: [0.98, 1.02, 0.98] }}
             transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
           />
         </div>
