@@ -1,135 +1,162 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, ChevronsRight, Mail, MapPin, Clock } from 'lucide-react';
+import { Phone, ChevronsRight, Mail, MapPin } from 'lucide-react';
 import heroImg from '../assets/voxitext.png';
 import { easing } from '../components/shared/Motion';
 
 export default function Contact() {
-  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-white flex flex-col lg:flex-row p-3 lg:p-[12px] gap-4">
-      {/* Left Side - Image and Text */}
-      <motion.div 
+    <div className="w-full min-h-screen bg-[#f7f7f5] flex flex-col lg:flex-row p-3 lg:p-[12px] gap-3">
+
+      {/* ── Left panel: image + contact info ── */}
+      <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: easing }}
-        className="relative w-full lg:w-[60%] h-[50dvh] lg:h-[calc(100dvh-24px)] rounded-[24px] overflow-hidden bg-black flex-shrink-0"
+        className="relative w-full lg:w-[55%] h-[55dvh] lg:h-[calc(100dvh-24px)] rounded-[24px] overflow-hidden bg-[#0a0a0a] flex-shrink-0 flex flex-col"
       >
-        <motion.img 
-          src={heroImg} 
-          alt="Voxi" 
-          className="w-full h-full object-contain p-12 lg:p-24 opacity-80"
-          animate={{ y: [-15, 15, -15], scale: [0.98, 1.02, 0.98] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
-        
-        <div className="absolute bottom-10 lg:bottom-16 left-6 lg:left-12 text-white z-10 flex flex-col gap-8">
-          <motion.h1 
+        {/* floating image */}
+        <div className="flex-1 flex items-center justify-center">
+          <motion.img
+            src={heroImg}
+            alt="VoxiFlow"
+            className="w-[70%] max-w-[420px] object-contain opacity-85"
+            animate={{ y: [-12, 12, -12], scale: [0.98, 1.02, 0.98] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </div>
+
+        {/* gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none" />
+
+        {/* bottom text block */}
+        <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12 z-10">
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: easing }}
-            className="text-[clamp(40px,6vw,72px)] font-medium leading-[1.05] tracking-tight max-w-[550px]"
+            transition={{ duration: 0.7, delay: 0.2, ease: easing }}
+            className="text-white text-[clamp(32px,5vw,60px)] font-medium leading-[1.1] tracking-tight mb-6"
           >
             Get in Touch
           </motion.h1>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: easing }}
-            className="flex flex-col gap-4 text-[15px] font-medium text-white/90 max-w-[450px]"
+            transition={{ duration: 0.7, delay: 0.35, ease: easing }}
+            className="flex flex-col gap-3"
           >
+            {/* email */}
             <div className="flex items-center gap-3">
-              <Mail size={18} className="text-[var(--global-accent)] flex-shrink-0" /> 
-              <span>hello@voxiflow.ai</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Phone size={18} className="text-[var(--global-accent)] flex-shrink-0" /> 
-              <span>+91-8218447171</span>
-            </div>
-            <div className="flex items-start gap-3">
-              <MapPin size={18} className="text-[var(--global-accent)] flex-shrink-0 mt-0.5" /> 
-              <span className="leading-relaxed">H1A/20, PLOT NO- 20, Sector 63 Rd, H Block, Sector 63, Noida, Uttar Pradesh 201301</span>
+              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <Mail size={14} className="text-[var(--global-accent)]" />
+              </div>
+              <span className="text-[14px] text-white/80 font-medium">hello@voxiflow.ai</span>
             </div>
 
+            {/* phone */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <Phone size={14} className="text-[var(--global-accent)]" />
+              </div>
+              <span className="text-[14px] text-white/80 font-medium">+91-8218447171</span>
+            </div>
+
+            {/* address */}
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                <MapPin size={14} className="text-[var(--global-accent)]" />
+              </div>
+              <span className="text-[13px] text-white/55 leading-[1.6]">
+                H1A/20, Plot No. 20, Sector 63 Rd,<br />
+                H Block, Noida, UP 201301
+              </span>
+            </div>
           </motion.div>
         </div>
       </motion.div>
 
-      {/* Right Side - Form */}
-      <div className="w-full lg:w-[40%] flex flex-col justify-center px-6 lg:px-16 py-12 lg:py-0">
+      {/* ── Right panel: form ── */}
+      <div className="w-full lg:w-[45%] flex flex-col justify-center bg-white rounded-[24px] px-8 lg:px-14 py-12 lg:py-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: easing }}
+          transition={{ duration: 0.7, delay: 0.15, ease: easing }}
+          className="max-w-[480px] w-full mx-auto"
         >
-          <h2 className="text-[clamp(36px,4vw,56px)] font-medium leading-[1.05] tracking-tight text-black mb-4">
-            Deploy your first agent today.
-          </h2>
-          <p className="text-[15px] text-black/60 leading-[1.6] mb-10 max-w-[450px]">
-            Ready to transform your customer experience? Reach out to our team to discuss a custom AI integration or start your pilot today and experience the future of customer engagement.
+          {/* header */}
+          <p className="text-[11px] font-mono tracking-[0.18em] uppercase text-[var(--global-accent)] mb-3 font-bold">
+            Start a Conversation
           </p>
-          
-          <form className="flex flex-col gap-5 w-full max-w-[500px]">
-            <div className="flex flex-col md:flex-row gap-5">
-              <div className="flex flex-col w-full gap-2">
-                <label className="text-[13px] text-black/60 font-medium">Name</label>
-                <input 
-                  type="text" 
-                  inputMode="text"
-                  placeholder="Jane Smith" 
-                  className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[16px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
+          <h2 className="text-[clamp(28px,3.5vw,44px)] font-medium leading-[1.1] tracking-tight text-[#0d0d0d] mb-3">
+            Deploy your first<br />agent today.
+          </h2>
+          <p className="text-[14px] text-black/50 leading-[1.7] mb-8">
+            Ready to transform your customer experience? Tell us about your use case and we'll get back to you within 24 hours.
+          </p>
+
+          {/* form */}
+          <form className="flex flex-col gap-4 w-full">
+            {/* name + email row */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col gap-1.5 w-full">
+                <label className="text-[12px] text-black/50 font-semibold tracking-wide">Full Name</label>
+                <input
+                  type="text"
+                  placeholder="Jane Smith"
+                  className="w-full border border-black/8 bg-[#f9f9f8] rounded-[10px] px-4 py-3 text-[14px] text-black placeholder:text-black/30 outline-none focus:border-[var(--global-accent)]/40 focus:bg-white transition-all"
                   required
                 />
               </div>
-              <div className="flex flex-col w-full gap-2">
-                <label className="text-[13px] text-black/60 font-medium">Email</label>
-                <input 
-                  type="email" 
-                  inputMode="email"
-                  placeholder="jane@framer.com" 
-                  className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[16px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
+              <div className="flex flex-col gap-1.5 w-full">
+                <label className="text-[12px] text-black/50 font-semibold tracking-wide">Work Email</label>
+                <input
+                  type="email"
+                  placeholder="jane@company.com"
+                  className="w-full border border-black/8 bg-[#f9f9f8] rounded-[10px] px-4 py-3 text-[14px] text-black placeholder:text-black/30 outline-none focus:border-[var(--global-accent)]/40 focus:bg-white transition-all"
                   required
                 />
               </div>
             </div>
-            
-            <div className="flex flex-col gap-2">
-              <label className="text-[13px] text-black/60 font-medium">Phone Number</label>
-              <input 
-                type="tel" 
-                inputMode="tel"
-                placeholder="Enter phone number" 
-                className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[16px] outline-none focus:border-black/30 focus:bg-white transition-colors" 
+
+            {/* phone */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[12px] text-black/50 font-semibold tracking-wide">Phone Number</label>
+              <input
+                type="tel"
+                placeholder="+91 00000 00000"
+                className="w-full border border-black/8 bg-[#f9f9f8] rounded-[10px] px-4 py-3 text-[14px] text-black placeholder:text-black/30 outline-none focus:border-[var(--global-accent)]/40 focus:bg-white transition-all"
               />
             </div>
-            
-            <div className="flex flex-col gap-2">
-              <label className="text-[13px] text-black/60 font-medium">Message</label>
-              <textarea 
-                placeholder="Type here..." 
-                rows={4} 
-                className="w-full border border-black/10 bg-[#fafafa] rounded-[12px] px-4 py-3.5 text-[16px] outline-none focus:border-black/30 focus:bg-white transition-colors resize-none" 
+
+            {/* message */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[12px] text-black/50 font-semibold tracking-wide">Message</label>
+              <textarea
+                placeholder="Tell us about your use case..."
+                rows={4}
+                className="w-full border border-black/8 bg-[#f9f9f8] rounded-[10px] px-4 py-3 text-[14px] text-black placeholder:text-black/30 outline-none focus:border-[var(--global-accent)]/40 focus:bg-white transition-all resize-none"
                 required
               />
             </div>
 
-            <div className="mt-6">
-              <button 
-                type="button"
-                className="flex items-center bg-[#5c5c5c] text-white rounded-[16px] overflow-hidden group hover:bg-[#4a4a4a] transition-all duration-300 w-fit active:scale-95"
-              >
-                <div className="bg-white text-black h-[46px] w-[56px] flex items-center justify-center rounded-[12px] m-[5px] group-hover:bg-[#f0f0f0] transition-colors">
-                  <ChevronsRight size={20} className="group-hover:translate-x-0.5 transition-transform" />
-                </div>
-                <span className="px-8 font-medium text-[15px]">Submit</span>
-              </button>
-            </div>
+            {/* divider */}
+            <div className="h-px bg-black/6 my-1" />
+
+            {/* submit */}
+            <button
+              type="button"
+              className="flex items-center gap-0 bg-[#111] text-white rounded-[12px] overflow-hidden group hover:bg-[#222] transition-all duration-300 w-fit active:scale-95"
+            >
+              <div className="bg-white text-black h-[44px] w-[52px] flex items-center justify-center rounded-[8px] m-[4px] group-hover:bg-[#f2f2f2] transition-colors">
+                <ChevronsRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
+              </div>
+              <span className="px-6 font-medium text-[14px] tracking-wide">Send Message</span>
+            </button>
           </form>
         </motion.div>
       </div>
