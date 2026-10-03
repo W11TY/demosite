@@ -154,8 +154,58 @@ const ArchitectureDiagram = () => {
           </p>
         </FadeInUp>
 
-        <div ref={containerRef} className="w-full max-w-[800px] flex justify-center">
-          <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }} className="w-[800px] h-[450px] relative">
+        <div ref={containerRef} className="w-full max-w-[800px] mx-auto">
+          {/* Mobile View */}
+          <div className="w-full flex flex-col gap-4 md:hidden px-2 mt-4 relative">
+            {/* Connecting line for mobile */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[var(--global-accent)] opacity-20 -translate-x-1/2 z-0" />
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="w-full h-[60px] bg-white/80 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10"
+            >
+              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">AI Voice Agents</span>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+              className="w-full h-[60px] bg-white/80 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10"
+            >
+              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">WhatsApp Business</span>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+              style={{ 
+                backgroundColor: 'color-mix(in srgb, var(--global-accent) 5%, transparent)',
+                borderColor: 'var(--global-accent)'
+              }}
+              className="w-full h-[70px] rounded-[16px] border flex items-center justify-center shadow-[0_10px_40px_-10px_var(--global-accent)] relative overflow-hidden my-2 z-10"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[200%] animate-[shimmer_3s_infinite]" />
+              <span style={{ color: 'var(--global-dark-accent)' }} className="font-sans text-[16px] font-semibold tracking-tight relative z-10 text-center px-4">
+                Telephony & Command Center
+              </span>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
+              className="w-full h-[60px] bg-white/80 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10"
+            >
+              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">Quality Management</span>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
+              className="w-full h-[60px] bg-white/80 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10"
+            >
+              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">Customer Engagement</span>
+            </motion.div>
+          </div>
+
+          {/* Desktop View */}
+          <div className="hidden md:flex justify-center w-full" style={{ height: `${450 * scale}px` }}>
+            <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }} className="w-[800px] h-[450px] shrink-0 relative">
             
             <svg width="800" height="450" viewBox="0 0 800 450" className="absolute inset-0 overflow-visible">
               <defs>
@@ -265,6 +315,7 @@ const ArchitectureDiagram = () => {
               <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">Customer Engagement</span>
             </motion.div>
 
+            </div>
           </div>
         </div>
       </div>
