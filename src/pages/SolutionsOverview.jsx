@@ -456,7 +456,7 @@ export default function SolutionsOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full h-[80dvh] min-h-[700px] flex flex-col items-center justify-start overflow-hidden isolate pt-[15vh] md:pt-[20vh] pb-10 z-0 bg-transparent">
+      <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-start overflow-hidden isolate pt-[15vh] md:pt-[20vh] pb-10 z-0 bg-transparent">
         <VisualSolutionsHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center relative z-30">
           <FadeInUp>

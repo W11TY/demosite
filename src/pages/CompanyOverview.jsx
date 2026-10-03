@@ -111,7 +111,7 @@ export default function CompanyOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full h-[80dvh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualCompanyHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10 mt-32">
           <FadeInUp>

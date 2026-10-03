@@ -152,7 +152,7 @@ export default function Ecosystem() {
                 </p>
               </div>
               <div className="shrink-0 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 text-[10px] md:text-[11px] font-bold tracking-widest uppercase">
-                90-Day Success Framework
+                15-Day Success Framework
               </div>
             </div>
 
@@ -170,12 +170,11 @@ export default function Ecosystem() {
               {/* Mobile vertical line */}
               <div className="md:hidden absolute top-8 bottom-4 left-[3px] w-px bg-black/6" />
               
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-6 relative z-10 pl-6 md:pl-0">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 relative z-10 pl-6 md:pl-0">
                 {[
-                  { day: 'Day 1–14',  title: 'Discovery & Design',      desc: 'Mapping journeys, defining AI workflows.',          color: '#3b82f6' },
-                  { day: 'Day 15–45', title: 'Deployment',              desc: 'Integration, testing, intelligent rollout.',         color: '#6366f1' },
-                  { day: 'Day 46–75', title: 'Adoption & Tuning',       desc: 'Responses fine-tuned, teams onboarded.',            color: '#10b981' },
-                  { day: 'Day 76–90', title: 'Business Outcomes',       desc: 'Higher CSAT, lower CAC, automated resolution.',     color: '#f59e0b' },
+                  { day: 'Stage 01 - Days 1-5',  title: 'Discovery & Design',      desc: 'Mapping journeys, defining AI workflows.',          color: '#3b82f6' },
+                  { day: 'Stage 02 - Days 6-10', title: 'Deployment',              desc: 'Integration, testing, intelligent rollout.',         color: '#6366f1' },
+                  { day: 'Stage 03 - Days 11-15', title: 'Adoption & Tuning',       desc: 'Responses fine-tuned, teams onboarded.',            color: '#10b981' },
                 ].map((step, i) => (
                   <motion.div
                     key={i}

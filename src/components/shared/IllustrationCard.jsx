@@ -1,13 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GridBg, Motifs } from './Motifs';
+import { ResearchMotifs } from '../../data/researchMotifs';
 import { FadeInUp } from './Motion';
 import logo from '../../assets/logo.png';
 
-export default function IllustrationCard({ name, desc, motifIndex, idx, delay = 0, metricRow }) {
+export default function IllustrationCard({ name, desc, motifIndex, idx, delay = 0, metricRow, themeId, cardIdx }) {
   const cardId = `card-${motifIndex}-${idx}`;
 
-  const Motif = Motifs[motifIndex % Motifs.length];
+  // Use unique research motif if themeId provided, otherwise fall back to generic Motifs
+  const themeMotifs = themeId && ResearchMotifs[themeId];
+  const Motif = themeMotifs
+    ? (themeMotifs[cardIdx !== undefined ? cardIdx : idx] || Motifs[motifIndex % Motifs.length])
+    : Motifs[motifIndex % Motifs.length];
 
   return (
     <FadeInUp delay={delay} className="h-full">

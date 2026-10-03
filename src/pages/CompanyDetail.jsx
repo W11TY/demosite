@@ -199,7 +199,7 @@ const VisualCompanyHero = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 2 }}
           width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" stroke="currentColor" fill="none"
-          className="absolute inset-0"
+          className="absolute inset-0 overflow-visible"
         >
           {/* Base Grid Lines (Systems diagram style) */}
           <g className="text-[var(--global-dark-accent)] opacity-[0.08]">
@@ -447,7 +447,7 @@ const CulturePage = () => {
       />
       
       {/* HERO */}
-      <section className="relative w-full h-[80dvh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualCompanyHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10 mt-32">
           <FadeInUp>
@@ -705,7 +705,7 @@ const AboutPage = () => {
         style={{ backgroundImage: 'linear-gradient(180deg, #F5F1EA 0%, var(--global-tint, #F5F1EA) 100%)' }}
       />
       
-      <section className="relative w-full h-[80dvh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualCompanyHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10 mt-32">
           <FadeInUp>

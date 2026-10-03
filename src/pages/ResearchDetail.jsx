@@ -3,6 +3,7 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { research } from '../data/research';
+import { ResearchMotifs } from '../data/researchMotifs';
 import { SlideInLeft, SlideInRight, FadeInUp } from '../components/shared/Motion';
 import AntiMetalButton from '../components/shared/AntiMetalButton';
 
@@ -33,7 +34,7 @@ const VisualResearchHero = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
         width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" stroke="currentColor" fill="none"
-        className="absolute inset-0"
+        className="absolute inset-0 overflow-visible"
       >
         <motion.g animate={{ rotate: 360 }} transition={{ duration: 200, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "500px 300px" }}>
           <circle cx="500" cy="300" r="250" strokeWidth="1.5" className="text-brand-blue/50" strokeDasharray="4 12" />
@@ -97,7 +98,7 @@ export default function ResearchDetail() {
     <div className="w-full bg-[#FAFAFA] min-h-screen text-[#14110F] overflow-hidden selection:bg-[var(--global-accent)]/20">
       
       {/* 01 — HERO */}
-      <section className="relative w-full pt-32 pb-24 md:pt-48 md:pb-32 overflow-hidden border-b border-[rgba(20,17,15,0.05)] bg-transparent isolate">
+      <section className="relative w-full min-h-[100dvh] flex flex-col justify-center overflow-hidden border-b border-[rgba(20,17,15,0.05)] bg-transparent isolate">
         <VisualResearchHero />
         
         <div className="relative max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 z-10">
@@ -175,54 +176,22 @@ export default function ResearchDetail() {
                       className="rounded-[16px] bg-[#111] hover:bg-[#1a1a1a] transition-colors flex flex-col overflow-hidden shadow-lg border border-black/5 min-h-[350px]"
                     >
                       <div className="p-6 pb-4 bg-white border-b border-black/5">
-                        {/* Mini illustration SVG */}
-                        <div className="w-full h-[120px] rounded-[10px] bg-[#FAFAFA] border border-black/5 flex items-center justify-center overflow-hidden">
-                          <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                            <defs>
-                              <filter id={`glow-rd-${idx}`} x="-50%" y="-50%" width="200%" height="200%">
-                                <feGaussianBlur stdDeviation="2" result="blur"/>
-                                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                              </filter>
-                            </defs>
-                            {idx % 4 === 0 && (
-                              <g>
-                                {[[20,30],[45,15],[45,45],[75,20],[75,40],[100,30]].map(([x,y],k)=>(
-                                  <circle key={k} cx={x} cy={y} r={k===0||k===5?5:3.5} fill="#111" opacity={0.7+(k*0.05)} filter={`url(#glow-rd-${idx})`}/>
-                                ))}
-                                {[[0,1],[0,2],[1,3],[2,4],[3,5],[4,5],[1,4],[2,3]].map(([a,b],k)=>{
-                                  const pts=[[20,30],[45,15],[45,45],[75,20],[75,40],[100,30]];
-                                  return <line key={k} x1={pts[a][0]} y1={pts[a][1]} x2={pts[b][0]} y2={pts[b][1]} stroke="#111" strokeOpacity="0.15" strokeWidth="1"/>;
-                                })}
-                                <circle cx="100" cy="30" r="2" fill="#1283a9" filter={`url(#glow-rd-${idx})`} opacity="0.9"/>
-                              </g>
-                            )}
-                            {idx % 4 === 1 && (
-                              <g>
-                                <path d="M10 30 Q20 10 30 30 T50 30 T70 30 T90 30 T110 30" stroke="#111" strokeWidth="1.5" fill="none" opacity="0.15"/>
-                                <path d="M10 30 Q20 10 30 30 T50 30 T70 30" stroke="#1283a9" strokeWidth="1.5" fill="none" opacity="0.8" filter={`url(#glow-rd-${idx})`}/>
-                                {[30,50,70].map((x,k)=>(<circle key={k} cx={x} cy="30" r="2.5" fill="#1283a9" opacity={0.6+k*0.15}/>))}
-                              </g>
-                            )}
-                            {idx % 4 === 2 && (
-                              <g>
-                                {[20,35,28,42,38,48].map((h,k)=>(
-                                  <rect key={k} x={12+k*17} y={50-h} width="10" height={h} rx="2"
-                                    fill={k===5?"#10b981":"#111"} opacity={k===5?0.9:0.12+(k*0.05)} filter={k===5?`url(#glow-rd-${idx})`:""}/>
-                                ))}
-                                <line x1="10" y1="50" x2="110" y2="50" stroke="#111" strokeOpacity="0.1" strokeWidth="1"/>
-                              </g>
-                            )}
-                            {idx % 4 === 3 && (
-                              <g>
-                                {[0,60,120,180,240,300].map((deg,k)=>{
-                                  const r=(deg*Math.PI)/180,cx=60+22*Math.cos(r),cy=30+22*Math.sin(r);
-                                  return(<g key={k}><line x1="60" y1="30" x2={cx} y2={cy} stroke="#111" strokeOpacity="0.15" strokeWidth="1"/><circle cx={cx} cy={cy} r="3" fill="#111" opacity="0.5"/></g>);
-                                })}
-                                <circle cx="60" cy="30" r="8" fill="#111" opacity="0.08"/>
-                                <circle cx="60" cy="30" r="3" fill="#f59e0b" filter={`url(#glow-rd-${idx})`}/>
-                              </g>
-                            )}
-                          </svg>
+                        {/* Unique illustration SVG per card */}
+                        <div className="w-full h-[120px] rounded-[10px] bg-gradient-to-b from-[color-mix(in_srgb,var(--global-accent)_6%,transparent)] to-[#FAFAFA] border border-black/5 flex items-center justify-center overflow-hidden">
+                          {(() => {
+                            const themeMotifs = ResearchMotifs[theme.id];
+                            const Motif = themeMotifs && themeMotifs[idx];
+                            return Motif ? (
+                              <svg viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                                <Motif />
+                              </svg>
+                            ) : (
+                              <svg viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                                <circle cx="100" cy="50" r="30" stroke="var(--global-accent)" strokeWidth="1" strokeOpacity="0.3" strokeDasharray="4 4" />
+                                <circle cx="100" cy="50" r="6" fill="var(--global-accent)" fillOpacity="0.5" />
+                              </svg>
+                            );
+                          })()}
                         </div>
                       </div>
                       <div className={`p-8 pt-6 flex-1 flex flex-col justify-center ${darkGradients[idx % darkGradients.length]}`}>
@@ -241,37 +210,66 @@ export default function ResearchDetail() {
                   <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-50 pointer-events-none" />
                   
                   <div className="relative z-10 flex flex-col items-center">
-                    <div className="relative w-20 h-20 flex items-center justify-center mb-8">
-                      <motion.svg 
-                        animate={{ rotate: 360 }} 
-                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                        viewBox="0 0 100 100" 
-                        className="absolute inset-0 w-full h-full text-black/10" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2"
-                      >
-                        <circle cx="50" cy="50" r="40" strokeDasharray="10 10" />
-                        <circle cx="50" cy="50" r="30" strokeDasharray="4 12" />
-                      </motion.svg>
-                      <motion.svg 
-                        animate={{ rotate: -360 }} 
-                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                        viewBox="0 0 100 100" 
-                        className="absolute inset-0 w-full h-full text-brand-blue/30" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="1.5"
-                      >
-                        <path d="M50 10 A40 40 0 0 1 90 50" strokeDasharray="5 5" />
-                        <path d="M50 90 A40 40 0 0 1 10 50" strokeDasharray="5 5" />
-                      </motion.svg>
-                      <motion.div 
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }} 
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                        className="w-4 h-4 bg-brand-blue rounded-full shadow-[0_0_20px_rgba(18,131,169,0.5)]"
-                      />
-                    </div>
+                    {theme.id === 'speech-llms' ? (
+                      <div className="relative w-20 h-20 flex items-center justify-center mb-8">
+                        <motion.svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-black/10" fill="none" stroke="currentColor" strokeWidth="2">
+                          <circle cx="50" cy="50" r="40" strokeDasharray="4 8" />
+                        </motion.svg>
+                        <motion.svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-brand-blue" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.7 }}>
+                          <motion.path strokeLinecap="round" strokeWidth="4" 
+                            animate={{ d: ["M35 50 L35 50 M45 45 L45 55 M55 45 L55 55 M65 50 L65 50", "M35 40 L35 60 M45 30 L45 70 M55 35 L55 65 M65 45 L65 55", "M35 50 L35 50 M45 45 L45 55 M55 45 L55 55 M65 50 L65 50"] }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                        </motion.svg>
+                      </div>
+                    ) : theme.id === 'multi-agent-orchestration' ? (
+                      <div className="relative w-20 h-20 flex items-center justify-center mb-8">
+                        <motion.svg animate={{ rotate: 360 }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }} viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-black/10" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <polygon points="50,15 85,35 85,75 50,90 15,75 15,35" strokeDasharray="4 6" />
+                        </motion.svg>
+                        <motion.svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-brand-blue" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ opacity: 0.7 }}>
+                          <circle cx="50" cy="50" r="4" fill="currentColor" />
+                          <motion.circle cx="30" cy="30" r="3" fill="currentColor" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 2, repeat: Infinity }} />
+                          <motion.circle cx="70" cy="40" r="3" fill="currentColor" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 2.5, repeat: Infinity }} />
+                          <motion.circle cx="40" cy="70" r="3" fill="currentColor" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 1.8, repeat: Infinity }} />
+                          <line x1="50" y1="50" x2="30" y2="30" strokeDasharray="2 2" />
+                          <line x1="50" y1="50" x2="70" y2="40" strokeDasharray="2 2" />
+                          <line x1="50" y1="50" x2="40" y2="70" strokeDasharray="2 2" />
+                        </motion.svg>
+                      </div>
+                    ) : (
+                      <div className="relative w-20 h-20 flex items-center justify-center mb-8">
+                        <motion.svg 
+                          animate={{ rotate: 360 }} 
+                          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                          viewBox="0 0 100 100" 
+                          className="absolute inset-0 w-full h-full text-black/10" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          strokeWidth="2"
+                        >
+                          <circle cx="50" cy="50" r="40" strokeDasharray="10 10" />
+                          <circle cx="50" cy="50" r="30" strokeDasharray="4 12" />
+                        </motion.svg>
+                        <motion.svg 
+                          animate={{ rotate: -360 }} 
+                          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                          viewBox="0 0 100 100" 
+                          className="absolute inset-0 w-full h-full text-brand-blue/30" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          strokeWidth="1.5"
+                        >
+                          <path d="M50 10 A40 40 0 0 1 90 50" strokeDasharray="5 5" />
+                          <path d="M50 90 A40 40 0 0 1 10 50" strokeDasharray="5 5" />
+                        </motion.svg>
+                        <motion.div 
+                          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }} 
+                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                          className="w-4 h-4 bg-brand-blue rounded-full shadow-[0_0_20px_rgba(18,131,169,0.5)]"
+                        />
+                      </div>
+                    )}
                     
                     <span className="font-mono text-[13px] text-brand-blue font-bold tracking-[0.2em] uppercase text-center mb-3">Details coming soon</span>
                     <span className="text-[15px] text-black/40 font-light text-center max-w-[400px]">Our applied AI labs are currently exploring this frontier.</span>

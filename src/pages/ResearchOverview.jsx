@@ -63,7 +63,7 @@ const VisualResearchHero = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
           width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" stroke="currentColor" fill="none"
-          className="absolute inset-0"
+          className="absolute inset-0 overflow-visible"
         >
           <motion.g animate={{ rotate: 360 }} transition={{ duration: 200, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "500px 300px" }}>
             <circle cx="500" cy="300" r="250" strokeWidth="1.5" className="text-[var(--global-accent)] opacity-50 transition-colors duration-300" strokeDasharray="4 12" />
@@ -140,7 +140,7 @@ export default function ResearchOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full h-[80dvh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
         <VisualResearchHero />
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10">
           <FadeInUp>
@@ -200,6 +200,8 @@ export default function ResearchOverview() {
                       motifIndex={(i * 3 + idx) % 8}
                       idx={idx}
                       delay={idx * 0.08}
+                      themeId={theme.id}
+                      cardIdx={idx}
                     />
                   ))
                 ) : (
@@ -207,39 +209,46 @@ export default function ResearchOverview() {
                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-50 pointer-events-none" />
 
                     <div className="relative z-10 flex flex-col items-center transition-colors duration-300">
-                      <div className="relative w-16 h-16 flex items-center justify-center mb-6">
-                        <motion.svg
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                          viewBox="0 0 100 100"
-                          className="absolute inset-0 w-full h-full text-[#14110F]/10"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <circle cx="50" cy="50" r="40" strokeDasharray="10 10" />
-                          <circle cx="50" cy="50" r="30" strokeDasharray="4 12" />
-                        </motion.svg>
-                        <motion.svg
-                          animate={{ rotate: -360 }}
-                          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                          viewBox="0 0 100 100"
-                          className="absolute inset-0 w-full h-full text-[var(--global-accent)]"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          style={{ opacity: 0.3 }}
-                        >
-                          <path d="M50 10 A40 40 0 0 1 90 50" strokeDasharray="5 5" />
-                          <path d="M50 90 A40 40 0 0 1 10 50" strokeDasharray="5 5" />
-                        </motion.svg>
-                        <motion.div
-                          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: 'var(--global-accent)', boxShadow: '0 0 15px var(--global-accent)' }}
-                        />
-                      </div>
+                      {theme.id === 'speech-llms' ? (
+                        <div className="relative w-16 h-16 flex items-center justify-center mb-6">
+                          <motion.svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-[#14110F]/10" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle cx="50" cy="50" r="40" strokeDasharray="4 8" />
+                          </motion.svg>
+                          <motion.svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-[var(--global-accent)]" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.7 }}>
+                            <motion.path strokeLinecap="round" strokeWidth="4" 
+                              animate={{ d: ["M35 50 L35 50 M45 45 L45 55 M55 45 L55 55 M65 50 L65 50", "M35 40 L35 60 M45 30 L45 70 M55 35 L55 65 M65 45 L65 55", "M35 50 L35 50 M45 45 L45 55 M55 45 L55 55 M65 50 L65 50"] }}
+                              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                            />
+                          </motion.svg>
+                        </div>
+                      ) : theme.id === 'multi-agent-orchestration' ? (
+                        <div className="relative w-16 h-16 flex items-center justify-center mb-6">
+                          <motion.svg animate={{ rotate: 360 }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }} viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-[#14110F]/10" fill="none" stroke="currentColor" strokeWidth="1.5">
+                            <polygon points="50,15 85,35 85,75 50,90 15,75 15,35" strokeDasharray="4 6" />
+                          </motion.svg>
+                          <motion.svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-[var(--global-accent)]" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ opacity: 0.7 }}>
+                            <circle cx="50" cy="50" r="4" fill="currentColor" />
+                            <motion.circle cx="30" cy="30" r="3" fill="currentColor" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 2, repeat: Infinity }} />
+                            <motion.circle cx="70" cy="40" r="3" fill="currentColor" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 2.5, repeat: Infinity }} />
+                            <motion.circle cx="40" cy="70" r="3" fill="currentColor" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 1.8, repeat: Infinity }} />
+                            <line x1="50" y1="50" x2="30" y2="30" strokeDasharray="2 2" />
+                            <line x1="50" y1="50" x2="70" y2="40" strokeDasharray="2 2" />
+                            <line x1="50" y1="50" x2="40" y2="70" strokeDasharray="2 2" />
+                          </motion.svg>
+                        </div>
+                      ) : (
+                        <div className="relative w-16 h-16 flex items-center justify-center mb-6">
+                          <motion.svg animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-[#14110F]/10" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle cx="50" cy="50" r="40" strokeDasharray="10 10" />
+                            <circle cx="50" cy="50" r="30" strokeDasharray="4 12" />
+                          </motion.svg>
+                          <motion.svg animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-[var(--global-accent)]" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ opacity: 0.3 }}>
+                            <path d="M50 10 A40 40 0 0 1 90 50" strokeDasharray="5 5" />
+                            <path d="M50 90 A40 40 0 0 1 10 50" strokeDasharray="5 5" />
+                          </motion.svg>
+                          <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }} className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--global-accent)', boxShadow: '0 0 15px var(--global-accent)' }} />
+                        </div>
+                      )}
 
                       <span className="font-mono text-[12px] font-bold tracking-[0.2em] uppercase text-center mb-2 text-[var(--global-dark-accent)]">Research in progress</span>
                       <span className="text-[14px] text-[#14110F]/40 font-light text-center max-w-[300px]">Our applied AI labs are currently exploring this frontier.</span>
