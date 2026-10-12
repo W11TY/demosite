@@ -373,7 +373,7 @@ const SolutionCard = ({ solution, index }) => {
       <Link to={`/solutions/${solution.id}`} className="flex flex-col h-full outline-none">
         
         {/* STAGE: Top Half */}
-        <div className="bg-[#EAE4D8] relative flex flex-col justify-center items-center overflow-hidden" style={{ minHeight: 'clamp(160px, 35vw, 260px)' }}>
+        <div className="bg-[#EAE4D8] relative flex flex-col justify-center items-center overflow-hidden" style={{ minHeight: 'clamp(200px, 35vw, 290px)' }}>
           {/* Blueprint Dot Grid */}
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNiIvPjwvc3ZnPg==')] overflow-hidden" />
 
@@ -381,9 +381,9 @@ const SolutionCard = ({ solution, index }) => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] blur-[60px] rounded-full pointer-events-none" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 12%, transparent)' }} />
 
           {/* Scene area — glass card */}
-          <div className="relative z-10 w-full h-full" style={{ padding: '10px 10px 24px 10px' }}>
+          <div className="relative z-10 w-full h-full" style={{ padding: '8px 8px 14px 8px' }}>
             <div className="w-full h-full rounded-xl overflow-hidden relative"
-              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.9)', boxShadow: '0 4px 20px rgba(20,17,15,0.07), inset 0 1px 0 rgba(255,255,255,0.8)', minHeight: 'clamp(130px, 30vw, 220px)', maxHeight: '220px', overflow: 'hidden' }}>
+              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.9)', boxShadow: '0 4px 20px rgba(20,17,15,0.07), inset 0 1px 0 rgba(255,255,255,0.8)', minHeight: 'clamp(180px, 32vw, 255px)', maxHeight: '255px', overflow: 'hidden' }}>
               {solution.id === 'real-estate'       && <RealEstateScene />}
               {solution.id === 'automobile'         && <AutomobileScene />}
               {solution.id === 'consumer-durables'  && <ConsumerDurablesScene />}
@@ -458,13 +458,13 @@ export default function SolutionsOverview() {
       {/* 01 — HERO */}
       <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-start overflow-hidden isolate pt-[15vh] md:pt-[20vh] pb-10 z-0 bg-transparent">
         <VisualSolutionsHero />
-        <div className="max-w-[1000px] mx-auto px-6 text-center relative z-30">
+        <div className="max-w-[1200px] w-full mx-auto px-6 text-center relative z-30">
           <FadeInUp>
             <span className="text-[11px] font-mono tracking-[0.15em] text-[#14110F]/50 uppercase mb-6 block text-center">
               Industry Solutions
             </span>
-            <h1 className="text-[clamp(44px,8vw,72px)] font-medium tracking-tight text-[#14110F] leading-[1.05]">
-              Tailored AI orchestration for every <br className="hidden md:block" /><span style={{ color: BRAND }}>industry.</span>
+            <h1 className="text-[clamp(28px,5vw,64px)] font-medium tracking-tight text-[#14110F] leading-[1.05] whitespace-nowrap">
+              Tailored AI for every <span style={{ color: BRAND }}>industry.</span>
             </h1>
           </FadeInUp>
         </div>
@@ -531,7 +531,7 @@ export default function SolutionsOverview() {
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <MagneticElement>
                   <Link to="/contact">
-                    <AntiMetalButton label="Hire Team" />
+                    <AntiMetalButton label="Contact Us" />
                   </Link>
                 </MagneticElement>
               </div>

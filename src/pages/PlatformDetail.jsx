@@ -1,26 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { platforms } from '../data/platform';
+import { ACCENTS } from '../data/accents';
 import CapabilityPills from '../components/shared/CapabilityPills';
+import IllustrationCard from '../components/shared/IllustrationCard';
 import { FadeInUp, SlideInLeft, SlideInRight } from '../components/shared/Motion';
+
+const motifMapping = [0, 1, 2, 3, 4];
 
 export default function PlatformDetail() {
   const { id } = useParams();
-  const platform = platforms.find(p => p.id === id);
+  const platformIndex = platforms.findIndex(p => p.id === id);
+  const platform = platforms[platformIndex];
 
   if (!platform) {
     return <Navigate to="/platform" replace />;
   }
 
+  const currentAccent = ACCENTS[(platformIndex + 1) % ACCENTS.length];
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--global-accent', currentAccent.accent);
+    document.documentElement.style.setProperty('--global-tint', currentAccent.tint);
+    document.documentElement.style.setProperty('--global-dark-accent', currentAccent.dark);
+  }, [currentAccent]);
+
   return (
-    <div className="w-full bg-[#FAFAFA] min-h-screen text-[#14110F] selection:bg-[var(--global-accent)]/20">
+    <div 
+      className="w-full bg-[#FAFAFA] min-h-screen text-[#14110F] selection:bg-[var(--global-accent)]/20"
+      style={{
+        '--global-accent': currentAccent.accent,
+        '--global-tint': currentAccent.tint,
+        '--global-dark-accent': currentAccent.dark,
+      }}
+    >
       
       {/* Hero Section */}
       <section className="relative w-full pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden border-b border-[rgba(20,17,15,0.05)] bg-transparent">
         {/* Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-[120px] rounded-full pointer-events-none" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 15%, transparent)' }} />
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-[120px] rounded-full pointer-events-none transition-colors duration-500" 
+          style={{ backgroundColor: `color-mix(in srgb, ${currentAccent.accent} 15%, transparent)` }} 
+        />
         
         <div className="relative max-w-[1280px] mx-auto px-6 md:px-16 lg:px-20 z-10">
           <Link 
@@ -31,39 +54,55 @@ export default function PlatformDetail() {
             BACK TO PLATFORM
           </Link>
           
-          <div className="max-w-[900px]">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center gap-4 mb-6"
-            >
-              <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-[var(--global-accent)] uppercase font-bold transition-colors duration-300">
-                {platform.shortName}
-              </span>
-              <span className="text-[#14110F]/30">•</span>
-              <span className="font-mono text-[11px] md:text-[12px] tracking-[0.1em] text-[#14110F]/50 uppercase font-bold">
-                {platform.tagline}
-              </span>
-            </motion.div>
-            
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-[clamp(40px,7vw,84px)] font-medium tracking-tighter leading-[1.05] text-[#14110F] mb-8"
-            >
-              {platform.name}
-            </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] max-w-[700px] font-bold"
-            >
-              {platform.description}
-            </motion.p>
+          <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24 items-start md:items-center justify-between">
+            {/* Left Column: Platform Details */}
+            <div className="flex-1 min-w-0 md:max-w-[560px] lg:max-w-[620px]">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex items-center gap-4 mb-6"
+              >
+                <span className="font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-[var(--global-accent)] uppercase font-bold transition-colors duration-300">
+                  {platform.shortName}
+                </span>
+                <span className="text-[#14110F]/30">•</span>
+                <span className="font-mono text-[11px] md:text-[12px] tracking-[0.1em] text-[#14110F]/50 uppercase font-bold">
+                  {platform.tagline}
+                </span>
+              </motion.div>
+              
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-[clamp(36px,5.5vw,72px)] font-medium tracking-tighter leading-[1.08] text-[#14110F] mb-8"
+              >
+                {platform.name}
+              </motion.h1>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-[17px] md:text-[20px] text-[#14110F]/65 leading-[1.6] max-w-[620px] font-medium"
+              >
+                {platform.description}
+              </motion.p>
+            </div>
+
+            {/* Right Column: Respective Illustration Card in exact same place */}
+            <div className="w-full md:w-[420px] lg:w-[480px] shrink-0 flex md:justify-end">
+              <div className="w-full md:max-w-[480px] rounded-[24px]">
+                <IllustrationCard 
+                  name={platform.name}
+                  motifIndex={motifMapping[platformIndex]}
+                  idx={platformIndex}
+                  delay={0.1}
+                  metricRow={{ label: 'STATUS', value: 'LIVE' }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>

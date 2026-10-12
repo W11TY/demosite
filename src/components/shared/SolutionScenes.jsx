@@ -5,12 +5,23 @@
  */
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
+
+// Note: Suggested rename from 'revenue inteligenceplatform.png' to 'revenue-intelligence-platform.png' (fixing typo and space)
+import revenueIntelligenceImg from '../../assets/solutioncards/revenue inteligenceplatform.png';
+import carDealershipImg from '../../assets/solutioncards/cardealership.png';
+import customerServiceImg from '../../assets/solutioncards/customerservice.png';
+import collectionsImg from '../../assets/solutioncards/collections.png';
+import appointmentImg from '../../assets/solutioncards/appointment.png';
+import utilitiesImg from '../../assets/solutioncards/utilities.png';
 
 /* ─── CSS ──────────────────────────────────────────────────────────────────── */
 const SCENE_CSS = `
   @keyframes sceneDot   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
   @keyframes scenePulse { 0%,100%{opacity:0.35} 50%{opacity:1} }
   @keyframes slideUp    { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes lightboxFadeIn { from{opacity:0} to{opacity:1} }
+  @keyframes lightboxZoomIn { from{opacity:0;transform:scale(0.96)} to{opacity:1;transform:scale(1)} }
 `;
 function injectCSS() {
   if (typeof document === 'undefined' || document.getElementById('voxi-scene-css')) return;
@@ -159,13 +170,13 @@ function OutcomeCard({ label, visible }) {
   );
 }
 
-function TimerChip({ label, visible }) {
+function TimerChip({ label, visible, fontSize = 8.5 }) {
   return (
     <div style={{ position:'absolute', top:8, right:8,
       display:'flex', alignItems:'center', gap:5,
       padding:'3px 8px', borderRadius:99,
       background:'rgba(34,197,94,0.12)', border:'1px solid rgba(34,197,94,0.3)',
-      fontSize:8.5, fontFamily:'monospace', color:'#16A34A',
+      fontSize, fontFamily:'monospace', color:'#16A34A',
       opacity:visible?1:0, transform:visible?'none':'translateY(-4px)',
       transition:prefersReduced?'none':'opacity 0.4s ease-out, transform 0.4s ease-out',
       whiteSpace:'nowrap', zIndex:10 }}>
@@ -176,12 +187,12 @@ function TimerChip({ label, visible }) {
   );
 }
 
-function ChannelTag({ icon, label }) {
+function ChannelTag({ icon, label, fontSize = 8 }) {
   return (
     <div style={{ display:'inline-flex', alignItems:'center', gap:5,
       padding:'3px 7px', borderRadius:6, marginBottom:7,
       background:'rgba(20,17,15,0.06)', border:'1px solid rgba(20,17,15,0.1)',
-      fontSize:8, fontFamily:'monospace', textTransform:'uppercase',
+      fontSize, fontFamily:'monospace', textTransform:'uppercase',
       letterSpacing:'0.1em', color:'#14110F99', flexShrink:0,
       maxWidth:'100%', overflow:'hidden' }}>
       <span style={{ flexShrink:0 }}>{icon}</span>
@@ -190,7 +201,7 @@ function ChannelTag({ icon, label }) {
   );
 }
 
-function OldWayFooter({ text }) {
+function OldWayFooter({ text, fontSize = 8.5 }) {
   return (
     <div style={{ position:'absolute', bottom:0, left:0, right:0,
       padding:'4px 10px', display:'flex', alignItems:'center', gap:5,
@@ -199,7 +210,7 @@ function OldWayFooter({ text }) {
         <circle cx="6" cy="6" r="5" stroke="#14110F" strokeOpacity="0.25" strokeWidth="1"/>
         <path d="M2 6h8" stroke="#14110F" strokeOpacity="0.35" strokeWidth="1" strokeLinecap="round"/>
       </svg>
-      <span style={{ fontSize:8.5, fontFamily:'monospace', textDecoration:'line-through',
+      <span style={{ fontSize, fontFamily:'monospace', textDecoration:'line-through',
         color:'#14110F50', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>
         {text}
       </span>
@@ -242,13 +253,14 @@ function SceneShell({ combinedRef, compact, watermark, children, actions, outcom
     <div ref={combinedRef} style={{
       position:'relative', width:'100%', height:'100%',
       display:'flex', gap:compact?0:10,
-      padding:'8px 10px 26px 10px', overflow:'hidden',
+      padding: footerText ? '8px 10px 26px 10px' : '6px 8px',
+      overflow:'hidden',
       userSelect:'none', boxSizing:'border-box' }}>
       {watermark}
 
-      {/* LEFT: conversation thread */}
+      {/* LEFT: visual / conversation thread */}
       <div style={{ display:'flex', flexDirection:'column', flex:'1 1 0',
-        minWidth:0, position:'relative', zIndex:1 }}>
+        minWidth:0, position:'relative', zIndex:1, height:'100%', overflow:'hidden' }}>
         {children}
       </div>
 
@@ -258,7 +270,7 @@ function SceneShell({ combinedRef, compact, watermark, children, actions, outcom
           <div style={{ width:1, flexShrink:0, alignSelf:'stretch',
             background:'rgba(20,17,15,0.1)', margin:'0 2px' }}/>
           <div style={{ display:'flex', flexDirection:'column', width:126,
-            flexShrink:0, paddingTop:24, overflow:'hidden' }}>
+            flexShrink:0, paddingTop: footerText ? 24 : 10, overflow:'hidden' }}>
             <div style={{ fontSize:7.5, fontFamily:'monospace', textTransform:'uppercase',
               letterSpacing:'0.18em', marginBottom:6, color:'#14110F50', flexShrink:0 }}>
               Actions
@@ -270,7 +282,7 @@ function SceneShell({ combinedRef, compact, watermark, children, actions, outcom
       )}
 
       {timerLabel && <TimerChip label={timerLabel} visible={actionsVisible}/>}
-      <OldWayFooter text={footerText}/>
+      {footerText && <OldWayFooter text={footerText}/>}
     </div>
   );
 }
@@ -390,6 +402,212 @@ function BoltWatermark() {
 /* ═══════════════════════════════════════════════════════════════════════════
    1. REAL ESTATE
    ═══════════════════════════════════════════════════════════════════════════ */
+/* ─── Solution Card Image Visual & Lightbox ──────────────────────────────── */
+function SolutionImageVisual({ src, alt }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
+  const handleOpen = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(true);
+  };
+
+  const handleClose = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      {/* Bounded box filling remaining space between context bar and bottom strip */}
+      <div
+        ref={containerRef}
+        onClick={handleOpen}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        role="button"
+        tabIndex={0}
+        aria-label={`${alt}. Click to enlarge`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleOpen(e);
+          }
+        }}
+        style={{
+          flex: '1 1 0',
+          minHeight: 0,
+          width: '100%',
+          overflow: 'hidden',
+          position: 'relative',
+          background: '#FFFFFF',
+          borderRadius: 8,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1,
+          border: isHovered ? '1px solid rgba(63, 79, 208, 0.28)' : '1px solid rgba(20, 17, 15, 0.06)',
+          boxShadow: isHovered ? '0 4px 18px rgba(63, 79, 208, 0.12)' : 'none',
+          transition: prefersReduced ? 'none' : 'border-color 0.25s ease, box-shadow 0.25s ease',
+        }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            objectPosition: 'center',
+            display: 'block',
+            transform: !prefersReduced && isHovered ? 'scale(1.025)' : 'scale(1)',
+            transition: prefersReduced ? 'none' : 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        />
+      </div>
+
+      {/* Lightbox Modal */}
+      {isOpen &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            onClick={handleClose}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Enlarged ${alt} view`}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 99999,
+              background: 'rgba(10, 8, 7, 0.84)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 24,
+              cursor: 'zoom-out',
+              animation: prefersReduced ? 'none' : 'lightboxFadeIn 0.2s ease-out',
+            }}
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                position: 'relative',
+                maxWidth: '92vw',
+                maxHeight: '90vh',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                cursor: 'default',
+                borderRadius: 12,
+                overflow: 'hidden',
+                boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
+                background: '#FFFFFF',
+                padding: 10,
+                animation: prefersReduced ? 'none' : 'lightboxZoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            >
+              <button
+                type="button"
+                onClick={handleClose}
+                aria-label="Close enlarged view"
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  right: 14,
+                  zIndex: 10,
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  background: 'rgba(20, 17, 15, 0.75)',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 18,
+                  lineHeight: 1,
+                  backdropFilter: 'blur(4px)',
+                }}
+              >
+                ✕
+              </button>
+              <img
+                src={src}
+                alt={`${alt} enlarged visual`}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '82vh',
+                  objectFit: 'contain',
+                  borderRadius: 8,
+                  display: 'block',
+                }}
+              />
+              <div
+                style={{
+                  padding: '8px 12px 2px 12px',
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: '#14110F80',
+                  textAlign: 'center',
+                }}
+              >
+                Press Esc or click outside to close
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+    </>
+  );
+}
+
+function RevenueIntelligenceVisual() {
+  return <SolutionImageVisual src={revenueIntelligenceImg} alt="Revenue Intelligence Platform" />;
+}
+
+function CarDealershipVisual() {
+  return <SolutionImageVisual src={carDealershipImg} alt="Dealership & Service OS" />;
+}
+
+function CustomerServiceVisual() {
+  return <SolutionImageVisual src={customerServiceImg} alt="Customer Service Operating System" />;
+}
+
+function CollectionsVisual() {
+  return <SolutionImageVisual src={collectionsImg} alt="Collections Operating System" />;
+}
+
+function AppointmentVisual() {
+  return <SolutionImageVisual src={appointmentImg} alt="Appointment Management Operating System" />;
+}
+
+function UtilitiesVisual() {
+  return <SolutionImageVisual src={utilitiesImg} alt="Utilities Customer Engagement Operating System" />;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. REAL ESTATE
+   ═══════════════════════════════════════════════════════════════════════════ */
 const RE_STEPS = [
   {delay:500},{delay:650},{delay:450},{delay:700},
   {delay:650},{delay:450},{delay:700},{delay:550},{delay:600},
@@ -398,7 +616,7 @@ export function RealEstateScene() {
   const { step:s, rootRef } = useSceneStep(RE_STEPS);
   const widthRef = useRef(null);
   const combinedRef = useCallback(node=>{ rootRef.current=node; widthRef.current=node; },[rootRef]);
-  const compact = useContainerWidth(widthRef) < 440;
+  const compact = useContainerWidth(widthRef) < 320;
 
   const actions = [
     { label:'Lead captured',       checked:s>=3 },
@@ -411,18 +629,8 @@ export function RealEstateScene() {
   return (
     <SceneShell combinedRef={combinedRef} compact={compact} watermark={<BuildingWatermark/>}
       actions={actions} outcomeLabel="Site visit confirmed. No agent." actionsVisible={s>=8}
-      timerLabel="Replied in 8s" footerText="Enquiry answered next morning">
-      <ChannelTag icon={<HomeIcon/>} label="Property portal · 11:47 PM"/>
-      <ScrollingThread>
-        {s<1  && <TypingDots/>}
-        {s>=1 && <Bubble text="Interested in 3BHK, Gomti Nagar. Available?" visible ai={false} isNew={s===1}/>}
-        {s===2 && <TypingDots/>}
-        {s>=3 && <VoxiChip visible/>}
-        {s>=3 && <Bubble text="Yes, 2 units left. Budget 1.2–1.5 Cr?" visible ai isNew={s===3}/>}
-        {s>=4 && <Bubble text="Yes. Can I visit this weekend?" visible ai={false} isNew={s===4}/>}
-        {s===5 && <TypingDots/>}
-        {s>=6 && <Bubble text="Booked: Sat 11 AM. Pin & reminder sent ✓" visible ai isNew={s===6}/>}
-      </ScrollingThread>
+      timerLabel="Replied in 8s">
+      <RevenueIntelligenceVisual/>
     </SceneShell>
   );
 }
@@ -438,7 +646,7 @@ export function AutomobileScene() {
   const { step:s, rootRef } = useSceneStep(AUTO_STEPS);
   const widthRef = useRef(null);
   const combinedRef = useCallback(node=>{ rootRef.current=node; widthRef.current=node; },[rootRef]);
-  const compact = useContainerWidth(widthRef) < 440;
+  const compact = useContainerWidth(widthRef) < 320;
 
   const actions = [
     { label:'Missed call recovered',  checked:s>=1 },
@@ -451,19 +659,8 @@ export function AutomobileScene() {
   return (
     <SceneShell combinedRef={combinedRef} compact={compact} watermark={<CarWatermark/>}
       actions={actions} outcomeLabel="Test drive & service booked auto." actionsVisible={s>=8}
-      timerLabel="Replied in 5s" footerText="Missed call never returned">
-      <ChannelTag icon={<CarIcon/>} label="Missed call · Sunday 7:15 PM"/>
-      <ScrollingThread>
-        {s===0 && <TypingDots/>}
-        {s>=1 && <VoxiChip visible/>}
-        {s>=1 && <Bubble text="Sorry we missed you. Book a test drive?" visible ai isNew={s===1}/>}
-        {s>=2 && <Bubble text="Yes, the SUV, tomorrow evening." visible ai={false} isNew={s===2}/>}
-        {s===3 && <TypingDots/>}
-        {s>=4 && <Bubble text="Booked: Mon 5 PM with sales exec. Sent ✓" visible ai isNew={s===4}/>}
-        {s>=6 && <Bubble text="Service due at 10k km. Book a slot?" visible ai isNew={s===6}/>}
-        {s>=7 && <Bubble text="Yes please." visible ai={false} isNew={s===7}/>}
-        {s>=8 && <Bubble text="Booked: Thu 10 AM. Reminder set ✓" visible ai isNew={s===8}/>}
-      </ScrollingThread>
+      timerLabel="Replied in 5s">
+      <CarDealershipVisual/>
     </SceneShell>
   );
 }
@@ -479,7 +676,7 @@ export function ConsumerDurablesScene() {
   const { step:s, rootRef } = useSceneStep(CD_STEPS);
   const widthRef = useRef(null);
   const combinedRef = useCallback(node=>{ rootRef.current=node; widthRef.current=node; },[rootRef]);
-  const compact = useContainerWidth(widthRef) < 440;
+  const compact = useContainerWidth(widthRef) < 320;
 
   const actions = [
     { label:'Complaint registered',     checked:s>=3 },
@@ -492,20 +689,8 @@ export function ConsumerDurablesScene() {
   return (
     <SceneShell combinedRef={combinedRef} compact={compact} watermark={<TVWatermark/>}
       actions={actions} outcomeLabel="Issue resolved without human agent." actionsVisible={s>=8}
-      timerLabel="Registered in 12s" footerText="Complaint stuck in IVR for 40 min">
-      <ChannelTag icon={<WrenchIcon/>} label="WhatsApp · Tue 2:18 PM"/>
-      <ScrollingThread>
-        {s<1  && <TypingDots/>}
-        {s>=1 && <Bubble text="My washing machine isn't spinning since morning." visible ai={false} isNew={s===1}/>}
-        {s===2 && <TypingDots/>}
-        {s>=3 && <VoxiChip visible/>}
-        {s>=3 && <Bubble text="Sorry to hear that! Model number on the back panel?" visible ai isNew={s===3}/>}
-        {s>=4 && <Bubble text="WM-7234-IFB." visible ai={false} isNew={s===4}/>}
-        {s===5 && <TypingDots/>}
-        {s>=6 && <Bubble text="Ticket #4821 raised. Technician visit — when suits you?" visible ai isNew={s===6}/>}
-        {s>=7 && <Bubble text="Tomorrow morning please." visible ai={false} isNew={s===7}/>}
-        {s>=8 && <Bubble text="Booked: Wed 10–12 AM. You'll get an SMS reminder ✓" visible ai isNew={s===8}/>}
-      </ScrollingThread>
+      timerLabel="Registered in 12s">
+      <CustomerServiceVisual/>
     </SceneShell>
   );
 }
@@ -521,7 +706,7 @@ export function FintechScene() {
   const { step:s, rootRef } = useSceneStep(FT_STEPS);
   const widthRef = useRef(null);
   const combinedRef = useCallback(node=>{ rootRef.current=node; widthRef.current=node; },[rootRef]);
-  const compact = useContainerWidth(widthRef) < 440;
+  const compact = useContainerWidth(widthRef) < 320;
 
   const actions = [
     { label:'Right party connected',   checked:s>=1 },
@@ -534,20 +719,8 @@ export function FintechScene() {
   return (
     <SceneShell combinedRef={combinedRef} compact={compact} watermark={<CoinWatermark/>}
       actions={actions} outcomeLabel="₹12,400 EMI collected. Zero agent." actionsVisible={s>=8}
-      timerLabel="Connected in 6s" footerText="EMI 18 days overdue, no contact">
-      <ChannelTag icon={<CreditCardIcon/>} label="Outbound call · Mon 10:05 AM"/>
-      <ScrollingThread>
-        {s<1  && <TypingDots/>}
-        {s>=1 && <VoxiChip visible/>}
-        {s>=1 && <Bubble text="Hi Rahul, this is Voxi from FinEdge. EMI due the 5th." visible ai isNew={s===1}/>}
-        {s>=2 && <Bubble text="Yes, I know. I've been busy." visible ai={false} isNew={s===2}/>}
-        {s===3 && <TypingDots/>}
-        {s>=4 && <Bubble text="Your EMI is ₹12,400. Can you pay by Friday?" visible ai isNew={s===4}/>}
-        {s>=5 && <Bubble text="Yes, Friday works for me." visible ai={false} isNew={s===5}/>}
-        {s===6 && <TypingDots/>}
-        {s>=7 && <Bubble text="Payment link sent to your number. Reminder set ✓" visible ai isNew={s===7}/>}
-        {s>=8 && <Bubble text="Got it. Thanks." visible ai={false} isNew={s===8}/>}
-      </ScrollingThread>
+      timerLabel="Connected in 6s">
+      <CollectionsVisual/>
     </SceneShell>
   );
 }
@@ -563,7 +736,7 @@ export function HealthcareScene() {
   const { step:s, rootRef } = useSceneStep(HC_STEPS);
   const widthRef = useRef(null);
   const combinedRef = useCallback(node=>{ rootRef.current=node; widthRef.current=node; },[rootRef]);
-  const compact = useContainerWidth(widthRef) < 440;
+  const compact = useContainerWidth(widthRef) < 320;
 
   const actions = [
     { label:'Patient identified',      checked:s>=3 },
@@ -576,20 +749,8 @@ export function HealthcareScene() {
   return (
     <SceneShell combinedRef={combinedRef} compact={compact} watermark={<HeartbeatWatermark/>}
       actions={actions} outcomeLabel="Appointment confirmed. No hold time." actionsVisible={s>=8}
-      timerLabel="Booked in 45s" footerText="Patient waited on hold for 25 min">
-      <ChannelTag icon={<HeartIcon/>} label="WhatsApp · Thu 9:12 AM"/>
-      <ScrollingThread>
-        {s<1  && <TypingDots/>}
-        {s>=1 && <Bubble text="I need to book an appointment with Dr. Mehta." visible ai={false} isNew={s===1}/>}
-        {s===2 && <TypingDots/>}
-        {s>=3 && <VoxiChip visible/>}
-        {s>=3 && <Bubble text="Sure! Is this for a general check-up or follow-up?" visible ai isNew={s===3}/>}
-        {s>=4 && <Bubble text="Follow-up after my surgery last month." visible ai={false} isNew={s===4}/>}
-        {s===5 && <TypingDots/>}
-        {s>=6 && <Bubble text="Dr. Mehta has Fri 11 AM or Mon 3 PM. Preference?" visible ai isNew={s===6}/>}
-        {s>=7 && <Bubble text="Friday 11 AM please." visible ai={false} isNew={s===7}/>}
-        {s>=8 && <Bubble text="Confirmed! Reminder & pre-visit form sent ✓" visible ai isNew={s===8}/>}
-      </ScrollingThread>
+      timerLabel="Booked in 45s">
+      <AppointmentVisual/>
     </SceneShell>
   );
 }
@@ -605,7 +766,7 @@ export function UtilitiesScene() {
   const { step:s, rootRef } = useSceneStep(UT_STEPS);
   const widthRef = useRef(null);
   const combinedRef = useCallback(node=>{ rootRef.current=node; widthRef.current=node; },[rootRef]);
-  const compact = useContainerWidth(widthRef) < 440;
+  const compact = useContainerWidth(widthRef) < 320;
 
   const actions = [
     { label:'Account identified',     checked:s>=3 },
@@ -618,20 +779,8 @@ export function UtilitiesScene() {
   return (
     <SceneShell combinedRef={combinedRef} compact={compact} watermark={<BoltWatermark/>}
       actions={actions} outcomeLabel="Complaint resolved. No IVR drop." actionsVisible={s>=8}
-      timerLabel="Logged in 20s" footerText="Complaint lost after IVR timeout">
-      <ChannelTag icon={<ZapIcon/>} label="Missed call + SMS · Wed 6:40 PM"/>
-      <ScrollingThread>
-        {s<1  && <TypingDots/>}
-        {s>=1 && <Bubble text="Power has been out in my area since 4 PM." visible ai={false} isNew={s===1}/>}
-        {s===2 && <TypingDots/>}
-        {s>=3 && <VoxiChip visible/>}
-        {s>=3 && <Bubble text="Got it. Your account: Sector 12, Noida. Correct?" visible ai isNew={s===3}/>}
-        {s>=4 && <Bubble text="Yes, exactly." visible ai={false} isNew={s===4}/>}
-        {s===5 && <TypingDots/>}
-        {s>=6 && <Bubble text="Complaint #7731 filed. Field team alerted now." visible ai isNew={s===6}/>}
-        {s>=7 && <Bubble text="When will power be restored?" visible ai={false} isNew={s===7}/>}
-        {s>=8 && <Bubble text="ETA 2 hrs. You'll get an SMS when resolved ✓" visible ai isNew={s===8}/>}
-      </ScrollingThread>
+      timerLabel="Logged in 20s">
+      <UtilitiesVisual/>
     </SceneShell>
   );
 }

@@ -41,27 +41,27 @@ files.forEach(f => {
   // Replace PlatformOverview, SolutionsOverview, ResearchOverview, ResearchDetail blocks
   const replaceRegex1 = /<MagneticElement>\s*<motion\.button[^>]*>\s*(CONTACT SALES|BOOK A DEMO|CONTACT RESEARCH)[^<]*<\/motion\.button>\s*<\/MagneticElement>/gi;
   if (replaceRegex1.test(content)) {
-    content = content.replace(replaceRegex1, `<MagneticElement>\n                  <Link to="/contact">\n                    <AntiMetalButton label="Hire Team" />\n                  </Link>\n                </MagneticElement>`);
+    content = content.replace(replaceRegex1, `<MagneticElement>\n                  <Link to="/contact">\n                    <AntiMetalButton label="Contact Us" />\n                  </Link>\n                </MagneticElement>`);
     changed = true;
   }
 
   // Replace CompanyOverview block
   const replaceRegex2 = /<MagneticElement>\s*<Link to="\/contact"[^>]*>\s*CONTACT US[^<]*<\/Link>\s*<\/MagneticElement>/gi;
   if (replaceRegex2.test(content)) {
-    content = content.replace(replaceRegex2, `<MagneticElement>\n                <Link to="/contact">\n                  <AntiMetalButton label="Hire Team" />\n                </Link>\n              </MagneticElement>`);
+    content = content.replace(replaceRegex2, `<MagneticElement>\n                <Link to="/contact">\n                  <AntiMetalButton label="Contact Us" />\n                </Link>\n              </MagneticElement>`);
     changed = true;
   }
 
   // Replace CompanyDetail block
   const replaceRegex3 = /<AntiMetalButton label="Start Your Pilot" \/>/gi;
   if (replaceRegex3.test(content)) {
-    content = content.replace(replaceRegex3, `<AntiMetalButton label="Hire Team" />`);
+    content = content.replace(replaceRegex3, `<AntiMetalButton label="Contact Us" />`);
     changed = true;
   }
   
   // Wait, does CompanyDetail use RouterLink? Let's check CompanyDetail CTA
   const replaceRegex4 = /<MagneticElement>\s*<button[^>]*>\s*JOIN VOXI[^<]*<\/button>\s*<\/MagneticElement>/gi;
-  // If it's there we don't necessarily replace it unless user wanted "Hire Team" there.
+  // If it's there we don't necessarily replace it unless user wanted "Contact Us" there.
   // "sections directly above the footer section" refers to FINAL CTA blocks.
 
   if (changed) {

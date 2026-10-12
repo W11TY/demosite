@@ -297,7 +297,7 @@ export default function ResearchDetail() {
             
             <div className="flex justify-center w-full">
               <Link to="/contact">
-                <AntiMetalButton label="Hire Team" />
+                <AntiMetalButton label="Contact Us" />
               </Link>
             </div>
           </FadeInUp>

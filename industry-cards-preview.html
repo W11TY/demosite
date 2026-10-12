@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOXI AI — Solutions Industry Cards (Omnichannel Redesign)</title>
+  <!-- Typography matching Image 3 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ─── RESET & BASE VARIABLES ─────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, Monaco, monospace;
+
+      /* Source of truth colors from Image 3 */
+      --bg-canvas: #F5F1EA;
+      --panel-beige: #EDE8DF;
+      --text-main: #14110F;
+      --voxi-indigo: #3245D6;
+      --voxi-indigo-dark: #2736AE;
+      --bubble-grey: #EBE7DF;
+      --bubble-border: rgba(20, 17, 15, 0.08);
+      --green-check: #22C55E;
+      --green-pill-bg: #DCFCE7;
+      --green-pill-text: #15803D;
+      --dark-card-start: #0E131F;
+      --dark-card-end: #07090E;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      padding: 40px 20px 80px;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    /* ─── PAGE HEADER ────────────────────────────────────────────────────── */
+    .page-header {
+      max-width: 1320px;
+      margin: 0 auto 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .page-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--voxi-indigo);
+      font-weight: 600;
+    }
+
+    .page-title {
+      font-size: clamp(24px, 3.5vw, 40px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .page-sub {
+      font-size: 14px;
+      color: rgba(20, 17, 15, 0.6);
+      max-width: 720px;
+    }
+
+    /* ─── 6 CARDS GRID ───────────────────────────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 36px 32px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1080px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 680px;
+      }
+    }
+
+    /* ─── INDUSTRY CARD CONTAINER ────────────────────────────────────────── */
+    .industry-card-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .industry-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      color: var(--voxi-indigo);
+      padding-left: 2px;
+    }
+
+    .card-shell {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(20, 17, 15, 0.12);
+      box-shadow: 0 10px 30px rgba(20, 17, 15, 0.08);
+      display: flex;
+      flex-direction: column;
+      background: var(--dark-card-start);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card-shell:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(20, 17, 15, 0.12);
+    }
+
+    /* ─── TOP BEIGE PANEL WITH DOTS ──────────────────────────────────────── */
+    .top-beige-panel {
+      background-color: var(--panel-beige);
+      background-image: radial-gradient(rgba(20, 17, 15, 0.08) 1px, transparent 1px);
+      background-size: 14px 14px;
+      padding: 12px 12px 0 12px;
+      position: relative;
+    }
+
+    /* Inner white stage card */
+    .white-stage {
+      background: #FFFFFF;
+      border-radius: 14px;
+      border: 1px solid rgba(20, 17, 15, 0.08);
+      box-shadow: 0 3px 14px rgba(20, 17, 15, 0.04);
+      display: flex;
+      min-height: 250px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .white-stage {
+        flex-direction: column;
+        min-height: auto;
+      }
+    }
+
+    /* ─── LEFT AREA (5-PRODUCT OMNICHANNEL VISUAL) ────────────────────────── */
+    .visual-left {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Row 1: Source & Context Bar */
+    .context-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #F4EFE8;
+      border: 1px solid rgba(20, 17, 15, 0.1);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(20, 17, 15, 0.68);
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .context-bar svg {
+      width: 10px;
+      height: 10px;
+      opacity: 0.75;
+      flex-shrink: 0;
+    }
+
+    /* Row 2: Compact 5-Channel Navigation Strip */
+    .channel-strip {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .channel-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .channel-chip {
+      appearance: none;
+      border: 1px solid rgba(20, 17, 15, 0.1);
+      background: rgba(20, 17, 15, 0.03);
+      color: rgba(20, 17, 15, 0.65);
+      border-radius: 6px;
+      padding: 3px 7px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      position: relative;
+    }
+
+    .channel-chip:hover {
+      background: rgba(20, 17, 15, 0.08);
+      color: var(--text-main);
+    }
+
+    .channel-chip.active {
+      background: var(--voxi-indigo);
+      border-color: var(--voxi-indigo);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(50, 69, 214, 0.28);
+    }
+
+    .channel-chip .chip-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.8;
+    }
+
+    .channel-chip.active .chip-progress {
+      position: absolute;
+      bottom: -1px;
+      left: 3px;
+      right: 3px;
+      height: 2px;
+      background: #FFFFFF;
+      border-radius: 2px;
+      opacity: 0.75;
+      transform-origin: left;
+      animation: chipProgress 3s linear infinite;
+    }
+
+    @keyframes chipProgress {
+      0% {
+        transform: scaleX(0);
+      }
+
+      100% {
+        transform: scaleX(1);
+      }
+    }
+
+    /* Row 3: Product Visual Stage (Locked Height to Prevent Jitter) */
+    .channel-viewport {
+      height: 142px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .channel-pane {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .channel-pane.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* ─── PRODUCT PANE 1: VOICE AGENTS ───────────────────────────────────── */
+    .voice-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+    }
+
+    .call-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px;
+      background: #F9F7F3;
+      border-radius: 6px;
+      border: 1px solid rgba(20, 17, 15, 0.06);
+    }
+
+    .call-status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: #15803D;
+      font-weight: 500;
+    }
+
+    .status-pulse-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #22C55E;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+      animation: pulseAnim 1.6s ease-in-out infinite;
+    }
+
+    .call-duration {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: rgba(20, 17, 15, 0.5);
+    }
+
+    .waveform-strip {
+      display: flex;
+      align-items: center;
+      gap: 2.5px;
+      height: 22px;
+      padding: 2px 4px;
+    }
+
+    .wave-bar {
+      flex: 1;
+      background: var(--voxi-indigo);
+      border-radius: 2px;
+      min-height: 4px;
+      animation: waveDance 1.2s ease-in-out infinite alternate;
+    }
+
+    .wave-bar:nth-child(odd) {
+      animation-duration: 0.9s;
+      background: rgba(50, 69, 214, 0.7);
+    }
+
+    .wave-bar:nth-child(3n) {
+      animation-duration: 1.3s;
+    }
+
+    .wave-bar:nth-child(4n) {
+      animation-duration: 0.7s;
+    }
+
+    @keyframes waveDance {
+      0% {
+        height: 4px;
+      }
+
+      100% {
+        height: 18px;
+      }
+    }
+
+    .voice-transcript {
+      background: #F8F6F2;
+      border: 1px solid rgba(20, 17, 15, 0.07);
+      border-radius: 6px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 9.5px;
+      line-height: 1.35;
+    }
+
+    .transcript-line {
+      display: flex;
+      gap: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .transcript-speaker {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 600;
+      color: var(--voxi-indigo);
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .transcript-speaker.user {
+      color: rgba(20, 17, 15, 0.65);
+    }
+
+    .transcript-text {
+      color: var(--text-main);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ─── PRODUCT PANE 2: WHATSAPP PLATFORM (Image 3 Source of Truth) ────── */
+    .whatsapp-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: flex-end;
+      height: 100%;
+    }
+
+    .chat-bubble-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 90%;
+    }
+
+    .chat-bubble-wrap.user {
+      align-self: flex-end;
+      align-items: flex-end;
+    }
+
+    .chat-bubble-wrap.ai {
+      align-self: flex-start;
+      align-items: flex-start;
+    }
+
+    .voxi-label-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 1px;
+    }
+
+    .voxi-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--voxi-indigo);
+    }
+
+    .voxi-tag {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--voxi-indigo);
+    }
+
+    .chat-bubble {
+      padding: 4.5px 9px;
+      font-size: 9.5px;
+      line-height: 1.35;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chat-bubble.user-bubble {
+      background: var(--bubble-grey);
+      color: var(--text-main);
+      border-radius: 9px 9px 2px 9px;
+      border: 1px solid var(--bubble-border);
+    }
+
+    .chat-bubble.ai-bubble {
+      background: var(--voxi-indigo);
+      color: #FFFFFF;
+      border-radius: 9px 9px 9px 2px;
+      box-shadow: 0 2px 6px rgba(50, 69, 214, 0.22);
+    }
+
+    /* ─── PRODUCT PANE 3: CONTACT CENTER ─────────────────────────────────── */
+    .cc-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .cc-queue-card {
+      background: #F9F7F3;
+      border: 1px solid rgba(20, 17, 15, 0.08);
+      border-radius: 6px;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .queue-title {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .queue-badge {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      background: rgba(50, 69, 214, 0.1);
+      color: var(--voxi-indigo);
+      padding: 1.5px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .routing-flow {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 8px;
+      background: #FFFFFF;
+      border: 1px dashed rgba(20, 17, 15, 0.15);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: rgba(20, 17, 15, 0.7);
+    }
+
+    .routing-node {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .routing-node.active-dest {
+      color: var(--voxi-indigo);
+      background: rgba(50, 69, 214, 0.08);
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    .cc-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: rgba(20, 17, 15, 0.55);
+      padding: 0 2px;
+    }
+
+    /* ─── PRODUCT PANE 4: QUALITY MANAGEMENT ─────────────────────────────── */
+    .qa-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .scorecard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #F9F7F3;
+      padding: 5px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(20, 17, 15, 0.07);
+    }
+
+    .score-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 10px;
+      color: var(--voxi-indigo);
+    }
+
+    .score-grade {
+      background: var(--voxi-indigo);
+      color: #FFF;
+      font-size: 7.5px;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    .scorecard-chips {
+      display: flex;
+      gap: 4px;
+    }
+
+    .metric-pill {
+      flex: 1;
+      padding: 4px 6px;
+      border-radius: 5px;
+      font-size: 8px;
+      font-family: var(--font-mono);
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .metric-pill.green {
+      background: rgba(34, 197, 94, 0.12);
+      color: #15803D;
+      border: 1px solid rgba(34, 197, 94, 0.25);
+    }
+
+    .metric-pill.blue {
+      background: rgba(50, 69, 214, 0.1);
+      color: var(--voxi-indigo);
+      border: 1px solid rgba(50, 69, 214, 0.22);
+    }
+
+    .qa-flag-box {
+      background: #FFFFFF;
+      border: 1px solid rgba(20, 17, 15, 0.08);
+      border-left: 2.5px solid #22C55E;
+      border-radius: 4px;
+      padding: 4px 6px;
+      font-size: 8.5px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .flag-icon {
+      font-size: 9px;
+      flex-shrink: 0;
+    }
+
+    /* ─── PRODUCT PANE 5: CUSTOMER ENGAGEMENT ────────────────────────────── */
+    .engage-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .timeline-title {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(20, 17, 15, 0.55);
+      margin-bottom: 2px;
+    }
+
+    .timeline-track {
+      display: flex;
+      flex-direction: column;
+      gap: 4.5px;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 4.5px;
+      top: 4px;
+      bottom: 4px;
+      width: 1px;
+      background: rgba(20, 17, 15, 0.15);
+    }
+
+    .timeline-node {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      font-size: 8.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .timeline-node::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1.5px solid var(--voxi-indigo);
+    }
+
+    .timeline-node.done::before {
+      background: #22C55E;
+      border-color: #22C55E;
+    }
+
+    .timeline-badge {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      font-weight: 600;
+      padding: 1px 4px;
+      border-radius: 3px;
+      background: #F1ECE3;
+      color: rgba(20, 17, 15, 0.7);
+      flex-shrink: 0;
+    }
+
+    .timeline-desc {
+      color: var(--text-main);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ─── VERTICAL DIVIDER ───────────────────────────────────────────────── */
+    .panel-divider {
+      width: 1px;
+      background: rgba(20, 17, 15, 0.08);
+      align-self: stretch;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+      .panel-divider {
+        width: 100%;
+        height: 1px;
+      }
+    }
+
+    /* ─── RIGHT ACTIONS PANEL (Image 3 Source of Truth) ──────────────────── */
+    .actions-right {
+      width: 148px;
+      padding: 12px 10px 10px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .actions-right {
+        width: 100%;
+        padding: 10px 14px 14px;
+      }
+    }
+
+    /* Faint building watermark behind actions */
+    .actions-watermark {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 105px;
+      height: 130px;
+      opacity: 0.055;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Top green replied pill */
+    .replied-pill-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .replied-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2.5px 7px;
+      background: var(--green-pill-bg);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: var(--green-pill-text);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .replied-dot {
+      width: 4.5px;
+      height: 4.5px;
+      border-radius: 50%;
+      background: #22C55E;
+      animation: pulseAnim 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulseAnim {
+
+      0%,
+      100% {
+        opacity: 0.4;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .actions-label {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(20, 17, 15, 0.45);
+      margin-bottom: 5px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Checklist */
+    .checklist-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.24;
+      transform: translateX(-2px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .check-row.checked {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .check-circle {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(20, 17, 15, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .check-row.checked .check-circle {
+      background-color: var(--green-check);
+      border-color: var(--green-check);
+    }
+
+    .check-circle svg {
+      width: 7px;
+      height: 7px;
+      stroke: #FFFFFF;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      display: none;
+    }
+
+    .check-row.checked .check-circle svg {
+      display: block;
+    }
+
+    .check-text {
+      font-size: 9.5px;
+      font-weight: 500;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Blue confirmation pill */
+    .outcome-pill {
+      margin-top: auto;
+      padding: 5px 8px;
+      background: var(--voxi-indigo);
+      border-radius: 7px;
+      color: #FFFFFF;
+      font-size: 9px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 3px 10px rgba(50, 69, 214, 0.28);
+      position: relative;
+      z-index: 2;
+      opacity: 0.15;
+      transform: translateY(2px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .outcome-pill.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── BOTTOM STRIP WITH STRUCK-THROUGH "BEFORE" LINE ─────────────────── */
+    .bottom-strip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(234, 228, 216, 0.9);
+      border-top: 1px solid rgba(20, 17, 15, 0.08);
+      margin-top: 10px;
+    }
+
+    .bottom-strip svg {
+      width: 10px;
+      height: 10px;
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    .struck-line {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: rgba(20, 17, 15, 0.45);
+      text-decoration: line-through;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ─── DARK BOTTOM PANEL (Image 3 Source of Truth) ────────────────────── */
+    .dark-bottom-panel {
+      background: linear-gradient(180deg, var(--dark-card-start) 0%, var(--dark-card-end) 100%);
+      padding: 24px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .dark-title {
+      color: #FFFFFF;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.25;
+    }
+
+    .dark-desc {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding-top: 10px;
+      padding-bottom: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .stat-val {
+      font-size: 21px;
+      font-weight: 400;
+      color: #FFFFFF;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .stat-lbl {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.48);
+      line-height: 1.3;
+    }
+
+    .dark-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.09);
+      margin-top: 4px;
+    }
+
+    .explore-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #4F6BFF;
+      text-decoration: none;
+      padding-top: 4px;
+      transition: color 0.2s ease, gap 0.2s ease;
+    }
+
+    .explore-link:hover {
+      color: #7B93FF;
+      gap: 9px;
+    }
+
+    /* ─── ACCESSIBILITY: PREFERS-REDUCED-MOTION ───────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .check-row {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .outcome-pill {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <span class="page-tag">VOXI CX Operating System · Industry Solutions</span>
+    <h1 class="page-title">Autonomous customer orchestration for every industry.</h1>
+    <p class="page-sub">
+      Each card represents our complete 5-product engine working as a unified customer journey:
+      <strong>Voice Agents</strong>, <strong>WhatsApp Platform</strong>, <strong>Contact Centre</strong>,
+      <strong>Quality Management</strong>, and <strong>Customer Engagement</strong>.
+    </p>
+  </header>
+
+  <!-- 6 INDUSTRY CARDS GRID -->
+  <main class="cards-grid" id="industryCardsGrid">
+    <!-- Rendered dynamically from data object below -->
+  </main>
+
+  <!-- JAVASCRIPT: DATA OBJECT + AUTONOMOUS OMNICHANNEL ENGINE -->
+  <script>
+    /**
+     * UNIFIED INDUSTRY DATA STORE
+     * Adding a 7th industry requires only appending an object to this array.
+     * Stats marked as PLACEHOLDER per brief instruction.
+     */
+    const INDUSTRIES_DATA = [
+      /* ══════════════════════════════════════════════════════════════════════
+         01 / REAL ESTATE (Lucknow / Gomti Nagar Context)
+         ══════════════════════════════════════════════════════════════════════ */
+      {
+        id: "real-estate",
+        code: "01",
+        name: "Real Estate",
+        sourceContext: "PROPERTY PORTAL · 11:47 PM",
+        sourceIcon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+        timerLabel: "Replied in 8s",
+        struckPain: "Enquiry answered next morning",
+        outcomePill: "✓ Site visit confirmed. No agent.",
+        darkTitle: "Revenue Intelligence Platform",
+        darkDesc: "AI-powered customer acquisition, lead engagement, campaign automation, and sales acceleration to drive higher conversions and revenue growth.",
+        // Stats: Exact values required by brief
+        stats: [
+          { value: "90%", label: "Connectivity" },
+          { value: "40%", label: "More Conversions" },
+          { value: "x3", label: "Lower CAC" },
+          { value: "Zero", label: "Missed Follow-Ups" }
+        ],
+        actions: [
+          "Lead captured",
+          "Qualified",
+          "Site visit booked",
+          "Reminder scheduled",
+          "Follow-up armed"
+        ],
+        channels: {
+          voice: {
+            status: "Call connected · 0:42",
+            transcript: [
+              { speaker: "Voxi AI", text: "Namaste Rohan. Confirming your Saturday 11 AM visit to Eldeco Gomti Nagar." },
+              { speaker: "User", text: "Yes, 11 AM works. Please send location on WhatsApp." }
+            ]
+          },
+          whatsapp: {
+            user1: "Interested in 3BHK, Gomti Nagar. Available?",
+            ai1: "Yes, 2 units left. Budget 1.2–1.5 Cr?",
+            user2: "Yes. Can I visit this weekend?",
+            ai2: "Booked: Sat 11 AM. Pin & reminder sent ✓"
+          },
+          cc: {
+            queueTitle: "Queue: VIP Property Inbound",
+            queueBadge: "Pos #1 · Pri High",
+            routingFrom: "Portal Hook",
+            routingVia: "AI Voice Core",
+            routingTo: "Sr. Property Advisor",
+            sipTrunk: "Active",
+            latency: "320ms"
+          },
+          quality: {
+            score: "98/100",
+            grade: "A+",
+            sentiment: "Positive · 88%",
+            compliance: "100% Pass",
+            flagText: "RERA reg #UPRERA-9041 verified on call"
+          },
+          engage: {
+            title: "Omnichannel Nurture Sequence",
+            nodes: [
+              { tag: "WA", text: "11:47 PM · Brochure & floor plan sent", done: true },
+              { tag: "SMS", text: "11:48 PM · Calendar invite synced", done: true },
+              { tag: "Call", text: "Next Day 10 AM · Auto-reminder armed", done: true }
+            ]
+          }
+        }
+      },
+
+      /* ══════════════════════════════════════════════════════════════════════
+         02 / AUTOMOBILE (Dealership Hazratganj Context)
+         ══════════════════════════════════════════════════════════════════════ */
+      {
+        id: "automobile",
+        code: "02",
+        name: "Automobile",
+        sourceContext: "DEALERSHIP PORTAL · 09:15 PM",
+        sourceIcon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 3.1C2.1 11.4 2 11.7 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>`,
+        timerLabel: "Replied in 6s",
+        struckPain: "Showroom callback delayed by 24h",
+        outcomePill: "✓ Test drive confirmed. Doorstep delivery.",
+        darkTitle: "Dealership & Service OS",
+        darkDesc: "Automate test drive bookings, service appointments, and follow-ups to increase showroom footfall and service center utilization.",
+        // Stats: Realistic placeholders for automobile
+        stats: [
+          { value: "30%", label: "More Test Drives" }, /* PLACEHOLDER */
+          { value: "85%", label: "Service Turnout" },  /* PLACEHOLDER */
+          { value: "50%", label: "Lower CAC" },        /* PLACEHOLDER */
+          { value: "12m", label: "Speed to Lead" }     /* PLACEHOLDER */
+        ],
+        actions: [
+          "Missed call recovered",
+          "Test drive booked",
+          "Service reminder sent",
+          "Slot confirmed",
+          "Survey queued"
+        ],
+        channels: {
+          voice: {
+            status: "Inbound AI Call · 0:34",
+            transcript: [
+              { speaker: "Voxi AI", text: "Thar Roxx AX7 diesel demo car ready for tomorrow 4 PM at Hazratganj." },
+              { speaker: "User", text: "Perfect. Can you send vehicle to my office address?" }
+            ]
+          },
+          whatsapp: {
+            user1: "Need Thar Roxx AX7 test drive near Hazratganj.",
+            ai1: "Available tomorrow 4 PM or Sat 11 AM. Preferred?",
+            user2: "Tomorrow 4 PM at Hazratganj office.",
+            ai2: "Locked: Thu 4 PM. Demo driver assigned ✓"
+          },
+          cc: {
+            queueTitle: "Queue: Test Drive Escalations",
+            queueBadge: "Pos #1 · In Showroom",
+            routingFrom: "Missed Call IVR",
+            routingVia: "AI Qualification",
+            routingTo: "Hazratganj Fleet Desk",
+            sipTrunk: "Active",
+            latency: "280ms"
+          },
+          quality: {
+            score: "96/100",
+            grade: "A+",
+            sentiment: "High Intent · 92%",
+            compliance: "License Verified",
+            flagText: "Valid DL checklist confirmed before booking"
+          },
+          engage: {
+            title: "Pre-Drive & Service Nurture",
+            nodes: [
+              { tag: "WA", text: "09:16 PM · Spec sheet & quote shared", done: true },
+              { tag: "IVR", text: "Tomorrow 3 PM · Arrival ETA ping", done: true },
+              { tag: "SMS", text: "Post-drive · Feedback survey armed", done: true }
+            ]
+          }
+        }
+      },
+
+      /* ══════════════════════════════════════════════════════════════════════
+         03 / CONSUMER DURABLE (Appliance Service Indira Nagar Context)
+         ══════════════════════════════════════════════════════════════════════ */
+      {
+        id: "consumer-durables",
+        code: "03",
+        name: "Consumer Durable",
+        sourceContext: "SERVICE APP · 07:42 AM",
+        sourceIcon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`,
+        timerLabel: "Resolved in 14s",
+        struckPain: "Customer on hold for 18 minutes",
+        outcomePill: "✓ Technician dispatched. ETA 2:30 PM.",
+        darkTitle: "Customer Service Operating System",
+        darkDesc: "Intelligent customer service automation for handling inquiries, complaints, service requests, and post-sales support across multiple channels.",
+        // Stats: Realistic placeholders for consumer durables
+        stats: [
+          { value: "80%", label: "Automation" },           /* PLACEHOLDER */
+          { value: "60%", label: "Cost Reduction" },       /* PLACEHOLDER */
+          { value: "2x", label: "Faster Resolution" },     /* PLACEHOLDER */
+          { value: "94%", label: "First-Contact CSAT" }    /* PLACEHOLDER */
+        ],
+        actions: [
+          "Error code diagnosed",
+          "Warranty verified",
+          "Technician dispatched",
+          "Parts pre-allocated",
+          "CSAT survey scheduled"
+        ],
+        channels: {
+          voice: {
+            status: "Voice Diagnosis · 0:28",
+            transcript: [
+              { speaker: "Voxi AI", text: "Diagnosed inverter error E6. In-warranty till Oct 2027. PCB dispatched." },
+              { speaker: "User", text: "Great, please ensure tech arrives before 4 PM." }
+            ]
+          },
+          whatsapp: {
+            user1: "1.5T AC showing Error E6 in Indira Nagar. Need tech.",
+            ai1: "Error E6 identified: Motor communication. Slot 2:30 PM?",
+            user2: "Yes, 2:30 PM works. Will it be chargeable?",
+            ai2: "Free under warranty. Tech Amit assigned ✓"
+          },
+          cc: {
+            queueTitle: "Queue: Urgent Appliance Repair",
+            queueBadge: "Auto-Triage · Skill",
+            routingFrom: "App Diagnosis",
+            routingVia: "Warranty Engine",
+            routingTo: "Indira Nagar Hub Tech",
+            sipTrunk: "Active",
+            latency: "310ms"
+          },
+          quality: {
+            score: "94/100",
+            grade: "A",
+            sentiment: "Frustrated ➔ Relieved",
+            compliance: "Warranty Matched",
+            flagText: "Serial #AC-8839 zero-cost covered"
+          },
+          engage: {
+            title: "Technician Dispatch Updates",
+            nodes: [
+              { tag: "WA", text: "07:43 AM · Job card #JB-901 generated", done: true },
+              { tag: "SMS", text: "01:45 PM · Live tracking link shared", done: true },
+              { tag: "Call", text: "Post-visit · Automated CSAT audit", done: true }
+            ]
+          }
+        }
+      },
+
+      /* ══════════════════════════════════════════════════════════════════════
+         04 / FINTECH (NBFC EMI Collections Context)
+         ══════════════════════════════════════════════════════════════════════ */
+      {
+        id: "fintech",
+        code: "04",
+        name: "Fintech",
+        sourceContext: "NBFC LOAN PORTAL · 08:30 PM",
+        sourceIcon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
+        timerLabel: "Collected in 18s",
+        struckPain: "Unpaid loan rolled into 30+ DPD",
+        outcomePill: "✓ EMI paid via UPI. Zero penalty.",
+        darkTitle: "Collections Operating System",
+        darkDesc: "Automated payment reminders, collections, and recovery workflows to improve payment success rates while enhancing customer experience.",
+        // Stats: Realistic placeholders for fintech
+        stats: [
+          { value: "90%", label: "Right-Party Reach" },     /* PLACEHOLDER */
+          { value: "50%", label: "Higher PTP" },            /* PLACEHOLDER */
+          { value: "75%", label: "Lower Cost to Collect" }, /* PLACEHOLDER */
+          { value: "40%", label: "Faster Recovery" }        /* PLACEHOLDER */
+        ],
+        actions: [
+          "Overdue flagged",
+          "Identity authenticated",
+          "UPI link generated",
+          "PTP recorded",
+          "Receipt issued"
+        ],
+        channels: {
+          voice: {
+            status: "Collections AI Voice · 0:31",
+            transcript: [
+              { speaker: "Voxi AI", text: "Namaste Vikram ji, ₹14,250 EMI due today. Would you like an instant UPI link?" },
+              { speaker: "User", text: "Yes, send it on WhatsApp right away." }
+            ]
+          },
+          whatsapp: {
+            user1: "Need fresh payment link for loan #LN-9402.",
+            ai1: "UPI link generated for ₹14,250. Valid till midnight.",
+            user2: "Paid just now via GooglePay.",
+            ai2: "Payment confirmed. NOC receipt sent ✓"
+          },
+          cc: {
+            queueTitle: "Queue: D-0 Early Delinquency",
+            queueBadge: "Low Risk · Auto",
+            routingFrom: "LMS Webhook",
+            routingVia: "Hindi Dialect AI",
+            routingTo: "UPI Gateway Bridge",
+            sipTrunk: "Active",
+            latency: "260ms"
+          },
+          quality: {
+            score: "99/100",
+            grade: "A+",
+            sentiment: "Cooperative · 95%",
+            compliance: "RBI Fair Practices",
+            flagText: "Zero coercive language · 100% compliant"
+          },
+          engage: {
+            title: "Delinquency Recovery Journey",
+            nodes: [
+              { tag: "WA", text: "D-3 · Soft reminder with breakup", done: true },
+              { tag: "Call", text: "D-0 · Autonomous payment assistance", done: true },
+              { tag: "WA", text: "Instant · CIBIL on-time update ping", done: true }
+            ]
+          }
+        }
+      },
+
+      /* ══════════════════════════════════════════════════════════════════════
+         05 / HEALTHCARE (Pediatric Clinic Aliganj Context)
+         ══════════════════════════════════════════════════════════════════════ */
+      {
+        id: "healthcare",
+        code: "05",
+        name: "Healthcare",
+        sourceContext: "CLINIC WHATSAPP · 06:15 AM",
+        sourceIcon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+        timerLabel: "Booked in 11s",
+        struckPain: "Queueing at reception desk at 7 AM",
+        outcomePill: "✓ OPD slot booked. Token #14 issued.",
+        darkTitle: "Patient Access & Care Orchestration",
+        darkDesc: "AI-driven scheduling, reminders, confirmations, and appointment management to reduce no-shows and improve operational efficiency.",
+        // Stats: Realistic placeholders for healthcare
+        stats: [
+          { value: "92%", label: "Show-Up Rate" },       /* PLACEHOLDER */
+          { value: "70%", label: "Lower No-Shows" },     /* PLACEHOLDER */
+          { value: "4x", label: "Faster Triage" },       /* PLACEHOLDER */
+          { value: "Zero", label: "Booking Bottlenecks" }/* PLACEHOLDER */
+        ],
+        actions: [
+          "Symptoms triaged",
+          "Doctor slot matched",
+          "Appointment locked",
+          "EMR updated",
+          "Token & prep sent"
+        ],
+        channels: {
+          voice: {
+            status: "Autonomous Reception · 0:22",
+            transcript: [
+              { speaker: "Voxi AI", text: "Dr. Verma has 11:30 AM slot open today in Aliganj for child checkup." },
+              { speaker: "User", text: "Book it please. Does child need to come fasting?" }
+            ]
+          },
+          whatsapp: {
+            user1: "Need appointment with Dr. Verma in Aliganj today.",
+            ai1: "11:30 AM slot open today. Confirm patient age?",
+            user2: "Age 5. Confirm 11:30 AM.",
+            ai2: "Booked: 11:30 AM. Token #14 & prep guide sent ✓"
+          },
+          cc: {
+            queueTitle: "Queue: Urgent Pediatric OPD",
+            queueBadge: "Priority · Fast Triage",
+            routingFrom: "WhatsApp BOT",
+            routingVia: "EMR Slot Engine",
+            routingTo: "Aliganj OPD Counter",
+            sipTrunk: "Active",
+            latency: "290ms"
+          },
+          quality: {
+            score: "97/100",
+            grade: "A+",
+            sentiment: "Reassured · 94%",
+            compliance: "DISHA / Medical Privacy",
+            flagText: "Prescription record linked securely"
+          },
+          engage: {
+            title: "Care Protocol & Follow-up",
+            nodes: [
+              { tag: "WA", text: "06:16 AM · Token #14 & maps pin sent", done: true },
+              { tag: "SMS", text: "09:30 AM · Fasting & parking guidelines", done: true },
+              { tag: "WA", text: "Post-OPD · Digital Rx & lab test link", done: true }
+            ]
+          }
+        }
+      },
+
+      /* ══════════════════════════════════════════════════════════════════════
+         06 / UTILITIES (Power Grid Lucknow Outage Context)
+         ══════════════════════════════════════════════════════════════════════ */
+      {
+        id: "utilities",
+        code: "06",
+        name: "Utilities",
+        sourceContext: "GRID HELPLINE · 10:22 PM",
+        sourceIcon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+        timerLabel: "Resolved in 9s",
+        struckPain: "Helpline busy tone for 45 minutes",
+        outcomePill: "✓ Bill corrected. Power restored.",
+        darkTitle: "Citizen Engagement & Grid Support",
+        darkDesc: "Intelligent customer communication, service management, billing support, and automated notifications for telecom, utility, and public service organizations.",
+        // Stats: Realistic placeholders for utilities
+        stats: [
+          { value: "88%", label: "Call Deflection" },      /* PLACEHOLDER */
+          { value: "<5s", label: "Avg Answer Time" },      /* PLACEHOLDER */
+          { value: "99.8%", label: "Billing Accuracy" },   /* PLACEHOLDER */
+          { value: "45%", label: "Lower OpEx" }            /* PLACEHOLDER */
+        ],
+        actions: [
+          "Meter anomaly detected",
+          "Grid status checked",
+          "Revised bill generated",
+          "Outage ticket resolved",
+          "Confirmation broadcast"
+        ],
+        channels: {
+          voice: {
+            status: "Grid Outage IVR · 0:25",
+            transcript: [
+              { speaker: "Voxi AI", text: "Feeder #4 trip detected in Sector 14. Restoration underway: 11:15 PM." },
+              { speaker: "User", text: "Thank you. And my inflated bill of ₹8,400?" }
+            ]
+          },
+          whatsapp: {
+            user1: "Bill shows ₹8,400 for meter #UP-55-901. Usually ₹3,200.",
+            ai1: "Reading audited: Meter rollover bug identified.",
+            user2: "Please issue revised statement.",
+            ai2: "Corrected bill ₹3,180 issued with ₹200 rebate ✓"
+          },
+          cc: {
+            queueTitle: "Queue: Storm Outage Surge (1,200 cps)",
+            queueBadge: "Surge Shield · 0s Queue",
+            routingFrom: "SCADA Grid Sensor",
+            routingVia: "AI Speech Telephony",
+            routingTo: "Substation Dispatch",
+            sipTrunk: "Active",
+            latency: "240ms"
+          },
+          quality: {
+            score: "95/100",
+            grade: "A",
+            sentiment: "Relieved · 90%",
+            compliance: "Safety Advisory 100%",
+            flagText: "Outage SLA disclosure completed"
+          },
+          engage: {
+            title: "Proactive Outage Broadcast",
+            nodes: [
+              { tag: "SMS", text: "10:23 PM · Outage alert dispatched", done: true },
+              { tag: "WA", text: "10:50 PM · Live crew repair tracker link", done: true },
+              { tag: "IVR", text: "11:15 PM · Power restored confirmation", done: true }
+            ]
+          }
+        }
+      }
+    ];
+
+    /**
+     * RENDER CARDS FUNCTION
+     * Builds DOM nodes with proper semantic structure, high-contrast states, and accessibility.
+     */
+    function renderIndustryCards() {
+      const container = document.getElementById('industryCardsGrid');
+      container.innerHTML = '';
+
+      INDUSTRIES_DATA.forEach((ind, index) => {
+        const cardWrapper = document.createElement('article');
+        cardWrapper.className = 'industry-card-wrapper';
+        cardWrapper.id = `card-${ind.id}`;
+
+        // Top label outside card: 01 / REAL ESTATE
+        const headerLabel = document.createElement('div');
+        headerLabel.className = 'industry-label';
+        headerLabel.textContent = `${ind.code} / ${ind.name}`;
+        cardWrapper.appendChild(headerLabel);
+
+        // Outer Card Shell
+        const cardShell = document.createElement('div');
+        cardShell.className = 'card-shell';
+
+        // 1. TOP BEIGE PANEL
+        const topBeige = document.createElement('div');
+        topBeige.className = 'top-beige-panel';
+
+        // Inner White Stage
+        const whiteStage = document.createElement('div');
+        whiteStage.className = 'white-stage';
+
+        // ─── LEFT AREA: 5 PRODUCTS OMNICHANNEL ENGINE ───
+        const leftArea = document.createElement('div');
+        leftArea.className = 'visual-left';
+
+        // Context Bar
+        const contextBar = document.createElement('div');
+        contextBar.className = 'context-bar';
+        contextBar.innerHTML = `${ind.sourceIcon} <span>${ind.sourceContext}</span>`;
+        leftArea.appendChild(contextBar);
+
+        // Channel Strip (5 chips)
+        const channelStrip = document.createElement('div');
+        channelStrip.className = 'channel-strip';
+        const channelsMeta = [
+          { key: 'voice', label: 'Voice' },
+          { key: 'whatsapp', label: 'WhatsApp' },
+          { key: 'cc', label: 'Contact Centre' },
+          { key: 'quality', label: 'Quality' },
+          { key: 'engage', label: 'Engage' }
+        ];
+
+        channelsMeta.forEach((ch, chIdx) => {
+          const chipBtn = document.createElement('button');
+          chipBtn.type = 'button';
+          chipBtn.className = `channel-chip ${chIdx === 0 ? 'active' : ''}`;
+          chipBtn.dataset.channel = ch.key;
+          chipBtn.dataset.index = chIdx;
+          chipBtn.innerHTML = `
+            <span class="chip-dot"></span>
+            <span>${ch.label}</span>
+            <span class="chip-progress"></span>
+          `;
+          channelStrip.appendChild(chipBtn);
+        });
+        leftArea.appendChild(channelStrip);
+
+        // Viewport for the 5 swapped panes
+        const viewport = document.createElement('div');
+        viewport.className = 'channel-viewport';
+
+        // PANE 1: VOICE
+        const paneVoice = document.createElement('div');
+        paneVoice.className = 'channel-pane active';
+        paneVoice.dataset.pane = 'voice';
+        paneVoice.innerHTML = `
+          <div class="voice-pane">
+            <div class="call-meta-bar">
+              <span class="call-status-badge">
+                <span class="status-pulse-dot"></span>
+                <span>${ind.channels.voice.status}</span>
+              </span>
+              <span class="call-duration">HD SIP Voice</span>
+            </div>
+            <div class="waveform-strip">
+              ${Array.from({ length: 24 }).map((_, i) => `<span class="wave-bar" style="animation-delay: ${(i * 0.05).toFixed(2)}s"></span>`).join('')}
+            </div>
+            <div class="voice-transcript">
+              ${ind.channels.voice.transcript.map(t => `
+                <div class="transcript-line">
+                  <span class="transcript-speaker ${t.speaker === 'User' ? 'user' : ''}">${t.speaker}:</span>
+                  <span class="transcript-text">"${t.text}"</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        viewport.appendChild(paneVoice);
+
+        // PANE 2: WHATSAPP (Image 3 Source of Truth)
+        const paneWA = document.createElement('div');
+        paneWA.className = 'channel-pane';
+        paneWA.dataset.pane = 'whatsapp';
+        paneWA.innerHTML = `
+          <div class="whatsapp-pane">
+            <div class="chat-bubble-wrap user">
+              <div class="chat-bubble user-bubble">${ind.channels.whatsapp.user1}</div>
+            </div>
+            <div class="chat-bubble-wrap ai">
+              <div class="voxi-label-row">
+                <span class="voxi-dot"></span>
+                <span class="voxi-tag">VOXI AI</span>
+              </div>
+              <div class="chat-bubble ai-bubble">${ind.channels.whatsapp.ai1}</div>
+            </div>
+            <div class="chat-bubble-wrap user">
+              <div class="chat-bubble user-bubble">${ind.channels.whatsapp.user2}</div>
+            </div>
+            <div class="chat-bubble-wrap ai">
+              <div class="chat-bubble ai-bubble">${ind.channels.whatsapp.ai2}</div>
+            </div>
+          </div>
+        `;
+        viewport.appendChild(paneWA);
+
+        // PANE 3: CONTACT CENTRE
+        const paneCC = document.createElement('div');
+        paneCC.className = 'channel-pane';
+        paneCC.dataset.pane = 'cc';
+        paneCC.innerHTML = `
+          <div class="cc-pane">
+            <div class="cc-queue-card">
+              <span class="queue-title">${ind.channels.cc.queueTitle}</span>
+              <span class="queue-badge">${ind.channels.cc.queueBadge}</span>
+            </div>
+            <div class="routing-flow">
+              <span>${ind.channels.cc.routingFrom}</span>
+              <span>➔</span>
+              <span class="routing-node">${ind.channels.cc.routingVia}</span>
+              <span>➔</span>
+              <span class="routing-node active-dest">${ind.channels.cc.routingTo}</span>
+            </div>
+            <div class="cc-meta-row">
+              <span>SIP Trunk: ${ind.channels.cc.sipTrunk}</span>
+              <span>Latency: ${ind.channels.cc.latency}</span>
+              <span>Autonomous Handoff</span>
+            </div>
+          </div>
+        `;
+        viewport.appendChild(paneCC);
+
+        // PANE 4: QUALITY MANAGEMENT
+        const paneQA = document.createElement('div');
+        paneQA.className = 'channel-pane';
+        paneQA.dataset.pane = 'quality';
+        paneQA.innerHTML = `
+          <div class="qa-pane">
+            <div class="scorecard-header">
+              <div class="score-badge">
+                <span>Score: ${ind.channels.quality.score}</span>
+                <span class="score-grade">${ind.channels.quality.grade}</span>
+              </div>
+              <span style="font-family:var(--font-mono); font-size:8px; color:rgba(20,17,15,0.5);">100% AI Audited</span>
+            </div>
+            <div class="scorecard-chips">
+              <div class="metric-pill green">
+                <span style="opacity:0.75;">Sentiment</span>
+                <strong>${ind.channels.quality.sentiment}</strong>
+              </div>
+              <div class="metric-pill blue">
+                <span style="opacity:0.75;">Compliance</span>
+                <strong>${ind.channels.quality.compliance}</strong>
+              </div>
+            </div>
+            <div class="qa-flag-box">
+              <span class="flag-icon">✓</span>
+              <span>${ind.channels.quality.flagText}</span>
+            </div>
+          </div>
+        `;
+        viewport.appendChild(paneQA);
+
+        // PANE 5: ENGAGE (Timeline)
+        const paneEngage = document.createElement('div');
+        paneEngage.className = 'channel-pane';
+        paneEngage.dataset.pane = 'engage';
+        paneEngage.innerHTML = `
+          <div class="engage-pane">
+            <span class="timeline-title">${ind.channels.engage.title}</span>
+            <div class="timeline-track">
+              ${ind.channels.engage.nodes.map(n => `
+                <div class="timeline-node ${n.done ? 'done' : ''}">
+                  <span class="timeline-badge">${n.tag}</span>
+                  <span class="timeline-desc">${n.text}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        viewport.appendChild(paneEngage);
+
+        leftArea.appendChild(viewport);
+        whiteStage.appendChild(leftArea);
+
+        // Divider
+        const divider = document.createElement('div');
+        divider.className = 'panel-divider';
+        whiteStage.appendChild(divider);
+
+        // ─── RIGHT AREA: PRESERVED EXACT ACTIONS PANEL ───
+        const rightArea = document.createElement('div');
+        rightArea.className = 'actions-right';
+
+        // Faint building silhouette watermark
+        rightArea.innerHTML += `
+          <svg class="actions-watermark" viewBox="0 0 100 120" fill="none">
+            <rect x="25" y="15" width="55" height="105" rx="2" fill="#14110F"/>
+            <rect x="0" y="45" width="28" height="75" rx="2" fill="#14110F"/>
+            <rect x="10" y="55" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="10" y="75" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="35" y="25" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="50" y="25" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="65" y="25" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="35" y="45" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="50" y="45" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="65" y="45" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="35" y="65" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="50" y="65" width="8" height="10" fill="#FFFFFF"/>
+            <rect x="65" y="65" width="8" height="10" fill="#FFFFFF"/>
+          </svg>
+        `;
+
+        // Top green pill (Replied in 8s)
+        const greenWrap = document.createElement('div');
+        greenWrap.className = 'replied-pill-wrap';
+        greenWrap.innerHTML = `
+          <div class="replied-pill">
+            <span class="replied-dot"></span>
+            <span>${ind.timerLabel}</span>
+          </div>
+        `;
+        rightArea.appendChild(greenWrap);
+
+        // ACTIONS label
+        const actionsLabel = document.createElement('div');
+        actionsLabel.className = 'actions-label';
+        actionsLabel.textContent = 'ACTIONS';
+        rightArea.appendChild(actionsLabel);
+
+        // Checklist of 5 items
+        const checkWrap = document.createElement('div');
+        checkWrap.className = 'checklist-wrap';
+        ind.actions.forEach((act, actIdx) => {
+          const row = document.createElement('div');
+          row.className = `check-row ${actIdx === 0 ? 'checked' : ''}`;
+          row.dataset.actionIndex = actIdx;
+          row.innerHTML = `
+            <div class="check-circle">
+              <svg viewBox="0 0 8 8"><path d="M1.5 4l2 2 3-3"/></svg>
+            </div>
+            <span class="check-text">${act}</span>
+          `;
+          checkWrap.appendChild(row);
+        });
+        rightArea.appendChild(checkWrap);
+
+        // Outcome Blue Pill
+        const outcomePill = document.createElement('div');
+        outcomePill.className = 'outcome-pill';
+        outcomePill.textContent = ind.outcomePill;
+        rightArea.appendChild(outcomePill);
+
+        whiteStage.appendChild(rightArea);
+        topBeige.appendChild(whiteStage);
+
+        // Bottom Strip: Struck-through line
+        const bottomStrip = document.createElement('div');
+        bottomStrip.className = 'bottom-strip';
+        bottomStrip.innerHTML = `
+          <svg viewBox="0 0 12 12" fill="none">
+            <circle cx="6" cy="6" r="5" stroke="#14110F" stroke-width="1.2"/>
+            <path d="M2.5 6h7" stroke="#14110F" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <span class="struck-line">${ind.struckPain}</span>
+        `;
+        topBeige.appendChild(bottomStrip);
+
+        cardShell.appendChild(topBeige);
+
+        // 2. DARK BOTTOM PANEL (Image 3 Source of Truth)
+        const darkPanel = document.createElement('div');
+        darkPanel.className = 'dark-bottom-panel';
+        darkPanel.innerHTML = `
+          <h2 class="dark-title">${ind.darkTitle}</h2>
+          <p class="dark-desc">${ind.darkDesc}</p>
+          <div class="stats-row">
+            ${ind.stats.map(s => `
+              <div class="stat-col">
+                <span class="stat-val">${s.value}</span>
+                <span class="stat-lbl">${s.label}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="dark-divider"></div>
+          <div>
+            <a href="#explore-${ind.id}" class="explore-link">EXPLORE DETAIL →</a>
+          </div>
+        `;
+        cardShell.appendChild(darkPanel);
+
+        cardWrapper.appendChild(cardShell);
+        container.appendChild(cardWrapper);
+
+        // Attach Card Controller (Channel Cycling & Synced Actions)
+        initCardController(cardWrapper, ind);
+      });
+    }
+
+    /**
+     * CARD CONTROLLER ENGINE
+     * Manages:
+     * 1. 3s auto-cycle across 5 channels
+     * 2. Hover pause / resume
+     * 3. Direct chip click jumping
+     * 4. Synced progressive checklist ticking
+     * 5. prefers-reduced-motion static final state
+     */
+    function initCardController(cardElement, industryData) {
+      const chips = cardElement.querySelectorAll('.channel-chip');
+      const panes = cardElement.querySelectorAll('.channel-pane');
+      const actionRows = cardElement.querySelectorAll('.check-row');
+      const outcomePill = cardElement.querySelector('.outcome-pill');
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // In reduced motion mode, show final state statically
+      if (prefersReduced) {
+        chips.forEach(c => c.classList.remove('active'));
+        if (chips[4]) chips[4].classList.add('active');
+        panes.forEach(p => p.classList.remove('active'));
+        const lastPane = cardElement.querySelector(`.channel-pane[data-pane="${chips[4].dataset.channel}"]`);
+        if (lastPane) lastPane.classList.add('active');
+        actionRows.forEach(r => r.classList.add('checked'));
+        outcomePill.classList.add('visible');
+        return;
+      }
+
+      let activeChannelIndex = 0;
+      let timer = null;
+      let isPaused = false;
+      const CYCLE_DURATION = 3000; // 3 seconds per channel
+
+      function setChannel(index) {
+        activeChannelIndex = (index + 5) % 5;
+
+        // 1. Update Chips
+        chips.forEach((chip, i) => {
+          if (i === activeChannelIndex) {
+            chip.classList.add('active');
+            // Reset chip progress animation
+            const progress = chip.querySelector('.chip-progress');
+            if (progress) {
+              progress.style.animation = 'none';
+              void progress.offsetWidth; // trigger reflow
+              progress.style.animation = `chipProgress ${CYCLE_DURATION}ms linear infinite`;
+            }
+          } else {
+            chip.classList.remove('active');
+          }
+        });
+
+        // 2. Swap Content Panes
+        const targetChannelKey = chips[activeChannelIndex].dataset.channel;
+        panes.forEach(pane => {
+          if (pane.dataset.pane === targetChannelKey) {
+            pane.classList.add('active');
+          } else {
+            pane.classList.remove('active');
+          }
+        });
+
+        // 3. Sync Action Checklist (Story advances in lockstep)
+        // Step 0: 1 item, Step 1: 2 items, Step 2: 3 items, Step 3: 4 items, Step 4: all 5 items + outcome pill
+        actionRows.forEach((row, i) => {
+          if (i <= activeChannelIndex) {
+            row.classList.add('checked');
+          } else {
+            row.classList.remove('checked');
+          }
+        });
+
+        // Final Outcome Pill visible on 5th channel (Engage)
+        if (activeChannelIndex === 4) {
+          outcomePill.classList.add('visible');
+        } else {
+          outcomePill.classList.remove('visible');
+        }
+      }
+
+      function startCycle() {
+        clearTimeout(timer);
+        if (isPaused) return;
+        timer = setTimeout(() => {
+          setChannel(activeChannelIndex + 1);
+          startCycle();
+        }, CYCLE_DURATION);
+      }
+
+      // Chip Click Handler
+      chips.forEach((chip, idx) => {
+        chip.addEventListener('click', (e) => {
+          e.preventDefault();
+          setChannel(idx);
+          clearTimeout(timer);
+          startCycle();
+        });
+      });
+
+      // Hover Pause / Resume on White Stage
+      const stage = cardElement.querySelector('.white-stage');
+      stage.addEventListener('mouseenter', () => {
+        isPaused = true;
+        clearTimeout(timer);
+        const activeProgress = cardElement.querySelector('.channel-chip.active .chip-progress');
+        if (activeProgress) activeProgress.style.animationPlayState = 'paused';
+      });
+
+      stage.addEventListener('mouseleave', () => {
+        isPaused = false;
+        const activeProgress = cardElement.querySelector('.channel-chip.active .chip-progress');
+        if (activeProgress) activeProgress.style.animationPlayState = 'running';
+        startCycle();
+      });
+
+      // Initial Start
+      setChannel(0);
+      startCycle();
+    }
+
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', renderIndustryCards);
+  </script>
+</body>
+
+</html>

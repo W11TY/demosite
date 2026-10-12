@@ -118,7 +118,7 @@ export default function Nav() {
       className="hidden lg:flex fixed top-[32px] right-[35px] z-50"
     >
       <Link to="/contact">
-        <AntiMetalButton label="Hire Team" />
+        <AntiMetalButton label="Contact Us" />
       </Link>
     </motion.div>
     </>

@@ -190,7 +190,7 @@ export default function CompanyOverview() {
             <div className="mt-12 flex justify-center">
               <MagneticElement>
                 <Link to="/contact">
-                  <AntiMetalButton label="Hire Team" />
+                  <AntiMetalButton label="Contact Us" />
                 </Link>
               </MagneticElement>
             </div>

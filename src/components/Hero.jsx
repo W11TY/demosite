@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { easing } from './shared/Motion';
@@ -188,7 +187,7 @@ export default function Hero() {
           className="hidden lg:flex absolute top-[20px] right-[23px] z-50"
         >
           <Link to="/contact">
-            <AntiMetalButton label="Hire Team" />
+            <AntiMetalButton label="Contact Us" />
           </Link>
         </motion.div>
 
@@ -215,15 +214,15 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* ── Right Floating Project Card ── */}
+          {/* ── Right Floating Digital Brain Card ── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4, ease: easing }}
-            className="relative lg:absolute lg:right-[39px] lg:top-[190px] w-full lg:w-[335px] max-w-[335px] h-[315px] bg-[#111111] rounded-[22px] shadow-[0_12px_40px_rgba(0,0,0,0.2)] p-[16px] flex flex-col justify-between z-30 border border-white/10 mx-auto lg:mx-0 mb-20 lg:mb-0"
+            className="relative lg:absolute lg:right-[39px] lg:top-[190px] w-full lg:w-[350px] max-w-[350px] bg-[#111111] rounded-[20px] shadow-[0_16px_40px_rgba(0,0,0,0.22)] p-[6px] z-30 border border-white/10 mx-auto lg:mx-0 mb-20 lg:mb-0"
           >
-            {/* Card Image Area */}
-            <div className="w-full h-[230px] rounded-[14px] bg-black overflow-hidden relative group cursor-pointer flex-shrink-0 flex items-center justify-center">
+            {/* Card Video Area with Thin Bezel */}
+            <div className="w-full aspect-video rounded-[14px] bg-black overflow-hidden relative group cursor-pointer flex items-center justify-center">
               <video
                 autoPlay
                 muted
@@ -232,15 +231,6 @@ export default function Hero() {
                 src={digitalBrainVideo}
                 className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
               />
-            </div>
-            {/* Card Footer */}
-            <div className="flex items-center justify-between px-1 pb-0.5">
-              <div>
-                <h3 className="text-[14.5px] font-semibold text-white leading-tight"> Voxi Orchestration Platform</h3>
-              </div>
-              <div className="w-[30px] h-[30px] rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/30 transition-colors cursor-pointer">
-                <ArrowRight size={12} className="text-white/60" />
-              </div>
             </div>
           </motion.div>
 

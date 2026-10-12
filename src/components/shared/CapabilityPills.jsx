@@ -18,7 +18,7 @@ export default function CapabilityPills({ capabilities }) {
       <div className="flex flex-wrap gap-3 md:gap-4 relative">
           {capabilities.map((cap, idx) => {
           const isHovered = hoveredIndex === idx;
-          const isBlurred = isAnyHovered && !isHovered;
+          const isOtherHovered = isAnyHovered && !isHovered;
 
           return (
             <motion.button
@@ -34,7 +34,7 @@ export default function CapabilityPills({ capabilities }) {
                   ? 'bg-black border-black text-white shadow-lg shadow-black/10 scale-[1.02] z-40' 
                   : 'bg-transparent border-black/10 text-text-secondary animate-blue-wave'
               } ${
-                isBlurred ? 'blur-[3px] opacity-40 scale-[0.98] z-0' : 'z-10'
+                isOtherHovered ? 'opacity-60 scale-[0.98] z-0' : 'z-10'
               }`}
             >
               <span className={`text-[14px] md:text-[15px] tracking-tight text-left ${isHovered ? 'font-medium' : 'font-normal'}`}>
@@ -42,9 +42,7 @@ export default function CapabilityPills({ capabilities }) {
               </span>
               
               {cap.status && (
-                <span className={`shrink-0 text-[10px] font-bold uppercase tracking-wider transition-opacity ${getStatusColor(cap.status)} ${
-                  isBlurred ? 'opacity-0' : 'opacity-100'
-                }`}>
+                <span className={`shrink-0 text-[10px] font-bold uppercase tracking-wider transition-opacity ${getStatusColor(cap.status)}`}>
                   • {cap.status}
                 </span>
               )}

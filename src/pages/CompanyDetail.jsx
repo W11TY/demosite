@@ -544,7 +544,7 @@ const CulturePage = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
               <MagneticElement>
                 <Link to="/contact">
-                  <AntiMetalButton label="Hire Team" />
+                  <AntiMetalButton label="Contact Us" />
                 </Link>
               </MagneticElement>
               <MagneticElement>
@@ -944,7 +944,7 @@ const AboutPage = () => {
             <div className="mt-12 flex justify-center">
               <MagneticElement>
                 <RouterLink to="/contact">
-                  <AntiMetalButton label="Hire Team" />
+                  <AntiMetalButton label="Contact Us" />
                 </RouterLink>
               </MagneticElement>
             </div>

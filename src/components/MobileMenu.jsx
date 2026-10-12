@@ -147,7 +147,7 @@ export default function MobileMenu({ isOpen, setIsOpen, navItems }) {
             {/* CTA Button */}
             <div className="mt-auto w-full flex justify-center pb-2">
               <Link to="/contact" onClick={() => setIsOpen(false)}>
-                <AntiMetalButton label="Hire Team" className="w-full sm:w-[174px]" />
+                <AntiMetalButton label="Contact Us" className="w-full sm:w-[174px]" />
               </Link>
             </div>
           </div>

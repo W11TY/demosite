@@ -59,7 +59,7 @@ export const AntiMetalButton = React.forwardRef(
     },
     ref
   ) => {
-    const content = label ?? children ?? "Hire Team";
+    const content = label ?? children ?? "Contact Us";
 
     return (
       <MagneticElement className="inline-block">

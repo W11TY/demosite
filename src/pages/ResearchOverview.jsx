@@ -281,7 +281,7 @@ export default function ResearchOverview() {
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <MagneticElement>
                   <Link to="/contact">
-                    <AntiMetalButton label="Hire Team" />
+                    <AntiMetalButton label="Contact Us" />
                   </Link>
                 </MagneticElement>
               </div>
