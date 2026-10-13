@@ -560,12 +560,9 @@ const CulturePage = () => {
   );
 };
 
-const LEADERSHIP = [
-  { name: 'Manish Joshi', role: 'CEO', initials: 'MJ', image: '' },
-  { name: 'Rakesh Kanugula', role: 'COO', initials: 'RK', image: '' }
-];
-
 const TEAM_MEMBERS = [
+  { name: 'Manish Joshi', role: 'CEO', initials: 'MJ', image: '' },
+  { name: 'Rakesh Kanugula', role: 'COO', initials: 'RK', image: '' },
   { name: 'Divya Sri Chakrini', role: '', initials: 'DC', image: '' },
   { name: 'Mukhesh Kalvapudi', role: '', initials: 'MK', image: '' },
   { name: 'Avanish Shahi', role: '', initials: 'AS', image: '' },
@@ -574,8 +571,6 @@ const TEAM_MEMBERS = [
   { name: 'Somya', role: '', initials: 'SO', image: '' },
   { name: 'Ashutosh Singh', role: '', initials: 'AS', image: '' }
 ];
-
-const FOUNDERS = [...LEADERSHIP, ...TEAM_MEMBERS];
 
 const SOLUTION_POINTERS = [
   {
@@ -892,38 +887,16 @@ const AboutPage = () => {
         <section id="chapter-3" className="w-full py-24 md:py-36 px-6 relative overflow-hidden bg-transparent min-h-[70dvh] flex flex-col items-center justify-center">
           <ParallaxText text="TEAM." alignLeft={true} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
           
-          <div className="max-w-[1000px] mx-auto relative z-10 w-full flex flex-col items-center mb-16 md:mb-20">
-             <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold block mb-12 text-[var(--global-dark-accent)]">04 / TEAM</span>
-             
-             {/* Leadership Row: Manish Joshi & Rakesh Kanugula */}
-             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-14 w-full max-w-[560px] md:max-w-[620px] mx-auto">
-                {LEADERSHIP.map((leader, i) => (
-                  <div key={i} className="group relative flex flex-col items-center cursor-pointer w-full">
-                    {/* Portrait card */}
-                    <div className="w-full aspect-[3/4] bg-white/40 backdrop-blur-md rounded-[20px] md:rounded-[24px] mb-6 overflow-hidden relative flex items-center justify-center border border-[#14110F]/10 group-hover:border-[var(--global-accent)]/50 shadow-[0_8px_30px_rgba(20,17,15,0.04)] group-hover:shadow-[0_20px_40px_color-mix(in_srgb,var(--global-accent)_15%,transparent)] group-hover:-translate-y-1 transition-all duration-500">
-                      {leader.image ? (
-                        <img src={leader.image} alt={leader.name} className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
-                      ) : (
-                        <span className="font-mono text-[52px] md:text-[60px] font-semibold text-[#14110F]/30 group-hover:text-[var(--global-dark-accent)] tracking-widest uppercase transition-colors duration-300 select-none">
-                          {leader.initials}
-                        </span>
-                      )}
-                    </div>
-                    
-                    {/* Ink text */}
-                    <h3 className="text-[22px] md:text-[24px] font-medium text-[#14110F] mb-1.5 text-center">{leader.name}</h3>
-                    <p className="text-[13px] md:text-[14px] font-mono text-[var(--global-dark-accent)] uppercase tracking-widest text-center transition-colors duration-300 font-medium">
-                      {leader.role}
-                    </p>
-
-                    {/* Accent underline on hover */}
-                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-0 h-px bg-[var(--global-accent)] group-hover:w-3/4 transition-all duration-500" />
-                  </div>
-                ))}
-             </div>
+          <div className="max-w-[1000px] mx-auto relative z-10 w-full flex flex-col items-center mb-12 md:mb-16">
+             <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold block mb-4 text-[var(--global-dark-accent)]">04 / TEAM</span>
+             <ScrollWordReveal 
+               text="The Minds Behind Voxi"
+               as="h2"
+               className="text-[clamp(32px,5vw,52px)] font-medium tracking-tight text-[#14110F] leading-[1.08] text-center"
+             />
           </div>
 
-          {/* Marquee Row for All Other Members */}
+          {/* Marquee Row for All Members */}
           <div className="w-full relative z-10">
             <div 
               className="w-full overflow-hidden relative py-4"

@@ -215,24 +215,26 @@ export default function Hero() {
           </div>
 
           {/* ── Right Floating Digital Brain Card ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4, ease: easing }}
-            className="relative lg:absolute lg:right-[39px] lg:top-[190px] w-full lg:w-[350px] max-w-[350px] bg-[#111111] rounded-[20px] shadow-[0_16px_40px_rgba(0,0,0,0.22)] p-[6px] z-30 border border-white/10 mx-auto lg:mx-0 mb-20 lg:mb-0"
-          >
-            {/* Card Video Area with Thin Bezel */}
-            <div className="w-full aspect-video rounded-[14px] bg-black overflow-hidden relative group cursor-pointer flex items-center justify-center">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                src={digitalBrainVideo}
-                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-              />
-            </div>
-          </motion.div>
+          <div className="relative lg:absolute lg:right-[39px] lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-[350px] max-w-[350px] z-30 mx-auto lg:mx-0 mb-20 lg:mb-0">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: easing }}
+              className="w-full bg-[#111111] rounded-[20px] shadow-[0_16px_40px_rgba(0,0,0,0.22)] p-[6px] border border-white/10"
+            >
+              {/* Card Video Area with Thin Bezel */}
+              <div className="w-full aspect-video rounded-[14px] bg-black overflow-hidden relative group cursor-pointer flex items-center justify-center">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  src={digitalBrainVideo}
+                  className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+                />
+              </div>
+            </motion.div>
+          </div>
 
 
 

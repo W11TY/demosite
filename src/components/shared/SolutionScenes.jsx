@@ -421,9 +421,7 @@ function SolutionImageVisual({ src, alt }) {
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 1,
-        border: isHovered ? '1px solid rgba(13, 131, 169, 0.35)' : '1px solid rgba(20, 17, 15, 0.06)',
-        boxShadow: isHovered ? '0 4px 18px rgba(13, 131, 169, 0.15)' : 'none',
-        transition: prefersReduced ? 'none' : 'border-color 0.25s ease, box-shadow 0.25s ease',
+        border: '1px solid rgba(20, 17, 15, 0.06)',
       }}
     >
       <img
@@ -435,6 +433,7 @@ function SolutionImageVisual({ src, alt }) {
           objectFit: 'contain',
           objectPosition: 'center',
           display: 'block',
+          filter: 'none',
           transform: !prefersReduced && isHovered ? 'scale(1.025)' : 'scale(1)',
           transition: prefersReduced ? 'none' : 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         }}

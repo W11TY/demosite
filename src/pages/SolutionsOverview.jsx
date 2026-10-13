@@ -85,15 +85,23 @@ const VisualSolutionsHero = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center select-none" style={{ perspective: 1000 }}>
-      {/* Blueprint Dot Grid */}
+      {/* Blueprint Dot Grid spanning the entire section */}
       <motion.div 
         className="absolute inset-[0%] w-[200%] h-[200%] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100"
         animate={{ x: [0, -20], y: [0, -20] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
       />
 
+      {/* Full-bleed Ambient Page Glow */}
+      <motion.div
+        animate={{ scale: [1, 1.25, 1], opacity: [0.15, 0.35, 0.15] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] md:w-[1000px] h-[700px] md:h-[1000px] blur-[120px] md:blur-[160px] rounded-full mix-blend-multiply pointer-events-none transition-colors duration-300"
+        style={{ background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 60%, transparent), transparent)` }}
+      />
+
       {/* Responsive Scaling Wrapper for the entire diagram */}
-      <div className="absolute inset-0 flex justify-center items-center" style={{ transform: `scale(${scale})` }}>
+      <div className="absolute inset-0 flex justify-center items-center pt-24 md:pt-32" style={{ transform: `scale(${scale})` }}>
         
         {/* ── 1. SVG Data Streams (Background layer) ── */}
         <motion.div style={{ x: moveX, y: moveY }} className="absolute inset-0 flex justify-center items-center z-0">
@@ -189,14 +197,6 @@ const VisualSolutionsHero = () => {
             </div>
           </div>
         </motion.div>
-
-        {/* ── 4. Ambient Page Glow ── */}
-        <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.08, 0.15, 0.08] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-[120px] rounded-full mix-blend-multiply pointer-events-none z-[-1]"
-          style={{ background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 80%, transparent), transparent)` }}
-        />
       </div>
     </div>
   );
@@ -438,6 +438,233 @@ const SolutionCard = ({ solution, index }) => {
   );
 };
 
+const ArchitectureDiagram = () => {
+  return (
+    <section className="w-full py-24 md:py-36 px-4 sm:px-6 md:px-12 lg:px-16 relative overflow-x-clip bg-white border-y border-[#14110F]/10 z-10">
+      <div className="max-w-[1550px] mx-auto relative z-10 flex flex-col items-center">
+        <FadeInUp className="flex flex-col items-center relative">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/5 bg-[#FAFAF8] shadow-[0_2px_10px_rgba(0,0,0,0.02)] mb-8">
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: BRAND }} />
+            <span className="text-[11px] font-mono tracking-[0.2em] text-[#14110F]/60 uppercase">The Orchestration Backbone</span>
+          </div>
+
+          <h2 className="text-[clamp(32px,5vw,56px)] font-normal tracking-[-0.04em] text-[#14110F] mb-6 text-center leading-[1.1]">
+            Unified Platform <br className="md:hidden" /><span className="font-semibold" style={{ color: BRAND }}>Architecture</span>
+          </h2>
+
+          <p className="text-[16px] md:text-[20px] text-[#14110F]/60 font-normal text-center max-w-[660px] mx-auto mb-16 md:mb-20 leading-relaxed">
+            A seamless orchestration layer connecting every module across your customer experience.
+          </p>
+        </FadeInUp>
+
+        {/* Telephony & Command Center Orchestration Scene */}
+        <div className="w-full">
+          <div className="tcc-scene">
+            <svg className="tcc-wires" viewBox="0 0 1440 640" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <marker id="solArrowBlue" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+                  <path d="M0,1 L8,4.5 L0,8 Z" fill="#1684f8"/>
+                </marker>
+                <marker id="solArrowTeal" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+                  <path d="M0,1 L8,4.5 L0,8 Z" fill="#0ca9bd"/>
+                </marker>
+                <marker id="solArrowPurple" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+                  <path d="M0,1 L8,4.5 L0,8 Z" fill="#823ee8"/>
+                </marker>
+                <marker id="solArrowOrange" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+                  <path d="M0,1 L8,4.5 L0,8 Z" fill="#f18a13"/>
+                </marker>
+              </defs>
+
+              {/* Exact Node-to-Card SVG Paths */}
+              <path id="solPathBlue" d="M 555 320 H 490 Q 450 320 450 280 V 120"
+                    fill="none" stroke="#1684f8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                    markerEnd="url(#solArrowBlue)"/>
+              <path id="solPathTeal" d="M 720 155 V 80 Q 720 50 750 50 H 950 Q 990 50 990 85 V 120"
+                    fill="none" stroke="#0ca9bd" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                    markerEnd="url(#solArrowTeal)"/>
+              <path id="solPathPurple" d="M 720 485 V 550 Q 720 585 685 585 H 490 Q 450 585 450 555 V 520"
+                    fill="none" stroke="#823ee8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                    markerEnd="url(#solArrowPurple)"/>
+              <path id="solPathOrange" d="M 885 320 H 945 Q 990 320 990 365 V 520"
+                    fill="none" stroke="#f18a13" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                    markerEnd="url(#solArrowOrange)"/>
+
+              {/* Animated Flow Dots */}
+              <g fill="#1684f8" filter="drop-shadow(0 0 5px rgba(22, 132, 248, 0.6))">
+                <circle r="4.5">
+                  <animateMotion dur="3.6s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#solPathBlue"/>
+                  </animateMotion>
+                </circle>
+              </g>
+              <g fill="#0ca9bd" filter="drop-shadow(0 0 5px rgba(12, 169, 189, 0.6))">
+                <circle r="4.5">
+                  <animateMotion dur="4.2s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#solPathTeal"/>
+                  </animateMotion>
+                </circle>
+              </g>
+              <g fill="#823ee8" filter="drop-shadow(0 0 5px rgba(130, 62, 232, 0.6))">
+                <circle r="4.5">
+                  <animateMotion dur="4.0s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#solPathPurple"/>
+                  </animateMotion>
+                </circle>
+              </g>
+              <g fill="#f18a13" filter="drop-shadow(0 0 5px rgba(241, 138, 19, 0.6))">
+                <circle r="4.5">
+                  <animateMotion dur="3.8s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#solPathOrange"/>
+                  </animateMotion>
+                </circle>
+              </g>
+            </svg>
+
+            <div className="tcc-layout">
+              {/* Card 1: AI Voice Agents */}
+              <section className="tcc-panel voice">
+                <div className="tcc-orb">
+                  <div className="tcc-orb-inner">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 26v-7a13 13 0 0 1 26 0v7"/>
+                      <rect x="13" y="24" width="38" height="27" rx="12" fill="#e9f6ff" stroke="#b8e1ff"/>
+                      <rect x="18" y="29" width="28" height="16" rx="8" fill="#102b55" stroke="#2c9dfb"/>
+                      <circle cx="26" cy="37" r="2.5" fill="#36d7ff" stroke="none"/>
+                      <circle cx="38" cy="37" r="2.5" fill="#36d7ff" stroke="none"/>
+                      <path d="M28 42h8M8 31v10M56 31v10M25 51v5h14v-5" stroke="#1684f8"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="tcc-panel-content">
+                  <h3>AI Voice Agents</h3>
+                  <p className="tcc-sub">Human-like conversations at scale</p>
+                  <div className="tcc-features">
+                    <div className="tcc-feature">
+                      <span className="tcc-dot-mini bg-[#1684f8]" />
+                      <span>Inbound &amp; Outbound Autonomous Calling</span>
+                    </div>
+                    <div className="tcc-feature">
+                      <span className="tcc-dot-mini bg-[#1684f8]" />
+                      <span>Real-Time Indian &amp; Global Languages</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Card 2: Quality Management */}
+              <section className="tcc-panel quality">
+                <div className="tcc-orb">
+                  <div className="tcc-orb-inner">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17 12h30a5 5 0 0 1 5 5v31a5 5 0 0 1-5 5H17a5 5 0 0 1-5-5V17a5 5 0 0 1 5-5Z" fill="#FFFFFF" stroke="#FFFFFF"/>
+                      <path d="M22 23h20M22 31h15M22 39h12" stroke="#8b4de8" strokeWidth="4"/>
+                      <circle cx="44" cy="44" r="12" fill="#FFFFFF" stroke="#8b4de8"/>
+                      <path d="m38 44 4 4 8-9" stroke="#8b4de8" strokeWidth="3"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="tcc-panel-content">
+                  <h3>Quality Management</h3>
+                  <p className="tcc-sub">AI-powered monitoring &amp; compliance</p>
+                  <div className="tcc-features">
+                    <div className="tcc-feature">
+                      <span className="tcc-dot-mini bg-[#8b5cf6]" />
+                      <span>100% Interaction Auditing &amp; Scoring</span>
+                    </div>
+                    <div className="tcc-feature">
+                      <span className="tcc-dot-mini bg-[#8b5cf6]" />
+                      <span>Automatic PII Redaction &amp; Compliance</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Center Hub: Telephony & Command Center */}
+              <section className="tcc-center">
+                <span className="tcc-dot d1"></span>
+                <span className="tcc-dot d2"></span>
+                <span className="tcc-dot d3"></span>
+                <span className="tcc-dot d4"></span>
+                <div className="tcc-center-inner">
+                  <div className="tcc-cloud">
+                    <svg viewBox="0 0 120 82" fill="none">
+                      <path d="M31 65C15 65 7 54 7 42c0-12 10-22 23-22 5-13 17-19 29-16 12 2 20 11 22 23 14-2 28 8 28 22 0 10-8 16-20 16H31Z" fill="#1684f8"/>
+                      <path d="M50 24c-4 2-5 8-3 13 4 10 12 18 22 21 5 2 10-1 11-5l-10-7-5 5c-5-3-9-7-11-12l4-4-8-11Z" fill="#FFFFFF"/>
+                    </svg>
+                  </div>
+                  <h2>Telephony &amp;<br />Command Center</h2>
+                  <p>Unified Communication Hub<br />for Seamless Orchestration</p>
+                  <div className="tcc-chips">
+                    <span className="tcc-chip">SIP / PSTN</span>
+                    <span className="tcc-chip">WebRTC</span>
+                    <span className="tcc-chip">CRM Sync</span>
+                  </div>
+                </div>
+              </section>
+
+              {/* Card 3: WhatsApp Business */}
+              <section className="tcc-panel whatsapp">
+                <div className="tcc-orb">
+                  <div className="tcc-orb-inner">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 50l3-10a23 23 0 1 1 9 10l-12 0Z" fill="#10b981" stroke="#FFFFFF"/>
+                      <path d="M25 20c-3 2-3 6-1 10 3 6 8 10 14 12 3 1 7-1 7-4l-7-4-4 4c-4-2-7-5-9-9l3-3-3-6Z" fill="#FFFFFF" stroke="#FFFFFF"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="tcc-panel-content">
+                  <h3>WhatsApp Business</h3>
+                  <p className="tcc-sub">Automated messaging &amp; campaigns</p>
+                  <div className="tcc-features">
+                    <div className="tcc-feature">
+                      <span className="tcc-dot-mini bg-[#10b981]" />
+                      <span>Meta Cloud API Official Partner</span>
+                    </div>
+                    <div className="tcc-feature">
+                      <span className="tcc-dot-mini bg-[#10b981]" />
+                      <span>Interactive Catalogs &amp; Quick Replies</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Card 4: Customer Engagement */}
+              <section className="tcc-panel engagement">
+                <div className="tcc-orb">
+                  <div className="tcc-orb-inner">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="32" cy="19" r="10" fill="#FFFFFF" stroke="#FFFFFF"/>
+                      <circle cx="13" cy="27" r="7" fill="#FFFFFF" stroke="#FFFFFF"/>
+                      <circle cx="51" cy="27" r="7" fill="#FFFFFF" stroke="#FFFFFF"/>
+                      <path d="M13 53v-5c0-9 8-15 19-15s19 6 19 15v5H13Z" fill="#FFFFFF" stroke="#FFFFFF"/>
+                      <path d="M4 50v-5c0-5 4-9 10-10M60 50v-5c0-5-4-9-10-10" stroke="#FFFFFF"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="tcc-panel-content">
+                  <h3>Customer Engagement</h3>
+                  <p className="tcc-sub">Personalized omnichannel journeys</p>
+                  <div className="tcc-features">
+                    <div className="tcc-feature">
+                      <span className="tcc-dot-mini bg-[#f59e0b]" />
+                      <span>Cross-Channel Unified Customer Context</span>
+                    </div>
+                    <div className="tcc-feature">
+                      <span className="tcc-dot-mini bg-[#f59e0b]" />
+                      <span>Event-Triggered Lifecycle Automations</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export default function SolutionsOverview() {
   const heroRef = useRef(null);
   
@@ -456,23 +683,24 @@ export default function SolutionsOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-between overflow-hidden isolate pt-[14vh] md:pt-[16vh] pb-8 md:pb-12 z-0 bg-transparent">
+      <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-between overflow-hidden isolate pt-24 md:pt-32 pb-8 md:pb-12 z-0 bg-transparent">
+        {/* Full-bleed Hero Visual & Background */}
+        <VisualSolutionsHero />
+
         {/* Top Text Content */}
-        <div className="max-w-[1200px] w-full mx-auto px-6 text-center relative z-30 shrink-0 mb-4 md:mb-6">
+        <div className="max-w-[1200px] w-full mx-auto px-6 text-center relative z-20 shrink-0">
           <FadeInUp>
             <span className="text-[11px] font-mono tracking-[0.15em] text-[#14110F]/50 uppercase mb-4 block text-center">
               Industry Solutions
             </span>
-            <h1 className="text-[clamp(28px,5vw,64px)] font-medium tracking-tight text-[#14110F] leading-[1.05] whitespace-nowrap">
+            <h1 className="text-[clamp(32px,5.5vw,68px)] font-medium tracking-tight text-[#14110F] leading-[1.08] sm:whitespace-nowrap">
               Tailored AI For Every <span style={{ color: BRAND }}>Industry.</span>
             </h1>
           </FadeInUp>
         </div>
 
-        {/* Visual Diagram Area: centered in the space below the text */}
-        <div className="relative w-full flex-1 min-h-[440px] md:min-h-[500px] flex items-center justify-center pointer-events-none select-none z-10">
-          <VisualSolutionsHero />
-        </div>
+        {/* Spacer to give visual breathing room for the background diagram */}
+        <div className="w-full flex-1 min-h-[400px] md:min-h-[480px] pointer-events-none select-none" />
 
         <div className="absolute bottom-0 left-0 w-full h-px bg-[linear-gradient(90deg,transparent,rgba(20,17,15,0.15),transparent)]" />
       </section>
@@ -518,6 +746,8 @@ export default function SolutionsOverview() {
           );
         })}
       </div>
+
+      <ArchitectureDiagram />
 
       {/* 04 — FINAL CTA */}
       <section id="final-cta" className="relative w-full py-40 md:py-64 bg-[#050505] text-white flex flex-col items-center justify-center text-center overflow-hidden transition-colors duration-300 z-10">

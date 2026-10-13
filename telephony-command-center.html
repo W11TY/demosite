@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telephony & Command Center — Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #101b3b;
+    --muted: #5e6d8a;
+    --blue: #1684f8;
+    --green: #10b981;
+    --purple: #823ee8;
+    --orange: #f18a13;
+    --teal: #0ca9bd;
+    --border: rgba(16, 27, 59, 0.08);
+    --shadow: 0 12px 36px rgba(16, 27, 59, 0.05), 0 2px 8px rgba(16, 27, 59, 0.02);
+    --hub-shadow: 0 0 0 10px rgba(16, 27, 59, 0.02), 0 0 0 20px rgba(16, 27, 59, 0.012), 0 24px 60px rgba(16, 27, 59, 0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #FFFFFF;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Header & Navigation Bar ─────────────────────────────────────────────── */
+  .site-header {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 28px 4% 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    z-index: 20;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.4px;
+  }
+  .brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 10px var(--blue);
+  }
+
+  .nav-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 6px;
+    background: #FAFAF8;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  }
+  .nav-link {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+  }
+  .nav-link:hover {
+    color: var(--ink);
+  }
+  .nav-link.active {
+    color: var(--ink);
+    background: #FFFFFF;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .btn-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 9999px;
+    background: var(--ink);
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(16, 27, 59, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .btn-contact:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(16, 27, 59, 0.22);
+    background: #000000;
+  }
+  .btn-contact svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    transition: transform 0.2s ease;
+  }
+  .btn-contact:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* ── Hero / Diagram Scene ────────────────────────────────────────────────── */
+  .scene-wrap {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 10px 4% 50px;
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scene {
+    position: relative;
+    width: 100%;
+    min-height: 700px;
+    border-radius: 32px;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scene:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: radial-gradient(rgba(16, 27, 59, 0.06) 1.1px, transparent 1.1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+
+  /* SVG Connector System (Desktop) */
+  .connectors-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* 3-Column Diagram Grid */
+  .diagram-grid {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1360px;
+    height: 640px;
+    display: grid;
+    grid-template-columns: minmax(360px, 420px) minmax(280px, 360px) minmax(360px, 420px);
+    grid-template-rows: 240px 240px;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: center;
+  }
+
+  /* ── Service Cards (Panels) ──────────────────────────────────────────────── */
+  .card {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    padding: 22px 22px 20px 84px;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--card-accent);
+    box-shadow: 0 16px 42px rgba(16, 27, 59, 0.08);
+  }
+
+  .card.voice {
+    grid-column: 1;
+    grid-row: 1;
+    --card-accent: var(--blue);
+  }
+  .card.quality {
+    grid-column: 1;
+    grid-row: 2;
+    --card-accent: var(--purple);
+  }
+  .card.whatsapp {
+    grid-column: 3;
+    grid-row: 1;
+    --card-accent: var(--green);
+  }
+  .card.engagement {
+    grid-column: 3;
+    grid-row: 2;
+    --card-accent: var(--orange);
+  }
+
+  /* Outer Floating Orb */
+  .orb {
+    position: absolute;
+    left: -22px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #FFFFFF;
+    border: 4px solid #FFFFFF;
+    box-shadow: 0 8px 24px rgba(16, 27, 59, 0.08);
+    z-index: 3;
+  }
+  .orb-inner {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, var(--card-accent), color-mix(in srgb, var(--card-accent) 70%, #000));
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.35), 0 4px 14px color-mix(in srgb, var(--card-accent) 30%, transparent);
+  }
+  .orb svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .card-content h3 {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+  .card-sub {
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--ink);
+    background: #F8F9FA;
+    border: 1px solid rgba(16, 27, 59, 0.06);
+    padding: 3px 9px;
+    border-radius: 9999px;
+  }
+  .pill-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--card-accent);
+  }
+
+  /* ── Center Hub (Telephony & Command Center) ────────────────────────────── */
+  .center-hub {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    justify-self: center;
+    align-self: center;
+    position: relative;
+    width: 330px;
+    height: 330px;
+    border-radius: 50%;
+    padding: 14px;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    box-shadow: var(--hub-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+  }
+
+  /* Concentric Dashed Radar Rings */
+  .center-hub:before,
+  .center-hub:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: -22px;
+    border: 1.5px dashed rgba(16, 27, 59, 0.1);
+    pointer-events: none;
+  }
+  .center-hub:after {
+    inset: -42px;
+    border-color: rgba(16, 27, 59, 0.06);
+  }
+
+  .center-inner {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #FAFAF8;
+    border: 1px solid rgba(16, 27, 59, 0.05);
+    padding: 24px 18px;
+  }
+
+  .cloud-icon {
+    width: 86px;
+    height: 58px;
+    color: #FFFFFF;
+    display: grid;
+    place-items: center;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 6px 12px rgba(22, 132, 248, 0.24));
+  }
+  .cloud-icon svg {
+    width: 84px;
+    height: 56px;
+  }
+
+  .center-hub h2 {
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: -0.6px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+  .center-hub p {
+    font-size: 12.5px;
+    line-height: 1.35;
+    color: var(--muted);
+    max-width: 210px;
+    margin-bottom: 10px;
+  }
+
+  .hub-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+  .hub-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2.5px 7px;
+    border-radius: 9999px;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* 4 Colored Connection Nodes on Hub Edge */
+  .node-dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3.5px solid #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    z-index: 5;
+  }
+  .node-dot.top {
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--teal);
+    box-shadow: 0 0 10px rgba(12, 169, 189, 0.45);
+  }
+  .node-dot.left {
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--blue);
+    box-shadow: 0 0 10px rgba(22, 132, 248, 0.45);
+  }
+  .node-dot.right {
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--green);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.45);
+  }
+  .node-dot.bottom {
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--purple);
+    box-shadow: 0 0 10px rgba(130, 62, 232, 0.45);
+  }
+
+  /* ── Responsive Tablet & Mobile Mode ─────────────────────────────────────── */
+  .mobile-connector {
+    display: none;
+  }
+
+  @media (max-width: 1080px) {
+    .site-header {
+      padding: 20px 24px 14px;
+    }
+    .scene-wrap {
+      padding: 0 16px 40px;
+    }
+    .scene {
+      min-height: auto;
+      padding: 32px 20px 40px;
+      border-radius: 24px;
+    }
+
+    /* Hide desktop SVG wires */
+    .connectors-svg {
+      display: none;
+    }
+
+    /* Stack diagram in single column */
+    .diagram-grid {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      gap: 0;
+      align-items: center;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .center-hub {
+      order: 1;
+      width: min(100%, 300px);
+      height: 300px;
+      margin-bottom: 24px;
+    }
+    .center-hub:before { inset: -14px; }
+    .center-hub:after { inset: -26px; }
+
+    /* Short vertical connectors on tablet/mobile */
+    .mobile-connector {
+      display: block;
+      width: 2px;
+      height: 24px;
+      background: linear-gradient(180deg, rgba(16, 27, 59, 0.15), rgba(16, 27, 59, 0.05));
+      margin: 0 auto;
+      position: relative;
+    }
+    .mobile-connector:after {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .card {
+      width: 100%;
+      height: auto;
+      min-height: 140px;
+      margin-left: 0;
+      padding: 20px 20px 18px 74px;
+      border-radius: 20px;
+    }
+    .card.voice { order: 2; margin-top: 4px; }
+    .card.whatsapp { order: 4; }
+    .card.quality { order: 6; }
+    .card.engagement { order: 8; }
+
+    .mobile-sep-1 { order: 3; }
+    .mobile-sep-2 { order: 5; }
+    .mobile-sep-3 { order: 7; }
+
+    .orb {
+      width: 66px;
+      height: 66px;
+      left: -12px;
+    }
+    .orb-inner {
+      width: 52px;
+      height: 52px;
+    }
+    .orb svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .site-header {
+      padding: 16px 16px 12px;
+      flex-wrap: wrap;
+    }
+    .nav-pill {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+      overflow-x: auto;
+    }
+    .nav-link {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+    .card {
+      padding: 16px 16px 16px 68px;
+    }
+    .card-content h3 {
+      font-size: 17px;
+    }
+    .card-sub {
+      font-size: 12.5px;
+      margin-bottom: 8px;
+    }
+    .pill {
+      font-size: 11px;
+      padding: 2px 7px;
+    }
+    .center-hub {
+      width: 260px;
+      height: 260px;
+      padding: 10px;
+    }
+    .center-hub h2 {
+      font-size: 17px;
+    }
+    .cloud-icon {
+      width: 70px;
+      height: 48px;
+    }
+    .cloud-icon svg {
+      width: 68px;
+      height: 46px;
+    }
+  }
+
+  /* ── Motion & Glow Pulse ─────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: no-preference) {
+    .center-hub {
+      animation: hub-glow 6s ease-in-out infinite;
+    }
+    .node-dot {
+      animation: dot-pulse 3s ease-in-out infinite;
+    }
+    @keyframes hub-glow {
+      0%, 100% {
+        box-shadow: 0 0 0 10px rgba(16, 27, 59, 0.02), 0 0 0 20px rgba(16, 27, 59, 0.012), 0 24px 60px rgba(16, 27, 59, 0.07);
+      }
+      50% {
+        box-shadow: 0 0 0 14px rgba(16, 27, 59, 0.035), 0 0 0 26px rgba(16, 27, 59, 0.018), 0 28px 70px rgba(16, 27, 59, 0.1);
+      }
+    }
+    @keyframes dot-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+    .node-dot.top {
+      animation: dot-pulse-top 3s ease-in-out infinite;
+    }
+    @keyframes dot-pulse-top {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.18); }
+    }
+    .node-dot.left {
+      animation: dot-pulse-left 3s ease-in-out infinite;
+    }
+    @keyframes dot-pulse-left {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-50%) scale(1.18); }
+    }
+    .node-dot.right {
+      animation: dot-pulse-right 3s ease-in-out infinite;
+    }
+    @keyframes dot-pulse-right {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-50%) scale(1.18); }
+    }
+    .node-dot.bottom {
+      animation: dot-pulse-bottom 3s ease-in-out infinite;
+    }
+    @keyframes dot-pulse-bottom {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.18); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-dot {
+      display: none !important;
+    }
+    .center-hub, .node-dot {
+      animation: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <a href="#" class="brand">
+      <span class="brand-dot"></span>
+      <span>VOXI</span>
+    </a>
+
+    <nav class="nav-pill">
+      <a href="#platform" class="nav-link">Platform</a>
+      <a href="#solutions" class="nav-link">Solutions</a>
+      <a href="#architecture" class="nav-link active">Architecture</a>
+      <a href="#quality" class="nav-link">Quality</a>
+    </nav>
+
+    <a href="#contact" class="btn-contact">
+      <span>Contact Us</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
+  </header>
+
+  <!-- Main Architecture Scene -->
+  <main class="scene-wrap">
+    <div class="scene">
+
+      <!-- Desktop SVG Connector System with Clean Directed Lines & Animated Flow Dots -->
+      <svg class="connectors-svg" viewBox="0 0 1440 640" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <marker id="arrowBlue" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,1 L8,4.5 L0,8 Z" fill="#1684f8"/>
+          </marker>
+          <marker id="arrowGreen" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,1 L8,4.5 L0,8 Z" fill="#10b981"/>
+          </marker>
+          <marker id="arrowPurple" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,1 L8,4.5 L0,8 Z" fill="#823ee8"/>
+          </marker>
+          <marker id="arrowOrange" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,1 L8,4.5 L0,8 Z" fill="#f18a13"/>
+          </marker>
+          <marker id="arrowTeal" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,1 L8,4.5 L0,8 Z" fill="#0ca9bd"/>
+          </marker>
+        </defs>
+
+        <!-- 
+          Precise Grid Geometry (1440 x 640 ViewBox):
+          Center Hub: Center = (720, 320), Radius = 165
+            - Top Hub Node: (720, 155)    [Teal]
+            - Left Hub Node: (555, 320)   [Blue]
+            - Right Hub Node: (885, 320)  [Green]
+            - Bottom Hub Node: (720, 485) [Purple]
+
+          Left Cards (X: 30 to 450, Right Border = 450):
+            - AI Voice Agents (Top-Left): Y: 30 to 210, Target Right Edge = (450, 120)
+            - Quality Management (Bottom-Left): Y: 430 to 610, Target Right Edge = (450, 520)
+
+          Right Cards (X: 990 to 1410, Left Border = 990):
+            - WhatsApp Business (Top-Right): Y: 30 to 210, Target Left Edge = (990, 120)
+            - Customer Engagement (Bottom-Right): Y: 430 to 610, Target Left Edge = (990, 520)
+        -->
+
+        <!-- 1. Left Blue Connector: Hub Left Node (555, 320) -> AI Voice Agents (450, 120) -->
+        <path id="pathBlue"
+              d="M 555 320 H 490 Q 450 320 450 280 V 120"
+              fill="none" stroke="#1684f8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+              marker-end="url(#arrowBlue)"/>
+
+        <!-- 2. Top Teal Connector: Hub Top Node (720, 155) -> WhatsApp Business (990, 120) -->
+        <path id="pathTeal"
+              d="M 720 155 V 80 Q 720 50 750 50 H 950 Q 990 50 990 85 V 120"
+              fill="none" stroke="#0ca9bd" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+              marker-end="url(#arrowTeal)"/>
+
+        <!-- 3. Bottom Purple Connector: Hub Bottom Node (720, 485) -> Quality Management (450, 520) -->
+        <path id="pathPurple"
+              d="M 720 485 V 550 Q 720 585 685 585 H 490 Q 450 585 450 555 V 520"
+              fill="none" stroke="#823ee8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+              marker-end="url(#arrowPurple)"/>
+
+        <!-- 4. Right Orange Connector: Hub Right Node (885, 320) -> Customer Engagement (990, 520) -->
+        <path id="pathOrange"
+              d="M 885 320 H 945 Q 990 320 990 365 V 520"
+              fill="none" stroke="#f18a13" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+              marker-end="url(#arrowOrange)"/>
+
+        <!-- Flow Dots: Animated along the exact connector paths -->
+        <g class="flow-dot" fill="#1684f8" filter="drop-shadow(0 0 5px rgba(22, 132, 248, 0.6))">
+          <circle r="4.5">
+            <animateMotion dur="3.6s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#pathBlue"/>
+            </animateMotion>
+          </circle>
+        </g>
+
+        <g class="flow-dot" fill="#0ca9bd" filter="drop-shadow(0 0 5px rgba(12, 169, 189, 0.6))">
+          <circle r="4.5">
+            <animateMotion dur="4.2s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#pathTeal"/>
+            </animateMotion>
+          </circle>
+        </g>
+
+        <g class="flow-dot" fill="#823ee8" filter="drop-shadow(0 0 5px rgba(130, 62, 232, 0.6))">
+          <circle r="4.5">
+            <animateMotion dur="4.0s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#pathPurple"/>
+            </animateMotion>
+          </circle>
+        </g>
+
+        <g class="flow-dot" fill="#f18a13" filter="drop-shadow(0 0 5px rgba(241, 138, 19, 0.6))">
+          <circle r="4.5">
+            <animateMotion dur="3.8s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#pathOrange"/>
+            </animateMotion>
+          </circle>
+        </g>
+      </svg>
+
+      <!-- Layout Grid -->
+      <div class="diagram-grid">
+
+        <!-- Card 1: AI Voice Agents (Top-Left) -->
+        <section class="card voice">
+          <div class="orb">
+            <div class="orb-inner">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 26v-7a13 13 0 0 1 26 0v7"/>
+                <rect x="13" y="24" width="38" height="27" rx="12" fill="#e9f6ff" stroke="#b8e1ff"/>
+                <rect x="18" y="29" width="28" height="16" rx="8" fill="#102b55" stroke="#2c9dfb"/>
+                <circle cx="26" cy="37" r="2.5" fill="#36d7ff" stroke="none"/>
+                <circle cx="38" cy="37" r="2.5" fill="#36d7ff" stroke="none"/>
+                <path d="M28 42h8M8 31v10M56 31v10M25 51v5h14v-5" stroke="#1684f8"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3>AI Voice Agents</h3>
+            <p class="card-sub">Human-like conversations at scale</p>
+            <div class="pill-row">
+              <span class="pill"><i class="pill-dot"></i>Inbound &amp; Outbound</span>
+              <span class="pill"><i class="pill-dot"></i>Multilingual NLU</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Card 2: Quality Management (Bottom-Left) -->
+        <section class="card quality">
+          <div class="orb">
+            <div class="orb-inner">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 12h30a5 5 0 0 1 5 5v31a5 5 0 0 1-5 5H17a5 5 0 0 1-5-5V17a5 5 0 0 1 5-5Z" fill="#FFFFFF" stroke="#FFFFFF"/>
+                <path d="M22 23h20M22 31h15M22 39h12" stroke="#8b4de8" stroke-width="4"/>
+                <circle cx="44" cy="44" r="12" fill="#FFFFFF" stroke="#8b4de8"/>
+                <path d="m38 44 4 4 8-9" stroke="#8b4de8" stroke-width="3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3>Quality Management</h3>
+            <p class="card-sub">AI-powered monitoring &amp; compliance</p>
+            <div class="pill-row">
+              <span class="pill"><i class="pill-dot"></i>100% Interaction Audit</span>
+              <span class="pill"><i class="pill-dot"></i>PII Redaction</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Center Hub: Telephony & Command Center -->
+        <section class="center-hub">
+          <span class="node-dot top" title="Teal Node (Top)"></span>
+          <span class="node-dot left" title="Blue Node (Left)"></span>
+          <span class="node-dot right" title="Green Node (Right)"></span>
+          <span class="node-dot bottom" title="Purple Node (Bottom)"></span>
+
+          <div class="center-inner">
+            <div class="cloud-icon">
+              <svg viewBox="0 0 120 82" fill="none">
+                <path d="M31 65C15 65 7 54 7 42c0-12 10-22 23-22 5-13 17-19 29-16 12 2 20 11 22 23 14-2 28 8 28 22 0 10-8 16-20 16H31Z" fill="#1684f8"/>
+                <path d="M50 24c-4 2-5 8-3 13 4 10 12 18 22 21 5 2 10-1 11-5l-10-7-5 5c-5-3-9-7-11-12l4-4-8-11Z" fill="#FFFFFF"/>
+              </svg>
+            </div>
+            <h2>Telephony &amp;<br>Command Center</h2>
+            <p>Unified Communication Hub for Seamless Orchestration</p>
+            <div class="hub-chips">
+              <span class="hub-chip">SIP / PSTN</span>
+              <span class="hub-chip">WebRTC</span>
+              <span class="hub-chip">CRM Sync</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mobile vertical separators -->
+        <div class="mobile-connector mobile-sep-1"></div>
+        <div class="mobile-connector mobile-sep-2"></div>
+        <div class="mobile-connector mobile-sep-3"></div>
+
+        <!-- Card 3: WhatsApp Business (Top-Right) -->
+        <section class="card whatsapp">
+          <div class="orb">
+            <div class="orb-inner">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 50l3-10a23 23 0 1 1 9 10l-12 0Z" fill="#10b981" stroke="#FFFFFF"/>
+                <path d="M25 20c-3 2-3 6-1 10 3 6 8 10 14 12 3 1 7-1 7-4l-7-4-4 4c-4-2-7-5-9-9l3-3-3-6Z" fill="#FFFFFF" stroke="#FFFFFF"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3>WhatsApp Business</h3>
+            <p class="card-sub">Automated messaging &amp; campaigns</p>
+            <div class="pill-row">
+              <span class="pill"><i class="pill-dot"></i>Meta Cloud API</span>
+              <span class="pill"><i class="pill-dot"></i>Drip Journeys</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Card 4: Customer Engagement (Bottom-Right) -->
+        <section class="card engagement">
+          <div class="orb">
+            <div class="orb-inner">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="32" cy="19" r="10" fill="#FFFFFF" stroke="#FFFFFF"/>
+                <circle cx="13" cy="27" r="7" fill="#FFFFFF" stroke="#FFFFFF"/>
+                <circle cx="51" cy="27" r="7" fill="#FFFFFF" stroke="#FFFFFF"/>
+                <path d="M13 53v-5c0-9 8-15 19-15s19 6 19 15v5H13Z" fill="#FFFFFF" stroke="#FFFFFF"/>
+                <path d="M4 50v-5c0-5 4-9 10-10M60 50v-5c0-5-4-9-10-10" stroke="#FFFFFF"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3>Customer Engagement</h3>
+            <p class="card-sub">Personalized omnichannel journeys</p>
+            <div class="pill-row">
+              <span class="pill"><i class="pill-dot"></i>Lifecycle Triggers</span>
+              <span class="pill"><i class="pill-dot"></i>Retention Engine</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

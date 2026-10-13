@@ -141,7 +141,7 @@ export default function SolutionDetail() {
                   <img 
                     src={imageSrc} 
                     alt={solution.area || solution.industry}
-                    className="relative z-10 w-full h-full object-contain filter drop-shadow-[0_12px_28px_rgba(13,131,169,0.22)] transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
               </motion.div>
