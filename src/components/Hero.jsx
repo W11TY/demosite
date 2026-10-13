@@ -201,11 +201,11 @@ export default function Hero() {
             </motion.p>
             <motion.h1 {...f(0.05)} className="text-[clamp(32px,8vw,56px)] font-normal tracking-[-0.04em] leading-[1.05] text-[#111111] mb-[20px]">
               <span className="font-bold block text-[clamp(38px,9vw,62px)]">Orchestrate</span>
-              <span className="font-bold block text-black/50">Every Customer Journey</span>
+              <span className="font-normal block text-black/50">Every Customer Journey</span>
             </motion.h1>
-            <motion.h1 {...f(0.14)} className="text-[clamp(15px,1.5vw,17px)] font-medium tracking-normal leading-[1.2] text-[#111111] mb-[24px] lg:whitespace-nowrap">
+            <motion.p {...f(0.14)} className="text-[clamp(15px,1.5vw,17px)] font-normal tracking-normal leading-[1.2] text-[#111111]/80 mb-[24px] lg:whitespace-nowrap">
               One intelligence that connects every interaction, from the first touch to lasting relationships
-            </motion.h1>
+            </motion.p>
 
             <motion.div {...f(0.32)}>
               <Link to="/contact">

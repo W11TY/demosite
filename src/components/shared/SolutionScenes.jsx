@@ -5,7 +5,6 @@
  */
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { createPortal } from 'react-dom';
 
 // Note: Suggested rename from 'revenue inteligenceplatform.png' to 'revenue-intelligence-platform.png' (fixing typo and space)
 import revenueIntelligenceImg from '../../assets/solutioncards/revenue inteligenceplatform.png';
@@ -20,8 +19,6 @@ const SCENE_CSS = `
   @keyframes sceneDot   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
   @keyframes scenePulse { 0%,100%{opacity:0.35} 50%{opacity:1} }
   @keyframes slideUp    { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes lightboxFadeIn { from{opacity:0} to{opacity:1} }
-  @keyframes lightboxZoomIn { from{opacity:0;transform:scale(0.96)} to{opacity:1;transform:scale(1)} }
 `;
 function injectCSS() {
   if (typeof document === 'undefined' || document.getElementById('voxi-scene-css')) return;
@@ -402,182 +399,47 @@ function BoltWatermark() {
 /* ═══════════════════════════════════════════════════════════════════════════
    1. REAL ESTATE
    ═══════════════════════════════════════════════════════════════════════════ */
-/* ─── Solution Card Image Visual & Lightbox ──────────────────────────────── */
+/* ─── Solution Card Image Visual ─────────────────────────────────────────── */
 function SolutionImageVisual({ src, alt }) {
-  const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        e.stopPropagation();
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
-
-  const handleOpen = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsOpen(true);
-  };
-
-  const handleClose = (e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setIsOpen(false);
-  };
-
   return (
-    <>
-      {/* Bounded box filling remaining space between context bar and bottom strip */}
-      <div
-        ref={containerRef}
-        onClick={handleOpen}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        role="button"
-        tabIndex={0}
-        aria-label={`${alt}. Click to enlarge`}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            handleOpen(e);
-          }
-        }}
+    <div
+      ref={containerRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        flex: '1 1 0',
+        minHeight: 0,
+        width: '100%',
+        overflow: 'hidden',
+        position: 'relative',
+        background: '#FFFFFF',
+        borderRadius: 8,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1,
+        border: isHovered ? '1px solid rgba(13, 131, 169, 0.35)' : '1px solid rgba(20, 17, 15, 0.06)',
+        boxShadow: isHovered ? '0 4px 18px rgba(13, 131, 169, 0.15)' : 'none',
+        transition: prefersReduced ? 'none' : 'border-color 0.25s ease, box-shadow 0.25s ease',
+      }}
+    >
+      <img
+        src={src}
+        alt={alt}
         style={{
-          flex: '1 1 0',
-          minHeight: 0,
           width: '100%',
-          overflow: 'hidden',
-          position: 'relative',
-          background: '#FFFFFF',
-          borderRadius: 8,
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1,
-          border: isHovered ? '1px solid rgba(13, 131, 169, 0.35)' : '1px solid rgba(20, 17, 15, 0.06)',
-          boxShadow: isHovered ? '0 4px 18px rgba(13, 131, 169, 0.15)' : 'none',
-          transition: prefersReduced ? 'none' : 'border-color 0.25s ease, box-shadow 0.25s ease',
+          height: '100%',
+          objectFit: 'contain',
+          objectPosition: 'center',
+          display: 'block',
+          transform: !prefersReduced && isHovered ? 'scale(1.025)' : 'scale(1)',
+          transition: prefersReduced ? 'none' : 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
-      >
-        <img
-          src={src}
-          alt={alt}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            objectPosition: 'center',
-            display: 'block',
-            transform: !prefersReduced && isHovered ? 'scale(1.025)' : 'scale(1)',
-            transition: prefersReduced ? 'none' : 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-        />
-      </div>
-
-      {/* Lightbox Modal */}
-      {isOpen &&
-        typeof document !== 'undefined' &&
-        createPortal(
-          <div
-            onClick={handleClose}
-            role="dialog"
-            aria-modal="true"
-            aria-label={`Enlarged ${alt} view`}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 99999,
-              background: 'rgba(10, 8, 7, 0.84)',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 24,
-              cursor: 'zoom-out',
-              animation: prefersReduced ? 'none' : 'lightboxFadeIn 0.2s ease-out',
-            }}
-          >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                position: 'relative',
-                maxWidth: '92vw',
-                maxHeight: '90vh',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                cursor: 'default',
-                borderRadius: 12,
-                overflow: 'hidden',
-                boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
-                background: '#FFFFFF',
-                padding: 10,
-                animation: prefersReduced ? 'none' : 'lightboxZoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-              }}
-            >
-              <button
-                type="button"
-                onClick={handleClose}
-                aria-label="Close enlarged view"
-                style={{
-                  position: 'absolute',
-                  top: 14,
-                  right: 14,
-                  zIndex: 10,
-                  width: 32,
-                  height: 32,
-                  borderRadius: '50%',
-                  background: 'rgba(20, 17, 15, 0.75)',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 18,
-                  lineHeight: 1,
-                  backdropFilter: 'blur(4px)',
-                }}
-              >
-                ✕
-              </button>
-              <img
-                src={src}
-                alt={`${alt} enlarged visual`}
-                style={{
-                  maxWidth: '100%',
-                  maxHeight: '82vh',
-                  objectFit: 'contain',
-                  borderRadius: 8,
-                  display: 'block',
-                }}
-              />
-              <div
-                style={{
-                  padding: '8px 12px 2px 12px',
-                  fontSize: 12,
-                  fontFamily: 'monospace',
-                  color: '#14110F80',
-                  textAlign: 'center',
-                }}
-              >
-                Press Esc or click outside to close
-              </div>
-            </div>
-          </div>,
-          document.body
-        )}
-    </>
+      />
+    </div>
   );
 }
 

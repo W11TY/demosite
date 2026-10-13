@@ -68,13 +68,13 @@ const VisualSolutionsHero = () => {
   const labels = ['Real Estate', 'Automobile', 'Durables', 'Fintech', 'Healthcare', 'Utilities'];
 
   // On smaller screens, scale the whole diagram so it doesn't overflow horizontally
-  const scale = windowWidth < 768 ? Math.max(0.45, windowWidth / 768) : 1;
+  const scale = windowWidth < 768 ? Math.max(0.48, windowWidth / 740) : (windowWidth < 1024 ? 0.88 : 1);
 
   // Calculate positions for 6 nodes in a wide ellipse
   const nodes = icons.map((Icon, i) => {
     const angle = (i * 60 - 90) * (Math.PI / 180); 
-    const rx = 320;
-    const ry = 180;
+    const rx = 330;
+    const ry = 165;
     return {
       x: Math.cos(angle) * rx,
       y: Math.sin(angle) * ry,
@@ -84,7 +84,7 @@ const VisualSolutionsHero = () => {
   });
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center select-none mt-[15dvh]" style={{ perspective: 1000 }}>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center select-none" style={{ perspective: 1000 }}>
       {/* Blueprint Dot Grid */}
       <motion.div 
         className="absolute inset-[0%] w-[200%] h-[200%] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100"
@@ -405,7 +405,7 @@ const SolutionCard = ({ solution, index }) => {
           <h3 className="text-[17px] md:text-[20px] font-medium tracking-tight text-white mb-1.5 leading-tight">
             {solution.area}
           </h3>
-          <p className="text-[12px] md:text-[14px] text-white/60 font-bold leading-relaxed line-clamp-2">
+          <p className="text-[12px] md:text-[14px] text-white/60 font-normal leading-relaxed line-clamp-2">
             {solution.benefits}
           </p>
 
@@ -456,18 +456,24 @@ export default function SolutionsOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-start overflow-hidden isolate pt-[15vh] md:pt-[20vh] pb-10 z-0 bg-transparent">
-        <VisualSolutionsHero />
-        <div className="max-w-[1200px] w-full mx-auto px-6 text-center relative z-30">
+      <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-between overflow-hidden isolate pt-[14vh] md:pt-[16vh] pb-8 md:pb-12 z-0 bg-transparent">
+        {/* Top Text Content */}
+        <div className="max-w-[1200px] w-full mx-auto px-6 text-center relative z-30 shrink-0 mb-4 md:mb-6">
           <FadeInUp>
-            <span className="text-[11px] font-mono tracking-[0.15em] text-[#14110F]/50 uppercase mb-6 block text-center">
+            <span className="text-[11px] font-mono tracking-[0.15em] text-[#14110F]/50 uppercase mb-4 block text-center">
               Industry Solutions
             </span>
             <h1 className="text-[clamp(28px,5vw,64px)] font-medium tracking-tight text-[#14110F] leading-[1.05] whitespace-nowrap">
-              Tailored AI for every <span style={{ color: BRAND }}>industry.</span>
+              Tailored AI For Every <span style={{ color: BRAND }}>Industry.</span>
             </h1>
           </FadeInUp>
         </div>
+
+        {/* Visual Diagram Area: centered in the space below the text */}
+        <div className="relative w-full flex-1 min-h-[440px] md:min-h-[500px] flex items-center justify-center pointer-events-none select-none z-10">
+          <VisualSolutionsHero />
+        </div>
+
         <div className="absolute bottom-0 left-0 w-full h-px bg-[linear-gradient(90deg,transparent,rgba(20,17,15,0.15),transparent)]" />
       </section>
 
@@ -522,7 +528,7 @@ export default function SolutionsOverview() {
             <h2 className="text-[clamp(36px,7vw,96px)] font-medium tracking-tighter text-white leading-[1.05] mb-6">
               Ready to transform your industry?
             </h2>
-            <h3 className="text-[clamp(20px,4vw,48px)] font-bold tracking-tight text-white/50 leading-[1.2] mb-24">
+            <h3 className="text-[clamp(20px,4vw,48px)] font-normal tracking-tight text-white/50 leading-[1.2] mb-24">
               See tailored orchestration in action.
             </h3>
 

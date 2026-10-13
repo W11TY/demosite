@@ -119,8 +119,8 @@ export default function CompanyOverview() {
               Company
             </span>
             <h1 className="text-[clamp(40px,8vw,90px)] font-medium tracking-tighter text-[#14110F] leading-[1.05]">
-              Automate the manual, <br />
-              <span className="text-[var(--global-accent)] transition-colors duration-300">accelerate the future.</span>
+              Automate The Manual, <br />
+              <span className="text-[var(--global-accent)] transition-colors duration-300">Accelerate The Future.</span>
             </h1>
           </FadeInUp>
         </div>
@@ -147,7 +147,7 @@ export default function CompanyOverview() {
             <h2 className="text-[clamp(28px,4vw,56px)] font-medium tracking-tight text-[#14110F] leading-[1.2] mb-8">
               Empowering teams with intelligent tools.
             </h2>
-            <p className="text-[18px] md:text-[24px] text-[#14110F]/75 leading-relaxed font-bold max-w-[800px]">
+            <p className="text-[18px] md:text-[24px] text-[#14110F]/75 leading-relaxed font-normal max-w-[800px]">
               Our custom AI solutions deliver measurable growth and operational excellence, turning complex challenges into simple workflows.
             </p>
           </div>
@@ -169,7 +169,7 @@ export default function CompanyOverview() {
                   <div className="absolute top-0 left-0 w-full h-px bg-[linear-gradient(90deg,rgba(20,17,15,0.15),transparent)]" />
                   <span className="font-mono text-[12px] text-[var(--global-dark-accent)] md:w-16 transition-colors duration-300 pt-2">0{idx + 1}</span>
                   <h3 className="text-[24px] md:text-[32px] font-medium text-[#14110F] md:w-[250px] shrink-0">{val.title}</h3>
-                  <p className="text-[16px] md:text-[20px] text-[#14110F]/75 font-bold leading-relaxed flex-1">{val.desc}</p>
+                  <p className="text-[16px] md:text-[20px] text-[#14110F]/75 font-normal leading-relaxed flex-1">{val.desc}</p>
                 </div>
               ))}
               <div className="w-full h-px bg-[linear-gradient(90deg,rgba(20,17,15,0.15),transparent)]" />

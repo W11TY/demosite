@@ -41,69 +41,69 @@ const VisualPlatformHero = () => {
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center">
-      <motion.div 
+      <motion.div
         className="absolute inset-[0%] w-[200%] h-[200%] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100"
         animate={{ x: [0, -20], y: [0, -20] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
       />
-      
+
       <div style={{ transform: `scale(${scale})` }} className="relative w-[600px] h-[600px] flex justify-center items-center origin-center">
         {/* Floating container with subtle rotation/scale to make it feel alive */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 flex justify-center items-center"
           animate={{ scale: [1, 1.02, 1], rotate: [0, 1, -1, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         >
-        {/* Layer 1 (Base) */}
-        <motion.div style={{ y: y1 }} className="absolute">
-          <motion.svg 
-            width="400" height="200" viewBox="0 0 400 200"
-            animate={{ y: [0, -10, 0], filter: ['brightness(1)', 'brightness(1.2)', 'brightness(1)'] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <path d="M200,170 L30,85 L200,0 L370,85 Z" fill="color-mix(in srgb, var(--global-accent) 4%, transparent)" stroke="color-mix(in srgb, var(--global-accent) 15%, transparent)" strokeWidth="1" />
-            <path d="M200,170 L30,85 L30,95 L200,180 L370,95 L370,85 Z" fill="color-mix(in srgb, var(--global-accent) 8%, transparent)" />
-          </motion.svg>
-        </motion.div>
-        
-        {/* Layer 2 (Middle) */}
-        <motion.div style={{ y: y2 }} className="absolute">
-          <motion.svg 
-            width="400" height="200" viewBox="0 0 400 200"
-            animate={{ y: [0, -20, 0], filter: ['brightness(1)', 'brightness(1.4)', 'brightness(1)'] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-          >
-            <path d="M200,130 L60,60 L200,0 L340,60 Z" fill="color-mix(in srgb, var(--global-accent) 8%, transparent)" stroke="color-mix(in srgb, var(--global-accent) 25%, transparent)" strokeWidth="1" />
-            <path d="M200,130 L60,60 L60,70 L200,140 L340,70 L340,60 Z" fill="color-mix(in srgb, var(--global-accent) 12%, transparent)" />
-            {/* Active Data Node running across Layer 2 */}
-            <motion.circle 
-              r="3" fill="var(--global-accent)"
-              animate={{ 
-                cx: [200, 340, 200, 60, 200], 
-                cy: [0, 60, 130, 60, 0],
-                opacity: [0, 1, 1, 1, 0]
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            />
-          </motion.svg>
-        </motion.div>
-        
-        {/* Layer 3 (Top - Accent) */}
-        <motion.div style={{ y: y3 }} className="absolute z-10">
-          <motion.svg 
-            width="400" height="200" viewBox="0 0 400 200"
-            animate={{ y: [0, -35, 0], filter: ['drop-shadow(0px 0px 10px var(--global-accent))', 'drop-shadow(0px 10px 30px var(--global-accent))', 'drop-shadow(0px 0px 10px var(--global-accent))'] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          >
-            <path d="M200,90 L90,35 L200,0 L310,35 Z" fill="color-mix(in srgb, var(--global-accent) 20%, transparent)" stroke="var(--global-accent)" strokeWidth="2.5" className="transition-colors duration-300" />
-            <path d="M200,90 L90,35 L90,45 L200,100 L310,45 L310,35 Z" fill="color-mix(in srgb, var(--global-accent) 35%, transparent)" className="transition-colors duration-300" />
-            {/* Pulsing Core */}
-            <motion.circle cx="200" cy="45" r="8" fill="var(--global-accent)" 
-              animate={{ scale: [1, 2, 1], opacity: [1, 0.4, 1] }} 
-              transition={{ duration: 2, repeat: Infinity }} 
-            />
-          </motion.svg>
-        </motion.div>
+          {/* Layer 1 (Base) */}
+          <motion.div style={{ y: y1 }} className="absolute">
+            <motion.svg
+              width="400" height="200" viewBox="0 0 400 200"
+              animate={{ y: [0, -10, 0], filter: ['brightness(1)', 'brightness(1.2)', 'brightness(1)'] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <path d="M200,170 L30,85 L200,0 L370,85 Z" fill="color-mix(in srgb, var(--global-accent) 4%, transparent)" stroke="color-mix(in srgb, var(--global-accent) 15%, transparent)" strokeWidth="1" />
+              <path d="M200,170 L30,85 L30,95 L200,180 L370,95 L370,85 Z" fill="color-mix(in srgb, var(--global-accent) 8%, transparent)" />
+            </motion.svg>
+          </motion.div>
+
+          {/* Layer 2 (Middle) */}
+          <motion.div style={{ y: y2 }} className="absolute">
+            <motion.svg
+              width="400" height="200" viewBox="0 0 400 200"
+              animate={{ y: [0, -20, 0], filter: ['brightness(1)', 'brightness(1.4)', 'brightness(1)'] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            >
+              <path d="M200,130 L60,60 L200,0 L340,60 Z" fill="color-mix(in srgb, var(--global-accent) 8%, transparent)" stroke="color-mix(in srgb, var(--global-accent) 25%, transparent)" strokeWidth="1" />
+              <path d="M200,130 L60,60 L60,70 L200,140 L340,70 L340,60 Z" fill="color-mix(in srgb, var(--global-accent) 12%, transparent)" />
+              {/* Active Data Node running across Layer 2 */}
+              <motion.circle
+                r="3" fill="var(--global-accent)"
+                animate={{
+                  cx: [200, 340, 200, 60, 200],
+                  cy: [0, 60, 130, 60, 0],
+                  opacity: [0, 1, 1, 1, 0]
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              />
+            </motion.svg>
+          </motion.div>
+
+          {/* Layer 3 (Top - Accent) */}
+          <motion.div style={{ y: y3 }} className="absolute z-10">
+            <motion.svg
+              width="400" height="200" viewBox="0 0 400 200"
+              animate={{ y: [0, -35, 0], filter: ['drop-shadow(0px 0px 10px var(--global-accent))', 'drop-shadow(0px 10px 30px var(--global-accent))', 'drop-shadow(0px 0px 10px var(--global-accent))'] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              <path d="M200,90 L90,35 L200,0 L310,35 Z" fill="color-mix(in srgb, var(--global-accent) 20%, transparent)" stroke="var(--global-accent)" strokeWidth="2.5" className="transition-colors duration-300" />
+              <path d="M200,90 L90,35 L90,45 L200,100 L310,45 L310,35 Z" fill="color-mix(in srgb, var(--global-accent) 35%, transparent)" className="transition-colors duration-300" />
+              {/* Pulsing Core */}
+              <motion.circle cx="200" cy="45" r="8" fill="var(--global-accent)"
+                animate={{ scale: [1, 2, 1], opacity: [1, 0.4, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </motion.svg>
+          </motion.div>
         </motion.div>
       </div>
 
@@ -120,7 +120,7 @@ const VisualPlatformHero = () => {
 const ArchitectureDiagram = () => {
   const containerRef = useRef(null);
   const [scale, setScale] = useState(1);
-  
+
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -139,16 +139,16 @@ const ArchitectureDiagram = () => {
         <FadeInUp className="flex flex-col items-center relative">
           {/* Subtle background glow for the header */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[100px] blur-[80px] opacity-30 pointer-events-none" style={{ backgroundColor: 'var(--global-accent)' }} />
-          
+
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/5 bg-white/60 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.02)] mb-8">
             <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--global-accent)' }} />
             <span className="text-[11px] font-mono tracking-[0.2em] text-[#14110F]/60 uppercase">The Core Engine</span>
           </div>
-          
+
           <h2 className="text-[clamp(36px,5vw,60px)] font-normal tracking-[-0.04em] text-[#14110F] mb-6 text-center leading-[1.1]">
             Unified Platform <br className="md:hidden" /><span className="font-semibold" style={{ color: 'var(--global-accent)' }}>Architecture</span>
           </h2>
-          
+
           <p className="text-[17px] md:text-[22px] text-[#14110F]/60 font-normal text-center max-w-[650px] mx-auto mb-16 md:mb-24 leading-relaxed">
             A seamless orchestration layer connecting every module across your customer experience.
           </p>
@@ -159,24 +159,24 @@ const ArchitectureDiagram = () => {
           <div className="w-full flex flex-col gap-4 md:hidden px-2 mt-4 relative">
             {/* Connecting line for mobile */}
             <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[var(--global-accent)] opacity-20 -translate-x-1/2 z-0" />
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               className="w-full h-[60px] bg-white/80 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10"
             >
               <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">AI Voice Agents</span>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
               className="w-full h-[60px] bg-white/80 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10"
             >
               <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">WhatsApp Business</span>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
-              style={{ 
+              style={{
                 backgroundColor: 'color-mix(in srgb, var(--global-accent) 5%, transparent)',
                 borderColor: 'var(--global-accent)'
               }}
@@ -188,14 +188,14 @@ const ArchitectureDiagram = () => {
               </span>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
               className="w-full h-[60px] bg-white/80 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10"
             >
               <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">Quality Management</span>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
               className="w-full h-[60px] bg-white/80 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10"
             >
@@ -204,131 +204,104 @@ const ArchitectureDiagram = () => {
           </div>
 
           {/* Desktop View */}
-          <div className="hidden md:flex justify-center w-full" style={{ height: `${450 * scale}px` }}>
-            <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }} className="w-[800px] h-[450px] shrink-0 relative">
-            
-            <div className="absolute left-[250px] top-[165px] w-[300px] h-[120px] rounded-full blur-[40px] pointer-events-none -z-10 transition-colors duration-300" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 22%, transparent)' }} />
+          <div className="hidden md:flex justify-center w-full" style={{ height: `${510 * scale}px` }}>
+            <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }} className="w-[800px] h-[510px] shrink-0 relative">
 
-            <svg width="800" height="450" viewBox="0 0 800 450" className="absolute inset-0 overflow-visible">
-              {/* Left outer bracket */}
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.4, ease: "easeInOut" }}
-                d="M 110 90 L 90 90 Q 70 90 70 110 L 70 340 Q 70 360 90 360 L 110 360" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
-              {/* Right outer bracket */}
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.4, ease: "easeInOut" }}
-                d="M 690 90 L 710 90 Q 730 90 730 110 L 730 340 Q 730 360 710 360 L 690 360" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
+              {/* Center ambient glow — center is open and uncluttered */}
+              <div className="absolute left-[300px] top-[155px] w-[200px] h-[200px] rounded-full blur-[70px] pointer-events-none -z-10 transition-colors duration-300" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 12%, transparent)' }} />
 
-              {/* Top horizontal bridge */}
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.1, ease: "easeInOut", delay: 0.15 }}
-                d="M 300 90 L 500 90" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
-              {/* Bottom horizontal bridge */}
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.1, ease: "easeInOut", delay: 0.15 }}
-                d="M 300 360 L 500 360" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
+              <svg width="800" height="510" viewBox="0 0 800 510" className="absolute inset-0 overflow-visible">
+                {/* Concentric Ambient Radar / Guide Rings */}
+                <circle
+                  cx="400" cy="255" r="245"
+                  fill="none" stroke="var(--global-accent)" strokeWidth="1" strokeDasharray="3 7" strokeOpacity="0.14"
+                />
+                <circle
+                  cx="400" cy="255" r="115"
+                  fill="none" stroke="var(--global-accent)" strokeWidth="1" strokeDasharray="4 8" strokeOpacity="0.2"
+                />
 
-              {/* Top spine to centre block */}
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.0, ease: "easeInOut", delay: 0.3 }}
-                d="M 400 90 L 400 192" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
-              {/* Bottom spine from centre block */}
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.0, ease: "easeInOut", delay: 0.3 }}
-                d="M 400 258 L 400 360" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
+                {/* Primary Interconnecting Closed-Loop Circle (R = 195) */}
+                {/* Connects all 5 modules in an uninterrupted continuous circular loop */}
+                <motion.circle
+                  cx="400" cy="255" r="195"
+                  fill="none" stroke="var(--global-accent)" strokeWidth="2" strokeOpacity="0.85"
+                  initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1.8, ease: "easeInOut" }}
+                />
 
-              {/* Corner arcs — smooth S-curves to centre block side edges */}
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, ease: "easeInOut", delay: 0.25 }}
-                d="M 300 90 C 300 155, 270 165, 270 192" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, ease: "easeInOut", delay: 0.25 }}
-                d="M 500 90 C 500 155, 530 165, 530 192" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, ease: "easeInOut", delay: 0.25 }}
-                d="M 300 360 C 300 295, 270 285, 270 258" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
-              <motion.path
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, ease: "easeInOut", delay: 0.25 }}
-                d="M 500 360 C 500 295, 530 285, 530 258" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
-              />
+                {/* Junction Dots at the 5 arc midpoints between modules */}
+                {[
+                  { x: 515, y: 97 }, // between Telephony and WhatsApp
+                  { x: 585, y: 315 }, // between WhatsApp and Customer Engagement
+                  { x: 400, y: 450 }, // between Customer Engagement and Quality Management
+                  { x: 215, y: 315 }, // between Quality Management and AI Voice Agents
+                  { x: 285, y: 97 }, // between AI Voice Agents and Telephony
+                ].map((pt, idx) => (
+                  <g key={idx}>
+                    <circle cx={pt.x} cy={pt.y} r="6.5" fill="none" stroke="var(--global-accent)" strokeWidth="1" strokeOpacity="0.35" />
+                    <circle cx={pt.x} cy={pt.y} r="3.5" fill="var(--global-accent)" className="transition-colors duration-300" />
+                  </g>
+                ))}
 
-              {/* Junction dots — only at true intersections */}
-              {[
-                { x: 70,  y: 225 },   // left bracket midpoint
-                { x: 730, y: 225 },   // right bracket midpoint
-                { x: 300, y: 90  },   // top-left inner corner (bridge + bracket + arc)
-                { x: 500, y: 90  },   // top-right inner corner
-                { x: 300, y: 360 },   // bottom-left inner corner
-                { x: 500, y: 360 },   // bottom-right inner corner
-              ].map((pt, idx) => (
-                <circle key={idx} cx={pt.x} cy={pt.y} r="3.5" fill="var(--global-accent)" className="transition-colors duration-300" />
-              ))}
+                {/* Dynamic Closed-Loop Flow Pulses */}
+                <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
+                  <animateMotion dur="7s" repeatCount="indefinite" path="M 400 60 A 195 195 0 1 1 399.9 60" />
+                </circle>
+                <circle r="2.5" fill="var(--global-accent)" className="transition-colors duration-300">
+                  <animateMotion dur="7s" repeatCount="indefinite" begin="3.5s" path="M 400 60 A 195 195 0 1 1 399.9 60" />
+                </circle>
+                <circle r="2" fill="var(--global-accent)" className="transition-colors duration-300">
+                  <animateMotion dur="9s" repeatCount="indefinite" path="M 400 60 A 195 195 0 1 0 399.9 60" />
+                </circle>
+              </svg>
 
-              {/* Animated flow pulses */}
-              <circle r="2.5" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="5s" repeatCount="indefinite" path="M 110 90 L 90 90 Q 70 90 70 110 L 70 340 Q 70 360 90 360 L 110 360" />
-              </circle>
-              <circle r="2.5" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="5s" repeatCount="indefinite" path="M 690 90 L 710 90 Q 730 90 730 110 L 730 340 Q 730 360 710 360 L 690 360" />
-              </circle>
-              <circle r="2.5" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" repeatCount="indefinite" path="M 300 90 L 500 90" />
-              </circle>
-              <circle r="2.5" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" repeatCount="indefinite" path="M 500 360 L 300 360" />
-              </circle>
-            </svg>
+              {/* 1. Node Top: Telephony & Command Center */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-100px" }}
+                style={{
+                  backgroundColor: 'color-mix(in srgb, var(--global-accent) 10%, white)',
+                  borderColor: 'var(--global-accent)'
+                }}
+                className="absolute left-[285px] top-[32px] w-[230px] h-[56px] rounded-[18px] border flex items-center justify-center shadow-[0_0_35px_color-mix(in_srgb,var(--global-accent)_25%,transparent)] hover:scale-[1.02] transition-all duration-300 cursor-default backdrop-blur-xl relative overflow-hidden z-10"
+              >
+                <span style={{ color: 'var(--global-dark-accent)' }} className="font-sans text-[14px] md:text-[15px] font-semibold tracking-tight relative z-10 text-center px-3">
+                  Telephony & Command Center
+                </span>
+              </motion.div>
 
-            {/* Nodes */}
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }}
-              className="absolute left-[110px] top-[60px] w-[190px] h-[60px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
-            >
-              <span className="font-sans text-[14px] md:text-[15px] tracking-tight text-[#14110F] font-semibold">AI Voice Agents</span>
-            </motion.div>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.1 }}
-              className="absolute left-[500px] top-[60px] w-[190px] h-[60px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
-            >
-              <span className="font-sans text-[14px] md:text-[15px] tracking-tight text-[#14110F] font-semibold">WhatsApp Business</span>
-            </motion.div>
+              {/* 2. Node Top-Right: WhatsApp Business */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.1 }}
+                className="absolute left-[495px] top-[169px] w-[180px] h-[52px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
+              >
+                <span className="font-sans text-[13px] md:text-[14px] tracking-tight text-[#14110F] font-semibold">WhatsApp Business</span>
+              </motion.div>
 
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.3 }}
-              style={{ 
-                backgroundColor: 'color-mix(in srgb, var(--global-accent) 10%, white)',
-                borderColor: 'var(--global-accent)'
-              }}
-              className="absolute left-[270px] top-[192px] w-[260px] h-[66px] rounded-[20px] border flex items-center justify-center shadow-[0_0_35px_color-mix(in_srgb,var(--global-accent)_25%,transparent)] hover:scale-[1.02] transition-all duration-300 cursor-default backdrop-blur-xl relative overflow-hidden z-10"
-            >
-              <span style={{ color: 'var(--global-dark-accent)' }} className="font-sans text-[15px] md:text-[16px] font-semibold tracking-tight relative z-10 text-center px-4">
-                Telephony & Command Center
-              </span>
-            </motion.div>
+              {/* 3. Node Bottom-Right: Customer Engagement */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.2 }}
+                className="absolute left-[423px] top-[387px] w-[185px] h-[52px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
+              >
+                <span className="font-sans text-[13px] md:text-[14px] tracking-tight text-[#14110F] font-semibold">Customer Engagement</span>
+              </motion.div>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.2 }}
-              className="absolute left-[110px] top-[330px] w-[190px] h-[60px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
-            >
-              <span className="font-sans text-[14px] md:text-[15px] tracking-tight text-[#14110F] font-semibold">Quality Management</span>
-            </motion.div>
+              {/* 4. Node Bottom-Left: Quality Management */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.3 }}
+                className="absolute left-[195px] top-[387px] w-[180px] h-[52px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
+              >
+                <span className="font-sans text-[13px] md:text-[14px] tracking-tight text-[#14110F] font-semibold">Quality Management</span>
+              </motion.div>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.3 }}
-              className="absolute left-[500px] top-[330px] w-[190px] h-[60px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
-            >
-              <span className="font-sans text-[14px] md:text-[15px] tracking-tight text-[#14110F] font-semibold">Customer Engagement</span>
-            </motion.div>
+              {/* 5. Node Top-Left: AI Voice Agents */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.4 }}
+                className="absolute left-[128px] top-[169px] w-[175px] h-[52px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
+              >
+                <span className="font-sans text-[13px] md:text-[14px] tracking-tight text-[#14110F] font-semibold">AI Voice Agents</span>
+              </motion.div>
 
             </div>
           </div>
@@ -341,7 +314,7 @@ const ArchitectureDiagram = () => {
 
 export default function PlatformOverview() {
   const heroRef = useRef(null);
-  
+
   const { activeChapter, scrollY } = useChapterColor(
     platforms.length,
     accentColors,
@@ -351,7 +324,7 @@ export default function PlatformOverview() {
 
   return (
     <div className="w-full min-h-screen text-[#14110F] relative">
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none -z-10 transition-colors duration-300"
         style={{ backgroundImage: 'linear-gradient(180deg, #F5F1EA 0%, var(--global-tint, #F5F1EA) 100%)' }}
       />
@@ -365,8 +338,8 @@ export default function PlatformOverview() {
               The Platform
             </span>
             <h1 className="text-[clamp(40px,8vw,80px)] font-medium tracking-tighter text-[#14110F] leading-[1.05]">
-              The complete toolkit for <br />
-              <span style={{ color: BRAND }}>autonomous orchestration.</span>
+              The Complete Toolkit For <br />
+              <span style={{ color: BRAND }}>Autonomous Orchestration.</span>
             </h1>
           </FadeInUp>
         </div>
@@ -374,10 +347,10 @@ export default function PlatformOverview() {
       </section>
 
       {/* 02 — NAVIGATION */}
-      <ChapterNav 
-        items={NAV_LABELS} 
-        activeChapter={activeChapter} 
-        scrollY={scrollY} 
+      <ChapterNav
+        items={NAV_LABELS}
+        activeChapter={activeChapter}
+        scrollY={scrollY}
       />
 
       {/* 03 — PLATFORM MODULES AS CHAPTERS */}
@@ -385,9 +358,9 @@ export default function PlatformOverview() {
         {platforms.map((platform, i) => (
           <section id={`chapter-${i}`} key={platform.id} className="w-full py-24 md:py-40 px-4 sm:px-6 md:px-16 lg:px-20 relative overflow-x-clip bg-transparent">
             <ParallaxText text={bgWords[i % bgWords.length]} alignLeft={i % 2 === 0} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
-            
+
             <div className="max-w-[1280px] mx-auto relative z-10 flex flex-col md:flex-row gap-12 md:gap-24 items-start md:items-center">
-              
+
               {/* Theme Header */}
               <div className="md:w-[460px] lg:w-[500px] shrink-0">
                 <div className="md:sticky md:top-32">
@@ -403,7 +376,7 @@ export default function PlatformOverview() {
                     <p className="text-[18px] md:text-[22px] text-[#14110F] font-medium leading-snug mb-3 lg:whitespace-nowrap">
                       {platform.tagline}
                     </p>
-                    <p 
+                    <p
                       className="text-[15px] md:text-[18px] text-[#14110F]/70 leading-relaxed font-normal ml-2 md:ml-4 pl-4 md:pl-5 border-l-[3px] transition-colors duration-300"
                       style={{ borderColor: 'var(--global-accent)' }}
                     >
@@ -412,8 +385,8 @@ export default function PlatformOverview() {
                   </div>
 
                   <MagneticElement className="inline-block mt-4">
-                    <Link 
-                      to={`/platform/${platform.id}`} 
+                    <Link
+                      to={`/platform/${platform.id}`}
                       className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold flex items-center justify-center gap-3 py-4 px-8 rounded-full text-white shadow-[0_8px_25px_color-mix(in_srgb,var(--global-accent)_40%,transparent)] hover:shadow-[0_12px_35px_color-mix(in_srgb,var(--global-accent)_60%,transparent)] transition-all duration-300 relative overflow-hidden group"
                       style={{ backgroundColor: 'var(--global-accent)' }}
                     >
@@ -428,7 +401,7 @@ export default function PlatformOverview() {
               {/* One Illustration Card per Module */}
               <div className="flex-1 w-full flex md:justify-end">
                 <Link to={`/platform/${platform.id}`} className="w-full md:max-w-[480px] block outline-none transition-all duration-500 ease-out hover:-translate-y-4 hover:scale-[1.02] hover:shadow-[0_40px_80px_-20px_color-mix(in_srgb,var(--global-accent)_30%,transparent)] rounded-[24px]">
-                  <IllustrationCard 
+                  <IllustrationCard
                     name={platform.name}
                     motifIndex={motifMapping[i]}
                     idx={i}
@@ -439,7 +412,7 @@ export default function PlatformOverview() {
               </div>
 
             </div>
-            
+
             <div className="absolute bottom-0 left-0 w-full h-px bg-[linear-gradient(90deg,transparent,rgba(20,17,15,0.15),transparent)]" />
           </section>
         ))}
@@ -456,7 +429,7 @@ export default function PlatformOverview() {
             <h2 className="text-[clamp(36px,7vw,72px)] font-medium tracking-tighter text-white leading-[1.05] mb-6">
               Ready to transform your business?
             </h2>
-            <h3 className="text-[clamp(20px,4vw,32px)] font-bold tracking-tight text-white/50 leading-[1.2] mb-16">
+            <h3 className="text-[clamp(20px,4vw,32px)] font-normal tracking-tight text-white/50 leading-[1.2] mb-16">
               Deploy our autonomous platform today.
             </h3>
 

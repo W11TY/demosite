@@ -145,8 +145,8 @@ export default function ResearchOverview() {
         <div className="max-w-[1000px] mx-auto px-6 text-center z-10">
           <FadeInUp>
             <h1 className="text-[clamp(40px,8vw,100px)] font-medium tracking-tighter text-[#14110F] leading-[1]">
-              Pioneering the next<br />
-              <span style={{ color: BRAND }}>Generation of AI.</span>
+              Pioneering The Next<br />
+              <span style={{ color: BRAND }}>Generation Of AI.</span>
             </h1>
             <p className="mt-8 md:mt-12 text-[18px] md:text-[24px] text-[#14110F]/75 max-w-[700px] mx-auto leading-relaxed font-light">
               We're pushing the boundaries of speech, reasoning, and autonomous agents to transform enterprise communication.

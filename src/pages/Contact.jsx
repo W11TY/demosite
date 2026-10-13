@@ -89,7 +89,7 @@ export default function Contact() {
         {/* ── Contact info pinned to bottom on all screen sizes ── */}
         <div className="absolute bottom-0 left-0 right-0 z-20 px-6 lg:px-12 pt-6 pb-8 lg:pb-12">
           <h1 className="text-white text-[clamp(28px,7vw,56px)] font-medium leading-[1.1] tracking-tight mb-5">
-            Get in Touch
+            Get In Touch
           </h1>
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-3">

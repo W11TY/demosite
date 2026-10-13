@@ -140,7 +140,7 @@ const PracticeSection = () => (
            <div key={i} className="relative">
              <div className="absolute -left-[33px] md:-left-[57px] top-1 md:top-2 w-3 h-3 md:w-4 md:h-4 rounded-full bg-[#FAFAFA] border-2 border-black/20" />
              <h4 className="font-mono text-[12px] md:text-[14px] tracking-[0.1em] text-[#111] font-bold mb-2">{item.title}</h4>
-             <p className="text-[18px] md:text-[28px] text-black/50 font-bold leading-snug">→ {item.reason}</p>
+             <p className="text-[18px] md:text-[28px] text-black/50 font-normal leading-snug">→ {item.reason}</p>
            </div>
          ))}
       </div>
@@ -455,10 +455,10 @@ const CulturePage = () => {
               Culture Manifesto
             </span>
             <h1 className="text-[clamp(40px,7vw,100px)] font-medium tracking-tighter text-[#14110F] leading-[1.05]">
-              Work that matters,<br/>
-              <span className="text-[var(--global-accent)] italic transition-colors duration-300">Life that counts.</span>
+              Work That Matters,<br/>
+              <span className="text-[var(--global-accent)] italic transition-colors duration-300">Life That Counts.</span>
             </h1>
-            <p className="mt-8 text-[18px] md:text-[24px] text-[#14110F]/60 leading-[1.6] font-bold max-w-[700px] mx-auto">
+            <p className="mt-8 text-[18px] md:text-[24px] text-[#14110F]/60 leading-[1.6] font-normal max-w-[700px] mx-auto">
               We're building technology that moves customer conversations forward — without losing sight of the people building it.
             </p>
           </FadeInUp>
@@ -508,7 +508,7 @@ const CulturePage = () => {
                          <h3 className="text-[20px] md:text-[22px] font-medium text-[#14110F] tracking-tight mb-2 group-hover:text-[var(--global-dark-accent)] transition-colors duration-300">
                            {principle.title}
                          </h3>
-                         <p className="text-[15px] md:text-[16px] text-[#14110F]/70 leading-[1.6] font-bold max-w-[600px]">
+                         <p className="text-[15px] md:text-[16px] text-[#14110F]/70 leading-[1.6] font-normal max-w-[600px]">
                            {principle.desc}
                          </p>
                        </div>
@@ -560,17 +560,22 @@ const CulturePage = () => {
   );
 };
 
-const FOUNDERS = [
-  { name: 'Manish Joshi', role: 'CEO', image: '' },
-  { name: 'Rakesh Kanugula', role: 'COO', image: '' },
-  { name: 'Divya Sri Chakrini', role: '', image: '' },
-  { name: 'Mukhesh Kalvapudi', role: '', image: '' },
-  { name: 'Avanish Shahi', role: '', image: '' },
-  { name: 'Yaswanth Arikatla', role: '', image: '' },
-  { name: 'Vamsi Krishna Kadambala', role: '', image: '' },
-  { name: 'Somya', role: '', image: '' },
-  { name: 'Ashutosh Singh', role: '', image: '' }
+const LEADERSHIP = [
+  { name: 'Manish Joshi', role: 'CEO', initials: 'MJ', image: '' },
+  { name: 'Rakesh Kanugula', role: 'COO', initials: 'RK', image: '' }
 ];
+
+const TEAM_MEMBERS = [
+  { name: 'Divya Sri Chakrini', role: '', initials: 'DC', image: '' },
+  { name: 'Mukhesh Kalvapudi', role: '', initials: 'MK', image: '' },
+  { name: 'Avanish Shahi', role: '', initials: 'AS', image: '' },
+  { name: 'Yaswanth Arikatla', role: '', initials: 'YA', image: '' },
+  { name: 'Vamsi Krishna Kadambala', role: '', initials: 'VK', image: '' },
+  { name: 'Somya', role: '', initials: 'SO', image: '' },
+  { name: 'Ashutosh Singh', role: '', initials: 'AS', image: '' }
+];
+
+const FOUNDERS = [...LEADERSHIP, ...TEAM_MEMBERS];
 
 const SOLUTION_POINTERS = [
   {
@@ -720,10 +725,10 @@ const AboutPage = () => {
               About VoxiFlow AI
             </span>
             <h1 className="text-[clamp(40px,7vw,84px)] font-medium tracking-tighter text-[#14110F] leading-[1.05]">
-              Every customer conversation. <br />
+              Every Customer Conversation. <br />
               <span className="text-[var(--global-accent)] italic transition-colors duration-300">Connected.</span>
             </h1>
-            <p className="mt-8 text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] font-bold max-w-[600px] mx-auto">
+            <p className="mt-8 text-[18px] md:text-[22px] text-[#14110F]/60 leading-[1.6] font-normal max-w-[600px] mx-auto">
               Thousands of isolated interactions transformed into one intelligent, self-learning infrastructure.
             </p>
           </FadeInUp>
@@ -746,7 +751,7 @@ const AboutPage = () => {
                  <h2 className="text-[clamp(32px,5vw,56px)] font-medium tracking-tight text-[#14110F] leading-[1.1] mb-8">
                    Customer conversations don't happen in one place. They happen everywhere.
                  </h2>
-                 <p className="text-[18px] md:text-[20px] text-[#14110F]/70 leading-relaxed font-bold">
+                 <p className="text-[18px] md:text-[20px] text-[#14110F]/70 leading-relaxed font-normal">
                    Fragmented tools create broken journeys, isolated context, and frustrated customers. Every customer interaction—from the first enquiry to post-sales support, collections, and retention—should operate as one intelligent ecosystem. That's why we built the Voxi CX Operating System.
                  </p>
                </div>
@@ -787,7 +792,7 @@ const AboutPage = () => {
                    <h2 className="text-[clamp(28px,4vw,40px)] font-medium tracking-tight text-[#14110F] leading-[1.15] mb-6">
                      Our AI Voice Agents don't just automate calls—they understand context, adapt in real time, and communicate naturally like a human.
                    </h2>
-                   <p className="text-[17px] text-[#14110F]/70 leading-[1.8] font-bold mb-12">
+                   <p className="text-[17px] text-[#14110F]/70 leading-[1.8] font-normal mb-12">
                      Every interaction is personalized, every conversation is meaningful, and every customer journey is intelligently orchestrated.
                    </p>
                    
@@ -832,7 +837,7 @@ const AboutPage = () => {
                    <ScrollWordReveal 
                      text="Our Customer Success and Implementation teams work closely with customers through every stage. Our 15-Day Success Framework ensures every deployment delivers measurable business outcomes."
                      as="p"
-                     className="text-[18px] text-[#14110F]/70 leading-[1.75] font-bold max-w-[800px]"
+                     className="text-[18px] text-[#14110F]/70 leading-[1.75] font-normal max-w-[800px]"
                    />
                  </div>
 
@@ -865,7 +870,7 @@ const AboutPage = () => {
                          <h3 className="text-[20px] md:text-[26px] font-medium text-[#14110F] tracking-tight mb-3">
                            {stage.title}
                          </h3>
-                         <p className="text-[16px] text-[#14110F]/70 leading-[1.6] font-bold max-w-[700px]">
+                         <p className="text-[16px] text-[#14110F]/70 leading-[1.6] font-normal max-w-[700px]">
                            {stage.description}
                          </p>
                        </div>
@@ -884,38 +889,87 @@ const AboutPage = () => {
         </section>
 
         {/* CHAPTER 4: TEAM */}
-        <section id="chapter-3" className="w-full py-24 md:py-40 px-6 md:px-16 lg:px-20 relative overflow-hidden bg-transparent min-h-[70dvh] flex items-center justify-center">
+        <section id="chapter-3" className="w-full py-24 md:py-36 px-6 relative overflow-hidden bg-transparent min-h-[70dvh] flex flex-col items-center justify-center">
           <ParallaxText text="TEAM." alignLeft={true} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
-          <div className="max-w-[1000px] mx-auto relative z-10 w-full flex flex-col items-center">
+          
+          <div className="max-w-[1000px] mx-auto relative z-10 w-full flex flex-col items-center mb-16 md:mb-20">
              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-bold block mb-12 text-[var(--global-dark-accent)]">04 / TEAM</span>
              
-             <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-16 w-full max-w-[900px]">
-                {FOUNDERS.map((founder, i) => (
+             {/* Leadership Row: Manish Joshi & Rakesh Kanugula */}
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-14 w-full max-w-[560px] md:max-w-[620px] mx-auto">
+                {LEADERSHIP.map((leader, i) => (
                   <div key={i} className="group relative flex flex-col items-center cursor-pointer w-full">
                     {/* Portrait card */}
-                    <div className="w-full aspect-[3/4] bg-transparent mb-6 overflow-hidden relative flex items-center justify-center border border-[#14110F]/10 group-hover:border-[var(--global-accent)]/40 transition-colors duration-300">
-                      {founder.image ? (
-                        <img src={founder.image} alt={founder.name} className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    <div className="w-full aspect-[3/4] bg-white/40 backdrop-blur-md rounded-[20px] md:rounded-[24px] mb-6 overflow-hidden relative flex items-center justify-center border border-[#14110F]/10 group-hover:border-[var(--global-accent)]/50 shadow-[0_8px_30px_rgba(20,17,15,0.04)] group-hover:shadow-[0_20px_40px_color-mix(in_srgb,var(--global-accent)_15%,transparent)] group-hover:-translate-y-1 transition-all duration-500">
+                      {leader.image ? (
+                        <img src={leader.image} alt={leader.name} className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
                       ) : (
-                        <span className="font-mono text-[48px] text-[#14110F]/30 group-hover:text-[var(--global-dark-accent)] tracking-widest uppercase transition-colors duration-300">
-                          {founder.name.trim().split(/\s+/).length > 1
-                            ? (founder.name.trim().split(/\s+/)[0][0] + founder.name.trim().split(/\s+/).slice(-1)[0][0]).toUpperCase()
-                            : founder.name.trim().substring(0, 2).toUpperCase()}
+                        <span className="font-mono text-[52px] md:text-[60px] font-semibold text-[#14110F]/30 group-hover:text-[var(--global-dark-accent)] tracking-widest uppercase transition-colors duration-300 select-none">
+                          {leader.initials}
                         </span>
                       )}
                     </div>
                     
                     {/* Ink text */}
-                    <h3 className="text-[20px] font-medium text-[#14110F] mb-2 text-center">{founder.name}</h3>
-                    <p className="text-[14px] font-mono text-[var(--global-dark-accent)] uppercase tracking-widest text-center transition-colors duration-300 min-h-[1.5em]">
-                      {founder.role || '\u00A0'}
+                    <h3 className="text-[22px] md:text-[24px] font-medium text-[#14110F] mb-1.5 text-center">{leader.name}</h3>
+                    <p className="text-[13px] md:text-[14px] font-mono text-[var(--global-dark-accent)] uppercase tracking-widest text-center transition-colors duration-300 font-medium">
+                      {leader.role}
                     </p>
 
                     {/* Accent underline on hover */}
-                    <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-0 h-px bg-[var(--global-accent)] group-hover:w-full transition-all duration-500" />
+                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-0 h-px bg-[var(--global-accent)] group-hover:w-3/4 transition-all duration-500" />
                   </div>
                 ))}
              </div>
+          </div>
+
+          {/* Marquee Row for All Other Members */}
+          <div className="w-full relative z-10">
+            <div 
+              className="w-full overflow-hidden relative py-4"
+              style={{
+                maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)'
+              }}
+            >
+              <div 
+                className="flex w-max items-center hover:[animation-play-state:paused]"
+                style={{ animation: 'marquee 35s linear infinite' }}
+              >
+                {[0, 1, 2, 3].map((copyIdx) => (
+                  <div key={copyIdx} className="flex items-center gap-6 md:gap-8 pr-6 md:pr-8 shrink-0">
+                    {TEAM_MEMBERS.map((member, idx) => (
+                      <div 
+                        key={`${copyIdx}-${idx}`} 
+                        className="group relative flex flex-col items-center cursor-pointer w-[190px] md:w-[220px] shrink-0"
+                      >
+                        {/* Portrait card */}
+                        <div className="w-full aspect-[3/4] bg-white/40 backdrop-blur-md rounded-[18px] md:rounded-[20px] mb-4 overflow-hidden relative flex items-center justify-center border border-[#14110F]/10 group-hover:border-[var(--global-accent)]/50 shadow-[0_6px_25px_rgba(20,17,15,0.03)] group-hover:shadow-[0_16px_35px_color-mix(in_srgb,var(--global-accent)_15%,transparent)] group-hover:-translate-y-1 transition-all duration-300">
+                          {member.image ? (
+                            <img src={member.image} alt={member.name} className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
+                          ) : (
+                            <span className="font-mono text-[38px] md:text-[44px] font-semibold text-[#14110F]/30 group-hover:text-[var(--global-dark-accent)] tracking-widest uppercase transition-colors duration-300 select-none">
+                              {member.initials}
+                            </span>
+                          )}
+                        </div>
+                        
+                        {/* Member name & role */}
+                        <h4 className="text-[16px] md:text-[17px] font-medium text-[#14110F] mb-1 text-center whitespace-normal leading-snug px-2">
+                          {member.name}
+                        </h4>
+                        <p className="text-[12px] font-mono text-[var(--global-dark-accent)] uppercase tracking-widest text-center transition-colors duration-300 min-h-[1.4em]">
+                          {member.role || '\u00A0'}
+                        </p>
+
+                        {/* Accent underline on hover */}
+                        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-px bg-[var(--global-accent)] group-hover:w-2/3 transition-all duration-300" />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
