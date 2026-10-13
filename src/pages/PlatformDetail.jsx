@@ -120,7 +120,7 @@ export default function PlatformDetail() {
               <h2 className="text-[clamp(28px,4vw,40px)] font-medium tracking-tight text-[#14110F] leading-[1.2] mb-6">
                 Platform Capabilities
               </h2>
-              <p className="text-[16px] text-[#14110F]/60 leading-[1.6] font-bold max-w-[600px]">
+              <p className="text-[16px] text-[#14110F]/60 leading-[1.6] font-normal max-w-[600px]">
                 Discover how {platform.shortName} enables you to automate, orchestrate, and optimize your business processes.
               </p>
             </SlideInLeft>

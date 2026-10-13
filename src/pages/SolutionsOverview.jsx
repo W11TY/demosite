@@ -368,7 +368,7 @@ const SolutionCard = ({ solution, index }) => {
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       variants={{ rest: { scale: 1, y: 0 }, hover: { scale: 1.02, y: -4 } }}
       style={{ WebkitTapHighlightColor: 'transparent' }}
-      className="rounded-[16px] md:rounded-[24px] overflow-hidden flex flex-col border border-[#14110F]/10 shadow-[0_8px_30px_rgba(20,17,15,0.10)] focus-visible:ring-1 focus-visible:ring-[#1283a9]/60 outline-none cursor-pointer group bg-[#16130F] w-full max-w-[560px] md:max-w-[720px] mx-auto"
+      className="rounded-[16px] md:rounded-[24px] overflow-hidden flex flex-col border border-[#14110F]/10 shadow-[0_8px_30px_rgba(20,17,15,0.10)] focus-visible:ring-1 focus-visible:ring-[#0d83a9]/60 outline-none cursor-pointer group bg-[#16130F] w-full max-w-[560px] md:max-w-[720px] mx-auto"
     >
       <Link to={`/solutions/${solution.id}`} className="flex flex-col h-full outline-none">
         

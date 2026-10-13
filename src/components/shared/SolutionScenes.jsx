@@ -97,9 +97,9 @@ function Bubble({ text, visible, ai, isNew }) {
         borderRadius:ai?'10px 10px 10px 3px':'10px 10px 3px 10px',
         fontSize:10.5, lineHeight:1.35,
         whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis',
-        background:ai?'#3F4FD0':'#E8E4DF', color:ai?'#fff':'#14110F',
+        background:ai?'#0d83a9':'#E8E4DF', color:ai?'#fff':'#14110F',
         border:ai?'none':'1px solid rgba(20,17,15,0.08)',
-        boxShadow:ai?'0 2px 8px rgba(63,79,208,0.2)':'none', flexShrink:0 }}>
+        boxShadow:ai?'0 2px 8px rgba(13,131,169,0.25)':'none', flexShrink:0 }}>
         {text}
       </div>
     </div>
@@ -110,10 +110,10 @@ function VoxiChip({ visible }) {
   return visible ? (
     <div style={{ display:'flex', alignItems:'center', gap:5, flexShrink:0,
       animation:!prefersReduced?'slideUp 0.3s ease-out both':'none' }}>
-      <div style={{ width:5, height:5, borderRadius:'50%', background:'#3F4FD0', flexShrink:0,
+      <div style={{ width:5, height:5, borderRadius:'50%', background:'#0d83a9', flexShrink:0,
         animation:prefersReduced?'none':'scenePulse 2s ease-in-out infinite' }}/>
       <span style={{ fontSize:8, fontFamily:'monospace', textTransform:'uppercase',
-        letterSpacing:'0.14em', color:'#3F4FD0', whiteSpace:'nowrap' }}>Voxi AI</span>
+        letterSpacing:'0.14em', color:'#0d83a9', whiteSpace:'nowrap' }}>Voxi AI</span>
     </div>
   ) : null;
 }
@@ -159,10 +159,10 @@ function ActionRow({ label, checked }) {
 function OutcomeCard({ label, visible }) {
   return (
     <div style={{ marginTop:4, padding:'5px 8px', borderRadius:8, flexShrink:0,
-      background:'linear-gradient(135deg,#3F4FD0,#5563E8)',
+      background:'linear-gradient(135deg,#0d83a9,#159ec9)',
       opacity:visible?1:0.15, transform:visible?'none':'translateX(-3px)',
       transition:prefersReduced?'none':'opacity 0.5s ease-out, transform 0.5s ease-out',
-      boxShadow:visible?'0 3px 12px rgba(63,79,208,0.3)':'none',
+      boxShadow:visible?'0 3px 12px rgba(13,131,169,0.3)':'none',
       fontSize:9, color:'#fff', fontWeight:500,
       whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>
       <span style={{ marginRight:4 }}>✓</span>{label}
@@ -463,8 +463,8 @@ function SolutionImageVisual({ src, alt }) {
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 1,
-          border: isHovered ? '1px solid rgba(63, 79, 208, 0.28)' : '1px solid rgba(20, 17, 15, 0.06)',
-          boxShadow: isHovered ? '0 4px 18px rgba(63, 79, 208, 0.12)' : 'none',
+          border: isHovered ? '1px solid rgba(13, 131, 169, 0.35)' : '1px solid rgba(20, 17, 15, 0.06)',
+          boxShadow: isHovered ? '0 4px 18px rgba(13, 131, 169, 0.15)' : 'none',
           transition: prefersReduced ? 'none' : 'border-color 0.25s ease, box-shadow 0.25s ease',
         }}
       >

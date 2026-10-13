@@ -24,8 +24,8 @@ export default function Footer() {
       <div className="relative z-10 flex flex-col w-full h-full min-h-[400px]">
         {/* Top Content Section */}
         <StaggerContainer>
-          <div className="w-full px-8 lg:px-14 pt-14 pb-10">
-            <div className="flex flex-col lg:flex-row gap-12 lg:gap-6">
+          <div className="w-full max-w-7xl mx-auto px-8 lg:px-14 pt-14 pb-10">
+            <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 items-start">
 
               {/* Left: Brand */}
               <FadeInUp className="lg:w-[220px] shrink-0">
@@ -38,67 +38,66 @@ export default function Footer() {
                 </p>
               </FadeInUp>
 
-              {/* Nav Columns */}
-              <div className="flex-1 grid grid-cols-2 gap-8 sm:flex sm:flex-row sm:gap-10 lg:gap-0 lg:justify-around w-full">
-
-                {/* Product */}
-                <FadeInUp delay={0.1} className="min-w-[120px]">
-                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Product</h4>
-                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {[
-                      { label: 'Features', to: '/platform' },
-                      { label: 'Use Cases', to: '/solutions' },
-                    ].map(({ label, to }) => (
-                      <li key={label}>
-                        <Link to={to} style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.2s' }}
-                          onMouseEnter={e => e.target.style.color = '#111'}
-                          onMouseLeave={e => e.target.style.color = '#666'}
-                        >{label}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </FadeInUp>
-
-                {/* Company */}
-                <FadeInUp delay={0.15} className="min-w-[100px]">
-                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Company</h4>
-                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {[
-                      { label: 'About', to: '/company' },
-                      { label: 'Careers', to: '/company/careers' },
-                      { label: 'Contact', to: '/contact' },
-                    ].map(({ label, to }) => (
-                      <li key={label}>
-                        <Link to={to} style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.2s' }}
-                          onMouseEnter={e => e.target.style.color = '#111'}
-                          onMouseLeave={e => e.target.style.color = '#666'}
-                        >{label}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </FadeInUp>
-
-                {/* Legal */}
-                <FadeInUp delay={0.2} className="min-w-[130px]">
-                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Legal</h4>
-                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {[
-                      { label: 'Privacy Policy', to: '/company/privacy' },
-                      { label: 'Terms of Service', to: '/company/terms' },
-                      { label: 'Security', to: '/company/security' },
-                      { label: 'Responsible AI', to: '/research' },
-                    ].map(({ label, to }) => (
-                      <li key={label}>
-                        <Link to={to} style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.2s' }}
-                          onMouseEnter={e => e.target.style.color = '#111'}
-                          onMouseLeave={e => e.target.style.color = '#666'}
-                        >{label}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </FadeInUp>
-
-              </div>
+              {/* Product */}
+              <FadeInUp delay={0.1} className="w-full sm:w-auto lg:w-[260px] shrink-0">
+                <h4 style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', color: '#111', textTransform: 'uppercase', marginBottom: '14px' }}>
+                  Product
+                </h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {[
+                    { label: 'Features', to: '/platform', desc: 'Voice agents & architecture' },
+                    { label: 'Use Cases', to: '/solutions', desc: 'Customer revenue & support' },
+                  ].map(({ label, to, desc }) => (
+                    <Link
+                      key={label}
+                      to={to}
+                      className="group block"
+                      style={{
+                        padding: '12px 14px',
+                        borderRadius: '10px',
+                        background: 'rgba(255, 255, 255, 0.7)',
+                        border: '1px solid rgba(0, 0, 0, 0.06)',
+                        backdropFilter: 'blur(8px)',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.borderColor = 'rgba(13, 148, 136, 0.35)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.7)';
+                        e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.06)';
+                        e.currentTarget.style.boxShadow = 'none';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#111' }}>{label}</span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#0d9488"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="transition-transform duration-200 group-hover:translate-x-0.5"
+                        >
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                          <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                      </div>
+                      <p style={{ fontSize: '11px', color: '#666', marginTop: '2px', lineHeight: 1.4 }}>
+                        {desc}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </FadeInUp>
 
               {/* Right: Newsletter + Socials */}
               <FadeInUp delay={0.25} className="lg:w-[280px] shrink-0" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -174,7 +173,7 @@ export default function Footer() {
         </StaggerContainer>
 
         {/* Bottom Copyright Section */}
-        <div className="w-full flex flex-col-reverse sm:flex-row justify-between items-start sm:items-end gap-8 sm:gap-0 px-8 lg:px-14 pb-8 lg:pb-12 mt-auto pt-12">
+        <div className="w-full max-w-7xl mx-auto flex flex-col-reverse sm:flex-row justify-between items-start sm:items-end gap-8 sm:gap-0 px-8 lg:px-14 pb-8 lg:pb-12 mt-auto pt-12">
           <p style={{ fontSize: '10px', color: '#555', lineHeight: 1.6 }}>
             © {new Date().getFullYear()} Voxi.<br />All rights reserved.
           </p>

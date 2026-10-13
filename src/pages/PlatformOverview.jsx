@@ -149,7 +149,7 @@ const ArchitectureDiagram = () => {
             Unified Platform <br className="md:hidden" /><span className="font-semibold" style={{ color: 'var(--global-accent)' }}>Architecture</span>
           </h2>
           
-          <p className="text-[17px] md:text-[22px] text-[#14110F]/60 font-bold text-center max-w-[650px] mx-auto mb-16 md:mb-24 leading-relaxed">
+          <p className="text-[17px] md:text-[22px] text-[#14110F]/60 font-normal text-center max-w-[650px] mx-auto mb-16 md:mb-24 leading-relaxed">
             A seamless orchestration layer connecting every module across your customer experience.
           </p>
         </FadeInUp>
@@ -207,112 +207,127 @@ const ArchitectureDiagram = () => {
           <div className="hidden md:flex justify-center w-full" style={{ height: `${450 * scale}px` }}>
             <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }} className="w-[800px] h-[450px] shrink-0 relative">
             
+            <div className="absolute left-[250px] top-[165px] w-[300px] h-[120px] rounded-full blur-[40px] pointer-events-none -z-10 transition-colors duration-300" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 22%, transparent)' }} />
+
             <svg width="800" height="450" viewBox="0 0 800 450" className="absolute inset-0 overflow-visible">
-              <defs>
-                <linearGradient id="line-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.05" />
-                  <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.6" />
-                </linearGradient>
-                <linearGradient id="line-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.05" />
-                  <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.6" />
-                </linearGradient>
-                <linearGradient id="line-grad-3" x1="50%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.05" />
-                </linearGradient>
-                <linearGradient id="line-grad-4" x1="50%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="var(--global-accent)" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="var(--global-accent)" stopOpacity="0.05" />
-                </linearGradient>
-              </defs>
-
-              {/* Connecting Lines */}
-              <motion.path 
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: "easeInOut" }}
-                d="M 200 130 L 200 165 L 400 165 L 400 200" fill="none" stroke="url(#line-grad-1)" strokeWidth="2" strokeDasharray="6 6"
+              {/* Left outer bracket */}
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.4, ease: "easeInOut" }}
+                d="M 110 90 L 90 90 Q 70 90 70 110 L 70 340 Q 70 360 90 360 L 110 360" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
               />
-              <motion.path 
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: "easeInOut" }}
-                d="M 600 130 L 600 165 L 400 165 L 400 200" fill="none" stroke="url(#line-grad-2)" strokeWidth="2" strokeDasharray="6 6"
-              />
-              <motion.path 
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
-                d="M 400 260 L 400 295 L 250 295 L 250 330" fill="none" stroke="url(#line-grad-3)" strokeWidth="2" strokeDasharray="6 6"
-              />
-              <motion.path 
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
-                d="M 400 260 L 400 295 L 550 295 L 550 330" fill="none" stroke="url(#line-grad-4)" strokeWidth="2" strokeDasharray="6 6"
+              {/* Right outer bracket */}
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.4, ease: "easeInOut" }}
+                d="M 690 90 L 710 90 Q 730 90 730 110 L 730 340 Q 730 360 710 360 L 690 360" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
               />
 
-              {/* Animated Dots */}
-              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" repeatCount="indefinite" path="M 200 130 L 200 165 L 400 165 L 400 200" />
+              {/* Top horizontal bridge */}
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.1, ease: "easeInOut", delay: 0.15 }}
+                d="M 300 90 L 500 90" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
+              />
+              {/* Bottom horizontal bridge */}
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.1, ease: "easeInOut", delay: 0.15 }}
+                d="M 300 360 L 500 360" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
+              />
+
+              {/* Top spine to centre block */}
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.0, ease: "easeInOut", delay: 0.3 }}
+                d="M 400 90 L 400 192" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
+              />
+              {/* Bottom spine from centre block */}
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.0, ease: "easeInOut", delay: 0.3 }}
+                d="M 400 258 L 400 360" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
+              />
+
+              {/* Corner arcs — smooth S-curves to centre block side edges */}
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, ease: "easeInOut", delay: 0.25 }}
+                d="M 300 90 C 300 155, 270 165, 270 192" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
+              />
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, ease: "easeInOut", delay: 0.25 }}
+                d="M 500 90 C 500 155, 530 165, 530 192" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
+              />
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, ease: "easeInOut", delay: 0.25 }}
+                d="M 300 360 C 300 295, 270 285, 270 258" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
+              />
+              <motion.path
+                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, ease: "easeInOut", delay: 0.25 }}
+                d="M 500 360 C 500 295, 530 285, 530 258" fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.8"
+              />
+
+              {/* Junction dots — only at true intersections */}
+              {[
+                { x: 70,  y: 225 },   // left bracket midpoint
+                { x: 730, y: 225 },   // right bracket midpoint
+                { x: 300, y: 90  },   // top-left inner corner (bridge + bracket + arc)
+                { x: 500, y: 90  },   // top-right inner corner
+                { x: 300, y: 360 },   // bottom-left inner corner
+                { x: 500, y: 360 },   // bottom-right inner corner
+              ].map((pt, idx) => (
+                <circle key={idx} cx={pt.x} cy={pt.y} r="3.5" fill="var(--global-accent)" className="transition-colors duration-300" />
+              ))}
+
+              {/* Animated flow pulses */}
+              <circle r="2.5" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="5s" repeatCount="indefinite" path="M 110 90 L 90 90 Q 70 90 70 110 L 70 340 Q 70 360 90 360 L 110 360" />
               </circle>
-              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M 200 130 L 200 165 L 400 165 L 400 200" />
+              <circle r="2.5" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="5s" repeatCount="indefinite" path="M 690 90 L 710 90 Q 730 90 730 110 L 730 340 Q 730 360 710 360 L 690 360" />
               </circle>
-              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" repeatCount="indefinite" path="M 600 130 L 600 165 L 400 165 L 400 200" />
+              <circle r="2.5" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" repeatCount="indefinite" path="M 300 90 L 500 90" />
               </circle>
-              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M 600 130 L 600 165 L 400 165 L 400 200" />
-              </circle>
-              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" repeatCount="indefinite" path="M 400 260 L 400 295 L 250 295 L 250 330" />
-              </circle>
-              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M 400 260 L 400 295 L 250 295 L 250 330" />
-              </circle>
-              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" repeatCount="indefinite" path="M 400 260 L 400 295 L 550 295 L 550 330" />
-              </circle>
-              <circle r="3" fill="var(--global-accent)" className="transition-colors duration-300">
-                <animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M 400 260 L 400 295 L 550 295 L 550 330" />
+              <circle r="2.5" fill="var(--global-accent)" className="transition-colors duration-300">
+                <animateMotion dur="4s" repeatCount="indefinite" path="M 500 360 L 300 360" />
               </circle>
             </svg>
 
             {/* Nodes */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }}
-              className="absolute left-[100px] top-[70px] w-[200px] h-[60px] bg-white/70 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default"
+              initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }}
+              className="absolute left-[110px] top-[60px] w-[190px] h-[60px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
             >
-              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">AI Voice Agents</span>
+              <span className="font-sans text-[14px] md:text-[15px] tracking-tight text-[#14110F] font-semibold">AI Voice Agents</span>
             </motion.div>
             
             <motion.div 
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.2 }}
-              className="absolute left-[500px] top-[70px] w-[200px] h-[60px] bg-white/70 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default"
+              initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.1 }}
+              className="absolute left-[500px] top-[60px] w-[190px] h-[60px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
             >
-              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">WhatsApp Business</span>
+              <span className="font-sans text-[14px] md:text-[15px] tracking-tight text-[#14110F] font-semibold">WhatsApp Business</span>
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.4 }}
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.3 }}
               style={{ 
-                backgroundColor: 'color-mix(in srgb, var(--global-accent) 5%, transparent)',
+                backgroundColor: 'color-mix(in srgb, var(--global-accent) 10%, white)',
                 borderColor: 'var(--global-accent)'
               }}
-              className="absolute left-[250px] top-[200px] w-[300px] h-[60px] rounded-[16px] border flex items-center justify-center shadow-[0_10px_40px_-10px_var(--global-accent)] hover:shadow-[0_20px_50px_-10px_var(--global-accent)] hover:scale-[1.02] transition-all duration-300 cursor-default backdrop-blur-xl relative overflow-hidden"
+              className="absolute left-[270px] top-[192px] w-[260px] h-[66px] rounded-[20px] border flex items-center justify-center shadow-[0_0_35px_color-mix(in_srgb,var(--global-accent)_25%,transparent)] hover:scale-[1.02] transition-all duration-300 cursor-default backdrop-blur-xl relative overflow-hidden z-10"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[200%] animate-[shimmer_3s_infinite]" />
-              <span style={{ color: 'var(--global-dark-accent)' }} className="font-sans text-[16px] font-semibold transition-colors duration-300 tracking-tight relative z-10">
+              <span style={{ color: 'var(--global-dark-accent)' }} className="font-sans text-[15px] md:text-[16px] font-semibold tracking-tight relative z-10 text-center px-4">
                 Telephony & Command Center
               </span>
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.6 }}
-              className="absolute left-[150px] top-[330px] w-[200px] h-[60px] bg-white/70 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default"
+              initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.2 }}
+              className="absolute left-[110px] top-[330px] w-[190px] h-[60px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
             >
-              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">Quality Management</span>
+              <span className="font-sans text-[14px] md:text-[15px] tracking-tight text-[#14110F] font-semibold">Quality Management</span>
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.8 }}
-              className="absolute left-[450px] top-[330px] w-[200px] h-[60px] bg-white/70 backdrop-blur-xl rounded-[16px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default"
+              initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.3 }}
+              className="absolute left-[500px] top-[330px] w-[190px] h-[60px] bg-white/95 backdrop-blur-xl rounded-[18px] border border-black/5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 cursor-default z-10"
             >
-              <span className="font-mono text-[13px] tracking-wide text-black/80 font-medium">Customer Engagement</span>
+              <span className="font-sans text-[14px] md:text-[15px] tracking-tight text-[#14110F] font-semibold">Customer Engagement</span>
             </motion.div>
 
             </div>
@@ -389,7 +404,7 @@ export default function PlatformOverview() {
                       {platform.tagline}
                     </p>
                     <p 
-                      className="text-[15px] md:text-[18px] text-[#14110F]/70 leading-relaxed font-bold ml-2 md:ml-4 pl-4 md:pl-5 border-l-[3px] transition-colors duration-300"
+                      className="text-[15px] md:text-[18px] text-[#14110F]/70 leading-relaxed font-normal ml-2 md:ml-4 pl-4 md:pl-5 border-l-[3px] transition-colors duration-300"
                       style={{ borderColor: 'var(--global-accent)' }}
                     >
                       {platform.description}

@@ -562,7 +562,14 @@ const CulturePage = () => {
 
 const FOUNDERS = [
   { name: 'Manish Joshi', role: 'CEO', image: '' },
-  { name: 'Rakesh Kanugula', role: 'COO', image: '' }
+  { name: 'Rakesh Kanugula', role: 'COO', image: '' },
+  { name: 'Divya Sri Chakrini', role: '', image: '' },
+  { name: 'Mukhesh Kalvapudi', role: '', image: '' },
+  { name: 'Avanish Shahi', role: '', image: '' },
+  { name: 'Yaswanth Arikatla', role: '', image: '' },
+  { name: 'Vamsi Krishna Kadambala', role: '', image: '' },
+  { name: 'Somya', role: '', image: '' },
+  { name: 'Ashutosh Singh', role: '', image: '' }
 ];
 
 const SOLUTION_POINTERS = [
@@ -886,20 +893,22 @@ const AboutPage = () => {
                 {FOUNDERS.map((founder, i) => (
                   <div key={i} className="group relative flex flex-col items-center cursor-pointer w-full">
                     {/* Portrait card */}
-                    <div className="w-full aspect-[3/4] bg-transparent mb-6 overflow-hidden relative flex items-center justify-center border border-[#14110F]/10 transition-colors duration-300">
+                    <div className="w-full aspect-[3/4] bg-transparent mb-6 overflow-hidden relative flex items-center justify-center border border-[#14110F]/10 group-hover:border-[var(--global-accent)]/40 transition-colors duration-300">
                       {founder.image ? (
                         <img src={founder.image} alt={founder.name} className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
                       ) : (
-                        <span className="font-mono text-[48px] text-[#14110F]/30 tracking-widest uppercase">
-                          {founder.name.split(' ').map(n => n[0]).join('').substring(0,2)}
+                        <span className="font-mono text-[48px] text-[#14110F]/30 group-hover:text-[var(--global-dark-accent)] tracking-widest uppercase transition-colors duration-300">
+                          {founder.name.trim().split(/\s+/).length > 1
+                            ? (founder.name.trim().split(/\s+/)[0][0] + founder.name.trim().split(/\s+/).slice(-1)[0][0]).toUpperCase()
+                            : founder.name.trim().substring(0, 2).toUpperCase()}
                         </span>
                       )}
                     </div>
                     
                     {/* Ink text */}
                     <h3 className="text-[20px] font-medium text-[#14110F] mb-2 text-center">{founder.name}</h3>
-                    <p className="text-[14px] font-mono text-[var(--global-dark-accent)] uppercase tracking-widest text-center transition-colors duration-300">
-                      {founder.role}
+                    <p className="text-[14px] font-mono text-[var(--global-dark-accent)] uppercase tracking-widest text-center transition-colors duration-300 min-h-[1.5em]">
+                      {founder.role || '\u00A0'}
                     </p>
 
                     {/* Accent underline on hover */}
