@@ -32,7 +32,8 @@ const VisualPlatformHero = () => {
     if (!el) return;
     const observer = new ResizeObserver((entries) => {
       for (let entry of entries) {
-        setScale(Math.min(1, entry.contentRect.width / 600));
+        const w = entry.contentRect.width;
+        setScale(w < 640 ? Math.min(0.52, Math.max(0.38, w / 620)) : Math.min(1, w / 600));
       }
     });
     observer.observe(el);
@@ -47,7 +48,10 @@ const VisualPlatformHero = () => {
         transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
       />
 
-      <div style={{ transform: `scale(${scale})` }} className="relative w-[600px] h-[600px] flex justify-center items-center origin-center">
+      <div 
+        style={{ transform: `scale(${scale})` }} 
+        className="relative w-[600px] h-[600px] flex justify-center items-center origin-center -translate-y-28 sm:-translate-y-20 md:translate-y-0 transition-transform duration-300"
+      >
         {/* Floating container with subtle rotation/scale to make it feel alive */}
         <motion.div
           className="absolute inset-0 flex justify-center items-center"
@@ -110,7 +114,7 @@ const VisualPlatformHero = () => {
       <motion.div
         animate={{ scale: [1, 1.4, 1], opacity: [0.1, 0.4, 0.1] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-[100px] rounded-full mix-blend-multiply transition-colors duration-300 pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -translate-y-28 sm:-translate-y-20 md:translate-y-0 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] blur-[80px] sm:blur-[100px] rounded-full mix-blend-multiply transition-colors duration-300 pointer-events-none"
         style={{ background: `radial-gradient(circle, color-mix(in srgb, var(--global-accent) 40%, transparent), transparent)` }}
       />
     </div>
@@ -365,16 +369,16 @@ export default function PlatformOverview() {
       />
 
       {/* 01 — HERO */}
-      <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden isolate pt-0 pb-10 z-0 bg-transparent">
+      <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden isolate pt-16 sm:pt-20 md:pt-0 pb-10 z-0 bg-transparent">
         <VisualPlatformHero />
-        <div className="max-w-[1000px] mx-auto px-6 text-center z-10 mt-32">
+        <div className="max-w-[1000px] w-full mx-auto px-5 sm:px-6 text-center z-10 mt-20 sm:mt-24 md:mt-32">
           <FadeInUp>
-            <span className="text-[11px] font-mono tracking-[0.15em] text-[#14110F]/50 uppercase mb-6 block">
+            <span className="text-[11px] font-mono tracking-[0.15em] text-[#14110F]/50 uppercase mb-4 sm:mb-6 block">
               The Platform
             </span>
-            <h1 className="text-[clamp(36px,6vw,72px)] font-medium tracking-tighter text-[#14110F] leading-[1.08]">
-              The Complete Toolkit For <br />
-              <span style={{ color: BRAND }} className="inline-block whitespace-nowrap">
+            <h1 className="text-[clamp(28px,7vw,42px)] sm:text-[clamp(36px,6vw,72px)] font-medium tracking-tight sm:tracking-tighter text-[#14110F] leading-[1.12] sm:leading-[1.08] break-words">
+              The Complete Toolkit For <br className="hidden sm:inline" />
+              <span style={{ color: BRAND }} className="inline-block sm:whitespace-nowrap">
                 Autonomous Orchestration.
               </span>
             </h1>
