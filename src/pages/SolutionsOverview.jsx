@@ -400,33 +400,6 @@ const SolutionCard = ({ solution, index }) => {
             {solution.benefits}
           </p>
 
-          {/* Core Platform Capabilities Interconnected Tag Stream */}
-          {solution.coreCapabilities && solution.coreCapabilities.length > 0 && (
-            <div className="mt-2 pt-3 border-t border-white/10">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#6CC4E0] animate-pulse" />
-                  <span className="font-mono text-[9px] tracking-[0.16em] uppercase text-white/50 font-bold">
-                    Core Platform Capabilities
-                  </span>
-                </div>
-                <span className="font-mono text-[9px] text-[#6CC4E0]/80">
-                  {solution.coreCapabilities.length} Nodes Interconnected
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-1.5 items-center">
-                {solution.coreCapabilities.map((cap, capIdx) => (
-                  <span 
-                    key={capIdx}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/10 text-white/80 text-[10.5px] md:text-[11.5px] font-normal hover:bg-white/[0.12] hover:border-[#6CC4E0]/60 hover:text-white transition-all duration-200"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-[#6CC4E0]" />
-                    {cap}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
 
           {solution.stats && solution.stats.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-3 mt-4 pt-3 border-t border-white/10">

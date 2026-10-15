@@ -58,18 +58,50 @@ const getCapabilityIcon = (text) => {
   return Sparkles;
 };
 
-// Coordinate maps in a 600x320 SVG space
+// Coordinate maps supporting widescreen (600x250) and mobile aspect ratios (380x250)
 // Node positions carefully optimized for readable text, zero overlap, and elegant bezier curve routing
-const getNodeCoordinates = (solutionId, capabilities) => {
+const getNodeCoordinates = (solutionId, capabilities, isMobile = false) => {
   const count = capabilities.length;
   
+  if (isMobile) {
+    if (count === 4) {
+      return [
+        { x: 85,  y: 60, align: 'left' },
+        { x: 295, y: 60, align: 'right' },
+        { x: 295, y: 190, align: 'right' },
+        { x: 85,  y: 190, align: 'left' }
+      ];
+    }
+    if (count === 8) {
+      return [
+        { x: 75,  y: 35, align: 'left' },
+        { x: 65,  y: 92, align: 'left' },
+        { x: 65,  y: 156, align: 'left' },
+        { x: 75,  y: 215, align: 'left' },
+        { x: 305, y: 35, align: 'right' },
+        { x: 315, y: 92, align: 'right' },
+        { x: 315, y: 156, align: 'right' },
+        { x: 305, y: 215, align: 'right' }
+      ];
+    }
+    // 5-node Orbital Layout on Mobile
+    return [
+      { x: 190, y: 32, align: 'center' },
+      { x: 298, y: 78, align: 'right' },
+      { x: 298, y: 182, align: 'right' },
+      { x: 82,  y: 182, align: 'left' },
+      { x: 82,  y: 78, align: 'left' }
+    ];
+  }
+
+  // Desktop (600x250)
   if (count === 4) {
     // 4-corner Quad layout (e.g. AI-Powered Revenue Intelligence)
     return [
-      { x: 135, y: 84, align: 'left' },    // Top Left: Conversation Intelligence
-      { x: 465, y: 84, align: 'right' },   // Top Right: Customer Intelligence
-      { x: 465, y: 245, align: 'right' },  // Bottom Right: Deal Intelligence
-      { x: 135, y: 245, align: 'left' }    // Bottom Left: Predictive Insights
+      { x: 135, y: 65, align: 'left' },    // Top Left
+      { x: 465, y: 65, align: 'right' },   // Top Right
+      { x: 465, y: 185, align: 'right' },  // Bottom Right
+      { x: 135, y: 185, align: 'left' }    // Bottom Left
     ];
   }
 
@@ -77,25 +109,25 @@ const getNodeCoordinates = (solutionId, capabilities) => {
     // 8-node Dual-Column Architecture Bus (e.g. Customer Service OS)
     return [
       // Left Column (4 items)
-      { x: 120, y: 52, align: 'left' },   // AI Agent & Automation
-      { x: 92,  y: 118, align: 'left' },  // Agent Enablement
-      { x: 92,  y: 188, align: 'left' },  // Analytics & Insights
-      { x: 120, y: 256, align: 'left' },  // Workflow Automation
+      { x: 125, y: 35, align: 'left' },
+      { x: 105, y: 92, align: 'left' },
+      { x: 105, y: 156, align: 'left' },
+      { x: 125, y: 215, align: 'left' },
       // Right Column (4 items)
-      { x: 480, y: 52, align: 'right' },  // Knowledge Management
-      { x: 508, y: 118, align: 'right' }, // Customer 360° View
-      { x: 508, y: 188, align: 'right' }, // Quality & Compliance
-      { x: 480, y: 256, align: 'right' }  // Omnichannel Inbox
+      { x: 475, y: 35, align: 'right' },
+      { x: 495, y: 92, align: 'right' },
+      { x: 495, y: 156, align: 'right' },
+      { x: 475, y: 215, align: 'right' }
     ];
   }
 
   // 5-node Orbital Layout (Healthcare, Automobile, Fintech, Utilities)
   return [
-    { x: 300, y: 56, align: 'center' },  // Top center
-    { x: 485, y: 110, align: 'right' },  // Top right
-    { x: 440, y: 258, align: 'right' },  // Bottom right
-    { x: 160, y: 258, align: 'left' },   // Bottom left
-    { x: 115, y: 110, align: 'left' }    // Top left
+    { x: 300, y: 36, align: 'center' },  // Top center
+    { x: 475, y: 78, align: 'right' },   // Top right
+    { x: 475, y: 178, align: 'right' },  // Bottom right
+    { x: 125, y: 178, align: 'left' },   // Bottom left
+    { x: 125, y: 78, align: 'left' }     // Top left
   ];
 };
 
@@ -104,14 +136,17 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
   const [viewMode, setViewMode] = useState('graph'); // 'graph' | '3d'
   const stageRef = useRef(null);
   const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
   
   const capabilities = solution.coreCapabilities || [];
-  const coords = getNodeCoordinates(solution.id, capabilities);
-  const center = { x: 300, y: 160 };
+  const coords = getNodeCoordinates(solution.id, capabilities, isMobile);
+  const artboardW = isMobile ? 380 : 600;
+  const artboardH = 250;
+  const center = { x: artboardW / 2, y: 125 };
 
   const imageSrc = IMAGE_MAP[solution.id];
 
-  // Auto-fit scale listener so 600x320 artboard scales flawlessly on any device screen
+  // Auto-fit scale listener: fits cleanly within card aspect ratio on both desktop and mobile
   useEffect(() => {
     const el = stageRef.current;
     if (!el) return;
@@ -119,10 +154,12 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
       const w = el.clientWidth;
       const h = el.clientHeight;
       if (w > 0 && h > 0) {
-        // Safe buffer to prevent border clipping
-        const sX = (w - 12) / 600;
-        const sY = (h - 10) / 320;
-        setScale(Math.min(1, sX, sY));
+        const mobile = w < 500;
+        setIsMobile(mobile);
+        const targetW = mobile ? 380 : 600;
+        const sX = (w - 10) / targetW;
+        const sY = (h - 8) / 250;
+        setScale(Math.min(1.15, sX, sY));
       }
     };
     handleResize();
@@ -212,16 +249,17 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
               transition={{ duration: 0.25 }}
               className="flex items-center justify-center shrink-0 relative"
               style={{
-                width: 600,
-                height: 320,
+                width: artboardW,
+                height: artboardH,
                 transform: `scale(${scale})`,
                 transformOrigin: 'center center',
               }}
             >
               {/* SVG Connecting Wiring & Data Flow Pulses */}
               <svg
-                viewBox="0 0 600 320"
-                className="absolute inset-0 w-[600px] h-[320px] overflow-visible pointer-events-none z-10"
+                viewBox={`0 0 ${artboardW} ${artboardH}`}
+                className="absolute inset-0 overflow-visible pointer-events-none z-10"
+                style={{ width: `${artboardW}px`, height: `${artboardH}px` }}
               >
                 <defs>
                   {/* Core Radial Gradient Glow */}
@@ -330,10 +368,10 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className="relative flex flex-col items-center justify-center p-3 rounded-2xl backdrop-blur-xl border border-white/90 shadow-[0_8px_24px_rgba(20,17,15,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] cursor-pointer group"
+                  className="relative flex flex-col items-center justify-center p-2.5 md:p-3 rounded-2xl backdrop-blur-xl border border-white/90 shadow-[0_8px_24px_rgba(20,17,15,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] cursor-pointer group"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(240,246,249,0.85) 100%)',
-                    minWidth: '128px',
+                    minWidth: isMobile ? '110px' : '128px',
                   }}
                 >
                   {/* Radial Glow Halo */}
@@ -342,29 +380,32 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
                     style={{ backgroundColor: accentColor }}
                   />
 
-                  <div className="relative flex items-center gap-1.5 mb-1">
+                  <div className="relative flex items-center gap-1.5 mb-0.5 md:mb-1">
                     <span
-                      className="w-2 h-2 rounded-full animate-ping opacity-75"
+                      className="w-1.5 h-1.5 rounded-full animate-ping opacity-75"
                       style={{ backgroundColor: accentColor }}
                     />
                     <span
                       className="w-1.5 h-1.5 rounded-full"
                       style={{ backgroundColor: accentColor }}
                     />
-                    <span className="font-mono text-[9px] font-bold tracking-[0.16em] uppercase text-[#14110F]/70">
+                    <span className="font-mono text-[8.5px] md:text-[9.5px] font-bold tracking-[0.16em] uppercase text-[#14110F]/70">
                       CORE PLATFORM
                     </span>
                   </div>
 
                   <div className="relative flex items-center gap-1.5">
                     <div
-                      className="w-5 h-5 rounded-md flex items-center justify-center text-white shadow-xs"
+                      className="w-4.5 h-4.5 md:w-5 md:h-5 rounded-md flex items-center justify-center text-white shadow-xs"
                       style={{ backgroundColor: accentColor }}
                     >
-                      <Cpu size={12} strokeWidth={2.2} />
+                      <Cpu size={isMobile ? 11 : 12} strokeWidth={2.2} />
                     </div>
-                    <span className="text-[11.5px] font-semibold text-[#14110F] tracking-tight whitespace-nowrap">
-                      {solution.area.length > 24 ? solution.area.split(' ')[0] + ' OS' : solution.area}
+                    <span className="text-[11px] md:text-[12.5px] font-semibold text-[#14110F] tracking-tight whitespace-nowrap">
+                      {solution.area.length > 20 && isMobile 
+                        ? solution.area.split(' ')[0] + ' OS' 
+                        : (solution.area.length > 24 ? solution.area.split(' ')[0] + ' OS' : solution.area)
+                      }
                     </span>
                   </div>
                 </motion.div>
@@ -391,9 +432,9 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
                     onMouseLeave={() => setHoveredIndex(null)}
                   >
                     <motion.div
-                      whileHover={{ scale: 1.06, y: -2 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                      className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl backdrop-blur-md whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                      className={`flex items-center gap-1.5 md:gap-2 px-2 py-1 md:px-2.5 md:py-1.5 rounded-xl backdrop-blur-md whitespace-nowrap transition-all duration-200 cursor-pointer ${
                         isHovered
                           ? 'border shadow-[0_6px_20px_rgba(13,131,169,0.22)] bg-white/95 scale-105'
                           : 'border border-white/80 bg-white/75 shadow-[0_2px_12px_rgba(20,17,15,0.05)] hover:bg-white/90'
@@ -404,7 +445,7 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
                     >
                       {/* Node Icon */}
                       <div
-                        className="w-5 h-5 rounded-md flex items-center justify-center shrink-0 transition-colors duration-200"
+                        className="w-4.5 h-4.5 md:w-5 md:h-5 rounded-md flex items-center justify-center shrink-0 transition-colors duration-200"
                         style={{
                           backgroundColor: isHovered
                             ? accentColor
@@ -412,13 +453,13 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
                           color: isHovered ? '#FFFFFF' : accentColor,
                         }}
                       >
-                        <Icon size={12} strokeWidth={2} />
+                        <Icon size={isMobile ? 11 : 12} strokeWidth={2.2} />
                       </div>
 
                       {/* Capability Text */}
                       <span
-                        className={`text-[11px] font-medium tracking-tight transition-colors duration-200 ${
-                          isHovered ? 'text-[#0d83a9] font-semibold' : 'text-[#14110F]'
+                        className={`text-[10.5px] md:text-[12px] font-semibold tracking-tight transition-colors duration-200 ${
+                          isHovered ? 'text-[#0d83a9]' : 'text-[#14110F]'
                         }`}
                       >
                         {cap}
