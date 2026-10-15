@@ -360,7 +360,7 @@ const SolutionCard = ({ solution, index }) => {
       <Link to={`/solutions/${solution.id}`} className="flex flex-col h-full outline-none">
         
         {/* STAGE: Top Half */}
-        <div className="bg-[#EAE4D8] relative flex flex-col justify-center items-center overflow-hidden" style={{ minHeight: 'clamp(240px, 36vw, 300px)' }}>
+        <div className="bg-[#EAE4D8] relative flex flex-col justify-center items-center overflow-hidden" style={{ minHeight: 'clamp(280px, 42vw, 320px)' }}>
           {/* Blueprint Dot Grid */}
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNiIvPjwvc3ZnPg==')] overflow-hidden" />
 
@@ -370,7 +370,7 @@ const SolutionCard = ({ solution, index }) => {
           {/* Scene area — glass card with Interconnected Architecture Graph */}
           <div className="relative z-10 w-full h-full p-2 md:p-3">
             <div className="w-full h-full rounded-xl overflow-hidden relative shadow-[0_4px_24px_rgba(20,17,15,0.06),inset_0_1px_0_rgba(255,255,255,0.8)]"
-              style={{ background: 'rgba(255,255,255,0.76)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.9)', minHeight: 'clamp(230px, 34vw, 280px)', height: 'clamp(230px, 34vw, 280px)' }}>
+              style={{ background: 'rgba(255,255,255,0.76)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.9)', minHeight: 'clamp(270px, 40vw, 300px)', height: 'clamp(270px, 40vw, 300px)' }}>
               <InterconnectedArchitectureGraph 
                 solution={solution} 
                 accentColor="var(--global-accent, #0d83a9)" 
@@ -387,11 +387,11 @@ const SolutionCard = ({ solution, index }) => {
             background: 'linear-gradient(180deg, #16130F 0%, #16130F 60%, color-mix(in srgb, var(--global-accent) 26%, #16130F) 100%)' 
           }}
         >
-          <div className="flex items-center justify-between mb-1.5">
+          <div className="flex items-start justify-between gap-2 mb-1.5">
             <h3 className="text-[18px] md:text-[21px] font-medium tracking-tight text-white leading-tight">
               {solution.area}
             </h3>
-            <span className="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/10 text-[#6CC4E0] border border-white/10">
+            <span className="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/10 text-[#6CC4E0] border border-white/10 shrink-0 mt-0.5">
               {solution.corePlatform || 'Core Platform'}
             </span>
           </div>

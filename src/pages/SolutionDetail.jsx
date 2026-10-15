@@ -7,6 +7,7 @@ import { ACCENTS } from '../data/accents';
 import UseCaseList from '../components/shared/UseCaseList';
 import StatCallout from '../components/shared/StatCallout';
 import { SlideInLeft, SlideInRight } from '../components/shared/Motion';
+import InterconnectedArchitectureGraph from '../components/shared/InterconnectedArchitectureGraph';
 
 // Solution PNG images matching the solution cards
 import revenueIntelligenceImg from '../assets/solutioncards/revenue inteligenceplatform.png';
@@ -109,43 +110,24 @@ export default function SolutionDetail() {
               )}
             </div>
 
-            {/* Right Column: Visual Showcase Card */}
-            {imageSrc && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="w-full md:w-[420px] lg:w-[480px] shrink-0 flex justify-center lg:justify-end"
+            {/* Right Column: Visual Showcase Card with Interconnected Architecture Graph */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="w-full lg:w-[520px] xl:w-[580px] shrink-0 flex justify-center lg:justify-end"
+            >
+              <div 
+                className="group relative w-full h-[320px] sm:h-[350px] md:h-[380px] rounded-[24px] md:rounded-[32px] overflow-hidden border border-[#14110F]/10 shadow-[0_16px_50px_rgba(20,17,15,0.08)] hover:shadow-[0_24px_60px_color-mix(in_srgb,var(--global-accent)_20%,transparent)] transition-all duration-500 bg-[#EAE4D8]/60 backdrop-blur-md p-2 sm:p-2.5"
               >
-                <div 
-                  className="group relative w-full aspect-square max-w-[440px] rounded-[24px] md:rounded-[32px] p-6 md:p-8 flex items-center justify-center overflow-hidden border border-[#14110F]/10 shadow-[0_12px_40px_rgba(20,17,15,0.06)] hover:shadow-[0_24px_50px_color-mix(in_srgb,var(--global-accent)_22%,transparent)] hover:border-[var(--global-accent)]/50 transition-all duration-500 bg-[#EAE4D8]/60 backdrop-blur-md"
-                >
-                  {/* Blueprint dot grid background */}
-                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNiIvPjwvc3ZnPg==')] overflow-hidden pointer-events-none" />
-
-                  {/* Central ambient glow */}
-                  <div 
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] h-[240px] blur-[60px] rounded-full pointer-events-none transition-colors duration-500"
-                    style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 25%, transparent)' }}
-                  />
-
-                  {/* Top badge */}
-                  <div className="absolute top-4 left-5 z-20 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--global-accent)] animate-pulse" />
-                    <span className="font-mono text-[10px] tracking-widest uppercase text-[#14110F]/60 font-medium">
-                      Architecture Map
-                    </span>
-                  </div>
-
-                  {/* The Solution Image */}
-                  <img 
-                    src={imageSrc} 
-                    alt={solution.area || solution.industry}
-                    className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+                <div className="w-full h-full rounded-[20px] md:rounded-[26px] overflow-hidden bg-white/80 backdrop-blur-md border border-white/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
+                  <InterconnectedArchitectureGraph 
+                    solution={solution} 
+                    accentColor={currentAccent.accent} 
                   />
                 </div>
-              </motion.div>
-            )}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
