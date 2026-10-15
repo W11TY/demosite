@@ -9,11 +9,11 @@ import { useChapterColor } from '../hooks/useChapterColor';
 import ChapterNav from '../components/shared/ChapterNav';
 import IllustrationCard from '../components/shared/IllustrationCard';
 import { Building2, Car, Tv, Wallet, HeartPulse, Zap } from 'lucide-react';
-import { RealEstateScene, AutomobileScene, ConsumerDurablesScene, FintechScene, HealthcareScene, UtilitiesScene } from '../components/shared/SolutionScenes';
+import InterconnectedArchitectureGraph from '../components/shared/InterconnectedArchitectureGraph';
 import voxiLogo from '../assets/logo.png';
 import AntiMetalButton from '../components/shared/AntiMetalButton';
 
-const NAV_LABELS = ['Real Estate', 'Automobile', 'Durables', 'Fintech', 'Healthcare', 'Utilities'];
+const NAV_LABELS = ['Healthcare', 'Automobile', 'Fintech', 'Durables', 'Real Estate', 'Utilities'];
 
 // Start interpolation at Blue (index 2) to give Solutions a distinct flavor from Research
 const accentColors = [BRAND, ...solutions.map((_, i) => ACCENTS[(i + 2) % ACCENTS.length].accent), BRAND];
@@ -64,8 +64,8 @@ const VisualSolutionsHero = () => {
   const moveX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-25, 25]), { damping: 40, stiffness: 60 });
   const moveY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-25, 25]), { damping: 40, stiffness: 60 });
 
-  const icons = [Building2, Car, Tv, Wallet, HeartPulse, Zap];
-  const labels = ['Real Estate', 'Automobile', 'Durables', 'Fintech', 'Healthcare', 'Utilities'];
+  const icons = [HeartPulse, Car, Wallet, Tv, Building2, Zap];
+  const labels = ['Healthcare', 'Automobile', 'Fintech', 'Durables', 'Real Estate', 'Utilities'];
 
   // Responsive diagram scaling to ensure it fits comfortably without horizontal clipping
   const scale = windowWidth < 640 
@@ -360,23 +360,21 @@ const SolutionCard = ({ solution, index }) => {
       <Link to={`/solutions/${solution.id}`} className="flex flex-col h-full outline-none">
         
         {/* STAGE: Top Half */}
-        <div className="bg-[#EAE4D8] relative flex flex-col justify-center items-center overflow-hidden" style={{ minHeight: 'clamp(200px, 35vw, 290px)' }}>
+        <div className="bg-[#EAE4D8] relative flex flex-col justify-center items-center overflow-hidden" style={{ minHeight: 'clamp(240px, 36vw, 300px)' }}>
           {/* Blueprint Dot Grid */}
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNiIvPjwvc3ZnPg==')] overflow-hidden" />
 
           {/* Ambient glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] blur-[60px] rounded-full pointer-events-none" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 12%, transparent)' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] h-[240px] blur-[70px] rounded-full pointer-events-none" style={{ backgroundColor: 'color-mix(in srgb, var(--global-accent) 15%, transparent)' }} />
 
-          {/* Scene area — glass card */}
-          <div className="relative z-10 w-full h-full" style={{ padding: '8px 8px 14px 8px' }}>
-            <div className="w-full h-full rounded-xl overflow-hidden relative"
-              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.9)', boxShadow: '0 4px 20px rgba(20,17,15,0.07), inset 0 1px 0 rgba(255,255,255,0.8)', minHeight: 'clamp(180px, 32vw, 255px)', maxHeight: '255px', overflow: 'hidden' }}>
-              {solution.id === 'real-estate'       && <RealEstateScene />}
-              {solution.id === 'automobile'         && <AutomobileScene />}
-              {solution.id === 'consumer-durables'  && <ConsumerDurablesScene />}
-              {solution.id === 'fintech'            && <FintechScene />}
-              {solution.id === 'healthcare'         && <HealthcareScene />}
-              {solution.id === 'utilities'          && <UtilitiesScene />}
+          {/* Scene area — glass card with Interconnected Architecture Graph */}
+          <div className="relative z-10 w-full h-full p-2 md:p-3">
+            <div className="w-full h-full rounded-xl overflow-hidden relative shadow-[0_4px_24px_rgba(20,17,15,0.06),inset_0_1px_0_rgba(255,255,255,0.8)]"
+              style={{ background: 'rgba(255,255,255,0.76)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.9)', minHeight: 'clamp(230px, 34vw, 280px)', height: 'clamp(230px, 34vw, 280px)' }}>
+              <InterconnectedArchitectureGraph 
+                solution={solution} 
+                accentColor="var(--global-accent, #0d83a9)" 
+              />
             </div>
           </div>
         </div>
@@ -389,24 +387,58 @@ const SolutionCard = ({ solution, index }) => {
             background: 'linear-gradient(180deg, #16130F 0%, #16130F 60%, color-mix(in srgb, var(--global-accent) 26%, #16130F) 100%)' 
           }}
         >
-          <h3 className="text-[17px] md:text-[20px] font-medium tracking-tight text-white mb-1.5 leading-tight">
-            {solution.area}
-          </h3>
-          <p className="text-[12px] md:text-[14px] text-white/60 font-normal leading-relaxed line-clamp-2">
+          <div className="flex items-center justify-between mb-1.5">
+            <h3 className="text-[18px] md:text-[21px] font-medium tracking-tight text-white leading-tight">
+              {solution.area}
+            </h3>
+            <span className="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/10 text-[#6CC4E0] border border-white/10">
+              {solution.corePlatform || 'Core Platform'}
+            </span>
+          </div>
+
+          <p className="text-[12px] md:text-[13.5px] text-white/65 font-normal leading-relaxed line-clamp-2 mb-2">
             {solution.benefits}
           </p>
 
+          {/* Core Platform Capabilities Interconnected Tag Stream */}
+          {solution.coreCapabilities && solution.coreCapabilities.length > 0 && (
+            <div className="mt-2 pt-3 border-t border-white/10">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#6CC4E0] animate-pulse" />
+                  <span className="font-mono text-[9px] tracking-[0.16em] uppercase text-white/50 font-bold">
+                    Core Platform Capabilities
+                  </span>
+                </div>
+                <span className="font-mono text-[9px] text-[#6CC4E0]/80">
+                  {solution.coreCapabilities.length} Nodes Interconnected
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1.5 items-center">
+                {solution.coreCapabilities.map((cap, capIdx) => (
+                  <span 
+                    key={capIdx}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/10 text-white/80 text-[10.5px] md:text-[11.5px] font-normal hover:bg-white/[0.12] hover:border-[#6CC4E0]/60 hover:text-white transition-all duration-200"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-[#6CC4E0]" />
+                    {cap}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {solution.stats && solution.stats.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-3 mt-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-3 mt-4 pt-3 border-t border-white/10">
               {solution.stats.slice(0, 4).map((stat, idx) => (
                 <div key={idx} className={`flex flex-col ${idx >= 2 ? 'hidden md:flex' : ''}`}>
-                  <span className="text-[20px] md:text-[22px] font-normal text-white tabular-nums tracking-tight leading-none">
+                  <span className="text-[18px] md:text-[20px] font-normal text-white tabular-nums tracking-tight leading-none">
                     {stat.value === 0 && stat.label === 'Missed Follow-Ups' 
                       ? 'Zero' 
                       : `${stat.prefix || ''}${stat.value}${stat.suffix || ''}`
                     }
                   </span>
-                  <span className="font-mono uppercase tracking-[0.1em] text-[9px] md:text-[10px] text-white/55 mt-1">
+                  <span className="font-mono uppercase tracking-[0.1em] text-[8.5px] md:text-[9.5px] text-white/50 mt-1">
                     {stat.label}
                   </span>
                 </div>
@@ -414,9 +446,12 @@ const SolutionCard = ({ solution, index }) => {
             </div>
           )}
 
-          <div className="mt-4 md:mt-6 pt-4 border-t border-white/10 flex justify-between items-center">
-            <span className="font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-[#6CC4E0] group-hover:opacity-80 transition-opacity">
-              Explore Detail →
+          <div className="mt-4 pt-3.5 border-t border-white/10 flex justify-between items-center">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-[#6CC4E0] group-hover:opacity-80 transition-opacity flex items-center gap-1">
+              Explore Platform Detail <span>→</span>
+            </span>
+            <span className="font-mono text-[9px] text-white/40 tracking-wider">
+              VOXI ARCHITECTURE
             </span>
           </div>
         </div>
