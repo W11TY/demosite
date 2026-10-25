@@ -6,13 +6,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 
-// Note: Suggested rename from 'revenue inteligenceplatform.png' to 'revenue-intelligence-platform.png' (fixing typo and space)
-import revenueIntelligenceImg from '../../assets/solutioncards/revenue inteligenceplatform.png';
-import carDealershipImg from '../../assets/solutioncards/cardealership.png';
-import customerServiceImg from '../../assets/solutioncards/customerservice.png';
-import collectionsImg from '../../assets/solutioncards/collections.png';
-import appointmentImg from '../../assets/solutioncards/appointment.png';
-import utilitiesImg from '../../assets/solutioncards/utilities.png';
+
 
 /* ─── CSS ──────────────────────────────────────────────────────────────────── */
 const SCENE_CSS = `
@@ -442,29 +436,12 @@ function SolutionImageVisual({ src, alt }) {
   );
 }
 
-function RevenueIntelligenceVisual() {
-  return <SolutionImageVisual src={revenueIntelligenceImg} alt="Revenue Intelligence Platform" />;
-}
-
-function CarDealershipVisual() {
-  return <SolutionImageVisual src={carDealershipImg} alt="Dealership & Service OS" />;
-}
-
-function CustomerServiceVisual() {
-  return <SolutionImageVisual src={customerServiceImg} alt="Customer Service Operating System" />;
-}
-
-function CollectionsVisual() {
-  return <SolutionImageVisual src={collectionsImg} alt="Collections Operating System" />;
-}
-
-function AppointmentVisual() {
-  return <SolutionImageVisual src={appointmentImg} alt="Appointment Management Operating System" />;
-}
-
-function UtilitiesVisual() {
-  return <SolutionImageVisual src={utilitiesImg} alt="Utilities Customer Engagement Operating System" />;
-}
+function RevenueIntelligenceVisual() { return null; }
+function CarDealershipVisual() { return null; }
+function CustomerServiceVisual() { return null; }
+function CollectionsVisual() { return null; }
+function AppointmentVisual() { return null; }
+function UtilitiesVisual() { return null; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    1. REAL ESTATE

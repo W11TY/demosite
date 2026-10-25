@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Calendar, HeartPulse, Activity, Pill, ShieldCheck,
   TrendingUp, Wrench, Users, Settings, BarChart3,
@@ -9,22 +9,7 @@ import {
   Cpu, Layers, Sparkle
 } from 'lucide-react';
 
-// 3D Glass Render Assets
-import revenueIntelligenceImg from '../../assets/solutioncards/revenue inteligenceplatform.png';
-import carDealershipImg from '../../assets/solutioncards/cardealership.png';
-import customerServiceImg from '../../assets/solutioncards/customerservice.png';
-import collectionsImg from '../../assets/solutioncards/collections.png';
-import appointmentImg from '../../assets/solutioncards/appointment.png';
-import utilitiesImg from '../../assets/solutioncards/utilities.png';
 
-const IMAGE_MAP = {
-  'healthcare': appointmentImg,
-  'automobile': carDealershipImg,
-  'fintech': collectionsImg,
-  'consumer-durables': customerServiceImg,
-  'real-estate': revenueIntelligenceImg,
-  'utilities': utilitiesImg,
-};
 
 // Icon resolver for capability text
 const getCapabilityIcon = (text) => {
@@ -133,7 +118,6 @@ const getNodeCoordinates = (solutionId, capabilities, isMobile = false) => {
 
 export default function InterconnectedArchitectureGraph({ solution, accentColor = '#0d83a9' }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [viewMode, setViewMode] = useState('graph'); // 'graph' | '3d'
   const stageRef = useRef(null);
   const [scale, setScale] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
@@ -143,8 +127,6 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
   const artboardW = isMobile ? 380 : 600;
   const artboardH = 250;
   const center = { x: artboardW / 2, y: 125 };
-
-  const imageSrc = IMAGE_MAP[solution.id];
 
   // Auto-fit scale listener: fits cleanly within card aspect ratio on both desktop and mobile
   useEffect(() => {
@@ -181,7 +163,7 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
         style={{ backgroundColor: accentColor }}
       />
 
-      {/* Top Header Controls (Mesh status badge & 3D view toggle) - Dedicated top bar */}
+      {/* Top Header Controls (Mesh status badge) */}
       <div className="relative z-30 w-full px-3 pt-2.5 pb-1 flex items-center justify-between shrink-0 pointer-events-none">
         <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/75 backdrop-blur-md border border-[#14110F]/10 shadow-xs">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--global-accent,#0d83a9)] animate-pulse" />
@@ -189,65 +171,13 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
             Mesh Network
           </span>
         </div>
-
-        <div className="pointer-events-auto flex items-center bg-white/85 backdrop-blur-md rounded-full p-0.5 border border-[#14110F]/10 shadow-xs text-[9.5px] font-mono">
-          <button
-            type="button"
-            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setViewMode('graph'); }}
-            className={`px-2.5 py-0.5 rounded-full transition-all duration-200 uppercase tracking-wider font-semibold ${
-              viewMode === 'graph' 
-                ? 'bg-[#16130F] text-white shadow-xs' 
-                : 'text-[#14110F]/60 hover:text-[#14110F]'
-            }`}
-          >
-            Graph
-          </button>
-          <button
-            type="button"
-            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setViewMode('3d'); }}
-            className={`px-2.5 py-0.5 rounded-full transition-all duration-200 uppercase tracking-wider font-semibold ${
-              viewMode === '3d' 
-                ? 'bg-[#16130F] text-white shadow-xs' 
-                : 'text-[#14110F]/60 hover:text-[#14110F]'
-            }`}
-          >
-            3D Model
-          </button>
-        </div>
       </div>
 
       {/* Stage Area */}
       <div ref={stageRef} className="relative flex-1 w-full min-h-0 flex items-center justify-center overflow-hidden">
-        <AnimatePresence mode="wait">
-          {viewMode === '3d' ? (
-            /* ── 3D GLASS ARTWORK VIEW ── */
-            <motion.div
-              key="3d-view"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.25 }}
-              className="relative w-full h-full flex items-center justify-center p-3"
-            >
-              {imageSrc ? (
-                <img
-                  src={imageSrc}
-                  alt={solution.area}
-                  className="max-h-full max-w-full object-contain filter drop-shadow-md"
-                />
-              ) : (
-                <div className="text-xs font-mono text-[#14110F]/40">3D Preview Not Available</div>
-              )}
-            </motion.div>
-          ) : (
-            /* ── LIVE INTERCONNECTED ARCHITECTURE GRAPH ── */
-            <motion.div
-              key="graph-view"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="flex items-center justify-center shrink-0 relative"
+        {/* LIVE INTERCONNECTED ARCHITECTURE GRAPH */}
+        <div
+          className="flex items-center justify-center shrink-0 relative"
               style={{
                 width: artboardW,
                 height: artboardH,
@@ -476,9 +406,7 @@ export default function InterconnectedArchitectureGraph({ solution, accentColor 
                   </div>
                 );
               })}
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </div>
       </div>
     </div>
   );

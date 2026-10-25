@@ -67,16 +67,23 @@ const VisualSolutionsHero = () => {
   const icons = [HeartPulse, Car, Wallet, Tv, Building2, Zap];
   const labels = ['Healthcare', 'Automobile', 'Fintech', 'Durables', 'Real Estate', 'Utilities'];
 
-  // Responsive diagram scaling to ensure it fits comfortably without horizontal clipping
-  const scale = windowWidth < 640 
-    ? Math.max(0.44, Math.min(0.65, (windowWidth - 32) / 720)) 
-    : (windowWidth < 1024 ? Math.min(0.85, (windowWidth - 48) / 820) : 1);
+  const isMobile = windowWidth < 640;
+  const isTablet = windowWidth >= 640 && windowWidth < 1024;
+
+  // Responsive diagram scaling to ensure perfect fit on mobile and punchy size on desktop
+  const scale = isMobile
+    ? Math.min(0.92, (windowWidth - 20) / 660)
+    : isTablet
+    ? Math.min(1.05, (windowWidth - 48) / 760)
+    : (windowWidth < 1440 ? 1.25 : 1.35);
+
+  // Responsive radii: more circular on portrait mobile, wide ellipse on desktop
+  const rx = isMobile ? 240 : 300;
+  const ry = isMobile ? 140 : 125;
 
   // Calculate positions for 6 nodes in a wide ellipse
   const nodes = icons.map((Icon, i) => {
-    const angle = (i * 60 - 90) * (Math.PI / 180); 
-    const rx = 320;
-    const ry = 150;
+    const angle = (i * 60 - 90) * (Math.PI / 180);
     return {
       x: Math.cos(angle) * rx,
       y: Math.sin(angle) * ry,
@@ -86,10 +93,10 @@ const VisualSolutionsHero = () => {
   });
 
   return (
-    <div className="relative w-full h-full flex justify-center items-center pointer-events-none select-none" style={{ perspective: 1000 }}>
+    <div className="relative w-full h-full flex justify-center items-center pointer-events-none select-none overflow-visible" style={{ perspective: 1000 }}>
       {/* Responsive Scaling Wrapper for the entire diagram */}
-      <div className="relative w-[800px] h-[440px] flex justify-center items-center origin-center" style={{ transform: `scale(${scale})` }}>
-        
+      <div className="relative w-[700px] sm:w-[860px] h-[440px] sm:h-[480px] flex justify-center items-center origin-center" style={{ transform: `scale(${scale})` }}>
+
         {/* ── 1. SVG Data Streams (Background layer) ── */}
         <motion.div style={{ x: moveX, y: moveY }} className="absolute inset-0 flex justify-center items-center z-0">
           <svg width="1000" height="800" viewBox="-500 -400 1000 800" className="overflow-visible">
@@ -101,12 +108,12 @@ const VisualSolutionsHero = () => {
                 <g key={`stream-${i}`}>
                   {/* Static faint path */}
                   <path d={d} fill="none" stroke="var(--global-accent)" strokeWidth="1.5" strokeOpacity="0.15" />
-                  
+
                   {/* Animated data packets (marching ants) */}
-                  <motion.path 
+                  <motion.path
                     d={d}
-                    fill="none" 
-                    stroke="var(--global-accent)" 
+                    fill="none"
+                    stroke="var(--global-accent)"
                     strokeWidth="2"
                     strokeOpacity="0.8"
                     strokeDasharray="4 28"
@@ -123,11 +130,11 @@ const VisualSolutionsHero = () => {
         {/* ── 2. Peripheral Industry Nodes ── */}
         <motion.div style={{ x: moveX, y: moveY }} className="absolute inset-0 flex justify-center items-center z-10">
           {nodes.map((n, i) => (
-            <div 
-              key={`node-${i}`} 
-              className="absolute flex items-center gap-3 px-4 py-2.5 rounded-xl backdrop-blur-md whitespace-nowrap shadow-sm"
-              style={{ 
-                left: `calc(50% + ${n.x}px)`, 
+            <div
+              key={`node-${i}`}
+              className="absolute flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl backdrop-blur-md whitespace-nowrap shadow-sm"
+              style={{
+                left: `calc(50% + ${n.x}px)`,
                 top: `calc(50% + ${n.y}px)`,
                 transform: 'translate(-50%, -50%)',
                 background: 'rgba(255,255,255,0.75)',
@@ -135,11 +142,11 @@ const VisualSolutionsHero = () => {
                 boxShadow: '0 4px 20px rgba(20,17,15,0.05), inset 0 1px 0 rgba(255,255,255,0.9)'
               }}
             >
-              <div className="w-8 h-8 rounded-full flex items-center justify-center relative overflow-hidden shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center relative overflow-hidden shrink-0">
                 <div className="absolute inset-0 bg-[var(--global-accent)] opacity-10" />
-                <n.Icon size={16} strokeWidth={1.8} style={{ color: 'var(--global-dark-accent)' }} />
+                <n.Icon size={15} strokeWidth={1.8} style={{ color: 'var(--global-dark-accent)' }} />
               </div>
-              <span className="text-[12px] font-medium tracking-tight text-[#14110F]">{n.label}</span>
+              <span className="text-[11px] sm:text-[12px] font-medium tracking-tight text-[#14110F]">{n.label}</span>
             </div>
           ))}
         </motion.div>
@@ -147,30 +154,30 @@ const VisualSolutionsHero = () => {
         {/* ── 3. Central AI Orchestration Core ── */}
         <motion.div style={{ x: moveX, y: moveY }} className="absolute z-20 flex flex-col items-center justify-center">
           <div className="relative flex items-center justify-center">
-            
+
             {/* Core Pulsing Glow */}
-            <motion.div 
-              animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.4, 0.15] }} 
+            <motion.div
+              animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.4, 0.15] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="absolute inset-[-30px] rounded-full bg-[var(--global-accent)] blur-2xl"
             />
 
             {/* Core Glass Hub */}
             <div className="w-[120px] h-[120px] rounded-full flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-xl"
-                 style={{ background: 'rgba(255,255,255,0.65)', border: '1px solid rgba(255,255,255,0.9)', boxShadow: '0 8px 32px rgba(20,17,15,0.08)' }}>
-              
+              style={{ background: 'rgba(255,255,255,0.65)', border: '1px solid rgba(255,255,255,0.9)', boxShadow: '0 8px 32px rgba(20,17,15,0.08)' }}>
+
               {/* Spinning tech rings */}
-              <motion.div 
+              <motion.div
                 animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-2 rounded-full border border-dashed border-[var(--global-accent)] opacity-30" 
+                className="absolute inset-2 rounded-full border border-dashed border-[var(--global-accent)] opacity-30"
               />
-              <motion.div 
+              <motion.div
                 animate={{ rotate: -360 }} transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-[14px] rounded-full border border-[var(--global-accent)] opacity-15" 
+                className="absolute inset-[14px] rounded-full border border-[var(--global-accent)] opacity-15"
               />
-              
+
               <div className="absolute inset-0 bg-[var(--global-accent)] opacity-10 mix-blend-multiply" />
-              
+
               {/* Core Icon */}
               <div className="flex flex-col items-center gap-2 z-10 mt-1">
                 <div className="relative w-10 h-10 flex items-center justify-center">
@@ -191,7 +198,7 @@ const VisualSolutionsHero = () => {
 
 const Cursor = () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
+
   const cursorVariants = {
     rest: {
       left: ["20%", "60%", "20%", "60%", "20%"],
@@ -217,7 +224,7 @@ const Cursor = () => {
     return (
       <div className="absolute z-50 pointer-events-none" style={{ top: '30%', left: '20%' }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5.5 3L18.5 11.5L12 13L9.5 21L5.5 3Z" fill="#14110F" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+          <path d="M5.5 3L18.5 11.5L12 13L9.5 21L5.5 3Z" fill="#14110F" stroke="white" strokeWidth="2" strokeLinejoin="round" />
         </svg>
       </div>
     );
@@ -232,20 +239,20 @@ const Cursor = () => {
       className="absolute z-50 pointer-events-none"
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5.5 3L18.5 11.5L12 13L9.5 21L5.5 3Z" fill="#14110F" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+        <path d="M5.5 3L18.5 11.5L12 13L9.5 21L5.5 3Z" fill="#14110F" stroke="white" strokeWidth="2" strokeLinejoin="round" />
       </svg>
     </motion.div>
   );
 };
 
 const getIndustryBgIcon = (id) => {
-  const props = { 
-    size: 320, 
-    strokeWidth: 0.5, 
+  const props = {
+    size: 320,
+    strokeWidth: 0.5,
     className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.08] pointer-events-none mix-blend-multiply",
     style: { color: 'var(--global-dark-accent, #14110F)' }
   };
-  switch(id) {
+  switch (id) {
     case 'real-estate': return <Building2 {...props} />;
     case 'automobile': return <Car {...props} />;
     case 'consumer-durables': return <Tv {...props} />;
@@ -257,7 +264,7 @@ const getIndustryBgIcon = (id) => {
 };
 
 const getIndustryIcon = (id) => {
-  switch(id) {
+  switch (id) {
     case 'real-estate': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>;
     case 'automobile': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a2 2 0 00-1.6-.8H9.3a2 2 0 00-1.6.8L5 11l-5.16.86a1 1 0 00-.84.99V16h3m10 0a2 2 0 100 4 2 2 0 000-4zm-10 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>;
     case 'fintech': return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>;
@@ -273,14 +280,14 @@ const VoxiVisual = ({ solution }) => {
     <div className="w-full h-[70px] shrink-0 mb-3 rounded-lg bg-white border border-[#14110F]/5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex items-center justify-between px-6 relative overflow-visible">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNiIvPjwvc3ZnPg==')] opacity-50" />
-      
+
       {/* Animated Path */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
-        <motion.path 
+        <motion.path
           d="M 0 35 C 50 35, 80 15, 150 35 C 220 55, 250 35, 400 35"
-          fill="none" 
-          stroke="var(--global-accent)" 
-          strokeWidth="1.5" 
+          fill="none"
+          stroke="var(--global-accent)"
+          strokeWidth="1.5"
           strokeOpacity="0.3"
           strokeDasharray="4 4"
           animate={{ strokeDashoffset: [20, 0] }}
@@ -294,7 +301,7 @@ const VoxiVisual = ({ solution }) => {
       </div>
 
       {/* Voxi AI Core */}
-      <motion.div 
+      <motion.div
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         className="relative z-10 flex flex-col items-center justify-center"
@@ -330,9 +337,9 @@ const SolutionCard = ({ solution, index }) => {
     return () => observer.disconnect();
   }, []);
 
-  const layoutType = ['real-estate', 'healthcare', 'utilities'].includes(solution.id) ? 'list' 
-    : ['automobile'].includes(solution.id) ? 'stat' 
-    : 'chat';
+  const layoutType = ['real-estate', 'healthcare', 'utilities'].includes(solution.id) ? 'list'
+    : ['automobile'].includes(solution.id) ? 'stat'
+      : 'chat';
 
   // Deterministic animation for rows
   const rowVariants = {
@@ -350,7 +357,7 @@ const SolutionCard = ({ solution, index }) => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       whileHover="hover"
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       variants={{ rest: { scale: 1, y: 0 }, hover: { scale: 1.02, y: -4 } }}
@@ -358,7 +365,7 @@ const SolutionCard = ({ solution, index }) => {
       className="rounded-[16px] md:rounded-[24px] overflow-hidden flex flex-col border border-[#14110F]/10 shadow-[0_8px_30px_rgba(20,17,15,0.10)] focus-visible:ring-1 focus-visible:ring-[#0d83a9]/60 outline-none cursor-pointer group bg-[#16130F] w-full max-w-[560px] md:max-w-[720px] mx-auto"
     >
       <Link to={`/solutions/${solution.id}`} className="flex flex-col h-full outline-none">
-        
+
         {/* STAGE: Top Half */}
         <div className="bg-[#EAE4D8] relative flex flex-col justify-center items-center overflow-hidden" style={{ minHeight: 'clamp(280px, 42vw, 320px)' }}>
           {/* Blueprint Dot Grid */}
@@ -371,9 +378,9 @@ const SolutionCard = ({ solution, index }) => {
           <div className="relative z-10 w-full h-full p-2 md:p-3">
             <div className="w-full h-full rounded-xl overflow-hidden relative shadow-[0_4px_24px_rgba(20,17,15,0.06),inset_0_1px_0_rgba(255,255,255,0.8)]"
               style={{ background: 'rgba(255,255,255,0.76)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.9)', minHeight: 'clamp(270px, 40vw, 300px)', height: 'clamp(270px, 40vw, 300px)' }}>
-              <InterconnectedArchitectureGraph 
-                solution={solution} 
-                accentColor="var(--global-accent, #0d83a9)" 
+              <InterconnectedArchitectureGraph
+                solution={solution}
+                accentColor="var(--global-accent, #0d83a9)"
               />
             </div>
           </div>
@@ -381,10 +388,10 @@ const SolutionCard = ({ solution, index }) => {
 
 
         {/* INFO STRIP: Dark Panel */}
-        <div 
+        <div
           className="p-4 md:p-6 flex flex-col relative z-10 flex-1"
-          style={{ 
-            background: 'linear-gradient(180deg, #16130F 0%, #16130F 60%, color-mix(in srgb, var(--global-accent) 26%, #16130F) 100%)' 
+          style={{
+            background: 'linear-gradient(180deg, #16130F 0%, #16130F 60%, color-mix(in srgb, var(--global-accent) 26%, #16130F) 100%)'
           }}
         >
           <div className="flex items-start justify-between gap-2 mb-1.5">
@@ -406,8 +413,8 @@ const SolutionCard = ({ solution, index }) => {
               {solution.stats.slice(0, 4).map((stat, idx) => (
                 <div key={idx} className={`flex flex-col ${idx >= 2 ? 'hidden md:flex' : ''}`}>
                   <span className="text-[18px] md:text-[20px] font-normal text-white tabular-nums tracking-tight leading-none">
-                    {stat.value === 0 && stat.label === 'Missed Follow-Ups' 
-                      ? 'Zero' 
+                    {stat.value === 0 && stat.label === 'Missed Follow-Ups'
+                      ? 'Zero'
                       : `${stat.prefix || ''}${stat.value}${stat.suffix || ''}`
                     }
                   </span>
@@ -436,7 +443,7 @@ const SolutionCard = ({ solution, index }) => {
 
 export default function SolutionsOverview() {
   const heroRef = useRef(null);
-  
+
   const { activeChapter, scrollY } = useChapterColor(
     solutions.length,
     accentColors,
@@ -446,7 +453,7 @@ export default function SolutionsOverview() {
 
   return (
     <div className="w-full min-h-screen text-[#14110F] relative">
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none -z-10 transition-colors duration-300"
         style={{ backgroundImage: 'linear-gradient(180deg, #F5F1EA 0%, var(--global-tint, #F5F1EA) 100%)' }}
       />
@@ -454,7 +461,7 @@ export default function SolutionsOverview() {
       {/* 01 — HERO */}
       <section ref={heroRef} className="relative w-full min-h-[100dvh] flex flex-col items-center justify-between overflow-hidden isolate pt-28 md:pt-36 pb-8 md:pb-12 z-0 bg-transparent">
         {/* Full-bleed Blueprint Dot Grid */}
-        <motion.div 
+        <motion.div
           className="absolute inset-[0%] w-[200%] h-[200%] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMxNDExMEYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-100 pointer-events-none -z-10"
           animate={{ x: [0, -20], y: [0, -20] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
@@ -481,7 +488,7 @@ export default function SolutionsOverview() {
         </div>
 
         {/* Visual Diagram Area: neatly positioned below the text with zero overlap */}
-        <div className="relative w-full flex-1 min-h-[460px] md:min-h-[500px] flex items-center justify-center pointer-events-none select-none z-10">
+        <div className="relative w-full flex-1 min-h-[440px] sm:min-h-[500px] md:min-h-[580px] flex items-center justify-center pointer-events-none select-none z-10">
           <VisualSolutionsHero />
         </div>
 
@@ -489,10 +496,10 @@ export default function SolutionsOverview() {
       </section>
 
       {/* 02 — NAVIGATION */}
-      <ChapterNav 
-        items={NAV_LABELS} 
-        activeChapter={activeChapter} 
-        scrollY={scrollY} 
+      <ChapterNav
+        items={NAV_LABELS}
+        activeChapter={activeChapter}
+        scrollY={scrollY}
       />
 
       {/* 03 — SOLUTIONS AS CHAPTERS (2 CARDS PER SECTION) */}
@@ -502,7 +509,7 @@ export default function SolutionsOverview() {
           return (
             <section key={rowIndex} className="w-full py-24 md:py-40 px-4 sm:px-6 md:px-16 lg:px-20 relative overflow-x-clip bg-transparent">
               <ParallaxText text={bgWords[rowIndex % bgWords.length]} alignLeft={rowIndex % 2 === 0} className="text-[clamp(64px,22vw,120px)] md:text-[clamp(80px,14vw,220px)] text-[var(--global-accent)] opacity-[0.05] md:opacity-[0.15] transition-colors duration-300 z-0" />
-              
+
               <div className="max-w-[1440px] mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 {rowSolutions.map((solution, colIndex) => {
                   const i = rowIndex * 2 + colIndex;
@@ -523,7 +530,7 @@ export default function SolutionsOverview() {
                   );
                 })}
               </div>
-              
+
               <div className="absolute bottom-0 left-0 w-full h-px bg-[linear-gradient(90deg,transparent,rgba(20,17,15,0.15),transparent)]" />
             </section>
           );

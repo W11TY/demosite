@@ -197,11 +197,11 @@ export default function Hero() {
           {/* ── Left Content (Typography & Main CTA) ── */}
           <div className="lg:absolute lg:left-[43px] lg:top-[183px] w-full lg:max-w-[1000px] flex flex-col mb-10 lg:mb-0">
             <motion.p {...f(0.02)} className="text-[12px] md:text-[14px] font-light tracking-[0.15em] text-black/50 uppercase mb-[16px]">
-              AI-POWERED CUSTOMER ORCHESTRATION
+              ㅤAI-POWERED CUSTOMER ORCHESTRATION PLATFORM
             </motion.p>
             <motion.h1 {...f(0.05)} className="text-[clamp(32px,8vw,56px)] font-normal tracking-[-0.04em] leading-[1.05] text-[#111111] mb-[20px]">
               <span className="font-bold block text-[clamp(38px,9vw,62px)]">Orchestrate</span>
-              <span className="font-normal block text-black/50">Every Customer Journey</span>
+              <span className="font-normal block text-[#1283a9]"><b>Every Customer Journey</b></span>
             </motion.h1>
             <motion.p {...f(0.14)} className="text-[clamp(15px,1.5vw,17px)] font-normal tracking-normal leading-[1.2] text-[#111111]/80 mb-[24px] lg:whitespace-nowrap">
               One intelligence that connects every interaction, from the first touch to lasting relationships
@@ -215,15 +215,15 @@ export default function Hero() {
           </div>
 
           {/* ── Right Floating Digital Brain Card ── */}
-          <div className="relative lg:absolute lg:right-[39px] lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-[350px] max-w-[350px] z-30 mx-auto lg:mx-0 mb-20 lg:mb-0">
+          <div className="relative lg:absolute lg:right-[39px] lg:top-1/2 lg:-translate-y-1/2 w-full max-w-[450px] lg:w-[450px] lg:max-w-[450px] z-30 mx-auto lg:mx-0 mb-20 lg:mb-0">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4, ease: easing }}
-              className="w-full bg-[#111111] rounded-[20px] shadow-[0_16px_40px_rgba(0,0,0,0.22)] p-[6px] border border-white/10"
+              className="w-full bg-[#111111] rounded-[22px] shadow-[0_20px_50px_rgba(0,0,0,0.28)] p-[8px] border border-white/10"
             >
               {/* Card Video Area with Thin Bezel */}
-              <div className="w-full aspect-video rounded-[14px] bg-black overflow-hidden relative group cursor-pointer flex items-center justify-center">
+              <div className="w-full aspect-video rounded-[16px] bg-black overflow-hidden relative group cursor-pointer flex items-center justify-center">
                 <video
                   autoPlay
                   muted

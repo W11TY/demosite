@@ -9,23 +9,6 @@ import StatCallout from '../components/shared/StatCallout';
 import { SlideInLeft, SlideInRight } from '../components/shared/Motion';
 import InterconnectedArchitectureGraph from '../components/shared/InterconnectedArchitectureGraph';
 
-// Solution PNG images matching the solution cards
-import revenueIntelligenceImg from '../assets/solutioncards/revenue inteligenceplatform.png';
-import carDealershipImg from '../assets/solutioncards/cardealership.png';
-import customerServiceImg from '../assets/solutioncards/customerservice.png';
-import collectionsImg from '../assets/solutioncards/collections.png';
-import appointmentImg from '../assets/solutioncards/appointment.png';
-import utilitiesImg from '../assets/solutioncards/utilities.png';
-
-const solutionImages = {
-  'real-estate': revenueIntelligenceImg,
-  'automobile': carDealershipImg,
-  'consumer-durables': customerServiceImg,
-  'fintech': collectionsImg,
-  'healthcare': appointmentImg,
-  'utilities': utilitiesImg,
-};
-
 export default function SolutionDetail() {
   const { id } = useParams();
   const solutionIndex = solutions.findIndex(s => s.id === id);
@@ -36,7 +19,6 @@ export default function SolutionDetail() {
   }
 
   const currentAccent = ACCENTS[solutionIndex % ACCENTS.length] || ACCENTS[0];
-  const imageSrc = solutionImages[solution.id];
 
   useEffect(() => {
     document.documentElement.style.setProperty('--global-accent', currentAccent.accent);
